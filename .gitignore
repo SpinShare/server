@@ -14,3 +14,10 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
+
+###> customspeens-server ###
+/public/uploads/temp/
+/public/uploads/audio/
+/public/uploads/cover/
+/public/uploads/srtb/
+###< customspeens-server ###
