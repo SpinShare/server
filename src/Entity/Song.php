@@ -34,12 +34,27 @@ class Song
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $author;
+    private $charter;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $fileReference;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $srtbOriginalName;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $coverOriginalName;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $audioOriginalName;
 
     public function getId(): ?int
     {
@@ -82,14 +97,14 @@ class Song
         return $this;
     }
 
-    public function getAuthor(): ?string
+    public function getCharter(): ?string
     {
-        return $this->author;
+        return $this->charter;
     }
 
-    public function setAuthor(string $author): self
+    public function setCharter(string $charter): self
     {
-        $this->author = $author;
+        $this->charter = $charter;
 
         return $this;
     }
@@ -102,6 +117,42 @@ class Song
     public function setFileReference(?string $fileReference): self
     {
         $this->fileReference = $fileReference;
+
+        return $this;
+    }
+
+    public function getSRTBOriginalName(): ?string
+    {
+        return $this->srtbOriginalName;
+    }
+
+    public function setSRTBOriginalName(?string $srtbOriginalName): self
+    {
+        $this->srtbOriginalName = $srtbOriginalName;
+
+        return $this;
+    }
+
+    public function getCoverOriginalName(): ?string
+    {
+        return $this->coverOriginalName;
+    }
+
+    public function setCoverOriginalName(?string $coverOriginalName): self
+    {
+        $this->coverOriginalName = $coverOriginalName;
+
+        return $this;
+    }
+
+    public function getAudioOriginalName(): ?string
+    {
+        return $this->audioOriginalName;
+    }
+
+    public function setAudioOriginalName(?string $audioOriginalName): self
+    {
+        $this->audioOriginalName = $audioOriginalName;
 
         return $this;
     }

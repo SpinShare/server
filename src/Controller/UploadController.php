@@ -51,31 +51,43 @@ class UploadController extends AbstractController
                         $zip->close();
 
                         try {
-                            // get backup data
-                            $allSRTBFiles = glob($extractionPath.DIRECTORY_SEPARATOR."*.srtb");
-                            $srtbContent = json_decode(file_get_contents($allSRTBFiles[0]));
-                            $trackInfo = json_decode($srtbContent->largeStringValuesContainer->values[0]->val);
+                            try {
+                                // get backup data
+                                $srtbFiles = glob($extractionPath.DIRECTORY_SEPARATOR."*.srtb");
+                                $srtbContent = json_decode(file_get_contents($srtbFiles[0]));
+                                $trackInfo = json_decode($srtbContent->largeStringValuesContainer->values[0]->val);
 
-                            // set meta data
-                            $song->setTitle($trackInfo->title);
-                            $song->setSubtitle($trackInfo->subtitle);
-                            $song->setArtist($trackInfo->artistName);
-                            $song->setAuthor($trackInfo->charter);
+                                // set meta data
+                                $song->setTitle($trackInfo->title);
+                                $song->setSubtitle($trackInfo->subtitle);
+                                $song->setArtist($trackInfo->artistName);
+                                $song->setCharter($trackInfo->charter);
+
+                                $song->setSRTBOriginalName(basename($srtbFiles[0]));
+                                
+                                rename($srtbFiles[0], $this->getParameter('srtb_path').DIRECTORY_SEPARATOR.$song->getFileReference().".srtb");
+                            } catch(Exception $e) {
+                                var_dump($e);
+                            }
 
                             try {
                                 // find cover
                                 $coverFiles = glob($extractionPath.DIRECTORY_SEPARATOR."AlbumArt".DIRECTORY_SEPARATOR.$trackInfo->albumArtReference->assetName.".*");
                                 if($coverFiles[0]) {
+                                    $song->setCoverOriginalName(basename($coverFiles[0]));
                                     rename($coverFiles[0], $this->getParameter('cover_path').DIRECTORY_SEPARATOR.$song->getFileReference().".png");
                                 }
                             } catch(Exception $e) {
                                 var_dump($e);
                             }
 
-
                             try {
-                                // move backup file
-                                $backupFile->move($this->getParameter('backup_path'), $song->getFileReference().'.'.$backupFile->guessExtension());
+                                // find audio
+                                $audioFiles = glob($extractionPath.DIRECTORY_SEPARATOR."AudioClips".DIRECTORY_SEPARATOR."*.ogg");
+                                if($audioFiles[0]) {
+                                    $song->setAudioOriginalName(basename($audioFiles[0]));
+                                    rename($audioFiles[0], $this->getParameter('audio_path').DIRECTORY_SEPARATOR.$song->getFileReference().".ogg");
+                                }
                             } catch(Exception $e) {
                                 var_dump($e);
                             }
