@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UploadController!{% endblock %}
+
+{% block body %}
+    <h1>Upload</h1>
+      {{ form_start(uploadForm) }}
+      {{ form_widget(uploadForm) }}
+      {{ form_end(uploadForm) }}
+{% endblock %}

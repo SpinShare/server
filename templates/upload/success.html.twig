@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UploadController!{% endblock %}
+
+{% block body %}
+    <h1>Upload</h1>
+    <h2>Successfully uploaded!</h2>
+
+    <p>
+        <img src="{{ asset("uploads/cover/" ~ songInfo.fileReference ~ ".png") }}" alt="Cover" /><br /><br />
+
+        Title: {{ songInfo.title }}<br />
+        Subtitle: {{ songInfo.subtitle }}<br />
+        Artist: {{ songInfo.artist }}<br />
+        Charter: {{ songInfo.author }}
+{% endblock %}
