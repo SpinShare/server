@@ -59,7 +59,7 @@ class APIController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $data = [];
 
-        $results = $em->getRepository(Song::class)->findBy(array(), array('downloads' => 'DESC'), 6, 6 * $offset);
+        $results = $em->getRepository(Song::class)->findBy(array(), array('views' => 'DESC'), 6, 6 * $offset);
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         foreach($results as $result) {
@@ -101,8 +101,9 @@ class APIController extends AbstractController
             $data['subtitle'] = $result->getTitle();
             $data['artist'] = $result->getArtist();
             $data['charter'] = $result->getCharter();
-            $data['paths']['ogg'] = $baseUrl."uploads/audio/".$result->getFileReference().".ogg";
-            $data['paths']['cover'] = $baseUrl."uploads/cover/".$result->getFileReference().".png";
+            $data['tags'] = explode(",", $result->getTags());
+            $data['paths']['ogg'] = $baseUrl."/uploads/audio/".$result->getFileReference().".ogg";
+            $data['paths']['cover'] = $baseUrl."/uploads/cover/".$result->getFileReference().".png";
             $data['paths']['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
     
             return new JsonResponse(['version' => $this->currentVersion, 'status' => 200, 'data' => $data]);

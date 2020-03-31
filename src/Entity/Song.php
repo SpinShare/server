@@ -57,6 +57,11 @@ class Song
     private $audioOriginalName;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $tags;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $views;
@@ -168,6 +173,18 @@ class Song
     public function setAudioOriginalName(?string $audioOriginalName): self
     {
         $this->audioOriginalName = $audioOriginalName;
+
+        return $this;
+    }
+
+    public function getTags(): ?string
+    {
+        return $this->tags;
+    }
+
+    public function setTags(?string $tags): self
+    {
+        $this->tags = $tags;
 
         return $this;
     }
