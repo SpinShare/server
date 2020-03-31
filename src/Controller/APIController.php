@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use App\Entity\Song;
+use App\Entity\Ad;
 
 class APIController extends AbstractController
 {
@@ -24,29 +25,55 @@ class APIController extends AbstractController
     }
 
     /**
-     * @Route("/api/songs/new", name="api.songs.new")
+     * @Route("/api/songs/new/{offset}", name="api.songs.new")
      */
-    public function songsNew()
+    public function songsNew(Request $request, int $offset = 0)
     {
         $em = $this->getDoctrine()->getManager();
         $data = [];
 
-        $results = $em->getRepository(Song::class)->findBy(array(), array('id' => 'DESC'), 10, 0);
+        $results = $em->getRepository(Song::class)->findBy(array(), array('id' => 'DESC'), 6, 6 * $offset);
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         foreach($results as $result) {
-            $data['songs'][] = $result->getId();
+            $oneResult = [];
+
+            $oneResult['id'] = $result->getId();
+            $oneResult['title'] = $result->getTitle();
+            $oneResult['subtitle'] = $result->getTitle();
+            $oneResult['artist'] = $result->getArtist();
+            $oneResult['charter'] = $result->getCharter();
+            $oneResult['cover'] = $baseUrl."/uploads/cover/".$result->getFileReference().".png";
+
+            $data[] = $oneResult;
         }
 
         return new JsonResponse(['version' => $this->currentVersion, 'status' => 200, 'data' => $data]);
     }
 
     /**
-     * @Route("/api/songs/hot", name="api.songs.hot")
+     * @Route("/api/songs/popular/{offset}", name="api.songs.popular")
      */
-    public function songsHot()
+    public function songsPopular(Request $request, int $offset = 0)
     {
         $em = $this->getDoctrine()->getManager();
         $data = [];
+
+        $results = $em->getRepository(Song::class)->findBy(array(), array('downloads' => 'DESC'), 6, 6 * $offset);
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
+        foreach($results as $result) {
+            $oneResult = [];
+
+            $oneResult['id'] = $result->getId();
+            $oneResult['title'] = $result->getTitle();
+            $oneResult['subtitle'] = $result->getTitle();
+            $oneResult['artist'] = $result->getArtist();
+            $oneResult['charter'] = $result->getCharter();
+            $oneResult['cover'] = $baseUrl."/uploads/cover/".$result->getFileReference().".png";
+
+            $data[] = $oneResult;
+        }
 
         return new JsonResponse(['version' => $this->currentVersion, 'status' => 200, 'data' => $data]);
     }
@@ -65,12 +92,17 @@ class APIController extends AbstractController
         if(!$result) {
             return new JsonResponse(['version' => $this->currentVersion, 'status' => 404, 'data' => []]);
         } else {
+            $result->setViews($result->getViews() + 1);
+            $em->persist($result);
+            $em->flush();
+
+            $data['id'] = $result->getId();
             $data['title'] = $result->getTitle();
             $data['subtitle'] = $result->getTitle();
             $data['artist'] = $result->getArtist();
             $data['charter'] = $result->getCharter();
-            $data['paths']['ogg'] = $baseUrl.DIRECTORY_SEPARATOR."uploads".DIRECTORY_SEPARATOR."audio".DIRECTORY_SEPARATOR.$result->getFileReference().".ogg";
-            $data['paths']['cover'] = $baseUrl.DIRECTORY_SEPARATOR."uploads".DIRECTORY_SEPARATOR."cover".DIRECTORY_SEPARATOR.$result->getFileReference().".png";
+            $data['paths']['ogg'] = $baseUrl."uploads/audio/".$result->getFileReference().".ogg";
+            $data['paths']['cover'] = $baseUrl."uploads/cover/".$result->getFileReference().".png";
             $data['paths']['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
     
             return new JsonResponse(['version' => $this->currentVersion, 'status' => 200, 'data' => $data]);
@@ -89,6 +121,10 @@ class APIController extends AbstractController
         if(!$result) {
             return new JsonResponse(['version' => $this->currentVersion, 'status' => 404, 'data' => []]);
         } else {
+            $result->setDownloads($result->getDownloads() + 1);
+            $em->persist($result);
+            $em->flush();
+
             $zipLocation = $this->getParameter('temp_path').DIRECTORY_SEPARATOR;
             $zipName = $result->getSRTBOriginalName().".zip";
 
@@ -107,6 +143,38 @@ class APIController extends AbstractController
             @unlink($zipLocation.$zipName);
         
             return $response;
+        }
+    }
+
+    /**
+     * @Route("/api/ads", name="api.ads")
+     */
+    public function ads(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $results = $em->getRepository(Ad::class)->findBy(array('isVisible' => true), array('id' => 'DESC'), 2);
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
+        if(!$results) {
+            return new JsonResponse(['version' => $this->currentVersion, 'status' => 404, 'data' => []]);
+        } else {
+            foreach($results as $result) {
+                $oneResult = [];
+
+                $oneResult['id'] = $result->getId();
+                $oneResult['title'] = $result->getTitle();
+                $oneResult['type'] = $result->getType();
+                $oneResult['color'] = $result->getColor();
+                $oneResult['button']['type'] = $result->getButtonType();
+                $oneResult['button']['data'] = $result->getButtonData();
+                $oneResult['isVisible'] = $result->getIsVisible();
+                $oneResult['image_path'] = $baseUrl."/uploads/ads/".$result->getImagePath();
+
+                $data[] = $oneResult;
+            }
+    
+            return new JsonResponse(['version' => $this->currentVersion, 'status' => 200, 'data' => $data]);
         }
     }
 }
