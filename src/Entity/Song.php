@@ -56,6 +56,21 @@ class Song
      */
     private $audioOriginalName;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $views;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $downloads;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isExplicit;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -153,6 +168,42 @@ class Song
     public function setAudioOriginalName(?string $audioOriginalName): self
     {
         $this->audioOriginalName = $audioOriginalName;
+
+        return $this;
+    }
+
+    public function getViews(): ?int
+    {
+        return $this->views;
+    }
+
+    public function setViews(int $views): self
+    {
+        $this->views = $views;
+
+        return $this;
+    }
+
+    public function getDownloads(): ?int
+    {
+        return $this->downloads;
+    }
+
+    public function setDownloads(int $downloads): self
+    {
+        $this->downloads = $downloads;
+
+        return $this;
+    }
+
+    public function getIsExplicit(): ?bool
+    {
+        return $this->isExplicit;
+    }
+
+    public function setIsExplicit(bool $isExplicit): self
+    {
+        $this->isExplicit = $isExplicit;
 
         return $this;
     }
