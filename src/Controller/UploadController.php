@@ -55,8 +55,17 @@ class UploadController extends AbstractController
                                 // get backup data
                                 $srtbFiles = glob($extractionPath.DIRECTORY_SEPARATOR."*.srtb");
                                 $srtbContent = json_decode(file_get_contents($srtbFiles[0]));
-                                $trackInfo = json_decode($srtbContent->largeStringValuesContainer->values[0]->val);
-                                $clipInfo = json_decode($srtbContent->largeStringValuesContainer->values[2]->val);
+
+                                foreach($srtbContent->largeStringValuesContainer->values as $valueItem) {
+                                    switch($valueItem->key) {
+                                        case "SO_TrackInfo_TrackInfo":
+                                            $trackInfo = json_decode($valueItem->val);
+                                            break;
+                                        case "SO_ClipInfo_ClipInfo_0":
+                                            $clipInfo = json_decode($valueItem->val);
+                                            break;
+                                    }
+                                }
 
                                 // set meta data
                                 $song->setTitle($trackInfo->title);
@@ -101,9 +110,19 @@ class UploadController extends AbstractController
                                 $hf->delTree($extractionPath);
                             }
 
-                            // final write
-                            $srtbContent->largeStringValuesContainer->values[0]->val = json_encode($trackInfo);
-                            $srtbContent->largeStringValuesContainer->values[2]->val = json_encode($clipInfo);
+                            // write new track/clip info
+                            foreach($srtbContent->largeStringValuesContainer->values as $valueItem) {
+                                switch($valueItem->key) {
+                                    case "SO_TrackInfo_TrackInfo":
+                                        $valueItem->val = json_encode($trackInfo);
+                                        break;
+                                    case "SO_ClipInfo_ClipInfo_0":
+                                        $valueItem->val = json_encode($clipInfo);
+                                        break;
+                                }
+                            }
+
+                            // write srtb file
                             $srtbFileLocation = $this->getParameter('srtb_path').DIRECTORY_SEPARATOR.$song->getFileReference().".srtb";
                             file_put_contents($srtbFileLocation, json_encode( $srtbContent ));
 
