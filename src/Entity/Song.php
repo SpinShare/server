@@ -44,35 +44,20 @@ class Song
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $srtbOriginalName;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $coverOriginalName;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $audioOriginalName;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $tags;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $views;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $downloads;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true, options={"default": false})
      */
     private $isExplicit;
 
@@ -137,42 +122,6 @@ class Song
     public function setFileReference(?string $fileReference): self
     {
         $this->fileReference = $fileReference;
-
-        return $this;
-    }
-
-    public function getSRTBOriginalName(): ?string
-    {
-        return $this->srtbOriginalName;
-    }
-
-    public function setSRTBOriginalName(?string $srtbOriginalName): self
-    {
-        $this->srtbOriginalName = $srtbOriginalName;
-
-        return $this;
-    }
-
-    public function getCoverOriginalName(): ?string
-    {
-        return $this->coverOriginalName;
-    }
-
-    public function setCoverOriginalName(?string $coverOriginalName): self
-    {
-        $this->coverOriginalName = $coverOriginalName;
-
-        return $this;
-    }
-
-    public function getAudioOriginalName(): ?string
-    {
-        return $this->audioOriginalName;
-    }
-
-    public function setAudioOriginalName(?string $audioOriginalName): self
-    {
-        $this->audioOriginalName = $audioOriginalName;
 
         return $this;
     }

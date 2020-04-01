@@ -127,13 +127,13 @@ class APIController extends AbstractController
             $em->flush();
 
             $zipLocation = $this->getParameter('temp_path').DIRECTORY_SEPARATOR;
-            $zipName = $result->getSRTBOriginalName().".zip";
+            $zipName = $result->getFileReference().".zip";
 
             $zip = new \ZipArchive;
             $zip->open($zipLocation.$zipName, \ZipArchive::CREATE);
-            $zip->addFile($this->getParameter('srtb_path').DIRECTORY_SEPARATOR.$result->getFileReference().".srtb", $result->getSRTBOriginalName());
-            $zip->addFile($this->getParameter('cover_path').DIRECTORY_SEPARATOR.$result->getFileReference().".png", "AlbumArt".DIRECTORY_SEPARATOR.$result->getCoverOriginalName());
-            $zip->addFile($this->getParameter('audio_path').DIRECTORY_SEPARATOR.$result->getFileReference().".ogg", "AudioClips".DIRECTORY_SEPARATOR.$result->getAudioOriginalName());
+            $zip->addFile($this->getParameter('srtb_path').DIRECTORY_SEPARATOR.$result->getFileReference().".srtb", $result->getFileReference().".srtb");
+            $zip->addFile($this->getParameter('cover_path').DIRECTORY_SEPARATOR.$result->getFileReference().".png", "AlbumArt".DIRECTORY_SEPARATOR.$result->getFileReference().".png");
+            $zip->addFile($this->getParameter('audio_path').DIRECTORY_SEPARATOR.$result->getFileReference().".ogg", "AudioClips".DIRECTORY_SEPARATOR.$result->getFileReference().".ogg");
             $zip->close();
 
             $response = new Response(file_get_contents($zipLocation.$zipName));
