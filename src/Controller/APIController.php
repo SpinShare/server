@@ -24,7 +24,9 @@ class APIController extends AbstractController
      */
     public function ping()
     {
-        return new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'pong' => true]);
+        $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'pong' => true]);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
     }
 
     /**
@@ -41,7 +43,9 @@ class APIController extends AbstractController
         $data['minorVersion'] = $latestVersion->getMinorVersion();
         $data['patchVersion'] = $latestVersion->getPatchVersion();
 
-        return new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+        $respnse = new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
     }
 
     /**
@@ -74,7 +78,9 @@ class APIController extends AbstractController
             $data[] = $oneResult;
         }
 
-        return new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+        $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
     }
 
     /**
@@ -107,7 +113,9 @@ class APIController extends AbstractController
             $data[] = $oneResult;
         }
 
-        return new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+        $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
     }
 
     /**
@@ -128,7 +136,9 @@ class APIController extends AbstractController
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         if(!$result) {
-            return new JsonResponse(['version' => $this->apiVersion, 'status' => 404, 'data' => []]);
+            $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 404, 'data' => []]);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
         } else {
             $result->setViews($result->getViews() + 1);
             $em->persist($result);
@@ -150,7 +160,9 @@ class APIController extends AbstractController
             $data['paths']['cover'] = $baseUrl."/uploads/cover/".$result->getFileReference().".png";
             $data['paths']['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
     
-            return new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+            $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
         }
     }
 
@@ -167,7 +179,9 @@ class APIController extends AbstractController
         $zipName = $result->getFileReference().".zip";
 
         if(!$result) {
-            return new JsonResponse(['version' => $this->apiVersion, 'status' => 404, 'data' => []]);
+            $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 404, 'data' => []]);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
         } else {
             try {
                 $coverFiles = glob($this->getParameter('cover_path').DIRECTORY_SEPARATOR.$result->getFileReference().".png");
@@ -192,11 +206,14 @@ class APIController extends AbstractController
                 $response->headers->set('Content-Disposition', 'attachment;filename="' . $zipName . '"');
                 $response->headers->set('Content-length', filesize($zipLocation.$zipName));
             } catch(Exception $e) {
-                return new JsonResponse(['version' => $this->apiVersion, 'status' => 500, 'data' => []]);
+                $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 500, 'data' => []]);
+                $response->headers->set('Access-Control-Allow-Origin', '*');
+                return $response;
             }
         
             @unlink($zipLocation.$zipName);
         
+            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         }
     }
@@ -212,7 +229,9 @@ class APIController extends AbstractController
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         if(!$results) {
-            return new JsonResponse(['version' => $this->apiVersion, 'status' => 404, 'data' => []]);
+            $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 404, 'data' => []]);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
         } else {
             foreach($results as $result) {
                 $oneResult = [];
@@ -230,7 +249,9 @@ class APIController extends AbstractController
                 $data[] = $oneResult;
             }
     
-            return new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+            $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
         }
     }
 
@@ -246,7 +267,9 @@ class APIController extends AbstractController
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         if(!$result) {
-            return new JsonResponse(['version' => $this->apiVersion, 'status' => 404, 'data' => []]);
+            $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 404, 'data' => []]);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
         } else {
             $data['id'] = $result->getId();
             $data['username'] = $result->getUsername();
@@ -283,7 +306,9 @@ class APIController extends AbstractController
                 $data['songs'][] = $oneResult;
             }
     
-            return new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+            $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
         }
     }
 
@@ -352,7 +377,9 @@ class APIController extends AbstractController
             $data['songs'][] = $oneResult;
         }
 
-        return new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+        $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
     }
 
     /**
@@ -389,6 +416,8 @@ class APIController extends AbstractController
             $data['songs'][] = $oneResult;
         }
 
-        return new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+        $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
     }
 }
