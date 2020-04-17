@@ -1,0 +1,10 @@
+controllers:
+    resource: ../../src/Controller/
+    type: annotation
+
+kernel:
+    resource: ../../src/Kernel.php
+    type: annotation
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

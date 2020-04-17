@@ -1,0 +1,27 @@
+
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/.env
+/.env.test
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+###> symfony/phpunit-bridge ###
+.phpunit
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> customspeens-server ###
+/public/uploads/temp/
+/public/uploads/audio/
+/public/uploads/cover/
+/public/uploads/srtb/
+/public/uploads/promo/
+/public/uploads/avatar/
+###< customspeens-server ###

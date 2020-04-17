@@ -1,0 +1,122 @@
+.section-user-detail {
+    & .user-detail-background {
+        background-size: cover;
+        background-position: center;
+
+        & .user-detail-dim {
+            backdrop-filter: blur(10px);
+            background: linear-gradient(180deg, rgba(0,0,0,0.4), #212629);
+
+            & .user-detail {
+                padding: 50px;
+                display: grid;
+                grid-template-columns: 200px 1fr;
+                grid-gap: 25px;
+
+                & .user-avatar {
+                    width: 200px;
+                    height: 200px;
+                    align-self: center;
+                    background: #eee;
+                    border-radius: 50%;
+                    background-size: cover;
+                    background-position: center;
+                    position: relative;
+                    overflow: hidden;
+
+                    & .user-avatar-change {
+                        position: absolute;
+                        top: 0px;
+                        left: 0px;
+                        bottom: 0px;
+                        right: 0px;
+                        background: rgba(0,0,0,0.6);
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        opacity: 0;
+                        transition: 0.2s ease opacity;
+                        cursor: pointer;
+
+                        & .mdi {
+                            font-size: 48px;
+                        }
+                        & input {
+                            position: absolute;
+                            top: 0px;
+                            left: 0px;
+                            bottom: 0px;
+                            right: 0px;
+                            cursor: pointer;
+                            opacity: 0;
+                        }
+                    }
+                    &:hover {
+                        & .user-avatar-change {
+                            opacity: 1;
+                        }
+                    }
+                }
+                & .user-meta-data {
+                    display: flex;
+                    height: 48px;
+                    align-items: center;
+                    
+                    & .user-name {
+                        font-weight: bold;
+                        font-size: 48px;
+                    }
+                    & .user-badge {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 32px;
+                        margin-left: 20px;
+                    }
+                }
+            }
+        }
+    }
+    & .user-detail-actions, & .user-detail-actions-moderation {
+        padding: 50px;
+        padding-top: 0px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-gap: 25px;
+
+        &.user-detail-actions-moderation {
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        }
+        & .button {
+            padding: 15px 0px;
+            font-size: 16px;
+            transition: 0.2s ease-in-out background, 0.2s ease-in-out color, 0.1s ease-in-out transform;
+
+            &.button-primary {
+                background: #fff;
+                color: #222;
+
+                &:hover {
+                    background: #fff;
+                    color: #222;
+                }
+            }
+
+            &:hover {
+                background: rgba(255,255,255,0.2);
+                color: #fff;
+                opacity: 0.6;
+                transform: translateY(-4px);
+            }
+            &:active {
+                transform: translateY(-2px);
+            }
+        }
+    }
+
+    & .song-row-user {
+        padding: 0px 50px;
+        margin-bottom: 50px;
+        display: grid;
+    }
+}

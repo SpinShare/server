@@ -1,0 +1,173 @@
+.section-moderator-dashboard {
+    padding: 50px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 25px;
+
+    & .box {
+        background: rgba(255,255,255,0.1);
+        border-radius: 6px;
+        padding: 25px;
+        margin-bottom: 25px;
+    
+        & .title {
+            letter-spacing: 0.25em;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        & p {
+            margin: 0px;
+            line-height: 1.5em;
+        }
+        & table {
+            width: 100%;
+            margin-top: 10px;
+            border: 1px solid #000;
+            border-collapse: collapse;
+
+            & tr {
+                border: 1px solid #000;
+
+                &.active {
+                    background: rgba(71, 194, 126, 0.2);
+                }
+                &.inactive {
+                    opacity: 0.2;
+                }
+            }
+            & th {
+                padding: 10px;
+                background: rgba(255,255,255,0.1);
+                border: 1px solid #000;
+            }
+            & td {
+                padding: 10px;
+                border: 1px solid #000;
+            }
+        }
+    }
+}
+.section-moderator-add {
+    padding: 50px;
+
+    & .box {
+        background: rgba(255,255,255,0.1);
+        border-radius: 6px;
+        padding: 25px;
+    
+        & .title {
+            letter-spacing: 0.25em;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        & form {
+            margin-top: 15px;
+            width: 550px;
+
+            & > div {
+                display: grid;
+                grid-template-rows: auto;
+                grid-gap: 15px;
+
+                & > div {
+                    display: grid;
+                    grid-template-columns: 150px 1fr;
+                    grid-gap: 15px;
+
+                    & select, & input[type="text"], & input[type="password"], & input[type="email"] {
+                        width: 100%;
+                        font-family: 'Open Sans', sans-serif;
+                        font-size: 12px;
+                        color: #fff;
+                        background: rgba(255,255,255,0.2);
+                        text-transform: uppercase;
+                        font-weight: 700;
+                        border-radius: 4px;
+                        padding: 7px 14px;
+                        border: 0px;
+                        transition: 0.2s ease-in-out background, 0.2s ease-in-out color;
+                    
+                        &:hover {
+                            background: rgba(255,255,255,0.4);
+                            color: #fff;
+                        }
+                        &:focus {
+                            outline: 0;
+                        }
+                        &::placeholder {
+                            color: rgba(255,255,255,0.6);
+                        }
+                        & option {
+                            background: #222;
+                            text-transform: initial;
+                        }
+                        &:disabled {
+                            opacity: 0.4;
+                        }
+                    }
+                    & input[type="text"], input[type="password"], input[type="email"] {
+                        text-transform: initial;
+                        font-weight: normal;
+                        
+                        &:hover {
+                            cursor: text;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.section-moderator-report {
+    padding: 50px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: flex-start;
+    grid-gap: 25px;
+
+    & .box {
+        background: rgba(255,255,255,0.1);
+        border-radius: 6px;
+        padding: 25px;
+        margin-bottom: 25px;
+    
+        & .title {
+            letter-spacing: 0.25em;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        & .report-data {
+            display: grid;
+            grid-template-columns: auto;
+            grid-gap: 15px;
+            margin-top: 15px;
+
+            & img {
+                width: 120px;
+                justify-self: center;
+                height: 120px;
+
+                &.avatar-icon {
+                    border-radius: 50%;
+                }
+                &.song-cover {
+                    border-radius: 6px;
+                }
+            }
+
+            & .report-item {
+                display: grid;
+                grid-template-columns: 200px 1fr;
+                grid-gap: 15px;
+                padding: 10px 0px;
+
+                & .column {
+                    opacity: 0.4;
+                }
+            }
+        }
+    }
+}

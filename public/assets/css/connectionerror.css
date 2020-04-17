@@ -1,0 +1,30 @@
+.section-connectionerror {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  padding: 50px;
+}
+.section-connectionerror .connectionerror-box {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 20px;
+  width: 300px;
+}
+.section-connectionerror .connectionerror-box .icon {
+  font-size: 64px;
+  padding: 40px 0px;
+  text-align: center;
+}
+.section-connectionerror .connectionerror-box .title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.section-connectionerror .connectionerror-box .text {
+  line-height: 1.5em;
+  text-align: center;
+  opacity: 0.6;
+}

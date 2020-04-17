@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Internal Server Error{% endblock %}
+
+{% block content %}
+    <section class="section-connectionerror">
+        <div class="connectionerror-box">
+        <div class="icon"><i class="mdi mdi-server-off"></i></div>
+        <div class="title">Internal Server Error</div>
+        <div class="text">The server responds an internal error. This means something is broken. Please report back to the developers on Twitter or Discord.</div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/connectionerror.css') }}" />
+{% endblock %}

@@ -1,0 +1,46 @@
+.section-client {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+}
+.box {
+  width: 800px;
+  height: 400px;
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.box .text {
+  padding: 25px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-gap: 15px;
+}
+.box .text .title {
+  letter-spacing: 0.25em;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.box .text p {
+  margin: 0px;
+  line-height: 1.5em;
+}
+.box .text .actions .notice {
+  opacity: 0.6;
+  margin-top: 15px;
+  font-size: 10px;
+}
+.box .illustration {
+  background: linear-gradient(135deg, #fd2f85, #7a34ec);
+  display: flex;
+  padding: 25px;
+  justify-content: center;
+  align-items: center;
+}
+.box .illustration img {
+  max-width: 80%;
+}

@@ -1,0 +1,67 @@
+html {
+    box-sizing: border-box;
+  }
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+html {
+    width: 100%;
+    height: 100%;
+}
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    background: #212629;
+    color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+
+    .comingsoon-video {
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+
+        & video {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            margin: auto;
+            min-height: 50%;
+            min-width: 50%;
+        }
+    }
+
+    & footer {
+        position: absolute;
+        bottom: 5vh;
+        left: 0px;
+        right: 0px;
+        text-align: center;
+
+        & a {
+            background: rgba(255,255,255,1);
+            padding: 14px 50px;
+            border-radius: 6px;
+            text-decoration: none;
+            color: #212629;
+            transition: 0.2s ease opacity;
+
+            &:hover {
+                opacity: 0.75;
+            }
+        }
+    }
+}
+::-webkit-scrollbar {
+    background: #212529;
+    width: 5px;
+}
+::-webkit-scrollbar-thumb {
+    background: #fff;
+}

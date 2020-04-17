@@ -1,0 +1,202 @@
+.section-upload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+}
+.box {
+  width: 700px;
+  display: grid;
+  padding: 25px;
+  grid-template-rows: auto;
+  grid-gap: 25px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+}
+.box .title {
+  letter-spacing: 0.25em;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.box .upload-input {
+  border: 2px dashed #fff;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: 0.2s ease-in-out background;
+  position: relative;
+  width: 100%;
+  height: 160px;
+}
+.box .upload-input .upload-field {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+}
+.box .upload-input .upload-field label {
+  display: none;
+}
+.box .upload-input .upload-field input {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.box .upload-input .upload-field input:focus {
+  outline: 0;
+}
+.box .upload-input .upload-input-select,
+.box .upload-input .upload-input-selected {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  padding: 40px 0px;
+  pointer-events: none;
+  font-size: 12px;
+  text-align: center;
+  display: none;
+}
+.box .upload-input .upload-input-select .mdi,
+.box .upload-input .upload-input-selected .mdi {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+.box .upload-input .upload-input-select.active,
+.box .upload-input .upload-input-selected.active {
+  display: block;
+}
+.box .upload-input .upload-input-selected {
+  color: #79df5a;
+  padding: 50px 0px;
+}
+.box .upload-input:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+.box .upload-input.selected {
+  background: rgba(121, 223, 90, 0.1);
+  border-color: #79df5a;
+}
+.box .upload-input.selected:hover {
+  background: rgba(121, 223, 90, 0.3);
+}
+.box .tags-input .tags-field,
+.box .input .tags-field {
+  display: grid;
+  grid-template-columns: 2fr 7fr;
+  grid-gap: 25px;
+}
+.box .tags-input .tags-field label,
+.box .input .tags-field label {
+  align-self: center;
+}
+.box .tags-input .tags-field select,
+.box .input .tags-field select,
+.box .tags-input .tags-field input[type="text"],
+.box .input .tags-field input[type="text"],
+.box .tags-input .tags-field textarea,
+.box .input .tags-field textarea {
+  width: 100%;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 7px 14px;
+  border: 0px;
+  transition: 0.2s ease-in-out background, 0.2s ease-in-out color;
+}
+.box .tags-input .tags-field select:not(:disabled):hover,
+.box .input .tags-field select:not(:disabled):hover,
+.box .tags-input .tags-field input[type="text"]:not(:disabled):hover,
+.box .input .tags-field input[type="text"]:not(:disabled):hover,
+.box .tags-input .tags-field textarea:not(:disabled):hover,
+.box .input .tags-field textarea:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.4);
+  color: #fff;
+  cursor: text;
+}
+.box .tags-input .tags-field select:focus,
+.box .input .tags-field select:focus,
+.box .tags-input .tags-field input[type="text"]:focus,
+.box .input .tags-field input[type="text"]:focus,
+.box .tags-input .tags-field textarea:focus,
+.box .input .tags-field textarea:focus {
+  outline: 0;
+}
+.box .tags-input .tags-field select::placeholder,
+.box .input .tags-field select::placeholder,
+.box .tags-input .tags-field input[type="text"]::placeholder,
+.box .input .tags-field input[type="text"]::placeholder,
+.box .tags-input .tags-field textarea::placeholder,
+.box .input .tags-field textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+.box .tags-input .tags-field select option,
+.box .input .tags-field select option,
+.box .tags-input .tags-field input[type="text"] option,
+.box .input .tags-field input[type="text"] option,
+.box .tags-input .tags-field textarea option,
+.box .input .tags-field textarea option {
+  background: #222;
+  text-transform: initial;
+}
+.box .tags-input .tags-field select:disabled,
+.box .input .tags-field select:disabled,
+.box .tags-input .tags-field input[type="text"]:disabled,
+.box .input .tags-field input[type="text"]:disabled,
+.box .tags-input .tags-field textarea:disabled,
+.box .input .tags-field textarea:disabled {
+  opacity: 0.4;
+}
+.box .tags-input .tags-field input[type="text"],
+.box .input .tags-field input[type="text"],
+.box .tags-input .tags-field textarea,
+.box .input .tags-field textarea {
+  text-transform: initial;
+  font-weight: normal;
+}
+.box .tags-input .input-notice,
+.box .input .input-notice {
+  margin-top: 10px;
+  text-align: right;
+  opacity: 0.6;
+  font-size: 12px;
+}
+.box .user-item {
+  margin-bottom: 15px;
+}
+.box .song-report {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+}
+.box .song-report .song-item {
+  width: 173px;
+}
+.box .actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.flashbang {
+  padding: 20px;
+  margin-bottom: 25px;
+  border: 2px solid #fff;
+  border-radius: 6px;
+}
+.flashbang.flashbang-success {
+  background: rgba(121, 223, 90, 0.1);
+  border-color: #79df5a;
+  color: #79df5a;
+}
+.flashbang.flashbang-error {
+  background: rgba(197, 65, 76, 0.1);
+  border-color: #c5414c;
+  color: #c5414c;
+}

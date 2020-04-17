@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Not Found{% endblock %}
+
+{% block content %}
+    <section class="section-connectionerror">
+        <div class="connectionerror-box">
+        <div class="icon"><i class="mdi mdi-server-off"></i></div>
+        <div class="title">404 &dash; Not Found</div>
+        <div class="text">Sorry, we couldn't find that. It was either removed or never available in the first place.</div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/connectionerror.css') }}" />
+{% endblock %}

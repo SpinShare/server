@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client Download{% endblock %}
+
+{% block content %}
+<section class="section-client">
+    <div class="box">
+        <div class="text">
+            <div class="title">Download</div>
+            <p>Download the SpinSha.re client to easily install new songs from your drive or Spinsha.re itself!<br /><br />From downloading to extracting, our client installs custom songs for Spin Rhythm XD with just a click!</p>
+            <div class="actions">
+                <a href="{{ asset('uploads/client/' ~ latestWindows) }}" class="button">Windows</a>
+                {# <a href="{{ asset('uploads/client/' ~ latestMac) }}" class="button">Mac</a> #}
+                <div class="notice">Supported: Windows</div>
+            </div>
+        </div>
+        <div class="illustration">
+            <img src="{{ asset('assets/img/illustration-download.svg') }}" alt="Download Client Illustration" />
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/client.css') }}" />
+{% endblock %}

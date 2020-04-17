@@ -1,0 +1,121 @@
+.section-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+}
+.box {
+  width: 800px;
+  min-height: 400px;
+  background: rgba(255, 255, 255, 0.1);
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.box .text {
+  padding: 25px;
+}
+.box .text .title {
+  letter-spacing: 0.25em;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+}
+.box .text .flashbang {
+  padding: 10px;
+  margin-bottom: 25px;
+  border: 2px solid #fff;
+  width: 100%;
+  border-radius: 6px;
+}
+.box .text .flashbang.flashbang-success {
+  background: rgba(121, 223, 90, 0.1);
+  border-color: #79df5a;
+  color: #79df5a;
+}
+.box .text .flashbang.flashbang-error {
+  background: rgba(197, 65, 76, 0.1);
+  border-color: #c5414c;
+  color: #c5414c;
+}
+.box .text ul {
+  padding: 10px;
+  margin: 0;
+  margin-bottom: 25px;
+  list-style-type: none;
+  border: 2px solid #fff;
+  width: 100%;
+  border-radius: 6px;
+  background: rgba(197, 65, 76, 0.1);
+  border-color: #c5414c;
+  color: #c5414c;
+}
+.box .text input[type="text"],
+.box .text input[type="password"],
+.box .text input[type="email"] {
+  width: 100%;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 7px 14px;
+  margin-bottom: 15px;
+  border: 0px;
+  transition: 0.2s ease-in-out background, 0.2s ease-in-out color;
+  text-transform: initial;
+  font-weight: normal;
+}
+.box .text input[type="text"]:hover,
+.box .text input[type="password"]:hover,
+.box .text input[type="email"]:hover {
+  background: rgba(255, 255, 255, 0.4);
+  color: #fff;
+  cursor: text;
+}
+.box .text input[type="text"]:focus,
+.box .text input[type="password"]:focus,
+.box .text input[type="email"]:focus {
+  outline: 0;
+}
+.box .text input[type="text"]::placeholder,
+.box .text input[type="password"]::placeholder,
+.box .text input[type="email"]::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+.box .text input[type="text"] option,
+.box .text input[type="password"] option,
+.box .text input[type="email"] option {
+  background: #222;
+  text-transform: initial;
+}
+.box .text input[type="text"]:disabled,
+.box .text input[type="password"]:disabled,
+.box .text input[type="email"]:disabled {
+  opacity: 0.4;
+}
+.box .text .actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.box .text .actions .button {
+  margin-left: 5px;
+}
+.box .text p {
+  line-height: 1.5em;
+}
+.box .illustration {
+  background: linear-gradient(135deg, #fd2f85, #7a34ec);
+  display: flex;
+  padding: 25px;
+  justify-content: center;
+  align-items: center;
+}
+.box .illustration img {
+  width: 80%;
+  max-height: 80%;
+}

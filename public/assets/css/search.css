@@ -1,0 +1,92 @@
+.section-search {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-gap: 25px;
+  padding: 50px;
+}
+.section-search .search-bar form {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+}
+.section-search .search-bar form .show-all {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 10px;
+}
+.section-search .search-bar form input {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  color: #fff;
+  background: transparent;
+  padding: 14px 28px;
+  border: 0px;
+  transition: 0.2s ease-in-out background, 0.2s ease-in-out color;
+}
+.section-search .search-bar form input:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+.section-search .search-bar form input:focus {
+  outline: 0;
+}
+.section-search .search-bar form input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+.section-search .search-bar form .multi-select {
+  position: relative;
+  z-index: 99;
+}
+.section-search .search-bar form .multi-select .label {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 10px;
+}
+.section-search .search-bar form .multi-select .box {
+  position: absolute;
+  z-index: 99;
+  background: #000000;
+  border-radius: 6px;
+  width: 250px;
+  left: 0px;
+  user-select: none;
+  display: none;
+}
+.section-search .search-bar form .multi-select .box .item {
+  display: grid;
+  grid-template-columns: 25px 1fr;
+  grid-gap: 25px;
+  padding: 10px;
+}
+.section-search .search-bar form .multi-select .box.active {
+  display: block;
+}
+.section-search .search-results {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+  grid-gap: 25px;
+}
+.section-search .search-results .search-results-users {
+  display: grid;
+}
+.section-search .search-results .search-results-songs {
+  display: grid;
+}
+.section-search .search-results .search-results-noresults {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 25px;
+}
+.section-search .search-results .search-results-noresults .noresults-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.section-search .search-results .search-results-noresults .noresults-text {
+  opacity: 0.6;
+}

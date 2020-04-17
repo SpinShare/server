@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Report{% endblock %}
+
+{% block content %}
+  <section class="section-upload">
+    {{ form_start(reportForm) }}
+      <div class="box">
+        <div class="title">Report a user</div>
+        <div class="user-report">
+            <div class="user-item inactive">
+                <div class="user-avatar" style="background-image: url({{ asset('uploads/avatar/' ~ userToReport.coverReference ~ '?t=' ~ date().timestamp) }}), url({{ asset("assets/img/defaultAvatar.jpg") }});"></div>
+                <div class="user-metadata">
+                    <div class="user-name">{{ userToReport.username }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="input">
+            {{ form_row(reportForm.reportReason) }}
+        </div>
+        <div class="input">
+            {{ form_row(reportForm.reportText) }}
+        </div>
+        <div class="input">
+            {{ form_row(reportForm.reportName) }}
+        </div>
+        <div class="input">
+            {{ form_row(reportForm.reportEmail) }}
+        </div>
+        <div class="input">
+            {{ form_row(reportForm.reportProof) }}
+            <div class="input-notice">Add a link to additional documents (for example legal papers) for your report.</div>
+        </div>
+        <div class="actions">
+            {{ form_row(reportForm.save) }}
+        </div>
+      </div>
+    {{ form_end(reportForm) }}
+  </section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/upload.css') }}" />
+{% endblock %}

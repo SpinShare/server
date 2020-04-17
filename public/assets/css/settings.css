@@ -1,0 +1,124 @@
+.section-settings {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.section-settings .settings-title {
+  font-size: 14px;
+  letter-spacing: 0.25em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.section-settings .settings-box {
+  width: 600px;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  margin-bottom: 25px;
+}
+.section-settings .settings-box .settings-item {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  grid-gap: 15px;
+  margin-top: 15px;
+}
+.section-settings .settings-box .settings-item .settings-label {
+  align-self: center;
+  opacity: 0.6;
+}
+.section-settings .settings-box .settings-item .settings-input {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 5px;
+}
+.section-settings .settings-box .settings-item .settings-input.settings-input-twobuttons {
+  grid-template-columns: 1fr auto auto;
+}
+.section-settings .settings-box .settings-item .settings-input select,
+.section-settings .settings-box .settings-item .settings-input input[type="text"],
+.section-settings .settings-box .settings-item .settings-input input[type="password"],
+.section-settings .settings-box .settings-item .settings-input input[type="email"] {
+  width: 100%;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 7px 14px;
+  border: 0px;
+  transition: 0.2s ease-in-out background, 0.2s ease-in-out color;
+}
+.section-settings .settings-box .settings-item .settings-input select:hover,
+.section-settings .settings-box .settings-item .settings-input input[type="text"]:hover,
+.section-settings .settings-box .settings-item .settings-input input[type="password"]:hover,
+.section-settings .settings-box .settings-item .settings-input input[type="email"]:hover {
+  background: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+.section-settings .settings-box .settings-item .settings-input select:focus,
+.section-settings .settings-box .settings-item .settings-input input[type="text"]:focus,
+.section-settings .settings-box .settings-item .settings-input input[type="password"]:focus,
+.section-settings .settings-box .settings-item .settings-input input[type="email"]:focus {
+  outline: 0;
+}
+.section-settings .settings-box .settings-item .settings-input select::placeholder,
+.section-settings .settings-box .settings-item .settings-input input[type="text"]::placeholder,
+.section-settings .settings-box .settings-item .settings-input input[type="password"]::placeholder,
+.section-settings .settings-box .settings-item .settings-input input[type="email"]::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+.section-settings .settings-box .settings-item .settings-input select option,
+.section-settings .settings-box .settings-item .settings-input input[type="text"] option,
+.section-settings .settings-box .settings-item .settings-input input[type="password"] option,
+.section-settings .settings-box .settings-item .settings-input input[type="email"] option {
+  background: #222;
+  text-transform: initial;
+}
+.section-settings .settings-box .settings-item .settings-input select:disabled,
+.section-settings .settings-box .settings-item .settings-input input[type="text"]:disabled,
+.section-settings .settings-box .settings-item .settings-input input[type="password"]:disabled,
+.section-settings .settings-box .settings-item .settings-input input[type="email"]:disabled {
+  opacity: 0.4;
+}
+.section-settings .settings-box .settings-item .settings-input input[type="text"],
+.section-settings .settings-box .settings-item .settings-input input[type="password"],
+.section-settings .settings-box .settings-item .settings-input input[type="email"] {
+  text-transform: initial;
+  font-weight: normal;
+}
+.section-settings .settings-box .settings-item .settings-input input[type="text"]:hover,
+.section-settings .settings-box .settings-item .settings-input input[type="password"]:hover,
+.section-settings .settings-box .settings-item .settings-input input[type="email"]:hover {
+  cursor: text;
+}
+.section-settings .settings-box .settings-item .settings-input select:hover {
+  cursor: pointer;
+}
+.section-settings .settings-box .settings-save {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+}
+.section-settings .settings-box .settings-save button {
+  padding: 7px 24px;
+}
+.section-settings .flashbang {
+  padding: 20px;
+  margin-bottom: 25px;
+  border: 2px solid #fff;
+  width: 600px;
+  border-radius: 6px;
+}
+.section-settings .flashbang.flashbang-success {
+  background: rgba(121, 223, 90, 0.1);
+  border-color: #79df5a;
+  color: #79df5a;
+}
+.section-settings .flashbang.flashbang-error {
+  background: rgba(197, 65, 76, 0.1);
+  border-color: #c5414c;
+  color: #c5414c;
+}

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Moderator Dashboard{% endblock %}
+
+{% block content %}
+<section class="section-moderator-add">
+    <div class="box">
+        <div class="title">Add new Promo</div>
+        {{ form_start(addForm) }}
+        {{ form_widget(addForm) }}
+        {{ form_end(addForm) }}
+    </div>
+</section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/moderation.css') }}" />
+{% endblock %}

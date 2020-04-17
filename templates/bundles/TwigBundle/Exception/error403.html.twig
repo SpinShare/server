@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Forbidden{% endblock %}
+
+{% block content %}
+    <section class="section-connectionerror">
+        <div class="connectionerror-box">
+        <div class="icon"><i class="mdi mdi-server-off"></i></div>
+        <div class="title">403 &dash; Forbidden</div>
+        <div class="text">Unfortunately, you are not allowed to see this. Maybe you just need to login to your account.</div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/connectionerror.css') }}" />
+{% endblock %}

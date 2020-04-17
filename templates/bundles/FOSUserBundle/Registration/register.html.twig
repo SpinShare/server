@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+    <section class="section-login">
+        <div class="box">
+            <div class="text">
+                <div class="title">Register</div>
+
+                {{ form_start(form) }}
+                    {{ form_errors(form.email) }}
+                    {{ form_errors(form.username) }}
+                    {{ form_errors(form.plainPassword.first) }}
+                    {{ form_errors(form.plainPassword.second) }}
+
+                    {{ form_widget(form.email, {'attr': {'placeholder': 'Email'}}) }}
+                    {{ form_widget(form.username, {'attr': {'placeholder': 'Username'}}) }}
+                    {{ form_widget(form.plainPassword.first, {'attr': {'placeholder': 'Password'}}) }}
+                    {{ form_widget(form.plainPassword.second, {'attr': {'placeholder': 'Password (again)'}}) }}
+                    
+                    <div class="actions">
+                        <input class="button" type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
+                        <a class="button" href="{{ path('fos_user_security_login') }}">Login</a>
+                    </div>
+                    {{ form_rest(form) }}
+                {{ form_end(form) }}
+            </div>
+            <div class="illustration">
+                <img src="{{ asset('assets/img/illustration-login.svg') }}" alt="Login Illustration" />
+            </div>
+        </div>
+    </section>
+{% endblock content %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}" />
+{% endblock %}

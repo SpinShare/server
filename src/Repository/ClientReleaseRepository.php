@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Repository;
+
+use App\Entity\ClientRelease;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Persistence\ManagerRegistry;
+
+/**
+ * @method ClientRelease|null find($id, $lockMode = null, $lockVersion = null)
+ * @method ClientRelease|null findOneBy(array $criteria, array $orderBy = null)
+ * @method ClientRelease[]    findAll()
+ * @method ClientRelease[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
+class ClientReleaseRepository extends ServiceEntityRepository
+{
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, ClientRelease::class);
+    }
+}

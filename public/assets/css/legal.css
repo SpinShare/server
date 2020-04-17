@@ -1,0 +1,27 @@
+.section-legal {
+  padding: 50px;
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  grid-gap: 25px;
+}
+.section-legal .box {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  padding: 25px;
+  margin-bottom: 25px;
+}
+.section-legal .box .title {
+  letter-spacing: 0.25em;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.section-legal .box p {
+  margin: 0px;
+  margin-top: 15px;
+  line-height: 1.5em;
+}
+.section-legal .box a {
+  color: #00bcda;
+}

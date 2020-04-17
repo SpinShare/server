@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Report{% endblock %}
+
+{% block content %}
+  <section class="section-upload">
+    {{ form_start(reportForm) }}
+      <div class="box">
+        <div class="title">Report a song</div>
+        <div class="song-report">
+            <div class="song-item inactive">
+                <div class="song-cover" style="background-image: url({{ asset("uploads/cover/" ~ songToReport.fileReference ~ ".png?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});">
+                    <div class="song-charter-info">
+                        <div class="song-charter"><i class="mdi mdi-account-circle"></i><span>{{ songToReport.charter }}</span></div>
+                    </div>
+                </div>
+                <div class="song-metadata">
+                    <div class="song-title">{{ songToReport.title }}</div>
+                    <div class="song-artist">{{ songToReport.artist }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="input">
+            {{ form_row(reportForm.reportReason) }}
+        </div>
+        <div class="input">
+            {{ form_row(reportForm.reportText) }}
+        </div>
+        <div class="input">
+            {{ form_row(reportForm.reportName) }}
+        </div>
+        <div class="input">
+            {{ form_row(reportForm.reportEmail) }}
+        </div>
+        <div class="input">
+            {{ form_row(reportForm.reportProof) }}
+            <div class="input-notice">Add a link to additional documents (for example legal papers) for your report.</div>
+        </div>
+        <div class="actions">
+            {{ form_row(reportForm.save) }}
+        </div>
+      </div>
+    {{ form_end(reportForm) }}
+  </section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/upload.css') }}" />
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Moderator Dashboard{% endblock %}
+
+{% block content %}
+<section class="section-moderator-report">
+    <div class="user-column">
+        <div class="box">
+            <div class="title">Song</div>
+            <div class="report-data">
+                {% if reportSong is not null %}
+                    <img src="{{ asset("uploads/cover/" ~ reportSong.fileReference ~ ".png?v=" ~ date().timestamp) }}" class="song-cover" alt="Song Cover" />
+
+                    <div class="report-item">
+                        <div class="column">Title</div>
+                        <div class="value">{{ reportSong.title }}</div>
+                    </div>
+                    <div class="report-item">
+                        <div class="column">Subtitle</div>
+                        <div class="value">{{ reportSong.subtitle }}</div>
+                    </div>
+                    <div class="report-item">
+                        <div class="column">Artist</div>
+                        <div class="value">{{ reportSong.artist }}</div>
+                    </div>
+                    <div class="report-item">
+                        <div class="column">Charter</div>
+                        <div class="value">{{ reportSong.charter }}</div>
+                    </div>
+                    <div class="report-item">
+                        <div class="column">Tags</div>
+                        <div class="value">{{ reportSong.tags }}</div>
+                    </div>
+                    <div class="report-item">
+                        <div class="column">Uploader</div>
+                        <div class="value">{{ reportSongUploader.username }}</div>
+                    </div>
+                    <div class="report-item">
+                        <div class="column">Is Explicit?</div>
+                        <div class="value">{{ reportSong.isExplicit ? "Yes" : "No" }}</div>
+                    </div>
+                {% else %}
+                    This song was removed!
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="report-column">
+        <div class="box">
+            <div class="title">Report</div>
+            <div class="report-data">
+                <div class="report-item">
+                    <div class="column">Reason</div>
+                    <div class="value">
+                        {% if report.reason == "dmca" %}
+                            This song contains my intellectual property (DMCA Takedown)
+                        {% elseif report.reason == "broken" %}
+                            This song is broken
+                        {% elseif report.reason == "spam" %}
+                            This song is spam
+                        {% elseif report.reason == "metadata" %}
+                            This song has wrong meta data
+                        {% elseif report.reason == "other" %}
+                            Other reason
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="report-item">
+                    <div class="column">Text</div>
+                    <div class="value">{{ report.text }}</div>
+                </div>
+                <div class="report-item">
+                    <div class="column">Name</div>
+                    <div class="value">{{ report.name }}</div>
+                </div>
+                <div class="report-item">
+                    <div class="column">Email</div>
+                    <div class="value">{{ report.email }}</div>
+                </div>
+                <div class="report-item">
+                    <div class="column">Proof</div>
+                    <div class="value">{{ report.proof }}</div>
+                </div>
+                <div class="report-item">
+                    <div class="column">Report Date</div>
+                    <div class="value">{{ report.reportDate|date('d/m/Y - H:i') }}</div>
+                </div>
+                <div class="report-item">
+                    <div class="column">Status</div>
+                    <div class="value">
+                        {% if report.status == 0 %}
+                            No action
+                        {% elseif report.status == 1 %}
+                            In contact
+                        {% elseif report.status == 2 %}
+                            Resolved
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="title">Status</div>
+            <br />
+            <a href="{{ path('moderation.reports.song.changeStatus', {reportId: report.id, newStatus: 0}) }}" class="button">Status to "No Action"</a> &nbsp; <a href="{{ path('moderation.reports.song.changeStatus', {reportId: report.id, newStatus: 1}) }}" class="button">Status to "In contact"</a> &nbsp; <a href="{{ path('moderation.reports.song.changeStatus', {reportId: report.id, newStatus: 2}) }}" class="button">Status to "Resolved"</a>
+        </div>
+        {% if reportSong is not null %}
+            <div class="box">
+                <div class="title">Actions</div>
+                <br />
+                <a href="{{ path('moderation.user.ban', {userId: reportSongUploader.id}) }}" class="button">Ban User</a> &nbsp; <a href="{{ path('moderation.reports.song.remove', {reportId: report.id}) }}" class="button">Remove Song</a>
+            </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/moderation.css') }}" />
+{% endblock %}

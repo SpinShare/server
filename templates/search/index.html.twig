@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ searchQuery|default('Search') }}{% endblock %}
+
+{% block content %}
+    <section class="section-search">
+        <div class="search-bar">
+            <form action="" method="get">
+                <div class="show-all">
+                    <a href="{{ path('search.index', {showAll: true}) }}" class="button button-label">Show all</a>
+                </div>
+                <div class="multi-select multi-select-difficulties">
+                    {#
+                    <div class="label"><div onclick="ToggleDifficultiesBox()" class="button button-label">Difficulties &nbsp; <i class="mdi mdi-chevron-down"></i></div></div>
+                    <div class="box">
+                        <label for="easyDifficulty" class="item">
+                            <input type="checkbox" name="easyDifficulty" id="easyDifficulty" checked />
+                            <span>Easy</span>
+                        </label>
+                        <label for="normalDifficulty" class="item">
+                            <input type="checkbox" name="normalDifficulty" id="normalDifficulty" checked />
+                            <span>Normal</span>
+                        </label>
+                        <label for="hardDifficulty" class="item">
+                            <input type="checkbox" name="hardDifficulty" id="hardDifficulty" checked />
+                            <span>Hard</span>
+                        </label>
+                        <label for="extremeDifficulty" class="item">
+                            <input type="checkbox" name="extremeDifficulty" id="extremeDifficulty" checked />
+                            <span>Extreme</span>
+                        </label>
+                        <label for="XDDifficulty" class="item">
+                            <input type="checkbox" name="XDDifficulty" id="XDDifficulty" checked />
+                            <span>XD</span>
+                        </label>
+                    </div> #}
+                </div>
+                <input name="q" type="search" placeholder="Search for songs, tags & profiles..." value="{{ searchQuery|default('') }}" />
+            </form>
+        </div>
+        {% if results is defined %}
+            <div class="search-results">
+                {% if results.users|length == 0 and results.songs|length == 0 %}
+                    <div class="search-results-noresults">
+                        <div class="noresults-title">{{ searchQuery }}</div>
+                        <div class="noresults-text">Your search did not match any songs or users. Make sure, that all words are spelled correctly or try a different query.</div>
+                    </div>
+                {% endif %}
+                {% if results.users|length > 0 %}
+                    <div class="user-row search-results-users">
+                        <div class="user-header">
+                            <div class="row-title row-title-noactions">Users</div>
+                        </div>
+                        <div class="user-list">
+                            {% for user in results.users %}
+                                <a href="{{ path('user.detail', {userId: user.id}) }}" class="user-item">
+                                    <div class="user-avatar" style="background-image: url({{ asset('uploads/avatar/' ~ user.coverReference ~ '?t=' ~ date().timestamp) }}), url({{ asset("assets/img/defaultAvatar.jpg") }});"></div>
+                                    <div class="user-metadata">
+                                        <div class="user-name">{{ user.userName }}</div>
+                                        {% if user.isVerified %}
+                                            <div class="user-badge"><i class="mdi mdi-check-decagram"></i></div>
+                                        {% endif %}
+                                        {% if user.isPatreon %}
+                                            <div class="user-badge"><i class="mdi mdi-patreon"></i></div>
+                                        {% endif %}
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                {% if results.songs|length > 0 %}
+                    <div class="song-row search-results-songs">
+                        <div class="song-header">
+                            <div class="row-title row-title-noactions">Songs</div>
+                        </div>
+                        <div class="song-list">
+                            {% for song in results.songs %}
+                                <a class="song-item" href="{{ path('song.detail', {songId: song.id}) }}">
+                                    <div class="song-cover" style="background-image: url({{ asset("uploads/cover/" ~ song.fileReference ~ ".png?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});">
+                                        <div class="song-charter-info">
+                                            <div class="song-charter"><i class="mdi mdi-account-circle"></i><span>{{ song.charter|default('Unknown') }}</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="song-metadata">
+                                        <div class="song-title">{{ song.title|default('Untitles') }}</div>
+                                        <div class="song-artist">{{ song.artist|default('Unknown') }}</div>
+                                        <div class="song-difficulties">
+                                            <img src="{{ asset('assets/img/difficultyEasy.svg') }}" class="{{ song.hasEasyDifficulty ? "active" : "" }}" alt="Easy Difficulty" />
+                                            <img src="{{ asset('assets/img/difficultyNormal.svg') }}" class="{{ song.hasNormalDifficulty ? "active" : "" }}" alt="Normal Difficulty" />
+                                            <img src="{{ asset('assets/img/difficultyHard.svg') }}" class="{{ song.hasHardDifficulty ? "active" : "" }}" alt="Hard Difficulty" />
+                                            <img src="{{ asset('assets/img/difficultyExtreme.svg') }}" class="{{ song.hasExtremeDifficulty ? "active" : "" }}" alt="Extreme Difficulty" />
+                                            <img src="{{ asset('assets/img/difficultyXD.svg') }}" class="{{ song.hasXDDifficulty ? "active" : "" }}" alt="xD Difficulty" />
+                                        </div>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ asset('assets/js/search.js') }}"></script>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/search.css') }}" />
+{% endblock %}

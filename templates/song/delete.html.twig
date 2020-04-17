@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Deleting {{ song.title }}{% endblock %}
+
+{% block content %}
+    <section class="section-song-delete">
+        <div class="box">
+            <div class="text">
+                <div class="title">Confirmation</div>
+                <p>Do you really want to remove your chart? <strong>This action cannot be undone!</strong></p>
+            </div>
+            <div class="song-item inactive">
+                <div class="song-cover" style="background-image: url({{ asset("uploads/cover/" ~ song.fileReference ~ ".png?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});">
+                </div>
+                <div class="song-metadata">
+                    <div class="song-title">{{ song.title|default('Untitles') }}</div>
+                    <div class="song-artist">{{ song.artist|default('Unknown') }}</div>
+                    <div class="song-difficulties">
+                        <img src="{{ asset('assets/img/difficultyEasy.svg') }}" class="{{ song.hasEasyDifficulty ? "active" : "" }}" alt="Easy Difficulty" />
+                        <img src="{{ asset('assets/img/difficultyNormal.svg') }}" class="{{ song.hasNormalDifficulty ? "active" : "" }}" alt="Normal Difficulty" />
+                        <img src="{{ asset('assets/img/difficultyHard.svg') }}" class="{{ song.hasHardDifficulty ? "active" : "" }}" alt="Hard Difficulty" />
+                        <img src="{{ asset('assets/img/difficultyExtreme.svg') }}" class="{{ song.hasExtremeDifficulty ? "active" : "" }}" alt="Extreme Difficulty" />
+                        <img src="{{ asset('assets/img/difficultyXD.svg') }}" class="{{ song.hasXDDifficulty ? "active" : "" }}" alt="xD Difficulty" />
+                    </div>
+                </div>
+            </div>
+            <div class="actions">
+                <a href="{{ path('song.delete', {songId: song.id, isConfirmed: true}) }}" class="button button-primary">Yeah, I'm sure!</a>
+                <a href="{{ path('song.detail', {songId: song.id}) }}" class="button">No, I'm not ready!</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/songdelete.css') }}" />
+{% endblock %}
+
+{% block scripts %}
+    <script>
+    </script>
+{% endblock %}

@@ -1,0 +1,178 @@
+.section-moderator-dashboard {
+  padding: 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 25px;
+}
+.section-moderator-dashboard .box {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 25px;
+  margin-bottom: 25px;
+}
+.section-moderator-dashboard .box .title {
+  letter-spacing: 0.25em;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.section-moderator-dashboard .box p {
+  margin: 0px;
+  line-height: 1.5em;
+}
+.section-moderator-dashboard .box table {
+  width: 100%;
+  margin-top: 10px;
+  border: 1px solid #000;
+  border-collapse: collapse;
+}
+.section-moderator-dashboard .box table tr {
+  border: 1px solid #000;
+}
+.section-moderator-dashboard .box table tr.active {
+  background: rgba(71, 194, 126, 0.2);
+}
+.section-moderator-dashboard .box table tr.inactive {
+  opacity: 0.2;
+}
+.section-moderator-dashboard .box table th {
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #000;
+}
+.section-moderator-dashboard .box table td {
+  padding: 10px;
+  border: 1px solid #000;
+}
+.section-moderator-add {
+  padding: 50px;
+}
+.section-moderator-add .box {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 25px;
+}
+.section-moderator-add .box .title {
+  letter-spacing: 0.25em;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.section-moderator-add .box form {
+  margin-top: 15px;
+  width: 550px;
+}
+.section-moderator-add .box form > div {
+  display: grid;
+  grid-template-rows: auto;
+  grid-gap: 15px;
+}
+.section-moderator-add .box form > div > div {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  grid-gap: 15px;
+}
+.section-moderator-add .box form > div > div select,
+.section-moderator-add .box form > div > div input[type="text"],
+.section-moderator-add .box form > div > div input[type="password"],
+.section-moderator-add .box form > div > div input[type="email"] {
+  width: 100%;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 7px 14px;
+  border: 0px;
+  transition: 0.2s ease-in-out background, 0.2s ease-in-out color;
+}
+.section-moderator-add .box form > div > div select:hover,
+.section-moderator-add .box form > div > div input[type="text"]:hover,
+.section-moderator-add .box form > div > div input[type="password"]:hover,
+.section-moderator-add .box form > div > div input[type="email"]:hover {
+  background: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+.section-moderator-add .box form > div > div select:focus,
+.section-moderator-add .box form > div > div input[type="text"]:focus,
+.section-moderator-add .box form > div > div input[type="password"]:focus,
+.section-moderator-add .box form > div > div input[type="email"]:focus {
+  outline: 0;
+}
+.section-moderator-add .box form > div > div select::placeholder,
+.section-moderator-add .box form > div > div input[type="text"]::placeholder,
+.section-moderator-add .box form > div > div input[type="password"]::placeholder,
+.section-moderator-add .box form > div > div input[type="email"]::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+.section-moderator-add .box form > div > div select option,
+.section-moderator-add .box form > div > div input[type="text"] option,
+.section-moderator-add .box form > div > div input[type="password"] option,
+.section-moderator-add .box form > div > div input[type="email"] option {
+  background: #222;
+  text-transform: initial;
+}
+.section-moderator-add .box form > div > div select:disabled,
+.section-moderator-add .box form > div > div input[type="text"]:disabled,
+.section-moderator-add .box form > div > div input[type="password"]:disabled,
+.section-moderator-add .box form > div > div input[type="email"]:disabled {
+  opacity: 0.4;
+}
+.section-moderator-add .box form > div > div input[type="text"],
+.section-moderator-add .box form > div > div input[type="password"],
+.section-moderator-add .box form > div > div input[type="email"] {
+  text-transform: initial;
+  font-weight: normal;
+}
+.section-moderator-add .box form > div > div input[type="text"]:hover,
+.section-moderator-add .box form > div > div input[type="password"]:hover,
+.section-moderator-add .box form > div > div input[type="email"]:hover {
+  cursor: text;
+}
+.section-moderator-report {
+  padding: 50px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: flex-start;
+  grid-gap: 25px;
+}
+.section-moderator-report .box {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  padding: 25px;
+  margin-bottom: 25px;
+}
+.section-moderator-report .box .title {
+  letter-spacing: 0.25em;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.section-moderator-report .box .report-data {
+  display: grid;
+  grid-template-columns: auto;
+  grid-gap: 15px;
+  margin-top: 15px;
+}
+.section-moderator-report .box .report-data img {
+  width: 120px;
+  justify-self: center;
+  height: 120px;
+}
+.section-moderator-report .box .report-data img.avatar-icon {
+  border-radius: 50%;
+}
+.section-moderator-report .box .report-data img.song-cover {
+  border-radius: 6px;
+}
+.section-moderator-report .box .report-data .report-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-gap: 15px;
+  padding: 10px 0px;
+}
+.section-moderator-report .box .report-data .report-item .column {
+  opacity: 0.4;
+}

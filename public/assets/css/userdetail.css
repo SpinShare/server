@@ -1,0 +1,114 @@
+.section-user-detail .user-detail-background {
+  background-size: cover;
+  background-position: center;
+}
+.section-user-detail .user-detail-background .user-detail-dim {
+  backdrop-filter: blur(10px);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4), #212629);
+}
+.section-user-detail .user-detail-background .user-detail-dim .user-detail {
+  padding: 50px;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-gap: 25px;
+}
+.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-avatar {
+  width: 200px;
+  height: 200px;
+  align-self: center;
+  background: #eee;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+}
+.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-avatar .user-avatar-change {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: 0.2s ease opacity;
+  cursor: pointer;
+}
+.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-avatar .user-avatar-change .mdi {
+  font-size: 48px;
+}
+.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-avatar .user-avatar-change input {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  cursor: pointer;
+  opacity: 0;
+}
+.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-avatar:hover .user-avatar-change {
+  opacity: 1;
+}
+.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-meta-data {
+  display: flex;
+  height: 48px;
+  align-items: center;
+}
+.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-meta-data .user-name {
+  font-weight: bold;
+  font-size: 48px;
+}
+.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-meta-data .user-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin-left: 20px;
+}
+.section-user-detail .user-detail-actions,
+.section-user-detail .user-detail-actions-moderation {
+  padding: 50px;
+  padding-top: 0px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 25px;
+}
+.section-user-detail .user-detail-actions.user-detail-actions-moderation,
+.section-user-detail .user-detail-actions-moderation.user-detail-actions-moderation {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+.section-user-detail .user-detail-actions .button,
+.section-user-detail .user-detail-actions-moderation .button {
+  padding: 15px 0px;
+  font-size: 16px;
+  transition: 0.2s ease-in-out background, 0.2s ease-in-out color, 0.1s ease-in-out transform;
+}
+.section-user-detail .user-detail-actions .button.button-primary,
+.section-user-detail .user-detail-actions-moderation .button.button-primary {
+  background: #fff;
+  color: #222;
+}
+.section-user-detail .user-detail-actions .button.button-primary:hover,
+.section-user-detail .user-detail-actions-moderation .button.button-primary:hover {
+  background: #fff;
+  color: #222;
+}
+.section-user-detail .user-detail-actions .button:hover,
+.section-user-detail .user-detail-actions-moderation .button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  opacity: 0.6;
+  transform: translateY(-4px);
+}
+.section-user-detail .user-detail-actions .button:active,
+.section-user-detail .user-detail-actions-moderation .button:active {
+  transform: translateY(-2px);
+}
+.section-user-detail .song-row-user {
+  padding: 0px 50px;
+  margin-bottom: 50px;
+  display: grid;
+}

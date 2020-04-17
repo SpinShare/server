@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Moderator Dashboard{% endblock %}
+
+{% block content %}
+<section class="section-moderator-report">
+    <div class="user-column">
+        <div class="box">
+            <div class="title">User</div>
+            <div class="report-data">
+                <img src="{{ asset('uploads/avatar/' ~ reportUser.coverReference ~ '?t=' ~ date().timestamp) }}" class="avatar-icon" alt="Avatar" />
+
+                <div class="report-item">
+                    <div class="column">Username</div>
+                    <div class="value">{{ reportUser.username }}</div>
+                </div>
+                <div class="report-item">
+                    <div class="column">Email</div>
+                    <div class="value">{{ reportUser.email }}</div>
+                </div>
+                <div class="report-item">
+                    <div class="column">Is Verified?</div>
+                    <div class="value">{{ reportUser.isVerified ? "Yes" : "No" }}</div>
+                </div>
+                <div class="report-item">
+                    <div class="column">Is Patreon?</div>
+                    <div class="value">{{ reportUser.isPatreon ? "Yes" : "No" }}</div>
+                </div>
+                <div class="report-item">
+                    <div class="column">Last Login</div>
+                    <div class="value">{{ reportUser.lastLogin|date('d/m/Y - H:i') }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="report-column">
+        <div class="box">
+            <div class="title">Report</div>
+            <div class="report-data">
+                <div class="report-item">
+                    <div class="column">Reason</div>
+                    <div class="value">
+                        {% if report.reason == "personal" %}
+                            This user posts personal and/or confidential information
+                        {% elseif report.reason == "sexualcontent" %}
+                            This user posts sexual or suggestive content involving minors
+                        {% elseif report.reason == "spam" %}
+                            This user posts spam
+                        {% elseif report.reason == "banevasion" %}
+                            This user evades a ban
+                        {% elseif report.reason == "impersonation" %}
+                            This user impersonates another person
+                        {% elseif report.reason == "other" %}
+                            Other reson
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="report-item">
+                    <div class="column">Text</div>
+                    <div class="value">{{ report.text }}</div>
+                </div>
+                <div class="report-item">
+                    <div class="column">Name</div>
+                    <div class="value">{{ report.name }}</div>
+                </div>
+                <div class="report-item">
+                    <div class="column">Email</div>
+                    <div class="value">{{ report.email }}</div>
+                </div>
+                <div class="report-item">
+                    <div class="column">Proof</div>
+                    <div class="value">{{ report.proof }}</div>
+                </div>
+                <div class="report-item">
+                    <div class="column">Report Date</div>
+                    <div class="value">{{ report.reportDate|date('d/m/Y - H:i') }}</div>
+                </div>
+                <div class="report-item">
+                    <div class="column">Status</div>
+                    <div class="value">
+                        {% if report.status == 0 %}
+                            No action
+                        {% elseif report.status == 1 %}
+                            In contact
+                        {% elseif report.status == 2 %}
+                            Resolved
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="title">Status</div>
+            <br />
+            <a href="{{ path('moderation.reports.user.changeStatus', {reportId: report.id, newStatus: 0}) }}" class="button">Status to "No Action"</a> &nbsp; <a href="{{ path('moderation.reports.user.changeStatus', {reportId: report.id, newStatus: 1}) }}" class="button">Status to "In contact"</a> &nbsp; <a href="{{ path('moderation.reports.user.changeStatus', {reportId: report.id, newStatus: 2}) }}" class="button">Status to "Resolved"</a>
+        </div>
+        <div class="box">
+            <div class="title">Actions</div>
+            <br />
+            <a href="{{ path('moderation.user.ban', {userId: reportUser.id}) }}" class="button">Ban User</a> &nbsp; <a href="{{ path('moderation.user.resetAvatar', {userId: reportUser.id}) }}" class="button">Reset Avatar</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/moderation.css') }}" />
+{% endblock %}

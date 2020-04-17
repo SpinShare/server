@@ -1,0 +1,56 @@
+.section-song-delete {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px;
+}
+.box {
+    width: 600px;
+    background: rgba(255,255,255,0.1);
+    display: grid;
+    grid-template-rows: 1fr auto;
+    border-radius: 6px;
+    overflow: hidden;
+
+    & .text {
+        padding: 25px;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        grid-gap: 15px;
+
+        & .title {
+            letter-spacing: 0.25em;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        & p {
+            margin: 0px;
+            line-height: 1.5em;
+        }
+    }
+    & .song-item {
+        width: 173px;
+        margin: 0 auto;
+        margin-bottom: 25px;
+    }
+    & .actions {
+        padding: 25px;
+        background: rgba(0,0,0,0.1);
+        display: flex;
+        justify-content: flex-end;
+
+        & .button {
+            margin-left: 15px;
+
+            &.button-primary {
+                background: #fff;
+                color: #222;
+
+                &:hover {
+                    opacity: 0.75;
+                }
+            }
+        }
+    }
+}

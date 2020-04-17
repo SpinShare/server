@@ -1,0 +1,102 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Welcome!{% endblock %}
+
+{% block content %}
+    <section class="section-startup">
+        <div class="staff-promos">
+            {% for promo in promos %}
+                <div class="staff-promo" style="background-image: url({{ asset('uploads/promo/' ~ promo.imagePath) }});">
+                    <div class="promo-type" style="color: {{ promo.color }};">{{ promo.type }}</div>
+                    <div class="promo-title" style="color: {{ promo.textColor }};">{{ promo.title|raw }}</div>
+                    {% if promo.buttonType == 0 %}
+                        {# Song #}
+                        <a href="{{ path('song.detail', {songId: promo.buttonData}) }}" class="promo-button" style="background-color: {{ promo.color }};">CHECK IT OUT</a>
+                    {% endif %}
+                    {% if promo.buttonType == 2 %}
+                        {# Search Query #}
+                        <a href="{{ path('search.index', {q: promo.buttonData}) }}" class="promo-button" style="background-color: {{ promo.color }};">CHECK IT OUT</a>
+                    {% endif %}
+                    {% if promo.buttonType == 3 %}
+                        {# External Link #}
+                        <a href="{{ promo.buttonData }}" target="_blank" class="promo-button" style="background-color: {{ promo.color }};">CHECK IT OUT</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <div class="song-row song-row-new">
+            <div class="song-header">
+                <div class="row-title">New Songs</div>
+                <div class="row-controls">
+                    {% if newOffset > 0 %}
+                        <a href="{{ path('index.index', {newOffset: newOffset - 1}) }}" class="item row-controls-previous"><i class="mdi mdi-chevron-left"></i></a>
+                    {% else %}
+                        <a href="#" class="item disabled row-controls-previous"><i class="mdi mdi-chevron-left"></i></a>
+                    {% endif %}
+                    <a href="{{ path('index.index', {newOffset: newOffset + 1}) }}" class="item row-controls-next"><i class="mdi mdi-chevron-right"></i></a>
+                </div>
+            </div>
+            <div class="song-list">
+                {% for song in newSongs %}
+                    <a class="song-item" href="{{ path('song.detail', {songId: song.id}) }}">
+                        <div class="song-cover" style="background-image: url({{ asset("uploads/cover/" ~ song.fileReference ~ ".png?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});">
+                            <div class="song-charter-info">
+                                <div class="song-charter"><i class="mdi mdi-account-circle"></i><span>{{ song.charter|default('Unknown') }}</span></div>
+                            </div>
+                        </div>
+                        <div class="song-metadata">
+                            <div class="song-title">{{ song.title|default('Untitles') }}</div>
+                            <div class="song-artist">{{ song.artist|default('Unknown') }}</div>
+                            <div class="song-difficulties">
+                                <img src="{{ asset('assets/img/difficultyEasy.svg') }}" class="{{ song.hasEasyDifficulty ? "active" : "" }}" alt="Easy Difficulty" />
+                                <img src="{{ asset('assets/img/difficultyNormal.svg') }}" class="{{ song.hasNormalDifficulty ? "active" : "" }}" alt="Normal Difficulty" />
+                                <img src="{{ asset('assets/img/difficultyHard.svg') }}" class="{{ song.hasHardDifficulty ? "active" : "" }}" alt="Hard Difficulty" />
+                                <img src="{{ asset('assets/img/difficultyExtreme.svg') }}" class="{{ song.hasExtremeDifficulty ? "active" : "" }}" alt="Extreme Difficulty" />
+                                <img src="{{ asset('assets/img/difficultyXD.svg') }}" class="{{ song.hasXDDifficulty ? "active" : "" }}" alt="xD Difficulty" />
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="song-row song-row-popular">
+            <div class="song-header">
+                <div class="row-title">Popular Songs</div>
+                <div class="row-controls">
+                    {% if popularOffset > 0 %}
+                        <a href="{{ path('index.index', {popularOffset: popularOffset - 1}) }}" class="item row-controls-previous"><i class="mdi mdi-chevron-left"></i></a>
+                    {% else %}
+                        <a href="#" class="item disabled row-controls-previous"><i class="mdi mdi-chevron-left"></i></a>
+                    {% endif %}
+                    <a href="{{ path('index.index', {popularOffset: popularOffset + 1}) }}" class="item row-controls-next"><i class="mdi mdi-chevron-right"></i></a>
+                </div>
+            </div>
+            <div class="song-list">
+                {% for song in popularSongs %}
+                    <a class="song-item" href="{{ path('song.detail', {songId: song.id}) }}">
+                        <div class="song-cover" style="background-image: url({{ asset("uploads/cover/" ~ song.fileReference ~ ".png?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});">
+                            <div class="song-charter-info">
+                                <div class="song-charter"><i class="mdi mdi-account-circle"></i><span>{{ song.charter|default('Unknown') }}</span></div>
+                            </div>
+                        </div>
+                        <div class="song-metadata">
+                            <div class="song-title">{{ song.title|default('Untitles') }}</div>
+                            <div class="song-artist">{{ song.artist|default('Unknown') }}</div>
+                            <div class="song-difficulties">
+                                <img src="{{ asset('assets/img/difficultyEasy.svg') }}" class="{{ song.hasEasyDifficulty ? "active" : "" }}" alt="Easy Difficulty" />
+                                <img src="{{ asset('assets/img/difficultyNormal.svg') }}" class="{{ song.hasNormalDifficulty ? "active" : "" }}" alt="Normal Difficulty" />
+                                <img src="{{ asset('assets/img/difficultyHard.svg') }}" class="{{ song.hasHardDifficulty ? "active" : "" }}" alt="Hard Difficulty" />
+                                <img src="{{ asset('assets/img/difficultyExtreme.svg') }}" class="{{ song.hasExtremeDifficulty ? "active" : "" }}" alt="Extreme Difficulty" />
+                                <img src="{{ asset('assets/img/difficultyXD.svg') }}" class="{{ song.hasXDDifficulty ? "active" : "" }}" alt="xD Difficulty" />
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/startup.css') }}" />
+{% endblock %}

@@ -1,0 +1,20 @@
+Hey there!
+
+We are sorry to inform you that your song "{{ song.title }} - {{ song.artist }}" was removed by a moderator of our team.
+Your song was reported by {{ report.name }}. The reason they gave us was:
+{% if report.reason == "dmca" %}
+    This song contains someone elses intellectual property (DMCA Takedown)
+{% elseif report.reason == "broken" %}
+    This song is broken
+{% elseif report.reason == "spam" %}
+    This song is spam
+{% elseif report.reason == "metadata" %}
+    This song has wrong meta data
+{% elseif report.reason == "other" %}
+    Unspecified reson
+{% endif %}
+
+This action is permanent and cannot be undone.
+
+------------------
+spinsha.re

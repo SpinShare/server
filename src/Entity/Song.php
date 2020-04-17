@@ -1,0 +1,295 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\SongRepository")
+ */
+class Song
+{
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $subtitle;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $artist;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $charter;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $uploader;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $fileReference;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $tags;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true, options={"default": 0})
+     */
+    private $views;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true, options={"default": 0})
+     */
+    private $downloads;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true, options={"default": false})
+     */
+    private $isExplicit;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $hasEasyDifficulty;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $hasNormalDifficulty;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $hasHardDifficulty;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $hasExtremeDifficulty;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $hasXDDifficulty;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $previewStart;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(string $title): self
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    public function getSubtitle(): ?string
+    {
+        return $this->subtitle;
+    }
+
+    public function setSubtitle(?string $subtitle): self
+    {
+        $this->subtitle = $subtitle;
+
+        return $this;
+    }
+
+    public function getArtist(): ?string
+    {
+        return $this->artist;
+    }
+
+    public function setArtist(string $artist): self
+    {
+        $this->artist = $artist;
+
+        return $this;
+    }
+
+    public function getCharter(): ?string
+    {
+        return $this->charter;
+    }
+
+    public function setCharter(string $charter): self
+    {
+        $this->charter = $charter;
+
+        return $this;
+    }
+
+    public function getUploader(): ?int
+    {
+        return $this->uploader;
+    }
+
+    public function setUploader(int $uploader): self
+    {
+        $this->uploader = $uploader;
+
+        return $this;
+    }
+
+    public function getFileReference(): ?string
+    {
+        return $this->fileReference;
+    }
+
+    public function setFileReference(?string $fileReference): self
+    {
+        $this->fileReference = $fileReference;
+
+        return $this;
+    }
+
+    public function getTags(): ?string
+    {
+        return $this->tags;
+    }
+
+    public function setTags(?string $tags): self
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    public function getViews(): ?int
+    {
+        return $this->views;
+    }
+
+    public function setViews(int $views): self
+    {
+        $this->views = $views;
+
+        return $this;
+    }
+
+    public function getDownloads(): ?int
+    {
+        return $this->downloads;
+    }
+
+    public function setDownloads(int $downloads): self
+    {
+        $this->downloads = $downloads;
+
+        return $this;
+    }
+
+    public function getIsExplicit(): ?bool
+    {
+        return $this->isExplicit;
+    }
+
+    public function setIsExplicit(bool $isExplicit): self
+    {
+        $this->isExplicit = $isExplicit;
+
+        return $this;
+    }
+
+    public function getHasEasyDifficulty(): ?bool
+    {
+        return $this->hasEasyDifficulty;
+    }
+
+    public function setHasEasyDifficulty(bool $hasEasyDifficulty): self
+    {
+        $this->hasEasyDifficulty = $hasEasyDifficulty;
+
+        return $this;
+    }
+
+    public function getHasNormalDifficulty(): ?bool
+    {
+        return $this->hasNormalDifficulty;
+    }
+
+    public function setHasNormalDifficulty(bool $hasNormalDifficulty): self
+    {
+        $this->hasNormalDifficulty = $hasNormalDifficulty;
+
+        return $this;
+    }
+
+    public function getHasHardDifficulty(): ?bool
+    {
+        return $this->hasHardDifficulty;
+    }
+
+    public function setHasHardDifficulty(bool $hasHardDifficulty): self
+    {
+        $this->hasHardDifficulty = $hasHardDifficulty;
+
+        return $this;
+    }
+
+    public function getHasExtremeDifficulty(): ?bool
+    {
+        return $this->hasExtremeDifficulty;
+    }
+
+    public function setHasExtremeDifficulty(bool $hasExtremeDifficulty): self
+    {
+        $this->hasExtremeDifficulty = $hasExtremeDifficulty;
+
+        return $this;
+    }
+
+    public function getHasXDDifficulty(): ?bool
+    {
+        return $this->hasXDDifficulty;
+    }
+
+    public function setHasXDDifficulty(bool $hasXDDifficulty): self
+    {
+        $this->hasXDDifficulty = $hasXDDifficulty;
+
+        return $this;
+    }
+
+    public function getPreviewStart(): ?bool
+    {
+        return $this->previewStart;
+    }
+
+    public function setPreviewStart(bool $previewStart): self
+    {
+        $this->previewStart = $previewStart;
+
+        return $this;
+    }
+}

@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ song.title }}{% endblock %}
+
+{% block meta %}
+    <meta property="og:title" content="{{ song.title }} on SpinSha.re"/>
+    <meta property="og:type" content="music.song"/>
+    <meta property="og:url" content="{{ path('song.detail', {songId: song.id}) }}"/>
+    <meta property="og:image" content="{{ asset("uploads/cover/" ~ song.fileReference ~ ".png?v=" ~ date().timestamp) }}"/>
+{% endblock %}
+
+{% block content %}
+    <section class="section-song-detail">
+        <div class="song-detail-background" style="background-image: url({{ asset("uploads/cover/" ~ song.fileReference ~ ".png?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});">
+            <div class="song-detail-dim">
+                <div class="song-detail active">
+                    <div class="song-cover" style="background-image: url({{ asset("uploads/cover/" ~ song.fileReference ~ ".png?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});">
+                    </div>
+                    <div class="song-meta-data">
+                        <div class="song-title">{{ song.title }}</div>
+                        <div class="song-subtitle">{{ song.subtitle }}</div>
+                        <div class="song-artist">{{ song.artist }}</div>
+                        <div class="song-charter">Created by {{ song.charter }}</div>
+                        <div class="song-tags">
+                            {% for tag in song.tags|split(",") %}
+                                {% if tag != "" %}
+                                    <a href="{{ path('search.index', {q: tag}) }}" class="tag">{{ tag }}</a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="song-difficulties">
+                            <img src="{{ asset('assets/img/difficultyEasy.svg') }}" class="{{ song.hasEasyDifficulty ? "active" : "" }}" alt="Easy Difficulty" />
+                            <img src="{{ asset('assets/img/difficultyNormal.svg') }}" class="{{ song.hasNormalDifficulty ? "active" : "" }}" alt="Normal Difficulty" />
+                            <img src="{{ asset('assets/img/difficultyHard.svg') }}" class="{{ song.hasHardDifficulty ? "active" : "" }}" alt="Hard Difficulty" />
+                            <img src="{{ asset('assets/img/difficultyExtreme.svg') }}" class="{{ song.hasExtremeDifficulty ? "active" : "" }}" alt="Extreme Difficulty" />
+                            <img src="{{ asset('assets/img/difficultyXD.svg') }}" class="{{ song.hasXDDifficulty ? "active" : "" }}" alt="xD Difficulty" />
+                        </div>
+                        <div class="song-uploader">
+                            <a href="{{ path('user.detail', {userId: uploader.id}) }}" class="user-item">
+                                <div class="user-avatar" style="background-image: url({{ asset('uploads/avatar/' ~ uploader.coverReference ~ '?t=' ~ date().timestamp) }}), url({{ asset("assets/img/defaultAvatar.jpg") }});"></div>
+                                <div class="user-metadata">
+                                    <div class="user-username">{{ uploader.username }}</div>
+                                    {% if uploader.isVerified %}
+                                        <div class="user-badge"><i class="mdi mdi-check-decagram"></i></div>
+                                    {% endif %}
+                                    {% if uploader.isPatreon %}
+                                        <div class="user-badge"><i class="mdi mdi-patreon"></i></div>
+                                    {% endif %}
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if is_granted("ROLE_USER") %}
+            <div class="{{ (uploader.id == app.user.id ) ? "song-detail-actions-owner" : is_granted('ROLE_MODERATOR') ? "song-detail-actions-moderator" : "song-detail-actions" }}">
+                <a href="{{ path('song.download', {songId: song.id}) }}" class="button button-primary">Download</a>
+                <button class="button-preview button">PLAY PREVIEW</button>
+                <a href="spinshare-song://{{ song.id }}" class="button">Open in Client</a>
+                <a href="{{ path('report.song', {songId: song.id}) }}" class="button">Report</a>
+                {% if uploader.id == app.user.id %}
+                    <a href="{{ path('song.update', {songId: song.id}) }}" class="button button-icon"><i class="mdi mdi-pencil"></i></a>
+                    <a href="{{ path('song.delete', {songId: song.id}) }}" class="button button-icon"><i class="mdi mdi-delete"></i></a>
+                {% elseif is_granted('ROLE_MODERATOR') %}
+                    <a href="{{ path('moderation.song.remove', {songId: song.id}) }}" onclick="return confirm('Are you sure? This action cannot be undone!')" class="button button-icon"><i class="mdi mdi-delete"></i></a>
+                {% endif %}
+            </div>
+        {% else %}
+            <div class="song-detail-actions">
+                <a href="{{ path('song.download', {songId: song.id}) }}" class="button button-primary">Download</a>
+                <button class="button-preview button">PLAY PREVIEW</button>
+                <a href="spinshare-song://{{ song.id }}" class="button">Open in Client</a>
+                <a href="{{ path('report.song', {songId: song.id}) }}" class="button">Report</a>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/songdetail.css') }}" />
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        let isPlayingPreview = false;
+        const DOMButtonPreview = document.querySelector(".button-preview");
+
+        DOMButtonPreview.addEventListener('click', function() {
+            SongDetailTogglePreview();
+        });
+
+        function SongDetailTogglePreview() {
+            if(isPlayingPreview) {
+                SongDetailStopPreview();
+            } else {
+                SongDetailStartPreview();
+            }
+        }
+        function SongDetailStartPreview() {
+            currentPreviewAudio = new Audio("{{ asset('uploads/audio/' ~ song.fileReference ~ '_0.ogg') }}");
+            currentPreviewAudio.volume = 0.4;
+            currentPreviewAudio.play();
+            currentPreviewAudio.onended = function() {
+                SongDetailStopPreview();
+            }
+            isPlayingPreview = true;
+            DOMButtonPreview.innerText = "STOP PREVIEW";
+            DOMButtonPreview.classList.add("button-primary");
+        }
+        function SongDetailStopPreview() {
+            if(currentPreviewAudio) {
+                currentPreviewAudio.pause();
+                currentPreviewAudio.currentTime = 0;
+            }
+            currentPreviewAudio = null;
+            isPlayingPreview = false;
+
+            DOMButtonPreview.innerText = "PLAY PREVIEW";
+            DOMButtonPreview.classList.remove("button-primary");
+        }
+    </script>
+{% endblock %}

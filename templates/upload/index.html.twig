@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Upload{% endblock %}
+
+{% block content %}
+  <section class="section-upload">
+    {{ form_start(uploadForm) }} 
+      {% for label, messages in app.flashes %}
+          {% for message in messages %}
+              <div class="flashbang flashbang-{{ label }}">
+                  {{ message }}
+              </div>
+          {% endfor %}
+      {% endfor %}
+
+      <div class="box">
+        <div class="title">Upload</div>
+        <div class="upload-input">
+          {{ form_row(uploadForm.backupPath) }}
+          <div class="upload-input-select active">
+            <i class="mdi mdi-folder-upload"></i>
+            <div>SELECT A SPIN RHYTHM XD<br />BACKUP .ZIP</div>
+          </div>
+          <div class="upload-input-selected">
+            <i class="mdi mdi-folder-music"></i>
+            <div></div>
+          </div>
+        </div>
+        <div class="tags-input">
+          {{ form_row(uploadForm.tags) }}
+          <div class="input-notice">Add multiple tags by seperating them with a comma. (eg: "Memes,Funny,Osu")</div>
+        </div>
+        <div class="tags-input">
+          {{ form_row(uploadForm.isExplicit) }}
+          <div class="input-notice">Are the lyrics, cover or any other meta data of this song unsuitable for children and/or not safe for work?</div>
+        </div>
+        <div class="actions">
+          {{ form_row(uploadForm.save) }}
+        </div>
+      </div>
+    {{ form_end(uploadForm) }}
+  </section>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ asset('assets/js/upload.js') }}"></script>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/upload.css') }}" />
+{% endblock %}

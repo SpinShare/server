@@ -1,0 +1,14 @@
+Hey there!
+
+{% if report.status == 0 %}
+The status of your report #{{ type }}-{{ report.id }} has been changed to "Unanswered".
+{% elseif report.status == 1 %}
+The status of your report #{{ type }}-{{ report.id }} has been changed to "In Contact".
+{% elseif report.status == 2 %}
+The status of your report #{{ type }}-{{ report.id }} has been changed to "Resolved".
+{% endif %}
+
+If you think this was a mistake, please report back to legal@spinsha.re with your report id shown above.
+
+------------------
+spinsha.re

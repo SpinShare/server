@@ -1,0 +1,57 @@
+.staff-promos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 25px;
+    width: 1114px;
+    margin: 0 auto;
+    margin-bottom: 25px;
+
+    &:empty {
+        display: none;
+    }
+
+    & .staff-promo {
+        background: #fff;
+        border-radius: 6px;
+        padding: 50px;
+        height: 256px;
+        display: grid;
+        grid-template-rows: auto 100px auto;
+
+        & .promo-type {
+            color: #aaa;
+            justify-self: left;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 0.3em;
+        }
+        & .promo-title {
+            font-weight: bold;
+            font-size: 34px;
+            justify-self: left;
+            align-self: flex-start;
+            letter-spacing: -0.025em;
+            color: #222;
+        }
+        & .promo-button {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 10px 25px;
+            color: #fff;
+            background: #aaa;
+            justify-self: left;
+            border-radius: 6px;
+            transition: 0.2s ease-in-out opacity;
+            text-decoration: none;
+
+            &:hover {
+                cursor: pointer;
+                opacity: 0.6;
+            }
+        }
+    }
+}
+.song-row-new {
+    margin-bottom: 25px;
+}
