@@ -28,14 +28,14 @@
         "symfony/twig-pack": "*",
         "symfony/validator": "4.4.*",
         "symfony/web-link": "4.4.*",
-        "symfony/yaml": "4.4.*"
+        "symfony/yaml": "4.4.*",
+        "barryvdh/laravel-ide-helper": "^2.6"
     },
     "require-dev": {
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.14",
         "symfony/profiler-pack": "*",
-        "symfony/test-pack": "*",
-        "barryvdh/laravel-ide-helper": "^2.6"
+        "symfony/test-pack": "*"
     },
     "config": {
         "preferred-install": {
