@@ -45,6 +45,7 @@ class UploadController extends AbstractController
             if($backupFile) {
                 $song->setFileReference("spinshare_".uniqid());
                 $song->setTags($data['tags']);
+                $song->setUploadDate(new \DateTime('NOW'));
                 $song->setIsExplicit($data['isExplicit']);
 
                 $zip = new \ZipArchive;

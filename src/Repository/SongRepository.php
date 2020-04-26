@@ -18,4 +18,43 @@ class SongRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Song::class);
     }
+
+    public function getNew(int $page) {
+        $qb = $this->createQueryBuilder("e");
+        $qb
+            ->orderBy('e.uploadDate', 'DESC')
+            ->setFirstResult(12 * $page)
+            ->setMaxResults(12);
+        $result = $qb->getQuery()->getResult();
+
+        return $result;
+    }
+
+    public function getHot(int $page) {
+        $qb = $this->createQueryBuilder("e");
+        $qb
+            ->where('e.uploadDate <= :begin')
+            ->andWhere('e.uploadDate >= :end')
+            ->orderBy('e.downloads', 'DESC')
+            ->orderBy('e.views', 'DESC')
+            ->setFirstResult(12 * $page)
+            ->setMaxResults(12)
+            ->setParameter('begin', new \DateTime('NOW'))
+            ->setParameter('end', new \DateTime('-7 days'));
+        $result = $qb->getQuery()->getResult();
+
+        return $result;
+    }
+
+    public function getPopular(int $page) {
+        $qb = $this->createQueryBuilder("e");
+        $qb
+            ->orderBy('e.downloads', 'DESC')
+            ->orderBy('e.views', 'DESC')
+            ->setFirstResult(12 * $page)
+            ->setMaxResults(12);
+        $result = $qb->getQuery()->getResult();
+
+        return $result;
+    }
 }

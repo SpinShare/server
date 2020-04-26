@@ -96,6 +96,11 @@ class Song
      */
     private $previewStart;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $uploadDate;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -289,6 +294,18 @@ class Song
     public function setPreviewStart(bool $previewStart): self
     {
         $this->previewStart = $previewStart;
+
+        return $this;
+    }
+
+    public function getUploadDate(): ?\DateTimeInterface
+    {
+        return $this->uploadDate;
+    }
+
+    public function setUploadDate(\DateTimeInterface $uploadDate): self
+    {
+        $this->uploadDate = $uploadDate;
 
         return $this;
     }

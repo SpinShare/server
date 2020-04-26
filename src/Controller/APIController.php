@@ -56,7 +56,42 @@ class APIController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $data = [];
 
-        $results = $em->getRepository(Song::class)->findBy(array(), array('id' => 'DESC'), 12, 12 * $offset);
+        $results = $em->getRepository(Song::class)->getNew($offset);
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
+        foreach($results as $result) {
+            $oneResult = [];
+
+            $oneResult['id'] = $result->getId();
+            $oneResult['title'] = $result->getTitle();
+            $oneResult['subtitle'] = $result->getSubtitle();
+            $oneResult['artist'] = $result->getArtist();
+            $oneResult['charter'] = $result->getCharter();
+            $oneResult['hasEasyDifficulty'] = $result->getHasEasyDifficulty();
+            $oneResult['hasNormalDifficulty'] = $result->getHasNormalDifficulty();
+            $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
+            $oneResult['hasExtremeDifficulty'] = $result->getHasExtremeDifficulty();
+            $oneResult['hasXDDifficulty'] = $result->getHasXDDifficulty();
+            $oneResult['cover'] = $baseUrl."/uploads/cover/".$result->getFileReference().".png";
+            $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
+
+            $data[] = $oneResult;
+        }
+
+        $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
+    }
+
+    /**
+     * @Route("/api/songs/hot/{offset}", name="api.songs.hot")
+     */
+    public function songsHot(Request $request, int $offset = 0)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        $results = $em->getRepository(Song::class)->getHot($offset);
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         foreach($results as $result) {
@@ -91,7 +126,7 @@ class APIController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $data = [];
 
-        $results = $em->getRepository(Song::class)->findBy(array(), array('downloads' => 'DESC', 'views' => 'DESC'), 12, 12 * $offset);
+        $results = $em->getRepository(Song::class)->getPopular($offset);
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         foreach($results as $result) {
