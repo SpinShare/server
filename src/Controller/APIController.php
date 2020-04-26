@@ -56,7 +56,7 @@ class APIController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $data = [];
 
-        $results = $em->getRepository(Song::class)->findBy(array(), array('id' => 'DESC'), 6, 6 * $offset);
+        $results = $em->getRepository(Song::class)->findBy(array(), array('id' => 'DESC'), 12, 12 * $offset);
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         foreach($results as $result) {
@@ -91,7 +91,7 @@ class APIController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $data = [];
 
-        $results = $em->getRepository(Song::class)->findBy(array(), array('downloads' => 'DESC', 'views' => 'DESC'), 6, 6 * $offset);
+        $results = $em->getRepository(Song::class)->findBy(array(), array('downloads' => 'DESC', 'views' => 'DESC'), 12, 12 * $offset);
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         foreach($results as $result) {
