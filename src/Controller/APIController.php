@@ -43,7 +43,7 @@ class APIController extends AbstractController
         $data['minorVersion'] = $latestVersion->getMinorVersion();
         $data['patchVersion'] = $latestVersion->getPatchVersion();
 
-        $respnse = new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+        $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
         $response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
     }
