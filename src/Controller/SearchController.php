@@ -34,6 +34,7 @@ class SearchController extends AbstractController
             if($searchQuery != null) {
                 $resultsUsers = $em->getRepository(User::class)->createQueryBuilder('o')
                                                                 ->where('o.username LIKE :query')
+                                                                ->orderBy('o.id', 'DESC')
                                                                 ->setParameter('query', '%'.$searchQuery.'%')
                                                                 ->getQuery()
                                                                 ->getResult();
@@ -45,6 +46,7 @@ class SearchController extends AbstractController
                                                                 ->orWhere('o.tags LIKE :query')
                                                                 ->orWhere('o.artist LIKE :query')
                                                                 ->orWhere('o.charter LIKE :query')
+                                                                ->orderBy('o.id', 'DESC')
                                                                 ->setParameter('query', '%'.$searchQuery.'%')
                                                                 ->getQuery()
                                                                 ->getResult();

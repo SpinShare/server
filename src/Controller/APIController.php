@@ -362,6 +362,7 @@ class APIController extends AbstractController
         // Users
         $resultsUsers = $em->getRepository(User::class)->createQueryBuilder('o')
                                                         ->where('o.username LIKE :query')
+                                                        ->orderBy('o.id', 'DESC')
                                                         ->setParameter('query', '%'.$searchQuery.'%')
                                                         ->getQuery()
                                                         ->getResult();
@@ -389,6 +390,7 @@ class APIController extends AbstractController
                                                         ->orWhere('o.tags LIKE :query')
                                                         ->orWhere('o.artist LIKE :query')
                                                         ->orWhere('o.charter LIKE :query')
+                                                        ->orderBy('o.id', 'DESC')
                                                         ->setParameter('query', '%'.$searchQuery.'%')
                                                         ->getQuery()
                                                         ->getResult();
@@ -430,7 +432,7 @@ class APIController extends AbstractController
         $data['songs'] = [];
 
         // Songs
-        $resultsSongs = $em->getRepository(Song::class)->findAll();
+        $resultsSongs = $em->getRepository(Song::class)->findBy(array(), array('id' => 'DESC'));
                 
         foreach($resultsSongs as $result) {
             $oneResult = [];
