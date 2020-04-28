@@ -10,8 +10,6 @@
 /vendor/
 ###< symfony/framework-bundle ###
 
-/composer.lock
-
 ###> symfony/phpunit-bridge ###
 .phpunit
 .phpunit.result.cache
