@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpClient\HttpClient;
 
 use App\Entity\ClientRelease;
 use App\Entity\Song;
@@ -25,6 +26,38 @@ class APIController extends AbstractController
     public function ping()
     {
         $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'pong' => true]);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
+    }
+
+    /**
+     * @Route("/api/streamStatus", name="api.streamStatus")
+     */
+    public function streamStatus()
+    {
+        $client = HttpClient::create();
+        $apiResponseRaw = $client->request('GET', 'https://api.twitch.tv/helix/streams/?user_login=spinshare', [
+            'headers' => [
+                'Client-ID' => $_ENV['TWITCH_API_CLIENT_ID'],
+            ],
+        ]);
+        $apiResponse = json_decode($apiResponseRaw->getContent());
+
+        if(count($apiResponse->data) != 0) {
+            $data = [
+                "title" => $apiResponse->data[0]->title,
+                "viewers" => $apiResponse->data[0]->viewer_count,
+                "isLive" => ($apiResponse->data[0]->type == "live") ? true : false
+            ];
+        } else {
+            $data = [
+                "title" => "",
+                "viewers" => 0,
+                "isLive" => false
+            ];
+        }
+
+        $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
         $response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
     }
