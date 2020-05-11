@@ -3,6 +3,8 @@
 
     namespace App\Entity;
 
+    use Doctrine\Common\Collections\ArrayCollection;
+    use Doctrine\Common\Collections\Collection;
     use FOS\UserBundle\Model\User as BaseUser;
     use Doctrine\ORM\Mapping as ORM;
 
@@ -34,9 +36,21 @@
          */
         private $isPatreon;
 
+        /**
+         * @ORM\ManyToMany(targetEntity="App\Entity\SongReview", mappedBy="user")
+         */
+        private $reviews;
+
+        /**
+         * @ORM\ManyToMany(targetEntity="App\Entity\SongSpinPlay", mappedBy="user")
+         */
+        private $spinPlays;
+
         public function __construct()
         {
             parent::__construct();
+            $this->reviews = new ArrayCollection();
+            $this->spinPlays = new ArrayCollection();
             // your own logic
         }
 
@@ -72,6 +86,62 @@
         public function setIsPatreon(bool $isPatreon): self
         {
             $this->isPatreon = $isPatreon;
+
+            return $this;
+        }
+
+        /**
+         * @return Collection|SongReview[]
+         */
+        public function getReviews(): Collection
+        {
+            return $this->reviews;
+        }
+
+        public function addReview(SongReview $review): self
+        {
+            if (!$this->reviews->contains($review)) {
+                $this->reviews[] = $review;
+                $review->addUser($this);
+            }
+
+            return $this;
+        }
+
+        public function removeReview(SongReview $review): self
+        {
+            if ($this->reviews->contains($review)) {
+                $this->reviews->removeElement($review);
+                $review->removeUser($this);
+            }
+
+            return $this;
+        }
+
+        /**
+         * @return Collection|SongSpinPlay[]
+         */
+        public function getSpinPlays(): Collection
+        {
+            return $this->spinPlays;
+        }
+
+        public function addSpinPlay(SongSpinPlay $spinPlay): self
+        {
+            if (!$this->spinPlays->contains($spinPlay)) {
+                $this->spinPlays[] = $spinPlay;
+                $spinPlay->addUser($this);
+            }
+
+            return $this;
+        }
+
+        public function removeSpinPlay(SongSpinPlay $spinPlay): self
+        {
+            if ($this->spinPlays->contains($spinPlay)) {
+                $this->spinPlays->removeElement($spinPlay);
+                $spinPlay->removeUser($this);
+            }
 
             return $this;
         }

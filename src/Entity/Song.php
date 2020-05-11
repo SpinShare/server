@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -100,6 +102,27 @@ class Song
      * @ORM\Column(type="datetime")
      */
     private $uploadDate;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\SongReview", mappedBy="song", orphanRemoval=true)
+     */
+    private $reviews;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\SongSpinPlay", mappedBy="song", orphanRemoval=true)
+     */
+    private $spinPlays;
+
+    public function __construct()
+    {
+        $this->reviews = new ArrayCollection();
+        $this->spinPlays = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -306,6 +329,80 @@ class Song
     public function setUploadDate(\DateTimeInterface $uploadDate): self
     {
         $this->uploadDate = $uploadDate;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SongReview[]
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(SongReview $review): self
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews[] = $review;
+            $review->setSong($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(SongReview $review): self
+    {
+        if ($this->reviews->contains($review)) {
+            $this->reviews->removeElement($review);
+            // set the owning side to null (unless already changed)
+            if ($review->getSong() === $this) {
+                $review->setSong(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|SongSpinPlay[]
+     */
+    public function getSpinPlays(): Collection
+    {
+        return $this->spinPlays;
+    }
+
+    public function addSpinPlay(SongSpinPlay $spinPlay): self
+    {
+        if (!$this->spinPlays->contains($spinPlay)) {
+            $this->spinPlays[] = $spinPlay;
+            $spinPlay->setSong($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSpinPlay(SongSpinPlay $spinPlay): self
+    {
+        if ($this->spinPlays->contains($spinPlay)) {
+            $this->spinPlays->removeElement($spinPlay);
+            // set the owning side to null (unless already changed)
+            if ($spinPlay->getSong() === $this) {
+                $spinPlay->setSong(null);
+            }
+        }
 
         return $this;
     }
