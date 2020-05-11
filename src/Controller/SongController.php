@@ -15,6 +15,8 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use App\Entity\Song;
+use App\Entity\SongReview;
+use App\Entity\SongSpinPlay;
 use App\Utils\HelperFunctions;
 use App\Entity\User;
 
@@ -38,8 +40,11 @@ class SongController extends AbstractController
         $resultUploader = $em->getRepository(User::class)->findOneBy(array('id' => $resultSong->getUploader()));
         if(!$resultUploader) throw new NotFoundHttpException();
 
+        $resultReviewAverage = $em->getRepository(SongReview::class)->getAverageByID($songId);
+
         $data['song'] = $resultSong;
         $data['uploader'] = $resultUploader;
+        $data['reviewAverage'] = $resultReviewAverage;
 
         return $this->render('song/detail.html.twig', $data);
     }

@@ -11,6 +11,230 @@
 
 {% block content %}
     <section class="section-song-detail">
+        <div class="song-detail">
+            <div class="song-meta">
+                <div class="cover" style="background-image: url({{ asset("uploads/cover/" ~ song.fileReference ~ ".png?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});"></div>
+                <div class="song-metadata">
+                    <div class="song-title">{{ song.title }}</div>
+                    <div class="song-subtitle">AAAAA{{ song.subtitle }}</div>
+                    <div class="song-artist">{{ song.artist }} &bull; Charted by {{ song.charter }}</div>
+                </div>
+            </div>
+            <div class="song-actions">
+                <a href="{{ path('song.download', {songId: song.id}) }}" class="action">
+                    <div class="icon">
+                        <i class="mdi mdi-download"></i>
+                    </div>
+                </a>
+                <div class="action-player">
+                    <div class="icon">
+                        <i class="mdi mdi-play"></i>
+                    </div>
+                    <div class="volume">
+                        <input type="range" min="0" max="100" value="50" class="playerVolume" onChange="UpdateVolume()" />
+                    </div>
+                </div>
+                <a href="spinshare-song://{{ song.id }}" class="action">
+                    <div class="icon">
+                        <i class="mdi mdi-open-in-new"></i>
+                    </div>
+                </a>
+                <a href="{{ path('report.song', {songId: song.id}) }}" class="action">
+                    <div class="icon">
+                        <i class="mdi mdi-flag-outline"></i>
+                    </div>
+                </a>
+            </div>
+            <div class="song-statistics">
+                <div class="stat">
+                    <div class="icon">
+                        <i class="mdi mdi-arm-flex"></i>
+                    </div>
+                    <div class="difficulties">
+                        <img src="{{ asset('assets/img/difficultyEasy.svg') }}" class="{{ song.hasEasyDifficulty ? "active" : "" }}" alt="Easy Difficulty" />
+                        <img src="{{ asset('assets/img/difficultyNormal.svg') }}" class="{{ song.hasNormalDifficulty ? "active" : "" }}" alt="Normal Difficulty" />
+                        <img src="{{ asset('assets/img/difficultyHard.svg') }}" class="{{ song.hasHardDifficulty ? "active" : "" }}" alt="Hard Difficulty" />
+                        <img src="{{ asset('assets/img/difficultyExtreme.svg') }}" class="{{ song.hasExtremeDifficulty ? "active" : "" }}" alt="Extreme Difficulty" />
+                        <img src="{{ asset('assets/img/difficultyXD.svg') }}" class="{{ song.hasXDDifficulty ? "active" : "" }}" alt="xD Difficulty" />
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="icon">
+                        <i class="mdi mdi-calendar-clock"></i>
+                    </div>
+                    <div class="content">
+                    {{ song.uploadDate|date("dS F Y") }}
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="icon">
+                        <i class="mdi mdi-eye"></i>
+                    </div>
+                    <div class="content">
+                    {{ song.views|default(0) }}
+                    </div>
+                </div>
+                <div class="stat">
+                    <div class="icon">
+                        <i class="mdi mdi-download"></i>
+                    </div>
+                    <div class="content">
+                    {{ song.downloads|default(0) }}
+                    </div>
+                </div>
+            </div>
+            <div class="song-uploader">
+                <div class="label">Uploaded by</div>
+                <a href="{{ path('user.detail', {userId: uploader.id}) }}" class="user-item">
+                    <div class="user-avatar" style="background-image: url({{ asset('uploads/avatar/' ~ uploader.coverReference ~ '?t=' ~ date().timestamp) }}), url({{ asset("assets/img/defaultAvatar.jpg") }});"></div>
+                    <div class="user-metadata">
+                        <div class="user-username">{{ uploader.username }}</div>
+                        {% if uploader.isVerified %}
+                            <div class="user-badge"><i class="mdi mdi-check-decagram"></i></div>
+                        {% endif %}
+                        {% if uploader.isPatreon %}
+                            <div class="user-badge"><i class="mdi mdi-patreon"></i></div>
+                        {% endif %}
+                    </div>
+                </a>
+            </div>
+            {% if song.tags != "" and song.description != "" %}
+                <div class="song-description">
+                    {% if song.description != "" %}
+                        <div class="text">{{ song.description|default("No description provided.") }}</div>
+                    {% endif %}
+                    {% if song.tags != "" %}
+                        <div class="tags">
+                            {% for tag in song.tags|split(",") %}
+                                <a href="{{ path('search.index', {q: tag}) }}" class="tag">{{ tag }}</a>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="song-social">
+            <div class="tab-header">
+                <div class="tab-header-item tab-header-item-reviews active" onclick="ChangeTab('reviews')">Reviews</div>
+                <div class="tab-header-item tab-header-item-spinplays" onclick="ChangeTab('spinplays')">SpinPlays</div>
+            </div>
+            <div class="tab tab-reviews active">
+                <div class="review-overview">
+                    <div class="icon">
+                        <i class="mdi mdi-thumbs-up-down"></i>
+                    </div>
+                    <div class="text">
+                        {% if reviewAverage == false %}
+                            <div class="percentage">???%</div>
+                            <div class="label">RECOMMENDED</div>
+                            <div class="disclaimer">This chart does not have enough user-reviews yet.</div>
+                        {% else %}
+                            <div class="percentage">{{ reviewAverage }}%</div>
+                            <div class="label">RECOMMENDED</div>
+                            <div class="disclaimer">Based on {{ song.reviews|length }} user-reviews</div>
+                        {% endif %}
+                    </div>
+                    <a href="" class="action-button">Add Review</a>
+                </div>
+                <div class="reviews">
+                    {% for review in song.reviews %}
+                        <div class="review">
+                            {{ dump(review) }}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="tab tab-spinplays">
+                SpinPlays
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/songdetail.css') }}" />
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        // Make Cover 1by1
+        let cover = document.querySelector(".song-meta .cover");
+        cover.style.width = cover.clientHeight + "px";
+
+        // Song Preview
+        let songActions = document.querySelector(".song-actions");
+        let playerToggle = document.querySelector(".song-actions .action-player .icon");
+        let playerVolume = document.querySelector(".song-actions .playerVolume");
+
+        let isPlaying = false;
+        let currentPreviewAudio;
+
+        playerToggle.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+
+            if(isPlaying) {
+                songActions.classList.add("player-active");
+                PlayPreview();
+            } else {
+                songActions.classList.remove("player-active");
+                StopPreview();
+            }
+        });
+
+        function PlayPreview() {
+            currentPreviewAudio = new Audio("{{ asset('uploads/audio/' ~ song.fileReference ~ '_0.ogg') }}");
+            currentPreviewAudio.volume = 0.5;
+            playerVolume.value = 50;
+            currentPreviewAudio.play();
+            currentPreviewAudio.onended = function() {
+                StopPreview();
+            }
+            isPlaying = true;
+
+            playerToggle.innerHTML = '<i class="mdi mdi-stop"></i>';
+        }
+
+        function StopPreview() {
+            if(currentPreviewAudio) {
+                currentPreviewAudio.pause();
+                currentPreviewAudio.currentTime = 0;
+            }
+            currentPreviewAudio = null;
+            isPlaying = false;
+            
+            playerToggle.innerHTML = '<i class="mdi mdi-play"></i>';
+        }
+
+        function UpdateVolume() {
+            currentPreviewAudio.volume = playerVolume.value / 100;
+        }
+
+        // Tabs
+        let tabHeaderItemReviews = document.querySelector(".tab-header-item-reviews");
+        let tabHeaderItemSpinPlays = document.querySelector(".tab-header-item-spinplays");
+        let tabReviews = document.querySelector(".tab-reviews");
+        let tabSpinPlays = document.querySelector(".tab-spinplays");
+        function ChangeTab(newTab) {
+            switch(newTab) {
+                case 'reviews':
+                    tabReviews.classList.add("active");
+                    tabSpinPlays.classList.remove("active");
+                    tabHeaderItemReviews.classList.add("active");
+                    tabHeaderItemSpinPlays.classList.remove("active");
+                    break;
+                case 'spinplays':
+                    tabReviews.classList.remove("active");
+                    tabSpinPlays.classList.add("active");
+                    tabHeaderItemReviews.classList.remove("active");
+                    tabHeaderItemSpinPlays.classList.add("active");
+                    break;
+            }
+        }
+    </script>
+{% endblock %}
+
+{% block content2 %}
+    <section class="section-song-detail">
         <div class="song-detail-background" style="background-image: url({{ asset("uploads/cover/" ~ song.fileReference ~ ".png?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});">
             <div class="song-detail-dim">
                 <div class="song-detail active">
@@ -77,11 +301,7 @@
     </section>
 {% endblock %}
 
-{% block styles %}
-    <link rel="stylesheet" href="{{ asset('assets/css/songdetail.css') }}" />
-{% endblock %}
-
-{% block scripts %}
+{% block scripts2 %}
     <script>
         let isPlayingPreview = false;
         const DOMButtonPreview = document.querySelector(".button-preview");

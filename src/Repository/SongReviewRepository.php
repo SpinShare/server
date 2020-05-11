@@ -19,32 +19,25 @@ class SongReviewRepository extends ServiceEntityRepository
         parent::__construct($registry, SongReview::class);
     }
 
-    // /**
-    //  * @return SongReview[] Returns an array of SongReview objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+    public function getAveragebyID(int $songId) {
+        $qb = $this->createQueryBuilder("e");
+        $qb
+            ->where('e.song = :songId')
+            ->setParameter('songId', $songId);
+        $reviews = $qb->getQuery()->getResult();
 
-    /*
-    public function findOneBySomeField($value): ?SongReview
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $reviewsTotal = 0;
+        $reviewsRecommend = 0;
+
+        foreach($reviews as $review) {
+            if($review->getRecommended()) $reviewsRecommend++;
+            $reviewsTotal++;
+        }
+
+        if($reviewsTotal > 1) {
+            return round(($reviewsRecommend / $reviewsTotal) * 100, 1);
+        } else {
+            return false;
+        }
     }
-    */
 }
