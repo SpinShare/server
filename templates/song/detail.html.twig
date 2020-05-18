@@ -44,6 +44,24 @@
                         <i class="mdi mdi-flag-outline"></i>
                     </div>
                 </a>
+                {% if uploader.id == app.user.id %}
+                    <a href="{{ path('song.update', {songId: song.id}) }}" class="action">
+                        <div class="icon">
+                            <i class="mdi mdi-pencil"></i>
+                        </div>
+                    </a>
+                    <a href="{{ path('song.delete', {songId: song.id}) }}" class="action">
+                        <div class="icon">
+                            <i class="mdi mdi-delete"></i>
+                        </div>
+                    </a>
+                {% elseif is_granted('ROLE_MODERATOR') %}
+                    <a href="{{ path('moderation.song.remove', {songId: song.id}) }}" onclick="return confirm('Are you sure? This action cannot be undone!')" class="action">
+                        <div class="icon">
+                            <i class="mdi mdi-delete"></i>
+                        </div>
+                    </a>
+                {% endif %}
             </div>
             <div class="song-statistics">
                 <div class="stat">
@@ -329,21 +347,4 @@
             currentPreviewAudio.volume = playerVolume.value / 100;
         }
     </script>
-{% endblock %}
-
-{% block content2 %}
-        {% if is_granted("ROLE_USER") %}
-            <div class="{{ (uploader.id == app.user.id ) ? "song-detail-actions-owner" : is_granted('ROLE_MODERATOR') ? "song-detail-actions-moderator" : "song-detail-actions" }}">
-                <a href="{{ path('song.download', {songId: song.id}) }}" class="button button-primary">Download</a>
-                <button class="button-preview button">PLAY PREVIEW</button>
-                <a href="spinshare-song://{{ song.id }}" class="button">Open in Client</a>
-                <a href="{{ path('report.song', {songId: song.id}) }}" class="button">Report</a>
-                {% if uploader.id == app.user.id %}
-                    <a href="{{ path('song.update', {songId: song.id}) }}" class="button button-icon"><i class="mdi mdi-pencil"></i></a>
-                    <a href="{{ path('song.delete', {songId: song.id}) }}" class="button button-icon"><i class="mdi mdi-delete"></i></a>
-                {% elseif is_granted('ROLE_MODERATOR') %}
-                    <a href="{{ path('moderation.song.remove', {songId: song.id}) }}" onclick="return confirm('Are you sure? This action cannot be undone!')" class="button button-icon"><i class="mdi mdi-delete"></i></a>
-                {% endif %}
-            </div>
-        {% endif %}
 {% endblock %}
