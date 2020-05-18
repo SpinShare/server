@@ -114,4 +114,16 @@ class SongReview
 
         return $this;
     }
+
+    public function getJSON() {
+        $response = array(
+            'id' => $this->id,
+            'user' => $this->user->getJSON(),
+            'recommended' => $this->recommended,
+            'comment' => $this->comment,
+            'reviewDate' => $this->reviewDate
+        );
+
+        return $response;
+    }
 }

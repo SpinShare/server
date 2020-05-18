@@ -148,4 +148,16 @@
 
             return $this;
         }
+
+        public function getJSON() {
+            $response = array(
+                'id' => $this->id,
+                'username' => $this->username,
+                'coverReference' => $this->coverReference,
+                'isVerified' => $this->isVerified,
+                'isPatreon' => $this->isPatreon
+            );
+    
+            return $response;
+        }
     }

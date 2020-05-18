@@ -132,4 +132,16 @@ class SongSpinPlay
                 return $imgUrl;
         }
     }
+
+    public function getJSON() {
+        $response = array(
+            'id' => $this->id,
+            'user' => $this->user->getJSON(),
+            'videoUrl' => $this->videoUrl,
+            'submitDate' => $this->submitDate,
+            'isActive' => $this->isActive
+        );
+
+        return $response;
+    }
 }
