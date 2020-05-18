@@ -37,7 +37,7 @@
         private $isPatreon;
 
         /**
-         * @ORM\ManyToMany(targetEntity="App\Entity\SongReview", mappedBy="user")
+         * @ORM\OneToMany(targetEntity="App\Entity\SongReview", mappedBy="user", orphanRemoval=true)
          */
         private $reviews;
 
@@ -97,24 +97,27 @@
         {
             return $this->reviews;
         }
-
+    
         public function addReview(SongReview $review): self
         {
             if (!$this->reviews->contains($review)) {
                 $this->reviews[] = $review;
-                $review->addUser($this);
+                $review->setSong($this);
             }
-
+    
             return $this;
         }
-
+    
         public function removeReview(SongReview $review): self
         {
             if ($this->reviews->contains($review)) {
                 $this->reviews->removeElement($review);
-                $review->removeUser($this);
+                // set the owning side to null (unless already changed)
+                if ($review->getSong() === $this) {
+                    $review->setSong(null);
+                }
             }
-
+    
             return $this;
         }
 

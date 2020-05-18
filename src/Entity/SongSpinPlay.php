@@ -19,7 +19,8 @@ class SongSpinPlay
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="spinPlays")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="spinPlays")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
@@ -54,28 +55,14 @@ class SongSpinPlay
         return $this->id;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getUser(): Collection
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function addUser(User $user): self
+    public function setUser(?User $user): self
     {
-        if (!$this->user->contains($user)) {
-            $this->user[] = $user;
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        if ($this->user->contains($user)) {
-            $this->user->removeElement($user);
-        }
+        $this->user = $user;
 
         return $this;
     }
@@ -104,6 +91,14 @@ class SongSpinPlay
         return $this;
     }
 
+    public function getVideoThumbnail(): ?string
+    {
+        $videoUrlSplitted = explode('/' , $this->videoUrl);
+        $splittedCount = count($videoUrlSplitted);
+
+        return $this->fetch_highest_res(str_replace("watch?v=", "", $videoUrlSplitted[$splittedCount - 1]));
+    }
+
     public function getSubmitDate(): ?\DateTimeInterface
     {
         return $this->submitDate;
@@ -126,5 +121,15 @@ class SongSpinPlay
         $this->isActive = $isActive;
 
         return $this;
+    }
+
+    // https://stackoverflow.com/questions/18029550/fetch-youtube-highest-thumbnail-resolution
+    function fetch_highest_res($videoid) {
+        $resolutions = array('maxresdefault', 'hqdefault', 'mqdefault');     
+        foreach($resolutions as $res) {
+            $imgUrl = "http://i.ytimg.com/vi/$videoid/$res.jpg";
+            if(@getimagesize(($imgUrl))) 
+                return $imgUrl;
+        }
     }
 }

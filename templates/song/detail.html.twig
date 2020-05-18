@@ -16,7 +16,7 @@
                 <div class="cover" style="background-image: url({{ asset("uploads/cover/" ~ song.fileReference ~ ".png?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});"></div>
                 <div class="song-metadata">
                     <div class="song-title">{{ song.title }}</div>
-                    <div class="song-subtitle">AAAAA{{ song.subtitle }}</div>
+                    <div class="song-subtitle">{{ song.subtitle }}</div>
                     <div class="song-artist">{{ song.artist }} &bull; Charted by {{ song.charter }}</div>
                 </div>
             </div>
@@ -98,7 +98,7 @@
                     </div>
                 </a>
             </div>
-            {% if song.tags != "" and song.description != "" %}
+            {% if song.tags != "" or song.description != "" %}
                 <div class="song-description">
                     {% if song.description != "" %}
                         <div class="text">{{ song.description|default("No description provided.") }}</div>
@@ -115,38 +115,158 @@
         </div>
         <div class="song-social">
             <div class="tab-header">
-                <div class="tab-header-item tab-header-item-reviews active" onclick="ChangeTab('reviews')">Reviews</div>
-                <div class="tab-header-item tab-header-item-spinplays" onclick="ChangeTab('spinplays')">SpinPlays</div>
+                <a href="{{ path('song.detail', {songId: song.id, tab: 'reviews'}) }}" class="tab-header-item tab-header-item-reviews {{ activeTab == 'reviews' ? 'active' : '' }}">Reviews</a>
+                <a href="{{ path('song.detail', {songId: song.id, tab: 'spinplays'}) }}" class="tab-header-item tab-header-item-spinplays {{ activeTab == 'spinplays' ? 'active' : '' }}">SpinPlays</a>
             </div>
-            <div class="tab tab-reviews active">
-                <div class="review-overview">
-                    <div class="icon">
-                        <i class="mdi mdi-thumbs-up-down"></i>
-                    </div>
-                    <div class="text">
-                        {% if reviewAverage == false %}
-                            <div class="percentage">???%</div>
-                            <div class="label">RECOMMENDED</div>
-                            <div class="disclaimer">This chart does not have enough user-reviews yet.</div>
-                        {% else %}
-                            <div class="percentage">{{ reviewAverage }}%</div>
-                            <div class="label">RECOMMENDED</div>
-                            <div class="disclaimer">Based on {{ song.reviews|length }} user-reviews</div>
+            {% if activeTab == 'reviews' %}
+                <div class="tab tab-reviews">
+                    <div class="review-overview">
+                        <div class="icon">
+                            <i class="mdi mdi-thumbs-up-down"></i>
+                        </div>
+                        <div class="text">
+                            {% if reviewAverage == false %}
+                                <div class="percentage">???%</div>
+                                <div class="label">RECOMMENDED</div>
+                                <div class="disclaimer">This chart does not have enough user-reviews yet.</div>
+                            {% else %}
+                                <div class="percentage">{{ reviewAverage }}%</div>
+                                <div class="label">RECOMMENDED</div>
+                                <div class="disclaimer">Based on {{ reviews|length }} user-reviews</div>
+                            {% endif %}
+                        </div>
+                        {% if app.user != uploader %}
+                            {% if is_granted('ROLE_USER') %}
+                                <a href="{{ path('song.detail', {songId: song.id, tab: 'reviews', action: 'add'}) }}" class="action-button">Add Review</a>
+                            {% else %}
+                                <a href="{{ path('fos_user_security_login') }}" class="action-button">Login to Review</a>
+                            {% endif %}
                         {% endif %}
                     </div>
-                    <a href="" class="action-button">Add Review</a>
+                    {% if activeAction == '' %}
+                        {% if reviews|length > 0 %}
+                            <div class="reviews">
+                                {% for review in reviews %}
+                                    <div class="review">
+                                        <div class="metadata">
+                                            <a href="{{ path('user.detail', {userId: review.user.id}) }}" class="avatar" style="background-image: url({{ asset('uploads/avatar/' ~ review.user.coverReference ~ '?t=' ~ date().timestamp) }}), url({{ asset("assets/img/defaultAvatar.jpg") }});"></a>
+                                            <div class="text">
+                                                <a href="{{ path('user.detail', {userId: review.user.id}) }}" class="username">{{ review.user.username }}</a>
+                                                <div class="subline">
+                                                    <i class="mdi {{ review.recommended ? 'mdi-thumb-up positive' : 'mdi-thumb-down negative' }}"></i>
+                                                    <span>{{ review.reviewDate|date("dS F Y") }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="actions">
+                                                {% if is_granted('ROLE_MODERATOR') or review.user == app.user %}
+                                                    <a href="{{ path('song.review.delete', {songId: song.id, reviewId: review.id}) }}" class="action"><i class="mdi mdi-trash-can-outline"></i></a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="comment">
+                                            {{ review.comment }}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="no-reviews">
+                                <div class="icon">
+                                    <i class="mdi mdi-comment-question"></i>
+                                </div>
+                                <div class="text">
+                                    <div class="title">There are no reviews yet.</div>
+                                    <div class="explaination">Come back later or write a new one!</div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% elseif activeAction == 'add' %}
+                        <form action="" method="post" class="form-add">
+                            <div class="form-item">
+                                <label for="reviewRecommended">Do you recommend this chart?</label>
+                                <div class="recommend-group">
+                                    <label class="recommend-radio">
+                                        <input type="radio" checked="checked" name="reviewRecommended" value="yes" />
+                                        <div class="check check-positive"><i class="mdi mdi-thumb-up"></i></div>
+                                    </label>
+                                    <label class="recommend-radio">
+                                        <input type="radio" name="reviewRecommended" value="no" />
+                                        <div class="check check-negative"><i class="mdi mdi-thumb-down"></i></div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-item">
+                                <label for="reviewComment">Comment (optional)</label>
+                                <textarea name="reviewComment" rows="5" placeholder="Write about the flow, difficulty or the patterns of the chart"></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <input type="submit" name="submitReview" value="Submit" />
+                                <a href="{{ path('song.detail', {songId: song.id, tab: 'reviews'}) }}" class="button">Cancel</a>
+                            </div>
+                        </form>
+                    {% endif %}
                 </div>
-                <div class="reviews">
-                    {% for review in song.reviews %}
-                        <div class="review">
-                            {{ dump(review) }}
+            {% else %}
+                <div class="tab tab-spinplays">
+                    {% if activeAction == '' %}
+                        <div class="spinplay-overview">
+                            <div class="icon">
+                                <i class="mdi mdi-youtube"></i>
+                            </div>
+                            <div class="text">
+                                    <div class="label">Add your Gameplay Video</div>
+                                    <div class="disclaimer">Did you play this chart? Submit your video and get featured here!</div>
+                            </div>
+                            {% if is_granted('ROLE_USER') %}
+                                <a href="{{ path('song.detail', {songId: song.id, tab: 'spinplays', action: 'add'}) }}" class="action-button">Submit Video</a>
+                            {% else %}
+                                <a href="{{ path('fos_user_security_login') }}" class="action-button">Login to Submit</a>
+                            {% endif %}
                         </div>
-                    {% endfor %}
+                        {% if spinplays|length > 0 %}
+                            <div class="spinplays">
+                                {% for spinplay in spinplays %}
+                                    <div class="spinplay">
+                                        <a href="{{ spinplay.videoUrl }}" target="_blank" class="thumbnail" style="background-image: url('{{ spinplay.videoThumbnail }}');"></a>
+                                        <div class="metadata">
+                                            <div class="avatar" style="background-image: url({{ asset('uploads/avatar/' ~ spinplay.user.coverReference ~ '?t=' ~ date().timestamp) }}), url({{ asset("assets/img/defaultAvatar.jpg") }});"></div>
+                                            <div class="username">{{ spinplay.user.username }}</div>
+                                            <div class="actions">
+                                                {% if is_granted('ROLE_MODERATOR') or spinplay.user == app.user or uploader == app.user %}
+                                                    <a href="{{ path('song.spinplay.delete', {songId: song.id, spinplayId: spinplay.id}) }}" class="action"><i class="mdi mdi-trash-can-outline"></i></a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <div class="no-spinplays">
+                                <div class="icon">
+                                    <i class="mdi mdi-youtube"></i>
+                                </div>
+                                <div class="text">
+                                    <div class="title">There are no SpinPlays yet.</div>
+                                    <div class="explaination">Come back later or submit a new one!</div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% elseif activeAction == 'add' %}
+                        {% if is_granted('ROLE_USER') %}
+                            <form action="" method="post" class="form-add">
+                                <div class="form-item">
+                                    <label for="spinPlaysUrl">YouTube Url</label>
+                                    <input type="text" name="spinPlayUrl" placeholder="https://youtube.com/watch?v=dQw4w9WgXcQ or https://youtu.be/dQw4w9WgXcQ" />
+                                </div>
+                                <div class="form-actions">
+                                    <input type="submit" name="submitSpinPlay" value="Submit" />
+                                    <a href="{{ path('song.detail', {songId: song.id, tab: 'spinplays'}) }}" class="button">Cancel</a>
+                                </div>
+                            </form>
+                        {% endif %}
+                    {% endif %}
                 </div>
-            </div>
-            <div class="tab tab-spinplays">
-                SpinPlays
-            </div>
+            {% endif %}
         </div>
     </section>
 {% endblock %}
@@ -173,10 +293,8 @@
             isPlaying = !isPlaying;
 
             if(isPlaying) {
-                songActions.classList.add("player-active");
                 PlayPreview();
             } else {
-                songActions.classList.remove("player-active");
                 StopPreview();
             }
         });
@@ -191,6 +309,7 @@
             }
             isPlaying = true;
 
+            songActions.classList.add("player-active");
             playerToggle.innerHTML = '<i class="mdi mdi-stop"></i>';
         }
 
@@ -202,81 +321,17 @@
             currentPreviewAudio = null;
             isPlaying = false;
             
+            songActions.classList.remove("player-active");
             playerToggle.innerHTML = '<i class="mdi mdi-play"></i>';
         }
 
         function UpdateVolume() {
             currentPreviewAudio.volume = playerVolume.value / 100;
         }
-
-        // Tabs
-        let tabHeaderItemReviews = document.querySelector(".tab-header-item-reviews");
-        let tabHeaderItemSpinPlays = document.querySelector(".tab-header-item-spinplays");
-        let tabReviews = document.querySelector(".tab-reviews");
-        let tabSpinPlays = document.querySelector(".tab-spinplays");
-        function ChangeTab(newTab) {
-            switch(newTab) {
-                case 'reviews':
-                    tabReviews.classList.add("active");
-                    tabSpinPlays.classList.remove("active");
-                    tabHeaderItemReviews.classList.add("active");
-                    tabHeaderItemSpinPlays.classList.remove("active");
-                    break;
-                case 'spinplays':
-                    tabReviews.classList.remove("active");
-                    tabSpinPlays.classList.add("active");
-                    tabHeaderItemReviews.classList.remove("active");
-                    tabHeaderItemSpinPlays.classList.add("active");
-                    break;
-            }
-        }
     </script>
 {% endblock %}
 
 {% block content2 %}
-    <section class="section-song-detail">
-        <div class="song-detail-background" style="background-image: url({{ asset("uploads/cover/" ~ song.fileReference ~ ".png?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});">
-            <div class="song-detail-dim">
-                <div class="song-detail active">
-                    <div class="song-cover" style="background-image: url({{ asset("uploads/cover/" ~ song.fileReference ~ ".png?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});">
-                    </div>
-                    <div class="song-meta-data">
-                        <div class="song-title">{{ song.title }}</div>
-                        <div class="song-subtitle">{{ song.subtitle }}</div>
-                        <div class="song-artist">{{ song.artist }}</div>
-                        <div class="song-charter">Created by {{ song.charter }}</div>
-                        <div class="song-tags">
-                            {% for tag in song.tags|split(",") %}
-                                {% if tag != "" %}
-                                    <a href="{{ path('search.index', {q: tag}) }}" class="tag">{{ tag }}</a>
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-                        <div class="song-difficulties">
-                            <img src="{{ asset('assets/img/difficultyEasy.svg') }}" class="{{ song.hasEasyDifficulty ? "active" : "" }}" alt="Easy Difficulty" />
-                            <img src="{{ asset('assets/img/difficultyNormal.svg') }}" class="{{ song.hasNormalDifficulty ? "active" : "" }}" alt="Normal Difficulty" />
-                            <img src="{{ asset('assets/img/difficultyHard.svg') }}" class="{{ song.hasHardDifficulty ? "active" : "" }}" alt="Hard Difficulty" />
-                            <img src="{{ asset('assets/img/difficultyExtreme.svg') }}" class="{{ song.hasExtremeDifficulty ? "active" : "" }}" alt="Extreme Difficulty" />
-                            <img src="{{ asset('assets/img/difficultyXD.svg') }}" class="{{ song.hasXDDifficulty ? "active" : "" }}" alt="xD Difficulty" />
-                        </div>
-                        <div class="song-uploader">
-                            <a href="{{ path('user.detail', {userId: uploader.id}) }}" class="user-item">
-                                <div class="user-avatar" style="background-image: url({{ asset('uploads/avatar/' ~ uploader.coverReference ~ '?t=' ~ date().timestamp) }}), url({{ asset("assets/img/defaultAvatar.jpg") }});"></div>
-                                <div class="user-metadata">
-                                    <div class="user-username">{{ uploader.username }}</div>
-                                    {% if uploader.isVerified %}
-                                        <div class="user-badge"><i class="mdi mdi-check-decagram"></i></div>
-                                    {% endif %}
-                                    {% if uploader.isPatreon %}
-                                        <div class="user-badge"><i class="mdi mdi-patreon"></i></div>
-                                    {% endif %}
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         {% if is_granted("ROLE_USER") %}
             <div class="{{ (uploader.id == app.user.id ) ? "song-detail-actions-owner" : is_granted('ROLE_MODERATOR') ? "song-detail-actions-moderator" : "song-detail-actions" }}">
                 <a href="{{ path('song.download', {songId: song.id}) }}" class="button button-primary">Download</a>
@@ -290,54 +345,5 @@
                     <a href="{{ path('moderation.song.remove', {songId: song.id}) }}" onclick="return confirm('Are you sure? This action cannot be undone!')" class="button button-icon"><i class="mdi mdi-delete"></i></a>
                 {% endif %}
             </div>
-        {% else %}
-            <div class="song-detail-actions">
-                <a href="{{ path('song.download', {songId: song.id}) }}" class="button button-primary">Download</a>
-                <button class="button-preview button">PLAY PREVIEW</button>
-                <a href="spinshare-song://{{ song.id }}" class="button">Open in Client</a>
-                <a href="{{ path('report.song', {songId: song.id}) }}" class="button">Report</a>
-            </div>
         {% endif %}
-    </section>
-{% endblock %}
-
-{% block scripts2 %}
-    <script>
-        let isPlayingPreview = false;
-        const DOMButtonPreview = document.querySelector(".button-preview");
-
-        DOMButtonPreview.addEventListener('click', function() {
-            SongDetailTogglePreview();
-        });
-
-        function SongDetailTogglePreview() {
-            if(isPlayingPreview) {
-                SongDetailStopPreview();
-            } else {
-                SongDetailStartPreview();
-            }
-        }
-        function SongDetailStartPreview() {
-            currentPreviewAudio = new Audio("{{ asset('uploads/audio/' ~ song.fileReference ~ '_0.ogg') }}");
-            currentPreviewAudio.volume = 0.4;
-            currentPreviewAudio.play();
-            currentPreviewAudio.onended = function() {
-                SongDetailStopPreview();
-            }
-            isPlayingPreview = true;
-            DOMButtonPreview.innerText = "STOP PREVIEW";
-            DOMButtonPreview.classList.add("button-primary");
-        }
-        function SongDetailStopPreview() {
-            if(currentPreviewAudio) {
-                currentPreviewAudio.pause();
-                currentPreviewAudio.currentTime = 0;
-            }
-            currentPreviewAudio = null;
-            isPlayingPreview = false;
-
-            DOMButtonPreview.innerText = "PLAY PREVIEW";
-            DOMButtonPreview.classList.remove("button-primary");
-        }
-    </script>
 {% endblock %}

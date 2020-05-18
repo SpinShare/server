@@ -40,11 +40,50 @@ class SongController extends AbstractController
         $resultUploader = $em->getRepository(User::class)->findOneBy(array('id' => $resultSong->getUploader()));
         if(!$resultUploader) throw new NotFoundHttpException();
 
+        $resultReviews = $em->getRepository(SongReview::class)->findBy(array('song' => $resultSong), array('reviewDate' => 'DESC'));
+        $resultSpinPlay = $em->getRepository(SongSpinPlay::class)->findBy(array('song' => $resultSong, 'isActive' => true), array('submitDate' => 'DESC'));
+
         $resultReviewAverage = $em->getRepository(SongReview::class)->getAverageByID($songId);
 
         $data['song'] = $resultSong;
         $data['uploader'] = $resultUploader;
+        $data['reviews'] = $resultReviews;
+        $data['spinplays'] = $resultSpinPlay;
         $data['reviewAverage'] = $resultReviewAverage;
+        $data['activeTab'] = $request->query->get('tab') ? $request->query->get('tab') : 'reviews';
+        $data['activeAction'] = $request->query->get('action');
+
+        if($this->getUser() != null) {
+            if($this->getUser() != $resultUploader) {
+                if($request->request->get('submitReview') && !empty($request->request->get('reviewRecommended'))) {
+                    $newReview = new SongReview();
+                    $newReview->setUser($this->getUser());
+                    $newReview->setSong($resultSong);
+                    $newReview->setRecommended($request->request->get('reviewRecommended') == "yes" ? true : false);
+                    $newReview->setComment($request->request->get('reviewComment'));
+                    $newReview->setReviewDate(new \DateTime('NOW'));
+
+                    $em->persist($newReview);
+                    $em->flush();
+
+                    return $this->redirectToRoute('song.detail', ['songId' => $resultSong->getId(), 'tab' => 'reviews']);
+                }
+            }
+
+            if($request->request->get('submitSpinPlay') && !empty($request->request->get('spinPlayUrl'))) {
+                $newSpinPlay = new SongSpinPlay();
+                $newSpinPlay->setUser($this->getUser());
+                $newSpinPlay->setVideoUrl($request->request->get('spinPlayUrl'));
+                $newSpinPlay->setSong($resultSong);
+                $newSpinPlay->setSubmitDate(new \DateTime('NOW'));
+                $newSpinPlay->setIsActive(true);
+
+                $em->persist($newSpinPlay);
+                $em->flush();
+
+                return $this->redirectToRoute('song.detail', ['songId' => $resultSong->getId(), 'tab' => 'spinplays']);
+            }
+        }
 
         return $this->render('song/detail.html.twig', $data);
     }
@@ -363,6 +402,64 @@ class SongController extends AbstractController
             } else {
                 return $this->render('song/delete.html.twig', $data);
             }
+        }
+    }
+
+    /**
+     * @Route("/song/{songId}/spinplay/{spinplayId}/delete", name="song.spinplay.delete")
+     */
+    public function songSpinplayDelete(Request $request, int $songId, int $spinplayId)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        $resultSpinplay = $em->getRepository(SongSpinplay::class)->findOneBy(array('id' => $spinplayId));
+        
+        if(!$resultSpinplay) {
+            return $this->redirectToRoute('song.detail', ['songId' => $songId, 'tab' => 'spinplays']);
+        } else {
+            // TODO
+            $userRoles = $this->getUser()->getRoles();
+            $allowedRoles = ["ROLE_ADMIN", "ROLE_SUPERADMIN", "ROLE_MODERATOR"];
+
+            // Check if allowed to remove
+            if(count(array_intersect($allowedRoles, $userRoles)) > 0 || $resultSpinplay->getUser() == $this->getUser() || $resultSpinPlay->getSong()->getUploader() == $this->getUser()) {
+                $em->remove($resultSpinplay);
+                $em->flush();
+            }
+
+            // Redirect
+            return $this->redirectToRoute('song.detail', ['songId' => $songId, 'tab' => 'spinplays']);
+        }
+    }
+
+    /**
+     * @Route("/song/{songId}/review/{reviewId}/delete", name="song.review.delete")
+     */
+    public function songReviewDelete(Request $request, int $songId, int $reviewId)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        $resultReview = $em->getRepository(SongReview::class)->findOneBy(array('id' => $reviewId));
+        
+        if(!$resultReview) {
+            return $this->redirectToRoute('song.detail', ['songId' => $songId, 'tab' => 'reviews']);
+        } else {
+            // TODO
+            $userRoles = $this->getUser()->getRoles();
+            $allowedRoles = ["ROLE_ADMIN", "ROLE_SUPERADMIN", "ROLE_MODERATOR"];
+
+            // Check if allowed to remove
+            if(count(array_intersect($allowedRoles, $userRoles)) > 0 || $resultReview->getUser() == $this->getUser()) {
+                $em->remove($resultReview);
+                $em->flush();
+            }
+
+            // Redirect
+            return $this->redirectToRoute('song.detail', ['songId' => $songId, 'tab' => 'reviews']);
         }
     }
 }

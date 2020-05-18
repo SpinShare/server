@@ -19,7 +19,8 @@ class SongReview
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="reviews")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="reviews")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
@@ -54,28 +55,14 @@ class SongReview
         return $this->id;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getUser(): Collection
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function addUser(User $user): self
+    public function setUser(?User $user): self
     {
-        if (!$this->user->contains($user)) {
-            $this->user[] = $user;
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): self
-    {
-        if ($this->user->contains($user)) {
-            $this->user->removeElement($user);
-        }
+        $this->user = $user;
 
         return $this;
     }

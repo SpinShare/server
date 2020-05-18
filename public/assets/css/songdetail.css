@@ -131,12 +131,29 @@
   border-radius: 4px;
   margin-top: 25px;
   display: grid;
-  grid-gap: 15px;
+  grid-gap: 0px;
 }
 .section-song-detail .song-detail .song-description .text {
   line-height: 1.5em;
   padding: 20px;
   opacity: 0.7;
+}
+.section-song-detail .song-detail .song-description .tags {
+  padding: 20px;
+}
+.section-song-detail .song-detail .song-description .tags .tag {
+  margin-right: 10px;
+  background: #fff;
+  color: #000;
+  border-radius: 50px;
+  padding: 7px 14px;
+  font-size: 12px;
+  text-decoration: none;
+  transition: 0.2s ease-in-out opacity;
+}
+.section-song-detail .song-detail .song-description .tags .tag:hover {
+  cursor: pointer;
+  opacity: 0.6;
 }
 .section-song-detail .song-social .tab-header {
   display: flex;
@@ -146,12 +163,14 @@
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.25em;
-  padding: 15px 25px;
+  padding: 15px 40px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   opacity: 0.4;
   background: rgba(0, 0, 0, 0.4);
   transition: 0.2s ease-in-out all;
+  color: #fff;
+  text-decoration: none;
 }
 .section-song-detail .song-social .tab-header .tab-header-item:not(.active):hover {
   cursor: pointer;
@@ -166,9 +185,6 @@
   border-radius: 4px;
   border-top-left-radius: 0px;
   padding: 20px;
-  display: none;
-}
-.section-song-detail .song-social .tab.active {
   display: grid;
   grid-gap: 25px;
 }
@@ -191,7 +207,8 @@
 .section-song-detail .song-social .tab.tab-reviews .review-overview .text .label {
   font-size: 12px;
   font-weight: bold;
-  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   margin-bottom: 5px;
 }
 .section-song-detail .song-social .tab.tab-reviews .review-overview .text .disclaimer {
@@ -220,4 +237,319 @@
   background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
   padding: 20px;
+}
+.section-song-detail .song-social .tab.tab-reviews .reviews .review .metadata {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-gap: 15px;
+}
+.section-song-detail .song-social .tab.tab-reviews .reviews .review .metadata .avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 48px;
+  background-position: center;
+  background-size: cover;
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  transition: 0.2s ease-in-out opacity;
+}
+.section-song-detail .song-social .tab.tab-reviews .reviews .review .metadata .avatar:hover {
+  opacity: 0.6;
+}
+.section-song-detail .song-social .tab.tab-reviews .reviews .review .metadata .text .username {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  transition: 0.2s ease-in-out opacity;
+}
+.section-song-detail .song-social .tab.tab-reviews .reviews .review .metadata .text .username:hover {
+  opacity: 0.6;
+}
+.section-song-detail .song-social .tab.tab-reviews .reviews .review .metadata .text .subline {
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+}
+.section-song-detail .song-social .tab.tab-reviews .reviews .review .metadata .text .subline i.positive {
+  color: #62d38a;
+}
+.section-song-detail .song-social .tab.tab-reviews .reviews .review .metadata .text .subline i.negative {
+  color: #f73c56;
+}
+.section-song-detail .song-social .tab.tab-reviews .reviews .review .metadata .text .subline span {
+  opacity: 0.6;
+}
+.section-song-detail .song-social .tab.tab-reviews .reviews .review .metadata .actions {
+  align-self: center;
+}
+.section-song-detail .song-social .tab.tab-reviews .reviews .review .metadata .actions .action {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+  border-radius: 4px;
+  padding: 5px 15px;
+  transition: 0.2s ease-in-out opacity;
+}
+.section-song-detail .song-social .tab.tab-reviews .reviews .review .metadata .actions .action:hover {
+  opacity: 0.6;
+}
+.section-song-detail .song-social .tab.tab-reviews .reviews .review .comment {
+  margin-top: 15px;
+  line-height: 1.5em;
+}
+.section-song-detail .song-social .tab.tab-reviews .no-reviews {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 20px 30px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 25px;
+  align-items: center;
+}
+.section-song-detail .song-social .tab.tab-reviews .no-reviews .icon {
+  color: #fff;
+  font-size: 48px;
+}
+.section-song-detail .song-social .tab.tab-reviews .no-reviews .text .title {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+.section-song-detail .song-social .tab.tab-reviews .no-reviews .text .explaination {
+  opacity: 0.6;
+}
+.section-song-detail .song-social .tab.tab-spinplays .spinplay-overview {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 20px 30px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-gap: 25px;
+  align-items: center;
+}
+.section-song-detail .song-social .tab.tab-spinplays .spinplay-overview .icon {
+  color: #fff;
+  font-size: 48px;
+}
+.section-song-detail .song-social .tab.tab-spinplays .spinplay-overview .text .label {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+.section-song-detail .song-social .tab.tab-spinplays .spinplay-overview .text .disclaimer {
+  opacity: 0.6;
+}
+.section-song-detail .song-social .tab.tab-spinplays .spinplay-overview .action-button {
+  text-decoration: none;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+  padding: 10px 20px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  transition: 0.2s ease-in-out all;
+}
+.section-song-detail .song-social .tab.tab-spinplays .spinplay-overview .action-button:hover {
+  opacity: 0.6;
+}
+.section-song-detail .song-social .tab.tab-spinplays .spinplays {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 15px;
+}
+.section-song-detail .song-social .tab.tab-spinplays .spinplays .spinplay {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  color: #fff;
+  text-decoration: none;
+}
+.section-song-detail .song-social .tab.tab-spinplays .spinplays .spinplay .thumbnail {
+  width: 100%;
+  display: block;
+  padding-top: 56.25%;
+  background: rgba(255, 255, 255, 0.1);
+  background-position: center;
+  background-size: cover;
+  transition: 0.2s ease-in-out opacity;
+}
+.section-song-detail .song-social .tab.tab-spinplays .spinplays .spinplay .thumbnail:hover {
+  opacity: 0.6;
+}
+.section-song-detail .song-social .tab.tab-spinplays .spinplays .spinplay .metadata {
+  padding: 15px;
+  display: grid;
+  grid-gap: 15px;
+  align-items: center;
+  grid-template-columns: auto 1fr auto;
+}
+.section-song-detail .song-social .tab.tab-spinplays .spinplays .spinplay .metadata .avatar {
+  width: 32px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.1);
+  background-position: center;
+  background-size: cover;
+  border-radius: 40px;
+}
+.section-song-detail .song-social .tab.tab-spinplays .spinplays .spinplay .metadata .actions .action {
+  color: #fff;
+  text-decoration: none;
+  font-size: 18px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+  border-radius: 4px;
+  padding: 5px 15px;
+  transition: 0.2s ease-in-out opacity;
+}
+.section-song-detail .song-social .tab.tab-spinplays .spinplays .spinplay .metadata .actions .action:hover {
+  opacity: 0.6;
+}
+.section-song-detail .song-social .tab.tab-spinplays .no-spinplays {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 20px 30px;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 25px;
+  align-items: center;
+}
+.section-song-detail .song-social .tab.tab-spinplays .no-spinplays .icon {
+  color: #fff;
+  font-size: 48px;
+}
+.section-song-detail .song-social .tab.tab-spinplays .no-spinplays .text .title {
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+.section-song-detail .song-social .tab.tab-spinplays .no-spinplays .text .explaination {
+  opacity: 0.6;
+}
+.section-song-detail .song-social .tab .form-add {
+  border-radius: 4px;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 15px;
+}
+.section-song-detail .song-social .tab .form-add .form-item {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  grid-gap: 15px;
+}
+.section-song-detail .song-social .tab .form-add .form-item .recommend-group {
+  display: flex;
+}
+.section-song-detail .song-social .tab .form-add .form-item .recommend-group .recommend-radio {
+  user-select: none;
+  margin-right: 15px;
+  position: relative;
+  cursor: pointer;
+}
+.section-song-detail .song-social .tab .form-add .form-item .recommend-group .recommend-radio input {
+  position: absolute;
+  cursor: pointer;
+  width: 0px;
+  height: 0px;
+  opacity: 0;
+}
+.section-song-detail .song-social .tab .form-add .form-item .recommend-group .recommend-radio input:checked ~ .check-positive {
+  background: rgba(98, 211, 138, 0.2);
+  border-color: rgba(98, 211, 138, 0.4);
+  color: #62d38a;
+}
+.section-song-detail .song-social .tab .form-add .form-item .recommend-group .recommend-radio input:checked ~ .check-negative {
+  background: rgba(247, 60, 86, 0.2);
+  border-color: rgba(247, 60, 86, 0.4);
+  color: #f73c56;
+}
+.section-song-detail .song-social .tab .form-add .form-item .recommend-group .recommend-radio .check {
+  background: rgba(255, 255, 255, 0.15);
+  width: 80px;
+  height: 30px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+.section-song-detail .song-social .tab .form-add .form-actions {
+  text-align: right;
+}
+.section-song-detail .song-social .tab .form-add input[type="text"],
+.section-song-detail .song-social .tab .form-add textarea {
+  width: 100%;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 7px 14px;
+  border: 0px;
+  transition: 0.2s ease-in-out background, 0.2s ease-in-out color;
+}
+.section-song-detail .song-social .tab .form-add input[type="text"]:not(:disabled):hover,
+.section-song-detail .song-social .tab .form-add textarea:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.4);
+  color: #fff;
+  cursor: text;
+}
+.section-song-detail .song-social .tab .form-add input[type="text"]:focus,
+.section-song-detail .song-social .tab .form-add textarea:focus {
+  outline: 0;
+}
+.section-song-detail .song-social .tab .form-add input[type="text"]::placeholder,
+.section-song-detail .song-social .tab .form-add textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+.section-song-detail .song-social .tab .form-add input[type="text"] option,
+.section-song-detail .song-social .tab .form-add textarea option {
+  background: #222;
+  text-transform: initial;
+}
+.section-song-detail .song-social .tab .form-add input[type="text"]:disabled,
+.section-song-detail .song-social .tab .form-add textarea:disabled {
+  opacity: 0.4;
+}
+.section-song-detail .song-social .tab .form-add input[type="submit"],
+.section-song-detail .song-social .tab .form-add .button {
+  text-decoration: none;
+  border: 0px;
+  color: #fff;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: 0.2s ease-in-out all;
+}
+.section-song-detail .song-social .tab .form-add input[type="submit"]:hover,
+.section-song-detail .song-social .tab .form-add .button:hover {
+  opacity: 0.6;
+}
+@media screen and (min-width: 1700px) {
+  .section-song-detail .song-social .tab.tab-spinplays .spinplays {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media screen and (max-width: 1350px) {
+  .section-song-detail {
+    grid-template-columns: 1fr;
+  }
 }
