@@ -36,9 +36,15 @@ class APIController extends AbstractController
     public function streamStatus()
     {
         $client = HttpClient::create();
+        $apiAccessResponseRaw = $client->request('POST', 'https://id.twitch.tv/oauth2/token?client_id='.$_ENV['TWITCH_API_CLIENT_ID'].'&client_secret='.$_ENV['TWITCH_API_CLIENT_SECRET'].'&grant_type=client_credentials');
+        $apiAccessResponse = json_decode($apiAccessResponseRaw->getContent());
+
+        $apiAccessToken = $apiAccessResponse->access_token;
+
         $apiResponseRaw = $client->request('GET', 'https://api.twitch.tv/helix/streams/?user_login=spinshare', [
             'headers' => [
                 'Client-ID' => $_ENV['TWITCH_API_CLIENT_ID'],
+                'Authorization' => 'Bearer '.$apiAccessToken
             ],
         ]);
         $apiResponse = json_decode($apiResponseRaw->getContent());
