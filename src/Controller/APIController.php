@@ -12,6 +12,8 @@ use Symfony\Component\HttpClient\HttpClient;
 
 use App\Entity\ClientRelease;
 use App\Entity\Song;
+use App\Entity\SongReview;
+use App\Entity\SongSpinPlay;
 use App\Entity\User;
 use App\Entity\Promo;
 
@@ -235,12 +237,75 @@ class APIController extends AbstractController
             $data['paths']['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
             $data['views'] = $result->getViews();
             $data['downloads'] = $result->getDownloads();
+    
+            $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
+        }
+    }
 
-            foreach($result->getReviews() as $review) {
+    /**
+     * @Route("/api/song/{idOrReference}/reviews", name="api.songs.detail.reviews")
+     */
+    public function songDetailReviews(Request $request, $idOrReference)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        if(is_numeric($idOrReference)) {
+            // $idOrReference is the ID
+            $resultSong = $em->getRepository(Song::class)->findOneBy(array('id' => $idOrReference));
+        } else {
+            // $idOrReference is the file Reference
+            $resultSong = $em->getRepository(Song::class)->findOneBy(array('fileReference' => $idOrReference));
+        }
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
+        if(!$resultSong) {
+            $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 404, 'data' => []]);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
+        } else {
+            $resultReviewAverage = $em->getRepository(SongReview::class)->getAveragebyID($resultSong->getId());
+            $data['average'] = $resultReviewAverage;
+            
+            $resultReviews = $em->getRepository(SongReview::class)->findBy(array('song' => $resultSong), array('reviewDate' => 'DESC'));
+
+            foreach($resultReviews as $review) {
                 $data['reviews'][] = $review->getJSON();
             }
+    
+            $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
+        }
+    }
 
-            foreach($result->getSpinPlays() as $spinPlay) {
+    /**
+     * @Route("/api/song/{idOrReference}/spinplays", name="api.songs.detail.spinplays")
+     */
+    public function songDetailSpinPlays(Request $request, $idOrReference)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        if(is_numeric($idOrReference)) {
+            // $idOrReference is the ID
+            $resultSong = $em->getRepository(Song::class)->findOneBy(array('id' => $idOrReference));
+        } else {
+            // $idOrReference is the file Reference
+            $resultSong = $em->getRepository(Song::class)->findOneBy(array('fileReference' => $idOrReference));
+        }
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
+        if(!$resultSong) {
+            $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 404, 'data' => []]);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
+        } else {
+            $resultSpinPlays = $em->getRepository(SongSpinPlay::class)->findBy(array('song' => $resultSong, 'isActive' => true), array('submitDate' => 'DESC'));
+
+            foreach($resultSpinPlays as $spinPlay) {
                 $data['spinPlays'][] = $spinPlay->getJSON();
             }
     

@@ -138,6 +138,7 @@ class SongSpinPlay
             'id' => $this->id,
             'user' => $this->user->getJSON(),
             'videoUrl' => $this->videoUrl,
+            'thumbnail' => $this->getVideoThumbnail(),
             'submitDate' => $this->submitDate,
             'isActive' => $this->isActive
         );
