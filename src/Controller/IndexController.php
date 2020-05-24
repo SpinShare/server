@@ -41,6 +41,20 @@ class IndexController extends AbstractController
     }
 
     /**
+     * @Route("/support", name="index.support")
+     */
+    public function support(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        $patreons = $em->getRepository(User::class)->findBy(array('isPatreon' => true), array('id' => 'DESC'));
+        $data['patreons'] = $patreons;
+
+        return $this->render('index/support.html.twig', $data);
+    }
+
+    /**
      * @Route("/discord", name="index.discord")
      */
     public function discord(Request $request)

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Patreon{% endblock %}
+
+{% block content %}
+    <section class="section-support">
+
+        <h1>Why you should support us!</h1>
+        Website funding, prize money for charting competitions and tournaments
+
+        <hr />
+
+        <h1>Support methods</h1>
+        Spread the word, Twitch Subscriber, Patreon
+
+        <hr />
+
+        <h1>Patreons</h1>
+        {{ dump(patreons) }}
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/support.css') }}" />
+{% endblock %}

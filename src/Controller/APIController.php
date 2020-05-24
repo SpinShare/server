@@ -231,10 +231,12 @@ class APIController extends AbstractController
             $data['hasExtremeDifficulty'] = $result->getHasExtremeDifficulty();
             $data['hasXDDifficulty'] = $result->getHasXDDifficulty();
             $data['uploader'] = $result->getUploader();
+            $data['uploadDate'] = $result->getUploadDate();
             $data['tags'] = explode(",", $result->getTags());
             $data['paths']['ogg'] = $baseUrl."/uploads/audio/".$result->getFileReference()."_0.ogg";
             $data['paths']['cover'] = $baseUrl."/uploads/cover/".$result->getFileReference().".png";
             $data['paths']['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
+            $data['description'] = $result->getDescription();
             $data['views'] = $result->getViews();
             $data['downloads'] = $result->getDownloads();
     

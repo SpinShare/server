@@ -94,11 +94,6 @@ class Song
     private $hasXDDifficulty;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $previewStart;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $uploadDate;
@@ -305,18 +300,6 @@ class Song
     public function setHasXDDifficulty(bool $hasXDDifficulty): self
     {
         $this->hasXDDifficulty = $hasXDDifficulty;
-
-        return $this;
-    }
-
-    public function getPreviewStart(): ?bool
-    {
-        return $this->previewStart;
-    }
-
-    public function setPreviewStart(bool $previewStart): self
-    {
-        $this->previewStart = $previewStart;
 
         return $this;
     }
