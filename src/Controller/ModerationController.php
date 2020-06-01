@@ -253,7 +253,7 @@ class ModerationController extends AbstractController
                             ['report' => $reportToChange, 'type' => 'USER']
                         ), 'text/plain');
 
-        $mailer->send($message);
+        @$mailer->send($message);
 
         $reportToChange->setStatus($newStatus);
 
@@ -304,7 +304,7 @@ class ModerationController extends AbstractController
                             ['report' => $reportToChange, 'type' => 'SONG']
                         ), 'text/plain');
 
-        $mailer->send($message);
+        @$mailer->send($message);
 
         $reportToChange->setStatus($newStatus);
 
