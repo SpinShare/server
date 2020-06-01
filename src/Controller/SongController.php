@@ -55,7 +55,7 @@ class SongController extends AbstractController
         $data['activeAction'] = $request->query->get('action');
 
         if($this->getUser() != null) {
-            $resultUserReview = $em->getRepository(SongReview::class)->findBy(array('user' => $this->getUser()));
+            $resultUserReview = $em->getRepository(SongReview::class)->findBy(array('song' => $resultSong, 'user' => $this->getUser()));
             $data['userReview'] = $resultUserReview;
 
             if($this->getUser() != $resultUploader) {
