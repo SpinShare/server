@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -155,6 +156,7 @@ class SongController extends AbstractController
             $form = $this->createFormBuilder()
             ->add('backupPath', FileType::class, ['label' => 'Backup .zip', 'required' => false, 'row_attr' => array('class' => 'upload-field'), 'attr' => array('accept' => '.zip')])
             ->add('tags', TextType::class, ['label' => 'Tags', 'row_attr' => array('class' => 'tags-field'), 'required' => false, 'data' => $song->getTags()])
+            ->add('description', TextareaType::class, ['label' => 'Description', 'attr' => array('rows' => 5), 'row_attr' => array('class' => 'tags-field'), 'required' => false, 'data' => $song->getDescription()])
             ->add('isExplicit', CheckboxType::class, ['label' => 'Is the song explicit?', 'row_attr' => array('class' => "tags-field"), 'required' => false, 'data' => $song->getIsExplicit()])
             ->add('save', SubmitType::class, ['label' => 'Upload'])
             ->getForm();
@@ -169,6 +171,7 @@ class SongController extends AbstractController
                 $backupFile = $data['backupPath'];
 
                 $song->setTags($data['tags']);
+                $song->setDescription($data['description']);
                 $song->setIsExplicit($data['isExplicit']);
 
                 if($backupFile) {

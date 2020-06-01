@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -30,6 +31,7 @@ class UploadController extends AbstractController
         $form = $this->createFormBuilder()
                         ->add('backupPath', FileType::class, ['label' => 'Backup .zip', 'row_attr' => array('class' => 'upload-field'), 'attr' => array('accept' => '.zip')])
                         ->add('tags', TextType::class, ['label' => 'Tags', 'row_attr' => array('class' => 'tags-field'), 'required' => false])
+                        ->add('description', TextareaType::class, ['label' => 'Description', 'attr' => array('rows' => 5), 'row_attr' => array('class' => 'tags-field'), 'required' => false])
                         ->add('isExplicit', CheckboxType::class, ['label' => 'Is the song explicit?', 'row_attr' => array('class' => "tags-field"), 'required' => false])
                         ->add('save', SubmitType::class, ['label' => 'Upload'])
                         ->getForm();
@@ -45,6 +47,7 @@ class UploadController extends AbstractController
             if($backupFile) {
                 $song->setFileReference("spinshare_".uniqid());
                 $song->setTags($data['tags']);
+                $song->setDescription($data['description']);
                 $song->setUploadDate(new \DateTime('NOW'));
                 $song->setIsExplicit($data['isExplicit']);
 

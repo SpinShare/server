@@ -4,10 +4,28 @@
   grid-gap: 25px;
   padding: 50px;
 }
+.section-song-detail .song-detail-background {
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+  top: 0px;
+  left: 60px;
+  right: 0px;
+  height: 300px;
+  z-index: -1;
+}
+.section-song-detail .song-detail-background .song-detail-background-cover {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  background: linear-gradient(180deg, rgba(33, 38, 41, 0.7) 0%, #212629 100%);
+}
 .section-song-detail .song-detail .song-meta {
   display: grid;
   grid-template-columns: auto 1fr;
-  background: rgba(255, 255, 255, 0.1);
+  background: #383C3F;
   border-radius: 4px;
   overflow: hidden;
 }
@@ -42,6 +60,7 @@
   transition: all 0.2s ease-in-out;
   border-radius: 4px;
   overflow: hidden;
+  background: #212629;
 }
 .section-song-detail .song-detail .song-actions .action,
 .section-song-detail .song-detail .song-actions .action-player {
@@ -89,7 +108,7 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 10px;
-  background: rgba(255, 255, 255, 0.1);
+  background: #383C3F;
   padding: 20px;
   border-radius: 4px;
   margin-top: 25px;
@@ -131,7 +150,7 @@
   opacity: 0.6;
 }
 .section-song-detail .song-detail .song-description {
-  background: rgba(255, 255, 255, 0.1);
+  background: #383C3F;
   border-radius: 4px;
   margin-top: 25px;
   display: grid;
@@ -144,9 +163,13 @@
 }
 .section-song-detail .song-detail .song-description .tags {
   padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
 }
 .section-song-detail .song-detail .song-description .tags .tag {
+  display: block;
   margin-right: 10px;
+  margin-bottom: 10px;
   background: #fff;
   color: #000;
   border-radius: 50px;
@@ -170,22 +193,23 @@
   padding: 15px 40px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
-  opacity: 0.4;
-  background: rgba(0, 0, 0, 0.4);
+  background: #1C2022;
+  color: rgba(255, 255, 255, 0.4);
   transition: 0.2s ease-in-out all;
-  color: #fff;
   text-decoration: none;
 }
 .section-song-detail .song-social .tab-header .tab-header-item:not(.active):hover {
   cursor: pointer;
-  opacity: 0.75;
+  background: #272c2e;
+  color: rgba(255, 255, 255, 0.75);
 }
 .section-song-detail .song-social .tab-header .tab-header-item.active {
   opacity: 1;
-  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  background: #383C3F;
 }
 .section-song-detail .song-social .tab {
-  background: rgba(255, 255, 255, 0.1);
+  background: #383C3F;
   border-radius: 4px;
   border-top-left-radius: 0px;
   padding: 20px;

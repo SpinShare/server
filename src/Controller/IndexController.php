@@ -45,15 +45,13 @@ class IndexController extends AbstractController
      */
     public function support(Request $request)
     {
-        return $this->redirect('https://patreon.com/spinshare');
-/*
         $em = $this->getDoctrine()->getManager();
         $data = [];
 
         $patreons = $em->getRepository(User::class)->findBy(array('isPatreon' => true), array('id' => 'DESC'));
         $data['patreons'] = $patreons;
 
-        return $this->render('index/support.html.twig', $data); */
+        return $this->render('index/support.html.twig', $data);
     }
 
     /**

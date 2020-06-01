@@ -4,19 +4,102 @@
 
 {% block content %}
     <section class="section-support">
+        <div class="support-icon">
+            <i class="mdi mdi-hand-heart"></i>
+        </div>
 
+        <div class="support-subsection">
         <h1>Why you should support us!</h1>
-        Website funding, prize money for charting competitions and tournaments
+            <div class="support-items">
+                <div class="support-item">
+                    <div class="header">
+                        <div class="icon">
+                            <i class="mdi mdi-server-network"></i>
+                        </div>
+                        <div class="title">Servers</div>
+                    </div>
+                    <div class="text">We want to host your charts for free for as long as we can. For this, we have to find a way to fund our servers needed to safely and reliably host your content</div>
+                </div>
+                <div class="support-item">
+                    <div class="header">
+                        <div class="icon">
+                            <i class="mdi mdi-tournament"></i>
+                        </div>
+                        <div class="title">Tournaments</div>
+                    </div>
+                    <div class="text">We want to continuously improve on our SpinShare Speen Open tournament, fund the servers needed for that event and maybe even have a little prize for the winner!</div>
+                </div>
+                <div class="support-item">
+                    <div class="header">
+                        <div class="icon">
+                            <i class="mdi mdi-boxing-glove"></i>
+                        </div>
+                        <div class="title">Charting Competitions</div>
+                    </div>
+                    <div class="text">We want to regularly hold charting competitions where we collaborate with artists and reward charters participating in these competitions.</div>
+                </div>
+            </div>
+        </div>
 
-        <hr />
+        <div class="support-subsection">
+        <h1>How can I help?</h1>
+            <div class="support-items">
+                <div class="support-item">
+                    <div class="header">
+                        <div class="icon">
+                            <i class="mdi mdi-forum"></i>
+                        </div>
+                        <div class="title">Spread the word!</div>
+                    </div>
+                    <div class="text">If you can't support us monetarily (or if you simply don't want to), you can still help us by talking about us, creating content about us or just use our service!</div>
+                    <div class="actions"></div>
+                </div>
+                <div class="support-item">
+                    <div class="header">
+                        <div class="icon">
+                            <i class="mdi mdi-twitch"></i>
+                        </div>
+                        <div class="title">Twitch Subscription</div>
+                    </div>
+                    <div class="text">You can subscribe to our Twitch channel to receive a wonderful badge on Twitch and SpinShare and show your support that way. And remember, Twitch Prime is free!&trade;</div>
+                    <div class="actions">
+                        <a href="https://twitch.tv/spinshare" target="_blank" class="button">Go to Twitch</a>
+                    </div>
+                </div>
+                <div class="support-item">
+                    <div class="header">
+                        <div class="icon">
+                            <i class="mdi mdi-patreon"></i>
+                        </div>
+                        <div class="title">Patreon</div>
+                    </div>
+                    <div class="text">If you have any free change, feel free to support us over at Patreon! Whether it is a one-time donation or a continuous one, we are grateful for every single of our Patreons and provide you with early-looks and other interesting behind the scenes material.</div>
+                    <div class="actions">
+                        <a href="https://patreon.com/spinshare" target="_blank" class="button">Go to Patreon</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-        <h1>Support methods</h1>
-        Spread the word, Twitch Subscriber, Patreon
-
-        <hr />
-
-        <h1>Patreons</h1>
-        {{ dump(patreons) }}
+        <div class="support-subsection">
+        <h1>Our Patreons</h1>
+            <div class="user-list">
+                {% for user in patreons %}
+                    <a href="{{ path('user.detail', {userId: user.id}) }}" class="user-item">
+                        <div class="user-avatar" style="background-image: url({{ asset('uploads/avatar/' ~ user.coverReference ~ '?t=' ~ date().timestamp) }}), url({{ asset("assets/img/defaultAvatar.jpg") }});"></div>
+                        <div class="user-metadata">
+                            <div class="user-name">{{ user.userName }}</div>
+                            {% if user.isVerified %}
+                                <div class="user-badge"><i class="mdi mdi-check-decagram"></i></div>
+                            {% endif %}
+                            {% if user.isPatreon %}
+                                <div class="user-badge"><i class="mdi mdi-patreon"></i></div>
+                            {% endif %}
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
     </section>
 {% endblock %}
 

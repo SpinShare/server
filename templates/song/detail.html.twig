@@ -11,6 +11,9 @@
 
 {% block content %}
     <section class="section-song-detail">
+        <div class="song-detail-background" style="background-image: url({{ asset("uploads/cover/" ~ song.fileReference ~ ".png?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});">
+            <div class="song-detail-background-cover"></div>
+        </div>
         <div class="song-detail">
             <div class="song-meta">
                 <div class="cover" style="background-image: url({{ asset("uploads/cover/" ~ song.fileReference ~ ".png?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});"></div>
@@ -76,6 +79,7 @@
                         <img src="{{ asset('assets/img/difficultyXD.svg') }}" class="{{ song.hasXDDifficulty ? "active" : "" }}" alt="xD Difficulty" />
                     </div>
                 </div>
+                {% if song.uploadDate|date("Y") > 2000 %}
                 <div class="stat">
                     <div class="icon">
                         <i class="mdi mdi-calendar-clock"></i>
@@ -84,6 +88,7 @@
                     {{ song.uploadDate|date("dS F Y") }}
                     </div>
                 </div>
+                {% endif %}
                 <div class="stat">
                     <div class="icon">
                         <i class="mdi mdi-eye"></i>
