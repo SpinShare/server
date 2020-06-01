@@ -55,6 +55,9 @@ class SongController extends AbstractController
         $data['activeAction'] = $request->query->get('action');
 
         if($this->getUser() != null) {
+            $resultUserReview = $em->getRepository(SongReview::class)->findBy(array('user' => $this->getUser()));
+            $data['userReview'] = $resultUserReview;
+
             if($this->getUser() != $resultUploader) {
                 if($request->request->get('submitReview') && !empty($request->request->get('reviewRecommended'))) {
                     $newReview = new SongReview();
@@ -84,6 +87,8 @@ class SongController extends AbstractController
 
                 return $this->redirectToRoute('song.detail', ['songId' => $resultSong->getId(), 'tab' => 'spinplays']);
             }
+        } else {
+            $data['userReview'] = false;
         }
 
         return $this->render('song/detail.html.twig', $data);

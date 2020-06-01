@@ -47,23 +47,25 @@
                         <i class="mdi mdi-flag-outline"></i>
                     </div>
                 </a>
-                {% if uploader.id == app.user.id %}
-                    <a href="{{ path('song.update', {songId: song.id}) }}" class="action">
-                        <div class="icon">
-                            <i class="mdi mdi-pencil"></i>
-                        </div>
-                    </a>
-                    <a href="{{ path('song.delete', {songId: song.id}) }}" class="action">
-                        <div class="icon">
-                            <i class="mdi mdi-delete"></i>
-                        </div>
-                    </a>
-                {% elseif is_granted('ROLE_MODERATOR') %}
-                    <a href="{{ path('moderation.song.remove', {songId: song.id}) }}" onclick="return confirm('Are you sure? This action cannot be undone!')" class="action">
-                        <div class="icon">
-                            <i class="mdi mdi-delete"></i>
-                        </div>
-                    </a>
+                {% if is_granted('ROLE_USER') %}
+                    {% if uploader.id == app.user.id %}
+                        <a href="{{ path('song.update', {songId: song.id}) }}" class="action">
+                            <div class="icon">
+                                <i class="mdi mdi-pencil"></i>
+                            </div>
+                        </a>
+                        <a href="{{ path('song.delete', {songId: song.id}) }}" class="action">
+                            <div class="icon">
+                                <i class="mdi mdi-delete"></i>
+                            </div>
+                        </a>
+                    {% elseif is_granted('ROLE_MODERATOR') %}
+                        <a href="{{ path('moderation.song.remove', {songId: song.id}) }}" onclick="return confirm('Are you sure? This action cannot be undone!')" class="action">
+                            <div class="icon">
+                                <i class="mdi mdi-delete"></i>
+                            </div>
+                        </a>
+                    {% endif %}
                 {% endif %}
             </div>
             <div class="song-statistics">
@@ -160,7 +162,9 @@
                         </div>
                         {% if app.user != uploader %}
                             {% if is_granted('ROLE_USER') %}
-                                <a href="{{ path('song.detail', {songId: song.id, tab: 'reviews', action: 'add'}) }}" class="action-button">Add Review</a>
+                                {% if userReview == false %}
+                                    <a href="{{ path('song.detail', {songId: song.id, tab: 'reviews', action: 'add'}) }}" class="action-button">Add Review</a>
+                                {% endif %}
                             {% else %}
                                 <a href="{{ path('fos_user_security_login') }}" class="action-button">Login to Review</a>
                             {% endif %}
