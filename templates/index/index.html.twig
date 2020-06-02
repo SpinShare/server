@@ -4,6 +4,17 @@
 
 {% block content %}
     <section class="section-startup">
+        <div class="blm-banner">
+            <div class="icon">
+                <img src="{{ asset('assets/img/blmfist.svg') }}" />
+            </div>
+            <div class="text">
+                <h1>Music connects people! &dash; Black Lives Matter!</h1>
+                <div class="copy">We openly denounce the systemic racism and violence against the black community in our society!<br />This is why the SpinShare team stands in solidarity with the Black Lives Matter movement.</div>
+            </div>
+            <a href="https://blacklivesmatters.carrd.co/" target="_blank" class="button">How you can help</a>
+        </div>
+
         <div class="staff-promos">
             {% for promo in promos %}
                 <div class="staff-promo" style="background-image: url({{ asset('uploads/promo/' ~ promo.imagePath) }});">
