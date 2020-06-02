@@ -102,5 +102,5 @@
 {% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{{ asset('assets/css/moderation.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/moderation.css?v=' ~ date().timestamp) }}" />
 {% endblock %}

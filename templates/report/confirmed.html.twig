@@ -14,5 +14,5 @@
 {% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{{ asset('assets/css/upload.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/upload.css?v=' ~ date().timestamp) }}" />
 {% endblock %}

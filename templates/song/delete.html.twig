@@ -33,7 +33,7 @@
 {% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{{ asset('assets/css/songdelete.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/songdelete.css?v=' ~ date().timestamp) }}" />
 {% endblock %}
 
 {% block scripts %}

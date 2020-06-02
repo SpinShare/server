@@ -22,5 +22,5 @@
 {% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{{ asset('assets/css/client.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/client.css?v=' ~ date().timestamp) }}" />
 {% endblock %}

@@ -108,5 +108,5 @@
 {% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{{ asset('assets/css/search.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/search.css?v=' ~ date().timestamp) }}" />
 {% endblock %}

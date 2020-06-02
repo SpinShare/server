@@ -225,5 +225,5 @@
 {% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{{ asset('assets/css/legal.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/legal.css?v=' ~ date().timestamp) }}" />
 {% endblock %}

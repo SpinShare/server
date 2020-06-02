@@ -109,5 +109,5 @@
 {% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{{ asset('assets/css/startup.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/startup.css?v=' ~ date().timestamp) }}" />
 {% endblock %}

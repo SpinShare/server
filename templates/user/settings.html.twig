@@ -56,5 +56,5 @@
 {% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{{ asset('assets/css/settings.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/settings.css?v=' ~ date().timestamp) }}" />
 {% endblock %}

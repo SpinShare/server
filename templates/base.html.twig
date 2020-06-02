@@ -15,7 +15,7 @@
       <!-- Styles -->
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" />
       <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css" />
-      <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" />
+      <link rel="stylesheet" href="{{ asset('assets/css/main.css?v=' ~ date().timestamp) }}" />
       {% block styles %}{% endblock %}
     </head>
     <body>
