@@ -127,7 +127,7 @@ class SongSpinPlay
     function fetch_highest_res($videoid) {
         $resolutions = array('maxresdefault', 'hqdefault', 'mqdefault');     
         foreach($resolutions as $res) {
-            $imgUrl = "http://i.ytimg.com/vi/$videoid/$res.jpg";
+            $imgUrl = "https://i.ytimg.com/vi/$videoid/$res.jpg";
             if(@getimagesize(($imgUrl))) 
                 return $imgUrl;
         }
