@@ -201,6 +201,11 @@ class Song
         return $this->tags;
     }
 
+    public function getTagsArray()
+    {
+        return array_map('trim', explode(",", $this->tags));
+    }
+
     public function setTags(?string $tags): self
     {
         $this->tags = $tags;
