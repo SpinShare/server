@@ -58,7 +58,7 @@ main aside .item:hover {
 }
 main aside .item.active {
   opacity: 1;
-  background: #8DD174;
+  background: #e22c78;
 }
 main aside .item .mdi {
   font-size: 22px;
