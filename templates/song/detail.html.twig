@@ -130,7 +130,7 @@
                     {% endif %}
                     {% if song.tags != "" %}
                         <div class="tags">
-                            {% for tag in song.tags|split(",") %}
+                            {% for tag in song.tagsArray %}
                                 <a href="{{ path('search.index', {q: tag}) }}" class="tag">{{ tag }}</a>
                             {% endfor %}
                         </div>
