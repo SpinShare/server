@@ -58,7 +58,7 @@ main aside .item:hover {
 }
 main aside .item.active {
   opacity: 1;
-  background: linear-gradient(135deg, #fd2f85, #7a34ec);
+  background: #8DD174;
 }
 main aside .item .mdi {
   font-size: 22px;
