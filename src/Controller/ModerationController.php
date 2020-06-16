@@ -254,16 +254,18 @@ class ModerationController extends AbstractController
 
         $reportToChange = $em->getRepository(UserReport::class)->findOneBy(array('id' => $reportId));
 
-        $message = (new \Swift_Message('[#USER-'.$reportToChange->getId().'] Your reports status changed!'))
-                    ->setFrom('legal@spinsha.re')
-                    ->setTo($reportToChange->getEmail())
-                    ->setBody(
-                        $this->renderView(
-                            'emails/moderation/changeStatus.txt.twig',
-                            ['report' => $reportToChange, 'type' => 'USER']
-                        ), 'text/plain');
+        try {
+            $message = (new \Swift_Message('[#USER-'.$reportToChange->getId().'] Your reports status changed!'))
+                        ->setFrom('legal@spinsha.re')
+                        ->setTo($reportToChange->getEmail())
+                        ->setBody(
+                            $this->renderView(
+                                'emails/moderation/changeStatus.txt.twig',
+                                ['report' => $reportToChange, 'type' => 'USER']
+                            ), 'text/plain');
 
-        @$mailer->send($message);
+            @$mailer->send($message);
+        } catch ( \Exception $e ) { }
 
         $reportToChange->setStatus($newStatus);
 
@@ -305,16 +307,18 @@ class ModerationController extends AbstractController
 
         $reportToChange = $em->getRepository(SongReport::class)->findOneBy(array('id' => $reportId));
 
-        $message = (new \Swift_Message('[#SONG-'.$reportToChange->getId().'] Your reports status changed!'))
-                    ->setFrom('legal@spinsha.re')
-                    ->setTo($reportToChange->getEmail())
-                    ->setBody(
-                        $this->renderView(
-                            'emails/moderation/changeStatus.txt.twig',
-                            ['report' => $reportToChange, 'type' => 'SONG']
-                        ), 'text/plain');
+        try {
+            $message = (new \Swift_Message('[#SONG-'.$reportToChange->getId().'] Your reports status changed!'))
+                        ->setFrom('legal@spinsha.re')
+                        ->setTo($reportToChange->getEmail())
+                        ->setBody(
+                            $this->renderView(
+                                'emails/moderation/changeStatus.txt.twig',
+                                ['report' => $reportToChange, 'type' => 'SONG']
+                            ), 'text/plain');
 
-        @$mailer->send($message);
+            @$mailer->send($message);
+        } catch ( \Exception $e ) { }
 
         $reportToChange->setStatus($newStatus);
 
@@ -335,16 +339,18 @@ class ModerationController extends AbstractController
         $songToRemove = $em->getRepository(Song::class)->findOneBy(array('id' => $songId));
         $uploader = $em->getRepository(Song::class)->findOneBy(array('id' => $songToRemove->getUploader()));
 
-        $message = (new \Swift_Message('Your song '.$songToRemove->getTitle().' was removed!'))
-                    ->setFrom('legal@spinsha.re')
-                    ->setTo($uploader->getEmail())
-                    ->setBody(
-                        $this->renderView(
-                            'emails/moderation/songRemoved.txt.twig',
-                            ['song' => $songToRemove]
-                        ), 'text/plain');
+        try {
+            $message = (new \Swift_Message('Your song '.$songToRemove->getTitle().' was removed!'))
+                        ->setFrom('legal@spinsha.re')
+                        ->setTo($uploader->getEmail())
+                        ->setBody(
+                            $this->renderView(
+                                'emails/moderation/songRemoved.txt.twig',
+                                ['song' => $songToRemove]
+                            ), 'text/plain');
 
-        $mailer->send($message);
+            $mailer->send($message);
+        } catch ( \Exception $e ) { }
 
         // Remove .srtb File
         try {
@@ -412,27 +418,29 @@ class ModerationController extends AbstractController
 
         }
 
-        $message = (new \Swift_Message('Your song '.$reportSong->getTitle().' was removed!'))
-                    ->setFrom('legal@spinsha.re')
-                    ->setTo($reportSongUploader->getEmail())
-                    ->setBody(
-                        $this->renderView(
-                            'emails/moderation/songRemovedReportUser.txt.twig',
-                            ['song' => $reportSong, 'report' => $report]
-                        ), 'text/plain');
+        try {
+            $message = (new \Swift_Message('Your song '.$reportSong->getTitle().' was removed!'))
+                        ->setFrom('legal@spinsha.re')
+                        ->setTo($reportSongUploader->getEmail())
+                        ->setBody(
+                            $this->renderView(
+                                'emails/moderation/songRemovedReportUser.txt.twig',
+                                ['song' => $reportSong, 'report' => $report]
+                            ), 'text/plain');
 
-        $mailer->send($message);
+            $mailer->send($message);
 
-        $message = (new \Swift_Message('[#SONG-'.$report->getId().'] Action was taken for your report!'))
-                    ->setFrom('legal@spinsha.re')
-                    ->setTo($report->getEmail())
-                    ->setBody(
-                        $this->renderView(
-                            'emails/moderation/songRemovedReportReporter.txt.twig',
-                            ['report' => $report, 'song' => $reportSong]
-                        ), 'text/plain');
+            $message = (new \Swift_Message('[#SONG-'.$report->getId().'] Action was taken for your report!'))
+                        ->setFrom('legal@spinsha.re')
+                        ->setTo($report->getEmail())
+                        ->setBody(
+                            $this->renderView(
+                                'emails/moderation/songRemovedReportReporter.txt.twig',
+                                ['report' => $report, 'song' => $reportSong]
+                            ), 'text/plain');
 
-        $mailer->send($message);
+            $mailer->send($message);
+        } catch ( \Exception $e ) { }
         
         $em->remove($reportSong);
         $em->flush();
@@ -451,15 +459,17 @@ class ModerationController extends AbstractController
         $userToBan = $em->getRepository(User::class)->findOneBy(array('id' => $userId));
         $userToBan->setEnabled(false);
 
-        $message = (new \Swift_Message('Your account was banned!'))
-                    ->setFrom('legal@spinsha.re')
-                    ->setTo($userToBan->getEmail())
-                    ->setBody(
-                        $this->renderView(
-                            'emails/moderation/userBanned.txt.twig'
-                        ), 'text/plain');
+        try {
+            $message = (new \Swift_Message('Your account was banned!'))
+                        ->setFrom('legal@spinsha.re')
+                        ->setTo($userToBan->getEmail())
+                        ->setBody(
+                            $this->renderView(
+                                'emails/moderation/userBanned.txt.twig'
+                            ), 'text/plain');
 
-        $mailer->send($message);
+            $mailer->send($message);
+        } catch ( \Exception $e ) { }
 
         $em->persist($userToBan);
         $em->flush();
@@ -478,15 +488,17 @@ class ModerationController extends AbstractController
         $userToUnban = $em->getRepository(user::class)->findOneBy(array('id' => $userId));
         $userToUnban->setEnabled(true);
 
-        $message = (new \Swift_Message('Your account was unbanned!'))
-                    ->setFrom('legal@spinsha.re')
-                    ->setTo($userToUnban->getEmail())
-                    ->setBody(
-                        $this->renderView(
-                            'emails/moderation/userUnbanned.txt.twig'
-                        ), 'text/plain');
+        try {
+            $message = (new \Swift_Message('Your account was unbanned!'))
+                        ->setFrom('legal@spinsha.re')
+                        ->setTo($userToUnban->getEmail())
+                        ->setBody(
+                            $this->renderView(
+                                'emails/moderation/userUnbanned.txt.twig'
+                            ), 'text/plain');
 
-        $mailer->send($message);
+            $mailer->send($message);
+        } catch ( \Exception $e ) { }
 
         $em->persist($userToUnban);
         $em->flush();
@@ -505,16 +517,18 @@ class ModerationController extends AbstractController
         $userToToggle = $em->getRepository(user::class)->findOneBy(array('id' => $userId));
         $userToToggle->setIsVerified(!$userToToggle->getIsVerified());
 
-        $message = (new \Swift_Message('Your verification status changed!'))
-                    ->setFrom('legal@spinsha.re')
-                    ->setTo($userToToggle->getEmail())
-                    ->setBody(
-                        $this->renderView(
-                            'emails/moderation/userVerification.txt.twig',
-                            ['user' => $userToToggle]
-                        ), 'text/plain');
+        try {
+            $message = (new \Swift_Message('Your verification status changed!'))
+                        ->setFrom('legal@spinsha.re')
+                        ->setTo($userToToggle->getEmail())
+                        ->setBody(
+                            $this->renderView(
+                                'emails/moderation/userVerification.txt.twig',
+                                ['user' => $userToToggle]
+                            ), 'text/plain');
 
-        $mailer->send($message);
+            $mailer->send($message);
+        } catch ( \Exception $e ) { }
 
         $em->persist($userToToggle);
         $em->flush();
@@ -582,15 +596,17 @@ class ModerationController extends AbstractController
 
         }
 
-        $message = (new \Swift_Message('Your user avatar was reset!'))
-                    ->setFrom('legal@spinsha.re')
-                    ->setTo($userToReset->getEmail())
-                    ->setBody(
-                        $this->renderView(
-                            'emails/moderation/userAvatarReset.txt.twig'
-                        ), 'text/plain');
+        try {
+            $message = (new \Swift_Message('Your user avatar was reset!'))
+                        ->setFrom('legal@spinsha.re')
+                            ->setTo($userToReset->getEmail())
+                        ->setBody(
+                            $this->renderView(
+                                'emails/moderation/userAvatarReset.txt.twig'
+                            ), 'text/plain');
 
-        $mailer->send($message);
+            $mailer->send($message);
+        } catch ( \Exception $e ) { }
 
         // Remove Entity
         $em->persist($userToReset);
