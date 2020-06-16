@@ -19,3 +19,7 @@ framework:
 
     templating:
         engines: ['twig']
+
+    assets:
+        base_urls:
+            - 'https://spinshare.b-cdn.net/'
