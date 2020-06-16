@@ -127,7 +127,7 @@
             {% if song.tags != "" or song.description != "" %}
                 <div class="song-description">
                     {% if song.description != "" %}
-                        <div class="text">{{ song.description|default("No description provided.") }}</div>
+                        <div class="text">{{ song.description|default("No description provided.")|nl2br }}</div>
                     {% endif %}
                     {% if song.tags != "" %}
                         <div class="tags">
@@ -191,9 +191,10 @@
                                                 {% endif %}
                                             </div>
                                         </div>
-                                        <div class="comment">
-                                            {{ review.comment }}
-                                        </div>
+                                        {% if review.comment != "" %}
+                                            <div class="comment" id="comment-{{ review.id }}">{{ review.comment|nl2br }}</div>
+                                            <div class="toggleComment" id="toggleComment-{{ review.id }}" onclick="ToggleComment({{ review.id }})">Show more</div>
+                                        {% endif %}
                                     </div>
                                 {% endfor %}
                             </div>
@@ -352,5 +353,33 @@
         function UpdateVolume() {
             currentPreviewAudio.volume = playerVolume.value / 100;
         }
+
+        function ToggleComment(commentID) {
+            let DOMtoggleComment = document.querySelector("#toggleComment-" + commentID);
+            let DOMcomment = document.querySelector("#comment-" + commentID);
+
+            if(DOMcomment.classList.contains('collapsed')) {
+                DOMtoggleComment.innerText = "Show less";
+                DOMcomment.classList.remove('collapsed');
+            } else {
+                DOMtoggleComment.innerText = "Show more";
+                DOMcomment.classList.add('collapsed');
+            }
+        }
+        
+        let DOMAllToggleComments = document.querySelectorAll(".toggleComment");
+        DOMAllToggleComments.forEach((DOMtoggleComment) => {
+            let commentID = DOMtoggleComment.id.replace("toggleComment-", "");
+            let DOMcomment = document.querySelector("#comment-" + commentID);
+            
+            console.log(DOMcomment.offsetHeight);
+
+            if(DOMcomment.offsetHeight > 84) {
+                DOMcomment.classList.add('collapsed');
+                DOMtoggleComment.style.display = "block";
+            } else {
+                DOMtoggleComment.style.display = "none";
+            }
+        });
     </script>
 {% endblock %}

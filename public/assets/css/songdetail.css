@@ -265,6 +265,7 @@
   background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
   padding: 20px;
+  overflow: hidden;
 }
 .section-song-detail .song-social .tab.tab-reviews .reviews .review .metadata {
   display: grid;
@@ -330,6 +331,24 @@
 .section-song-detail .song-social .tab.tab-reviews .reviews .review .comment {
   margin-top: 15px;
   line-height: 1.5em;
+  word-wrap: break-word;
+  word-break: break-all;
+  overflow: hidden;
+  transition: 1s ease max-height;
+}
+.section-song-detail .song-social .tab.tab-reviews .reviews .review .comment.collapsed {
+  max-height: 6em;
+}
+.section-song-detail .song-social .tab.tab-reviews .reviews .review .toggleComment {
+  margin-top: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #f74e94;
+  cursor: pointer;
+  transition: 0.2s ease opacity;
+}
+.section-song-detail .song-social .tab.tab-reviews .reviews .review .toggleComment:hover {
+  opacity: 0.6;
 }
 .section-song-detail .song-social .tab.tab-reviews .no-reviews {
   background: rgba(255, 255, 255, 0.1);
