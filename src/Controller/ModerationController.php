@@ -56,7 +56,7 @@ class ModerationController extends AbstractController
                         ->add('majorVersion', TextType::class, ['label' => 'Major Version'])
                         ->add('minorVersion', TextType::class, ['label' => 'Minor Version'])
                         ->add('patchVersion', TextType::class, ['label' => 'Patch Version'])
-                        ->add('platform', ChoiceType::class, ['label' => 'Platform', 'choices' => array('Windows' => 'win32', 'Mac' => 'mac')])
+                        ->add('platform', ChoiceType::class, ['label' => 'Platform', 'choices' => array('Windows' => 'win32', 'Mac' => 'darwin')])
                         ->add('save', SubmitType::class, ['label' => 'Release'])
                         ->getForm();
         $form->handleRequest($request);
@@ -72,7 +72,17 @@ class ModerationController extends AbstractController
                 $newRelease->setPlatform($data['platform']);
                 $newRelease->setUploadDate(new \DateTime());
 
-                $newFilename = "SpinShare_".$data['platform']."_".$data['majorVersion']."_".$data['minorVersion']."_".$data['patchVersion'].".exe";
+                $fileEnding = "";
+                switch($data['platform']) {
+                    case "win32":
+                        $fileEnding = ".exe";
+                        break;
+                    case "darwin":
+                        $fileEnding = ".dmg";
+                        break;
+                }
+
+                $newFilename = "SpinShare_".$data['platform']."_".$data['majorVersion']."_".$data['minorVersion']."_".$data['patchVersion'].$fileEnding;
                 $data['executableFile']->move($this->getParameter('client_path'), $newFilename);
 
                 $newRelease->setFileReference($newFilename);
