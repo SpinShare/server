@@ -37,35 +37,45 @@ class APIController extends AbstractController
      */
     public function streamStatus()
     {
-        $client = HttpClient::create();
-        $apiAccessResponseRaw = $client->request('POST', 'https://id.twitch.tv/oauth2/token?client_id='.$_ENV['TWITCH_API_CLIENT_ID'].'&client_secret='.$_ENV['TWITCH_API_CLIENT_SECRET'].'&grant_type=client_credentials');
-        $apiAccessResponse = json_decode($apiAccessResponseRaw->getContent());
+        $data = [];
+        $successful = false;
 
-        $apiAccessToken = $apiAccessResponse->access_token;
+        try {
+            $client = HttpClient::create();
+            $apiAccessResponseRaw = $client->request('POST', 'https://id.twitch.tv/oauth2/token?client_id='.$_ENV['TWITCH_API_CLIENT_ID'].'&client_secret='.$_ENV['TWITCH_API_CLIENT_SECRET'].'&grant_type=client_credentials');
+            $apiAccessResponse = json_decode($apiAccessResponseRaw->getContent());
 
-        $apiResponseRaw = $client->request('GET', 'https://api.twitch.tv/helix/streams/?user_login=spinshare', [
-            'headers' => [
-                'Client-ID' => $_ENV['TWITCH_API_CLIENT_ID'],
-                'Authorization' => 'Bearer '.$apiAccessToken
-            ],
-        ]);
-        $apiResponse = json_decode($apiResponseRaw->getContent());
+            $apiAccessToken = $apiAccessResponse->access_token;
 
-        if(count($apiResponse->data) != 0) {
-            $data = [
-                "title" => $apiResponse->data[0]->title,
-                "viewers" => $apiResponse->data[0]->viewer_count,
-                "isLive" => ($apiResponse->data[0]->type == "live") ? true : false
-            ];
-        } else {
-            $data = [
-                "title" => "",
-                "viewers" => 0,
-                "isLive" => false
-            ];
+            $apiResponseRaw = $client->request('GET', 'https://api.twitch.tv/helix/streams/?user_login=spinshare', [
+                'headers' => [
+                    'Client-ID' => $_ENV['TWITCH_API_CLIENT_ID'],
+                    'Authorization' => 'Bearer '.$apiAccessToken
+                ],
+            ]);
+            $apiResponse = json_decode($apiResponseRaw->getContent());
+
+            $successful = true;
+            
+            if(count($apiResponse->data) != 0) {
+                $data = [
+                    "title" => $apiResponse->data[0]->title,
+                    "viewers" => $apiResponse->data[0]->viewer_count,
+                    "isLive" => ($apiResponse->data[0]->type == "live") ? true : false
+                ];
+            } else {
+                $data = [
+                    "title" => "",
+                    "viewers" => 0,
+                    "isLive" => false
+                ];
+            }
+        } catch(\Exception $e) {
+            $successful = false;
+            $data = [];
         }
 
-        $response = new JsonResponse(['version' => $this->apiVersion, 'status' => 200, 'data' => $data]);
+        $response = new JsonResponse(['version' => $this->apiVersion, 'status' => $successful ? 200 : 500, 'data' => $data]);
         $response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
     }
