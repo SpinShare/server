@@ -72,24 +72,22 @@ section.section-library {
 button,
 .button {
   font-family: 'Open Sans', sans-serif;
-  font-size: 12px;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.2);
-  text-transform: uppercase;
-  font-weight: 700;
-  border-radius: 4px;
-  padding: 7px 14px;
-  border: 0px;
   text-decoration: none;
-  text-align: center;
-  user-select: none;
-  transition: 0.2s ease-in-out background, 0.2s ease-in-out color;
+  border: 0px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+  padding: 10px 20px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  transition: 0.2s ease-in-out all;
+  cursor: pointer;
 }
 button:hover,
 .button:hover {
-  background: #fff;
-  color: #222;
-  cursor: pointer;
+  opacity: 0.6;
 }
 button:focus,
 .button:focus {
