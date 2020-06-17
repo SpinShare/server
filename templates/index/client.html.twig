@@ -4,21 +4,78 @@
 
 {% block content %}
 <section class="section-client">
-    <div class="box">
-        <div class="text">
-            <div class="title">Download</div>
-            <p>Download the SpinSha.re client to easily install new songs from your drive or Spinsha.re itself!<br /><br />From downloading to extracting, our client installs custom songs for Spin Rhythm XD with just a click!</p>
-            <div class="actions">
-                <a href="{{ asset('uploads/client/' ~ latestWindows) }}" class="button">Windows</a>
-                <a href="{{ asset('uploads/client/' ~ latestMac) }}" class="button">Mac</a>
-                <div class="notice">Supported: Windows</div>
+    <header>
+        <div class="title">SpinShare Client Download</div>
+        <img src="{{ asset('assets/img/illustration-download.svg') }}" alt="Download Client Illustration" class="illustration" />
+    </header>
+
+    <div class="description">
+        Tired of maintaining your Spin Rhythm XD customs library? Download the SpinShare client to easily install new songs from your drive or Spinshare itself! From downloading to extracting, our client installs custom songs for Spin Rhythm XD with just a click!
+    </div>
+
+    <div class="downloads">
+        {% if latestWindows != null %}
+            <a href="{{ asset('uploads/client/' ~ latestWindows.fileReference) }}" class="download-button">
+                <div class="icon">
+                    <i class="mdi mdi-microsoft-windows"></i>
+                </div>
+                <div class="platform">Windows</div>
+                <div class="details">Version {{ latestWindows.majorVersion }}.{{ latestWindows.minorVersion }}.{{ latestWindows.patchVersion }}</div>
+            </a>
+        {% else %}
+            <div class="download-button download-button-disabled">
+                <div class="icon">
+                    <i class="mdi mdi-microsoft-windows"></i>
+                </div>
+                <div class="platform">Windows</div>
+                <div class="details">Unavailable</div>
             </div>
-        </div>
-        <div class="illustration">
-            <img src="{{ asset('assets/img/illustration-download.svg') }}" alt="Download Client Illustration" />
-        </div>
+        {% endif %}
+        {% if latestMac != null %}
+            <a href="{{ asset('uploads/client/' ~ latestMac.fileReference) }}" class="download-button">
+                <div class="icon">
+                    <i class="mdi mdi-apple-finder"></i>
+                </div>
+                <div class="platform">Mac OS X</div>
+                <div class="details">Version {{ latestMac.majorVersion }}.{{ latestMac.minorVersion }}.{{ latestMac.patchVersion }}</div>
+            </a>
+        {% else %}
+            <div class="download-button download-button-disabled">
+                <div class="icon">
+                    <i class="mdi mdi-apple-finder"></i>
+                </div>
+                <div class="platform">Mac OS X</div>
+                <div class="details">Unavailable</div>
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="screenshots">
+        <img src="{{ asset('assets/img/clientScreenshots/frontpage.png') }}" onclick="OpenInLightbox(this)" />
+        <img src="{{ asset('assets/img/clientScreenshots/detail.png') }}" onclick="OpenInLightbox(this)" />
+        <img src="{{ asset('assets/img/clientScreenshots/library.png') }}" onclick="OpenInLightbox(this)" />
+        <img src="{{ asset('assets/img/clientScreenshots/newsongs.png') }}" onclick="OpenInLightbox(this)" />
+    </div>
+
+    <div class="lightbox" onclick="CloseLightbox()">
     </div>
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let DOMlightbox = document.querySelector(".lightbox");
+
+    function OpenInLightbox(DOMelement) {
+        DOMlightbox.innerHTML = "";
+        DOMlightbox.appendChild(DOMelement.cloneNode(true));
+        DOMlightbox.classList.add("active");
+    }
+    function CloseLightbox() {
+        DOMlightbox.innerHTML = "";
+        DOMlightbox.classList.remove("active");
+    }
+</script>
 {% endblock %}
 
 {% block styles %}

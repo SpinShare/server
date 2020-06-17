@@ -1,51 +1,150 @@
 .section-client {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 50px;
-}
-.box {
-    width: 800px;
-    height: 400px;
-    display: grid;
-    grid-template-columns: 4fr 6fr;
-    background: rgba(255,255,255,0.1);
-    border-radius: 6px;
-    overflow: hidden;
-
-    & .text {
-        padding: 25px;
-        display: grid;
-        grid-template-rows: auto 1fr auto;
-        grid-gap: 15px;
+    & header {
+        background: rgba(0,0,0,0.3);
+        padding: 50px;
+        padding-top: 150px;
+        padding-bottom: 25px;
+        background: linear-gradient(135deg, #fd2f85, #7a34ec);
+        position: relative;
+        text-align: center;
+        overflow: hidden;
 
         & .title {
-            letter-spacing: 0.25em;
-            font-size: 14px;
-            font-weight: bold;
+            font-size: 32px;
+            letter-spacing: 0.05em;
             text-transform: uppercase;
+            margin-bottom: 15px;
+            font-family: 'Oswald', sans-serif;
+            position: relative;
+            z-index: 2;
         }
-        & p {
-            margin: 0px;
-            line-height: 1.5em;
+        & .illustration {
+            position: absolute;
+            top: 20px;
+            margin: 0 auto;
+            margin-left: -240px;
+            width: 500px;
+            opacity: 0.3;
         }
-        & .actions {
-            & .notice {
+    }
+    & .description {
+        max-width: 700px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 4px;
+        margin: 0 auto;
+        margin-top: 50px;
+        padding: 25px;
+        line-height: 1.5em;
+    }
+    & .downloads {
+        max-width: 700px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 15px;
+        margin-top: 25px;
+        
+        & .download-button {
+            background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,255,255,0.1));
+            border-radius: 4px;
+            color: inherit;
+            text-decoration: none;
+            transition: 0.2s ease-in-out transform;
+            display: grid;
+            grid-template-rows: 100px auto auto;
+
+            & .icon {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 48px;
+            }
+            & .platform {
+                text-align: center;
+                font-size: 18px;
+            }
+            & .details {
+                text-align: center;
                 opacity: 0.6;
-                margin-top: 15px;
-                font-size: 10px;
+                margin-top: 2px;
+                margin-bottom: 25px;
+            }
+            &.download-button-disabled {
+                opacity: 0.3;
+            }
+
+            &:not(.download-button-disabled):hover {
+                transform: scale(1.05);
             }
         }
     }
-    & .illustration {
-        background: linear-gradient(135deg, #fd2f85, #7a34ec);
-        display: flex;
-        padding: 25px;
-        justify-content: center;
-        align-items: center;
+    & .screenshots {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 15px;
+        max-width: 700px;
+        margin: 0 auto;
+        margin-top: 25px;
+        margin-bottom: 50px;
 
         & img {
-            max-width: 80%;
+            width: 100%;
+            transition: 0.2s ease-in-out transform;
+            cursor: pointer;
+
+            &:hover {
+                transform: scale(1.1);
+            }
         }
+    }
+    
+    & .lightbox {
+        position: fixed;
+        z-index: 100;
+        display: none;
+        justify-content: center;
+        align-items: center;
+        top: 0px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        cursor: pointer;
+
+        &.active {
+            display: flex;
+            animation-name: lightboxDim;
+            animation-duration: 0.15s;
+            animation-timing-function: ease-out;
+            animation-fill-mode: forwards;
+
+            & img {
+                animation-name: lightboxEntrance;
+                animation-duration: 0.2s;
+                animation-timing-function: ease-out;
+                animation-fill-mode: forwards;
+            }
+        }
+        & img {
+            max-width: 80%;
+            max-height: 80%;
+        }
+    }
+}
+
+@keyframes lightboxDim {
+    from {
+        background: rgba(0,0,0,0.0);
+    }
+    to {
+        background: rgba(0,0,0,0.6);
+    }
+}
+
+@keyframes lightboxEntrance {
+    from {
+        transform: translate(0px, 80px);
+    }
+    to {
+        transform: translate(0px, 0px);
     }
 }

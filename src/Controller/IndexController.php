@@ -73,8 +73,8 @@ class IndexController extends AbstractController
         $getLatestWindows = $em->getRepository(ClientRelease::class)->findOneBy(array('platform' => 'win32'), array('majorVersion' => 'DESC', 'minorVersion' => 'DESC', 'patchVersion' => 'DESC'));
         $getLatestMac = $em->getRepository(ClientRelease::class)->findOneBy(array('platform' => 'darwin'), array('majorVersion' => 'DESC', 'minorVersion' => 'DESC', 'patchVersion' => 'DESC'));
 
-        $data['latestWindows'] = $getLatestWindows->getFileReference();
-        $data['latestMac'] = $getLatestMac->getFileReference();
+        $data['latestWindows'] = $getLatestWindows;
+        $data['latestMac'] = $getLatestMac;
 
         return $this->render('index/client.html.twig', $data);
     }
