@@ -10,10 +10,11 @@
       <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}" />
       <meta property="og:site_name" content="SpinShare"/>
       <meta name="description" content="Share your custom charts for the rhythm game Spin Rhythm XD on SpinShare" />
+      <link rel="search" href="https://spinsha.re/opensearchdescription.xml" type="application/opensearchdescription+xml" title="SpinShare" />
       {% block meta %}{% endblock %}
 
       <!-- Styles -->
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" />
+      <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Oswald:wght@500&display=swap" rel="stylesheet">
       <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.0.45/css/materialdesignicons.min.css" />
       <link rel="stylesheet" href="{{ asset('assets/css/main.css?v=' ~ date().timestamp) }}" />
       {% block styles %}{% endblock %}

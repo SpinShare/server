@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+    <ShortName>SpinShare</ShortName>
+    <Description>SpinShare</Description>
+    <Tags>SpinShare SpinRhythm Spin Rhythm XD Search</Tags>
+    <InputEncoding>UTF-8</InputEncoding>
+    <SearchForm>https://spinsha.re</SearchForm>
+    <Url type="text/html" template="https://spinsha.re/search?q={searchTerms}"/>
+    <Image height="16" width="16" type="image/png">https://spinshare.b-cdn.net/assets/img/favicon.png</Image>
+</OpenSearchDescription>
