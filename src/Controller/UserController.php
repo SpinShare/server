@@ -44,7 +44,7 @@ class UserController extends AbstractController
         $resultUser = $em->getRepository(User::class)->findOneBy(array('id' => $userId));
         if(!$resultUser) throw new NotFoundHttpException();
 
-        $resultUploads = $em->getRepository(Song::class)->findBy(array('uploader' => $resultUser->getId()));
+        $resultUploads = $em->getRepository(Song::class)->findBy(array('uploader' => $resultUser->getId()), array('uploadDate' => 'DESC'));
 
         $data['user'] = $resultUser;
         $data['uploads'] = $resultUploads;

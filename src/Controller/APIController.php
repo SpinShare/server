@@ -444,7 +444,7 @@ class APIController extends AbstractController
             }
 
             // Get User Songs
-            $resultsSongs = $em->getRepository(Song::class)->findBy(array('uploader' => $result->getId()));
+            $resultsSongs = $em->getRepository(Song::class)->findBy(array('uploader' => $result->getId()), array('uploadDate' => 'DESC'));
 
             $data['songs'] = [];
                  
