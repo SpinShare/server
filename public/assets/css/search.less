@@ -2,10 +2,62 @@
     display: grid;
     grid-template-rows: auto 1fr;
     grid-gap: 25px;
-    padding: 50px;
 
+    & header {
+        background: rgba(0,0,0,0.3);
+        padding: 50px;
+        padding-bottom: 25px;
+
+        & .title {
+            font-size: 32px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            font-family: 'Oswald', sans-serif;
+        }
+        & .actions {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            grid-gap: 15px;
+            align-items: center;
+
+            & .show-all {
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0px 10px;
+            }
+
+            input {
+                width: 100%;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 14px;
+                background: transparent;
+                color: #fff;
+                border-radius: 4px;
+                padding: 9px 20px;
+                background: rgba(255,255,255,0.2);
+                border: 0px;
+                transition: 0.2s ease-in-out all;
+            
+                &:hover {
+                    background: rgba(255,255,255,0.1);
+                    color: #fff;
+                }
+                &:focus {
+                    outline: 0;
+                    border-color: rgba(255,255,255,0.6);
+                }
+                &::placeholder {
+                    color: rgba(255,255,255,0.6);
+                }
+            }
+        }
+    }
+
+    /*
     & .search-bar {
-
         & form {
             background: rgba(255,255,255,0.2);
             border-radius: 4px;
@@ -73,11 +125,12 @@
                 }
             }
         }
-    }
+    } */
     & .search-results {
         display: grid;
         grid-template-rows: auto auto auto 1fr;
         grid-gap: 25px;
+        padding: 0px 50px;
 
         & .search-results-users {
             display: grid;
