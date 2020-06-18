@@ -1,0 +1,22 @@
+{% extends 'user/settings/base.html.twig' %}
+
+{% block settings %}
+    <form action="" method="POST" class="settings-box">
+        <div class="settings-title">Login</div>
+        <div class="settings-item">
+            <div class="settings-label">New password</div>
+            <div class="settings-input">
+                <input type="password" name="newPassword" value="" required />
+            </div>
+        </div>
+        <div class="settings-item">
+            <div class="settings-label">New password (again)</div>
+            <div class="settings-input">
+                <input type="password" name="newPasswordAgain" value="" required />
+            </div>
+        </div>
+        <div class="settings-save">
+            <button>Save</button>
+        </div>
+    </form>
+{% endblock %}

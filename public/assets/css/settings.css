@@ -1,8 +1,40 @@
-.section-settings {
+.section-settings header {
+  background: rgba(0, 0, 0, 0.5);
   padding: 50px;
+  padding-bottom: 0px;
+}
+.section-settings header .title {
+  font-size: 32px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  font-family: 'Oswald', sans-serif;
+}
+.section-settings header .tabs {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+}
+.section-settings header .tabs .tab {
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  padding: 15px 40px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background: rgba(0, 0, 0, 0.6);
+  color: rgba(255, 255, 255, 0.4);
+  transition: 0.2s ease-in-out all;
+  text-decoration: none;
+}
+.section-settings header .tabs .tab:not(.active):hover {
+  cursor: pointer;
+  background: #272c2e;
+  color: rgba(255, 255, 255, 0.75);
+}
+.section-settings header .tabs .tab.active {
+  opacity: 1;
+  color: #ffffff;
+  background: #212629;
 }
 .section-settings .settings-title {
   font-size: 14px;
@@ -13,9 +45,9 @@
 .section-settings .settings-box {
   width: 600px;
   padding: 25px;
+  margin: 25px 50px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 6px;
-  margin-bottom: 25px;
 }
 .section-settings .settings-box .settings-item {
   display: grid;
@@ -121,4 +153,20 @@
   background: rgba(197, 65, 76, 0.1);
   border-color: #c5414c;
   color: #c5414c;
+}
+.section-settings .coming-soon {
+  width: 300px;
+  margin: 0 auto;
+  padding: 100px 0px;
+  text-align: center;
+}
+.section-settings .coming-soon img {
+  width: 300px;
+  margin-bottom: 25px;
+}
+.section-settings .coming-soon .title {
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 14px;
 }

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+    <section class="section-settings">
+        <header>
+            <div class="title">Settings</div>
+
+            <div class="tabs">
+                <a class="tab {% if app.request.attributes.get('_route') == 'user.settings' %}active{% endif %}" href="{{ path('user.settings') }}">General</a>
+                <a class="tab {% if app.request.attributes.get('_route') == 'user.settings.security' %}active{% endif %}" href="{{ path('user.settings.security') }}">Security</a>
+                <a class="tab {% if app.request.attributes.get('_route') == 'user.settings.login' %}active{% endif %}" href="{{ path('user.settings.login') }}">Login</a>
+            </div>
+        </header>
+
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flashbang flashbang-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        {% block settings %}
+        {% endblock %}
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/settings.css?v=' ~ date().timestamp) }}" />
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'user/settings/base.html.twig' %}
+
+{% block settings %}
+    <form action="" method="POST" class="settings-box">
+        <div class="settings-title">General</div>
+        <div class="settings-item">
+            <div class="settings-label">Email</div>
+            <div class="settings-input">
+                <input type="email" name="email" value="{{ my.email }}" required />
+            </div>
+        </div>
+        <div class="settings-item">
+            <div class="settings-label">Username</div>
+            <div class="settings-input">
+                <input type="text" name="username" value="{{ my.username }}" required />
+            </div>
+        </div>
+        <div class="settings-save">
+            <button>Save</button>
+        </div>
+    </form>
+{% endblock %}
