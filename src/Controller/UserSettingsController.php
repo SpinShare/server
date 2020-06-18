@@ -32,7 +32,7 @@ class UserSettingsController extends AbstractController
                     if($formData->get('email') != "" && $formData->get('username')) {
                         $existingUser = $em->getRepository(User::class)->findOneBy(array('username' => $formData->get('username'), 'email' => $formData->get('email')));
 
-                        if($existingUser) {
+                        if($existingUser != $this->getUser()) {
                             $user->setEmail($formData->get('email'));
                             $user->setUsername($formData->get('username'));
                             $this->addFlash('success', 'Saved successfully!');
