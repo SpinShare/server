@@ -1,0 +1,16 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% extends 'bundles/FOSUserBundle/base.html.twig' %}
+
+{% set sectionTitle = 'Forgot your password?' %}
+
+{% block securityContent %}
+    <div class="security-content">
+        <img src="{{ asset('assets/img/illustration-forgotpassword.svg') }}" alt="Illustration for Forgot Password" />
+
+        <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+            <input type="text" id="username" name="username" required="required" placeholder="{{ 'resetting.request.username'|trans }}" />
+            
+            <input type="submit" class="button" value="{{ 'resetting.request.submit'|trans }}" />
+        </form>
+    </div>
+{% endblock securityContent %}

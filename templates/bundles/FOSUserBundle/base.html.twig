@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ sectionTitle }}{% endblock %}
+
+{% block content %}
+    <section class="section-login">
+        <header>
+            <div class="title">{{ sectionTitle }}</div>
+
+            <div class="tabs">
+                <a class="tab {% if app.request.attributes.get('_route') == 'fos_user_security_login' %}active{% endif %}" href="{{ path('fos_user_security_login') }}">Login</a>
+                <a class="tab {% if app.request.attributes.get('_route') == 'fos_user_registration_register' %}active{% endif %}" href="{{ path('fos_user_registration_register') }}">Register</a>
+                <a class="tab {% if app.request.attributes.get('_route') == 'fos_user_resetting_request' or app.request.attributes.get('_route') == 'fos_user_resetting_check_email' %}active{% endif %}" href="{{ path('fos_user_resetting_request') }}">Forgot Password</a>
+            </div>
+        </header>
+
+        {% block securityContent %}
+        {% endblock %}
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}" />
+{% endblock %}

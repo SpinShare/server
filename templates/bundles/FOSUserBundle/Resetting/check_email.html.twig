@@ -1,0 +1,14 @@
+{% trans_default_domain 'FOSUserBundle' %}
+{% extends 'bundles/FOSUserBundle/base.html.twig' %}
+
+{% set sectionTitle = 'Forgot your password?' %}
+
+{% block securityContent %}
+    <div class="security-content">
+        <img src="{{ asset('assets/img/illustration-confirm.svg') }}" alt="Illustration for Forgot Password" />
+
+        <p>{{ 'resetting.check_email'|trans({'%tokenLifetime%': tokenLifetime}) }}<br /><br /></p>
+
+        <a href="{{ path('fos_user_security_login') }}" class="button button-center">Login</a>
+    </div>
+{% endblock securityContent %}

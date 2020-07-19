@@ -1,35 +1,22 @@
-{% extends 'base.html.twig' %}
+{% extends 'bundles/FOSUserBundle/base.html.twig' %}
 
-{% block title %}Login{% endblock %}
+{% set sectionTitle = 'Welcome back!' %}
 
-{% block content %}
-    <section class="section-login">
-        <div class="box">
-            <div class="text">
-                <div class="title">Login</div>
-                {% if error %}
-                    <div class="flashbang flashbang-error">{{ error.message }}</div>
-                {% endif %}
+{% block securityContent %}
+    <div class="security-content">
+        <img src="{{ asset('assets/img/illustration-login.svg') }}" alt="Illustration for Login" />
 
-                <form action="{{ path("fos_user_security_check") }}" method="post">
-                    <input type="text" name="_username" value="{{ last_username }}" placeholder="Username" />
-                    <input type="password" name="_password" placeholder="Password" />
+        {% if error %}
+            <div class="flashbang flashbang-error">{{ error.message }}</div>
+        {% endif %}
 
-                    <div class="actions">
-                        <input class="button" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
-                        <a class="button" href="{{ path('fos_user_registration_register') }}">Register</a>
-                    </div>
+        <form action="{{ path("fos_user_security_check") }}" method="post">
+            <input type="text" name="_username" value="{{ last_username }}" placeholder="Username" />
+            <input type="password" name="_password" placeholder="Password" />
 
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
-                </form>
-            </div>
-            <div class="illustration">
-                <img src="{{ asset('assets/img/illustration-login.svg') }}" alt="Login Illustration" />
-            </div>
-        </div>
-    </section>
-{% endblock content %}
+            <input class="button" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
 
-{% block styles %}
-    <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}" />
-{% endblock %}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+        </form>
+    </div>
+{% endblock securityContent %}
