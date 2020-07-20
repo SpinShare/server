@@ -76,12 +76,17 @@ class SystemController extends AbstractController
         
         $allSongs = $em->getRepository(Song::class)->findAll();
 
-        foreach($allSongs as $oneSong) {
-            $filePath = glob($this->getParameter('cover_path').DIRECTORY_SEPARATOR.$oneSong->getFileReference().".png");
-            if(count($filePath) > 0) {
-                $hf = new HelperFunctions();
-                $hf->generateThumbnail($filePath[0], $this->getParameter('thumbnail_path').DIRECTORY_SEPARATOR.$oneSong->getFileReference().".jpg", 300);
+        try {
+            foreach($allSongs as $oneSong) {
+                $filePath = glob($this->getParameter('cover_path').DIRECTORY_SEPARATOR.$oneSong->getFileReference().".png");
+                if(count($filePath) > 0) {
+                    $hf = new HelperFunctions();
+                    $hf->generateThumbnail($filePath[0], $this->getParameter('thumbnail_path').DIRECTORY_SEPARATOR.$oneSong->getFileReference().".jpg", 300);
+                }
             }
+        } catch(\Exception $e) {
+            var_dump($e);
+            exit;
         }
 
         return $this->redirectToRoute('moderation.system.index');

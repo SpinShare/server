@@ -52,7 +52,7 @@
                         <div class="song-list">
                             {% for song in results.songs %}
                                 <a class="song-item" href="{{ path('song.detail', {songId: song.id}) }}">
-                                    <div class="song-cover" style="background-image: url({{ asset("uploads/cover/" ~ song.fileReference ~ ".png?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});">
+                                    <div class="song-cover" style="background-image: url({{ asset("uploads/thumbnail/" ~ song.fileReference ~ ".jpg?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});">
                                         <div class="song-charter-info">
                                             <div class="song-charter"><i class="mdi mdi-account-circle"></i><span>{{ song.charter|default('Unknown') }}</span></div>
                                         </div>
