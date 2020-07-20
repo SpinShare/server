@@ -1,8 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'moderation/base.html.twig' %}
 
-{% block title %}Moderator Dashboard{% endblock %}
+{% set sectionTitle = 'Add a new Client Releases' %}
 
-{% block content %}
+{% block moderationContent %}
 <section class="section-moderator-add">
     <div class="box">
         <div class="title">Add new Client Release</div>
@@ -11,8 +11,4 @@
         {{ form_end(addForm) }}
     </div>
 </section>
-{% endblock %}
-
-{% block styles %}
-    <link rel="stylesheet" href="{{ asset('assets/css/moderation.css?v=' ~ date().timestamp) }}" />
 {% endblock %}
