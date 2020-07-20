@@ -32,26 +32,33 @@ main {
 }
 main aside {
   background: #000;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
   display: grid;
   position: fixed;
   z-index: 1000;
   top: 0px;
   left: 0px;
   right: 0px;
-  grid-template-columns: 180px auto 1fr auto;
-}
-main aside .logo {
-  padding: 15px 30px;
-  height: 60px;
-}
-main aside .logo img {
-  height: 100%;
+  grid-template-columns: 1fr 500px 1fr;
 }
 main aside nav {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+}
+main aside nav.items-left {
+  justify-content: flex-start;
+}
+main aside nav.items-right {
+  justify-content: flex-end;
+}
+main aside nav .logo {
+  width: 180px;
+  padding: 15px 30px;
+  height: 60px;
+}
+main aside nav .logo img {
+  height: 100%;
 }
 main aside nav .upload-button {
   align-items: center;
@@ -67,12 +74,28 @@ main aside nav .item {
   background: transparent;
   border-bottom: 2px solid transparent;
   color: #fff;
+  position: relative;
   transition: 0.2s ease opacity, 0.2s ease background;
+}
+main aside nav .item .indicator {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  font-size: 10px;
+  font-weight: bold;
+  background: #e22c78;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 main aside nav .item:hover {
   cursor: pointer;
 }
-main aside nav .item:hover .mdi {
+main aside nav .item:hover > .mdi {
   opacity: 1;
 }
 main aside nav .item.active {
@@ -81,16 +104,155 @@ main aside nav .item.active {
 main aside nav .item.active .mdi {
   opacity: 1;
 }
-main aside nav .item .mdi {
+main aside nav .item > .mdi {
   font-size: 22px;
   opacity: 0.4;
 }
-main aside nav .user-avatar {
+main aside nav .item-notifications {
+  position: relative;
+}
+main aside nav .item-notifications .notification-box {
+  width: 400px;
+  height: 500px;
+  position: absolute;
+  top: 70px;
+  right: 10px;
+  border-radius: 4px;
+  background: #000;
+  cursor: default;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
+  display: none;
+  grid-template-rows: auto 1fr;
+}
+main aside nav .item-notifications .notification-box > header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  padding: 10px 15px;
+  align-items: center;
+}
+main aside nav .item-notifications .notification-box > header span {
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+}
+main aside nav .item-notifications .notification-box .notification-list {
+  overflow-y: scroll;
+  display: flex;
+  background: rgba(255, 255, 255, 0.075);
+  flex-direction: column;
+}
+main aside nav .item-notifications .notification-box .notification-list .notification-item {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  grid-gap: 10px;
+  padding: 10px;
+  color: #fff;
+  text-decoration: none;
+  align-items: center;
+}
+main aside nav .item-notifications .notification-box .notification-list .notification-item .notification-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+}
+main aside nav .item-notifications .notification-box .notification-list .notification-item .cover {
+  width: 32px;
+  height: 32px;
+  background-position: center;
+  background-size: cover;
+}
+main aside nav .item-notifications .notification-box .notification-list .notification-item .notification-text {
+  font-size: 12px;
+  line-height: 1.5;
+}
+main aside nav .item-notifications .notification-box .notification-list .notification-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+}
+main aside nav .item-notifications .notification-box:after {
+  bottom: 100%;
+  right: 12px;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(0, 0, 0, 0);
+  border-bottom-color: #000;
+  border-width: 8px;
+}
+main aside nav .item-notifications:focus-within {
+  outline: 0;
+}
+main aside nav .item-notifications:focus-within .notification-box {
+  display: grid;
+}
+main aside nav .item-notifications:focus-within > .mdi {
+  opacity: 1;
+}
+main aside nav .item-user {
+  position: relative;
+}
+main aside nav .item-user .user-avatar {
   width: 32px;
   height: 32px;
   background-position: center;
   background-size: cover;
   border-radius: 50px;
+}
+main aside nav .item-user .user-actions {
+  width: 300px;
+  position: absolute;
+  top: 70px;
+  right: 10px;
+  border-radius: 4px;
+  background: #000;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
+  display: none;
+}
+main aside nav .item-user .user-actions .user-action-item {
+  color: #fff;
+  text-decoration: none;
+  display: grid;
+  grid-template-columns: 50px 1fr;
+}
+main aside nav .item-user .user-actions .user-action-item .mdi {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  opacity: 0.6;
+}
+main aside nav .item-user .user-actions .user-action-item span {
+  align-self: center;
+}
+main aside nav .item-user .user-actions .user-action-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+main aside nav .item-user .user-actions:after {
+  bottom: 100%;
+  right: 12px;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(0, 0, 0, 0);
+  border-bottom-color: #000;
+  border-width: 8px;
+}
+main aside nav .item-user:focus-within {
+  outline: 0;
+}
+main aside nav .item-user:focus-within .user-actions {
+  display: grid;
 }
 main aside .search {
   align-self: center;
