@@ -440,6 +440,12 @@ class SongController extends AbstractController
 
                 // remove the entity
                 $em->remove($result);
+
+                $notifications = $em->getRepository(UserNotification::class)->findBy(array('connectedSong' => $songId));
+                foreach($notifications as $notification) {
+                    $em->remove($notification);
+                }
+
                 $em->flush();
 
                 // reditect

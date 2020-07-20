@@ -17,6 +17,7 @@ use App\Entity\Song;
 use App\Entity\User;
 use App\Entity\SongReport;
 use App\Entity\UserReport;
+use App\Entity\UserNotification;
 use App\Entity\Promo;
 
 class ModactionsController extends AbstractController
@@ -70,6 +71,12 @@ class ModactionsController extends AbstractController
         }
         
         $em->remove($songToRemove);
+
+        $notifications = $em->getRepository(UserNotification::class)->findBy(array('connectedSong' => $songToRemove));
+        foreach($notifications as $notification) {
+            $em->remove($notification);
+        }
+
         $em->flush();
 
         return $this->redirectToRoute('user.detail', array('userId' => $uploader->getId()));
@@ -136,6 +143,12 @@ class ModactionsController extends AbstractController
         } catch ( \Exception $e ) { }
         
         $em->remove($reportSong);
+
+        $notifications = $em->getRepository(UserNotification::class)->findBy(array('connectedSong' => $reportSong));
+        foreach($notifications as $notification) {
+            $em->remove($notification);
+        }
+
         $em->flush();
 
         return $this->redirectToRoute('moderation.reports.song', array('reportId' => $reportId));
