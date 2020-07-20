@@ -25,17 +25,6 @@ class IndexController extends AbstractController
 
         $activePromos = $em->getRepository(Promo::class)->findBy(array('isVisible' => true), array('id' => 'DESC'), 2);
         $data['promos'] = $activePromos;
-        
-        /* $newOffset = $request->query->get('newOffset');
-        $popularOffset = $request->query->get('popularOffset');
-
-        $resultsNewSongs = $em->getRepository(Song::class)->findBy(array(), array('id' => 'DESC'), 6, $newOffset * 6);
-        $resultsPopularSongs = $em->getRepository(Song::class)->findBy(array(), array('downloads' => 'DESC', 'views' => 'DESC'), 6, $popularOffset * 6);
-
-        $data['newSongs'] = $resultsNewSongs;
-        $data['newOffset'] = $newOffset;
-        $data['popularSongs'] = $resultsPopularSongs;
-        $data['popularOffset'] = $popularOffset; */
 
         return $this->render('index/index.html.twig', $data);
     }

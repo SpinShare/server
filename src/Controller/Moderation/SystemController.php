@@ -14,6 +14,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 use App\Utils\HelperFunctions;
+use App\Entity\User;
+use App\Entity\UserNotification;
 use App\Entity\Song;
 
 class SystemController extends AbstractController
@@ -27,6 +29,29 @@ class SystemController extends AbstractController
         $data = [];
 
         return $this->render('moderation/system/index.html.twig', $data);
+    }
+    
+    /**
+     * @Route("/moderation/system/notificationToEveryone", name="moderation.system.notificationToEveryone")
+     */
+    public function systemNotificationToEveryone(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $allUsers = $em->getRepository(User::class)->findAll();
+
+        foreach($allUsers as $user) {
+            $newNotification = new UserNotification();
+            $newNotification->setUser($user);
+            $newNotification->setNotificationType(0);
+            $newNotification->setNotificationData($request->request->get('notificationData'));
+
+            $em->persist($newNotification);
+        }
+
+        $em->flush();
+
+        return $this->redirectToRoute('moderation.system.index');
     }
     
     /**

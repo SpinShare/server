@@ -43,43 +43,41 @@
                 <div class="upload-button">
                   <a href="{{ path('upload.index') }}" class="button">Upload</a>
                 </div>
-                {# <div class="item item-notifications" tabindex="0">
+                <div class="item item-notifications" tabindex="0">
                   <i class="mdi mdi-bell"></i>
-                  <div class="indicator">2</div>
+                  {% if app.user.userNotifications|length > 0 %}
+                    <div class="indicator">{{ app.user.userNotifications|length }}</div>
+                  {% endif %}
                   
                   <div class="notification-box">
                     <header>
                       <span>Notifications</span>
-                      <div class="button">Clear all</div>
+                      <a href="{{ path('notification.clear.all', {returnUrl: app.request.uri}) }}" class="button">Clear all</a>
                     </header>
                     <div class="notification-list">
-                      <a href="{{ path('index.index') }}" class="notification-item">
-                        <div class="notification-icon">
-                          <i class="mdi mdi-server"></i>
-                        </div>
-                        <div class="notification-text">
-                          Hello! This is your first notification!
-                        </div>
-                      </a>
-                      <a href="{{ path('index.index') }}" class="notification-item">
-                        <div class="notification-icon">
-                          <div class="cover" style="background-image: url(/www/spinshare/server/public/uploads/thumbnail/spinshare_5ea59d9ff2be9.jpg?v=1595247910), url(/www/spinshare/server/public/assets/img/defaultAlbumArt.jpg);"></div>
-                        </div>
-                        <div class="notification-text">
-                          <strong>taw</strong> reviewed your chart <strong>Xenoblade Chronicles Medley (Tournament Edit)</strong>.
-                        </div>
-                      </a>
-                      <a href="{{ path('index.index') }}" class="notification-item">
-                        <div class="notification-icon">
-                          <div class="cover" style="background-image: url(/www/spinshare/server/public/uploads/thumbnail/spinshare_5ea59d9ff2be9.jpg?v=1595247910), url(/www/spinshare/server/public/assets/img/defaultAlbumArt.jpg);"></div>
-                        </div>
-                        <div class="notification-text">
-                          <strong>taw</strong> added a SpinPlay to your chart <strong>Xenoblade Chronicles Medley (Tournament Edit)</strong>.
-                        </div>
-                      </a>
+                      {% for notification in app.user.userNotifications|reverse %}
+                        <a href="{{ path('notification.clear', {notificationID: notification.id, returnUrl: app.request.uri}) }}" class="notification-item">
+                          <div class="notification-icon">
+                            {% if notification.notificationType == 0 %}
+                              <i class="mdi mdi-server"></i>
+                            {% else %}
+                              <div class="cover" style="background-image: url({{ asset("uploads/thumbnail/" ~ notification.connectedSong.fileReference ~ ".jpg?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});"></div>
+                            {% endif %}
+                          </div>
+                          <div class="notification-text">
+                          {% if notification.notificationType == 0 %}
+                            {{ notification.notificationData }}
+                          {% elseif notification.notificationType == 1 %}
+                            <strong>{{ notification.connectedUser.username }}</strong> reviewed your chart <strong>{{ notification.connectedSong.title }}</strong>.
+                          {% elseif notification.notificationType == 2 %}
+                            <strong>{{ notification.connectedUser.username }}</strong> added a SpinPlay to your chart <strong>{{ notification.connectedSong.title }}</strong>.
+                          {% endif %}
+                          </div>
+                        </a>
+                      {% endfor %}
                     </div>
                   </div>
-                </div> #}
+                </div>
                 <div class="item item-user" tabindex="0">
                   <div class="user-avatar" style="background-image: url({{ asset('uploads/avatar/' ~ app.user.coverReference ~ '?t=' ~ date().timestamp) }}), url({{ asset("assets/img/defaultAvatar.jpg") }});"></div>
                   <div class="user-actions">

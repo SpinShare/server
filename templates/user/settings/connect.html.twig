@@ -1,0 +1,58 @@
+{% extends 'user/settings/base.html.twig' %}
+
+{% set sectionTitle = 'Connect' %}
+
+{% block settingsContent %}
+    <section class="section-connect">
+        <div class="connect-content">
+            <div class="connect-title">Connect Code</div>
+            <div class="connect-code">&nbsp;</div>
+            <div class="connect-timeout">
+                <div class="connect-progress"></div>
+            </div>
+            <div class="connect-explaination">Use this code to log into third party applications or the official SpinShare client.</div>
+        </div>
+        <div class="connect-connections">
+            <div class="connect-title">Connections</div>
+            <div class="connections-list">
+            {% if app.user.connections|length == 0 %}
+                <div class="noconnection-item">
+                    <div class="noconnection-title">No connections yet</div>
+                    <div class="noconnection-connected">You haven't connected your SpinShare account to any app yet.</div>
+                </div>
+            {% endif %}
+            {% for connection in app.user.connections %}
+                <div class="connection-item">
+                    <div class="connection-title">{{ connection.app.title }}</div>
+                    <div class="connection-connected">Connected on {{ connection.connectDate|date("m/d/Y") }}</div>
+                    <a href="{{ path('user.settings.connect.revoke', {connectionID: connection.id}) }}" class="button">Revoke Access</a>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block scripts %}
+<script>
+    let DOMConnectCode = document.querySelector(".connect-code");
+    let DOMConnectTimeoutProgress = document.querySelector(".connect-timeout .connect-progress");
+
+    function generateCode() {    
+        fetch('{{ path('api.connect.generateCode') }}')
+            .then(response => response.json())
+            .then(data => {
+                if(data.status == 200) {
+                    DOMConnectCode.innerText = data.data;
+                    DOMConnectTimeoutProgress.style.animation = "none";
+                    setTimeout(() => { DOMConnectTimeoutProgress.style.animation = "timeoutProgress 15s linear"; }, 100);
+                } else {
+                    DOMConnectCode.innerText = "";
+                    DOMConnectTimeoutProgress.classList.remove("active");
+                }
+            });
+    }
+
+    generateCode();
+    setInterval(() => { generateCode(); }, 15000);
+</script>
+{% endblock %}

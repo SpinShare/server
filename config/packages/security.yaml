@@ -27,9 +27,9 @@ security:
                 always_remember_me: true
 
     access_control:
-        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/upload$, role: ROLE_USER }
-        - { path: ^/settings$, role: ROLE_USER }
-        - { path: ^/moderation$, role: ROLE_MODERATOR }
+        - { path: ^/upload, role: ROLE_USER }
+        - { path: ^/settings, role: ROLE_USER }
+        - { path: ^/moderation, role: ROLE_MODERATOR }

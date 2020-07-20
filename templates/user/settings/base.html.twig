@@ -5,12 +5,12 @@
 {% block content %}
     <section class="section-settings">
         <header>
-            <div class="title">Settings</div>
+            <div class="title">{{ sectionTitle }}</div>
 
             <div class="tabs">
                 <a class="tab {% if app.request.attributes.get('_route') == 'user.settings' %}active{% endif %}" href="{{ path('user.settings') }}">General</a>
                 <a class="tab {% if app.request.attributes.get('_route') == 'user.settings.security' %}active{% endif %}" href="{{ path('user.settings.security') }}">Security</a>
-                <a class="tab {% if app.request.attributes.get('_route') == 'user.settings.login' %}active{% endif %}" href="{{ path('user.settings.login') }}">Login</a>
+                <a class="tab {% if app.request.attributes.get('_route') == 'user.settings.connect' %}active{% endif %}" href="{{ path('user.settings.connect') }}">Connect</a>
             </div>
         </header>
 
@@ -22,7 +22,7 @@
             {% endfor %}
         {% endfor %}
 
-        {% block settings %}
+        {% block settingsContent %}
         {% endblock %}
     </section>
 {% endblock %}

@@ -9,6 +9,13 @@
         {% endif %}
 
         <div class="box">
+            <form action="{{ path('moderation.system.notificationToEveryone') }}" method="post">
+                <input type="text" value="" name="notificationData" size="150" />
+                <input type="submit" value="Send to everyone!" />
+            </form>
+        </div>
+
+        <div class="box">
             Generate On All Songs Actions<br /><strong>(ATTENTION: They can take a while!)</strong><br /><br />
             <a href="{{ path('moderation.system.generate.thumbnails') }}" class="button">Generate Thumbnails</a> <a href="{{ path('moderation.system.generate.thumbnails-missing') }}" class="button">Generate Missing Thumbnails</a><br /><br />
             <a href="{{ path('moderation.system.cleanup.temp') }}" class="button">Cleanup Temp Folder</a>

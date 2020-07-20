@@ -20,6 +20,7 @@ use App\Entity\SongReview;
 use App\Entity\SongSpinPlay;
 use App\Utils\HelperFunctions;
 use App\Entity\User;
+use App\Entity\UserNotification;
 
 class SongController extends AbstractController
 {
@@ -69,6 +70,15 @@ class SongController extends AbstractController
 
                     $em->persist($newReview);
                     $em->flush();
+   
+                    $newNotification = new UserNotification();
+                    $newNotification->setUser($resultUploader);
+                    $newNotification->setConnectedUser($this->getUser());
+                    $newNotification->setConnectedSong($resultSong);
+                    $newNotification->setNotificationType(1);
+                    $newNotification->setNotificationData($newReview->getID());
+                    $em->persist($newNotification);
+                    $em->flush();
 
                     return $this->redirectToRoute('song.detail', ['songId' => $resultSong->getId(), 'tab' => 'reviews']);
                 }
@@ -83,6 +93,15 @@ class SongController extends AbstractController
                 $newSpinPlay->setIsActive(true);
 
                 $em->persist($newSpinPlay);
+                $em->flush();
+   
+                $newNotification = new UserNotification();
+                $newNotification->setUser($resultUploader);
+                $newNotification->setConnectedUser($this->getUser());
+                $newNotification->setConnectedSong($resultSong);
+                $newNotification->setNotificationType(2);
+                $newNotification->setNotificationData($newSpinPlay->getID());
+                $em->persist($newNotification);
                 $em->flush();
 
                 return $this->redirectToRoute('song.detail', ['songId' => $resultSong->getId(), 'tab' => 'spinplays']);

@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 
 use App\Entity\User;
+use App\Entity\Connection;
 
 class UserSettingsController extends AbstractController
 {
@@ -75,14 +76,28 @@ class UserSettingsController extends AbstractController
     }
     
     /**
-     * @Route("/settings/login", name="user.settings.login")
+     * @Route("/settings/connect", name="user.settings.connect")
      */
-    public function userSettingsLogin(Request $request)
+    public function userSettingsConnect(Request $request)
     {
-        $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $data = [];
 
-        return $this->render('user/settings/login.html.twig', $data);
+        return $this->render('user/settings/connect.html.twig', $data);
+    }
+    
+    /**
+     * @Route("/settings/connect/revoke/{connectionID}", name="user.settings.connect.revoke")
+     */
+    public function userSettingsConnectRemove(Request $request, $connectionID)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        $connectionToRevoke = $em->getRepository(Connection::class)->findOneBy(array('id' => $connectionID));
+        $em->remove($connectionToRevoke);
+        $em->flush();
+
+        return $this->redirectToRoute('user.settings.connect');
     }
 }

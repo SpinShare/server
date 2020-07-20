@@ -46,13 +46,30 @@
          */
         private $spinPlays;
 
+        /**
+         * @ORM\Column(type="string", length=6, nullable=true)
+         */
+        private $connectCode;
+
+        /**
+         * @ORM\OneToMany(targetEntity="App\Entity\Connection", mappedBy="user")
+         */
+        private $connections;
+
+        /**
+         * @ORM\OneToMany(targetEntity="App\Entity\UserNotification", mappedBy="user")
+         */
+        private $userNotifications;
+
         public function __construct()
         {
             parent::__construct();
             $this->reviews = new ArrayCollection();
             $this->spinPlays = new ArrayCollection();
             // your own logic
-        }
+
+            $this->connections = new ArrayCollection();
+            $this->userNotifications = new ArrayCollection();        }
 
         public function getCoverReference(): ?string
         {
@@ -159,5 +176,79 @@
             );
     
             return $response;
+        }
+
+        public function getConnectCode(): ?string
+        {
+            return $this->connectCode;
+        }
+
+        public function setConnectCode(?string $connectCode): self
+        {
+            $this->connectCode = $connectCode;
+
+            return $this;
+        }
+
+        /**
+         * @return Collection|Connection[]
+         */
+        public function getConnections(): Collection
+        {
+            return $this->connections;
+        }
+
+        public function addConnection(Connection $connection): self
+        {
+            if (!$this->connections->contains($connection)) {
+                $this->connections[] = $connection;
+                $connection->setUser($this);
+            }
+
+            return $this;
+        }
+
+        public function removeConnection(Connection $connection): self
+        {
+            if ($this->connections->contains($connection)) {
+                $this->connections->removeElement($connection);
+                // set the owning side to null (unless already changed)
+                if ($connection->getUser() === $this) {
+                    $connection->setUser(null);
+                }
+            }
+
+            return $this;
+        }
+
+        /**
+         * @return Collection|UserNotification[]
+         */
+        public function getUserNotifications(): Collection
+        {
+            return $this->userNotifications;
+        }
+
+        public function addUserNotification(UserNotification $userNotification): self
+        {
+            if (!$this->userNotifications->contains($userNotification)) {
+                $this->userNotifications[] = $userNotification;
+                $userNotification->setUser($this);
+            }
+
+            return $this;
+        }
+
+        public function removeUserNotification(UserNotification $userNotification): self
+        {
+            if ($this->userNotifications->contains($userNotification)) {
+                $this->userNotifications->removeElement($userNotification);
+                // set the owning side to null (unless already changed)
+                if ($userNotification->getUser() === $this) {
+                    $userNotification->setUser(null);
+                }
+            }
+
+            return $this;
         }
     }
