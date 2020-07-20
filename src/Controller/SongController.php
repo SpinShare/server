@@ -293,12 +293,12 @@ class SongController extends AbstractController
                                         $fileType = explode(".", $coverFiles[0])[count(explode(".", $coverFiles[0])) - 1];
                                         
                                         if(in_array($fileType, array('jpg', 'png'))) {
-                                            $trackInfo->albumArtReference->assetName = $song->getFileReference();
-                                            rename($coverFiles[0], $this->getParameter('cover_path').DIRECTORY_SEPARATOR.$song->getFileReference().".png");
-
                                             // Generate Thumbnail
                                             $hf = new HelperFunctions();
                                             $hf->generateThumbnail($coverFiles[0], $this->getParameter('thumbnail_path').DIRECTORY_SEPARATOR.$song->getFileReference().".jpg", 300);
+
+                                            $trackInfo->albumArtReference->assetName = $song->getFileReference();
+                                            rename($coverFiles[0], $this->getParameter('cover_path').DIRECTORY_SEPARATOR.$song->getFileReference().".png");
                                         }
                                     }
                                 } catch(Exception $e) {
