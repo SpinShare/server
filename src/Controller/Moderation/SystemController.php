@@ -91,4 +91,39 @@ class SystemController extends AbstractController
 
         return $this->redirectToRoute('moderation.system.index');
     }
+    
+    /**
+     * @Route("/moderation/system/generate/thumbnails-missing", name="moderation.system.generate.thumbnails-missing")
+     */
+    public function systemGenerateMissingThumbnails(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+        
+        $allSongs = $em->getRepository(Song::class)->findAll();
+
+        try {
+            foreach($allSongs as $oneSong) {
+                $filePath = glob($this->getParameter('cover_path').DIRECTORY_SEPARATOR.$oneSong->getFileReference().".png");
+                $existingThumbnail = glob($this->getParameter('thumbnail_path').DIRECTORY_SEPARATOR.$oneSong->getFileReference().".jpg");
+
+                if(count($existingThumbnail) == 0) {
+                    if(count($filePath) > 0) {
+                        $hf = new HelperFunctions();
+                        $hf->generateThumbnail($filePath[0], $this->getParameter('thumbnail_path').DIRECTORY_SEPARATOR.$oneSong->getFileReference().".jpg", 300);
+                        echo "Generating: ".$oneSong->getFileReference()."<br />";
+                    }
+                } else {
+                    echo "Skipping: ".$oneSong->getFileReference()."<br />";
+                }
+            }
+        } catch(\Exception $e) {
+            var_dump($e);
+            exit;
+        }
+
+        exit;
+
+        return $this->redirectToRoute('moderation.system.index');
+    }
 }
