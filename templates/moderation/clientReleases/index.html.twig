@@ -1,0 +1,31 @@
+{% extends 'moderation/base.html.twig' %}
+
+{% set sectionTitle = 'Client Releases' %}
+
+{% block moderationContent %}
+    <section class="section-moderator-list">
+        <div class="box">
+            <table>
+                <tr>
+                    <th>Version</th>
+                    <th>Platform</th>
+                    <th>UploadDate</th>
+                    <th style="width: 40px"></th>
+                </tr>
+                {% for release in clientReleases %}
+                    <tr>
+                        <td>{{ release.majorVersion }}.{{ release.minorVersion }}.{{ release.patchVersion }}</td>
+                        <td>{{ release.platform }}</td>
+                        <td>{{ release.uploadDate|date('d/m/Y') }}</td>
+                        <td><a href="{{ path('moderation.clientreleases.remove', {releaseId: release.id}) }}" class="button">X</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <br /><br /><a href="{{ path('moderation.clientreleases.add') }}" class="button">New Release</a>
+        </div>
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/moderation.css?v=' ~ date().timestamp) }}" />
+{% endblock %}

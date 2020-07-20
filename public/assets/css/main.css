@@ -28,38 +28,97 @@ body {
 }
 main {
   display: grid;
-  margin-left: 60px;
+  padding-top: 60px;
 }
 main aside {
-  background: rgba(255, 255, 255, 0.1);
+  background: #000;
   display: grid;
   position: fixed;
+  z-index: 1000;
   top: 0px;
   left: 0px;
-  bottom: 0px;
-  grid-template-rows: 1fr auto;
+  right: 0px;
+  grid-template-columns: 180px auto 1fr auto;
 }
-main aside .item {
-  width: 60px;
+main aside .logo {
+  padding: 15px 30px;
   height: 60px;
-  opacity: 0.4;
+}
+main aside .logo img {
+  height: 100%;
+}
+main aside nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+main aside nav .upload-button {
+  align-items: center;
+  justify-content: center;
+  padding: 0px 15px;
+}
+main aside nav .item {
+  min-width: 60px;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
   background: transparent;
+  border-bottom: 2px solid transparent;
   color: #fff;
   transition: 0.2s ease opacity, 0.2s ease background;
 }
-main aside .item:hover {
-  opacity: 1;
+main aside nav .item:hover {
   cursor: pointer;
 }
-main aside .item.active {
+main aside nav .item:hover .mdi {
   opacity: 1;
-  background: #e22c78;
 }
-main aside .item .mdi {
+main aside nav .item.active {
+  border-color: #e22c78;
+}
+main aside nav .item.active .mdi {
+  opacity: 1;
+}
+main aside nav .item .mdi {
   font-size: 22px;
+  opacity: 0.4;
+}
+main aside nav .user-avatar {
+  width: 32px;
+  height: 32px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 50px;
+}
+main aside .search {
+  align-self: center;
+  justify-self: center;
+}
+main aside .search input {
+  width: 100%;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  background: transparent;
+  color: #fff;
+  border-radius: 4px;
+  padding: 9px 20px;
+  background: rgba(255, 255, 255, 0.15);
+  border: 0px;
+  transition: 0.2s ease-in-out all;
+  min-width: 500px;
+}
+main aside .search input:hover {
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+}
+main aside .search input:focus {
+  outline: 0;
+  background: rgba(255, 255, 255, 0.3);
+}
+main aside .search input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
 }
 section.section-startup {
   padding: 50px;
@@ -86,6 +145,7 @@ button,
 button:hover,
 .button:hover {
   opacity: 0.6;
+  text-decoration: none;
 }
 button:focus,
 .button:focus {
@@ -341,4 +401,29 @@ input[type="range"]::-ms-fill-lower {
 }
 .user-item.inactive {
   box-shadow: 0px 2px 10px 5px rgba(0, 0, 0, 0.2);
+}
+@media screen and (max-width: 550px) {
+  .song-row .song-list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+@media screen and (min-width: 550px) and (max-width: 780px) {
+  .song-row .song-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (min-width: 780px) and (max-width: 1000px) {
+  .song-row .song-list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (min-width: 1000px) and (max-width: 1400px) {
+  .song-row .song-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media screen and (min-width: 1400px) {
+  .song-row .song-list {
+    grid-template-columns: repeat(6, 1fr);
+  }
 }

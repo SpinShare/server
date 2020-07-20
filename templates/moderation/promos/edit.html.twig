@@ -1,0 +1,13 @@
+{% extends 'moderation/base.html.twig' %}
+
+{% set sectionTitle = 'Edit an existing promo' %}
+
+{% block moderationContent %}
+    <section class="section-moderator-add">
+        <div class="box">
+            {{ form_start(editForm) }}
+            {{ form_widget(editForm) }}
+            {{ form_end(editForm) }}
+        </div>
+    </section>
+{% endblock %}

@@ -22,22 +22,35 @@
     <body>
       <main>
         <aside>
+          <div class="logo">
+            <a href="{{ path('index.index') }}"><img src="{{ asset('assets/img/logo_colored_ondark.svg') }}" alt="SpinShare Logo" /></a>
+          </div>
+
           <nav>
             <a class="item {% if app.request.attributes.get('_route') == 'index.index' %}active{% endif %}" href="{{ path('index.index') }}" title="Home"><i class="mdi mdi-home-outline"></i></a>
-            <a class="item {% if app.request.attributes.get('_route') == 'search.index' %}active{% endif %}" href="{{ path('search.index') }}" title="Search"><i class="mdi mdi-magnify"></i></a>
             <a class="item {% if app.request.attributes.get('_route') == 'index.client' %}active{% endif %}" href="{{ path('index.client') }}" title="Download Client"><i class="mdi mdi-desktop-tower-monitor"></i></a>
             <a class="item {% if app.request.attributes.get('_route') == 'index.support' %}active{% endif %}" href="{{ path('index.support') }}" title="Support"><i class="mdi mdi-hand-heart"></i></a>
             <a class="item {% if app.request.attributes.get('_route') == 'index.legal' %}active{% endif %}" href="{{ path('index.legal') }}" title="Legal"><i class="mdi mdi-gavel"></i></a>
           </nav>
 
+          <form action="{{ path('search.index') }}" method="GET" class="search">
+              {% if app.request.attributes.get('_route') != 'search.index' %}
+                <input name="q" type="search" placeholder="Search for songs, tags & profiles..." value="{{ searchQuery|default('') }}" />
+              {% endif %}
+          </form>
+
           <nav>
             {% if is_granted("ROLE_USER") %}
-              {% if is_granted("ROLE_MODERATOR") or is_granted("ROLE_ADMIN") %}
-                <a class="item {% if app.request.attributes.get('_route') == 'moderation.index' %}active{% endif %}" href="{{ path('moderation.index') }}" title="Moderator Dashboard"><i class="mdi mdi-shield-outline"></i></a>
-              {% endif %}
-                <a class="item {% if app.request.attributes.get('_route') == 'upload.index' %}active{% endif %}" href="{{ path('upload.index') }}" title="Upload"><i class="mdi mdi-upload-outline"></i></a>
+                <div class="upload-button">
+                  <a href="{{ path('upload.index') }}" class="button">Upload</a>
+                </div>
+                <a class="item {% if app.request.attributes.get('_route') == 'user.detail' and app.request.attributes.get('_route_params')['userId']|default('') == app.user.id %}active{% endif %}" href="{{ path('user.detail', {userId: app.user.id}) }}" title="My Profile">
+                  <div class="user-avatar" style="background-image: url({{ asset('uploads/avatar/' ~ app.user.coverReference ~ '?t=' ~ date().timestamp) }}), url({{ asset("assets/img/defaultAvatar.jpg") }});"></div>
+                </a>
+                {% if is_granted("ROLE_MODERATOR") or is_granted("ROLE_ADMIN") %}
+                  <a class="item {% if 'moderation' in app.request.attributes.get('_route') %}active{% endif %}" href="{{ path('moderation.index') }}" title="Moderator Dashboard"><i class="mdi mdi-shield-outline"></i></a>
+                {% endif %}
                 <a class="item {% if app.request.attributes.get('_route') == 'user.settings' %}active{% endif %}" href="{{ path('user.settings') }}" title="Settings"><i class="mdi mdi-cog-outline"></i></a>
-                <a class="item {% if app.request.attributes.get('_route') == 'user.detail' and app.request.attributes.get('_route_params')['userId']|default('') == app.user.id %}active{% endif %}" href="{{ path('user.detail', {userId: app.user.id}) }}" title="My Profile"><i class="mdi mdi-account-circle-outline"></i></a>
                 <a class="item" href="{{ path('fos_user_security_logout') }}" title="Logout"><i class="mdi mdi-close-circle-outline"></i></a>
             {% else %}
                 <a class="item" href="{{ path('fos_user_security_login') }}" title="Login/Register"><i class="mdi mdi-login-variant"></i></a>

@@ -24,20 +24,71 @@ class IndexController extends AbstractController
         $data = [];
 
         $activePromos = $em->getRepository(Promo::class)->findBy(array('isVisible' => true), array('id' => 'DESC'), 2);
+        $data['promos'] = $activePromos;
         
-        $newOffset = $request->query->get('newOffset');
+        /* $newOffset = $request->query->get('newOffset');
         $popularOffset = $request->query->get('popularOffset');
 
         $resultsNewSongs = $em->getRepository(Song::class)->findBy(array(), array('id' => 'DESC'), 6, $newOffset * 6);
         $resultsPopularSongs = $em->getRepository(Song::class)->findBy(array(), array('downloads' => 'DESC', 'views' => 'DESC'), 6, $popularOffset * 6);
 
-        $data['promos'] = $activePromos;
         $data['newSongs'] = $resultsNewSongs;
         $data['newOffset'] = $newOffset;
         $data['popularSongs'] = $resultsPopularSongs;
-        $data['popularOffset'] = $popularOffset;
+        $data['popularOffset'] = $popularOffset; */
 
         return $this->render('index/index.html.twig', $data);
+    }
+
+    /**
+     * @Route("/new", name="index.new")
+     */
+    public function new(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+        
+        $newOffset = $request->query->get('newOffset') ? $request->query->get('newOffset') : 0;
+        $resultsNewSongs = $em->getRepository(Song::class)->getNew($newOffset);
+
+        $data['newSongs'] = $resultsNewSongs;
+        $data['newOffset'] = $newOffset;
+
+        return $this->render('index/new.html.twig', $data);
+    }
+
+    /**
+     * @Route("/hot", name="index.hot")
+     */
+    public function hot(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+        
+        $hotOffset = $request->query->get('hotOffset') ? $request->query->get('hotOffset') : 0;
+        $resultsHotSongs = $em->getRepository(Song::class)->getHot($hotOffset);
+
+        $data['hotSongs'] = $resultsHotSongs;
+        $data['hotOffset'] = $hotOffset;
+
+        return $this->render('index/hot.html.twig', $data);
+    }
+
+    /**
+     * @Route("/popular", name="index.popular")
+     */
+    public function popular(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+        
+        $popularOffset = $request->query->get('popularOffset') ? $request->query->get('popularOffset') : 0;
+        $resultsPopularSongs = $em->getRepository(Song::class)->getPopular($popularOffset);
+
+        $data['popularSongs'] = $resultsPopularSongs;
+        $data['popularOffset'] = $popularOffset;
+
+        return $this->render('index/popular.html.twig', $data);
     }
 
     /**

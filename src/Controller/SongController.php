@@ -203,6 +203,13 @@ class SongController extends AbstractController
         
                             }
         
+                            // Remove thumbnail
+                            try {
+                                @unlink($this->getParameter('thumbnail_path').DIRECTORY_SEPARATOR.$song->getFileReference().".jpg");
+                            } catch(FileNotFoundException $e) {
+        
+                            }
+        
                             // Remove .ogg files
                             try {
                                 $oggFiles = glob($this->getParameter('audio_path').DIRECTORY_SEPARATOR.$song->getFileReference()."_*.ogg");
@@ -288,6 +295,10 @@ class SongController extends AbstractController
                                         if(in_array($fileType, array('jpg', 'png'))) {
                                             $trackInfo->albumArtReference->assetName = $song->getFileReference();
                                             rename($coverFiles[0], $this->getParameter('cover_path').DIRECTORY_SEPARATOR.$song->getFileReference().".png");
+
+                                            // Generate Thumbnail
+                                            $hf = new HelperFunctions();
+                                            $hf->generateThumbnail($coverFiles[0], $this->getParameter('thumbnail_path').DIRECTORY_SEPARATOR.$song->getFileReference().".jpg", 300);
                                         }
                                     }
                                 } catch(Exception $e) {
@@ -387,6 +398,13 @@ class SongController extends AbstractController
                 // Remove cover
                 try {
                     @unlink($this->getParameter('cover_path').DIRECTORY_SEPARATOR.$result->getFileReference().".png");
+                } catch(FileNotFoundException $e) {
+
+                }
+
+                // Remove thumbnail
+                try {
+                    @unlink($this->getParameter('thumbnail_path').DIRECTORY_SEPARATOR.$result->getFileReference().".jpg");
                 } catch(FileNotFoundException $e) {
 
                 }

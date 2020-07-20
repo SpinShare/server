@@ -1,22 +1,12 @@
-{% extends 'base.html.twig' %}
+{% trans_default_domain 'FOSUserBundle' %}
+{% extends 'bundles/FOSUserBundle/base.html.twig' %}
 
-{% block title %}Confirmed{% endblock %}
+{% set sectionTitle = 'Email confirmed!' %}
 
-{% block content %}
-    <section class="section-login">
-        <div class="box">
-            <div class="text">
-                <div class="title">Confirmed</div>
+{% block securityContent %}
+    <div class="security-content">
+        <img src="{{ asset('assets/img/illustration-confirmed.svg') }}" alt="Illustration for Confirm Email" />
 
-                <p>Awesome, {{ user.username }}! Your account is now activated.</p>
-            </div>
-            <div class="illustration">
-                <img src="{{ asset('assets/img/illustration-confirmed.svg') }}" alt="Confirmed Illustration" />
-            </div>
-        </div>
-    </section>
-{% endblock content %}
-
-{% block styles %}
-    <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}" />
-{% endblock %}
+        <p>Awesome, your account was now activated!</p>
+    </div>
+{% endblock securityContent %}

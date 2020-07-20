@@ -1,0 +1,25 @@
+{% extends 'moderation/base.html.twig' %}
+
+{% set sectionTitle = 'System' %}
+
+{% block moderationContent %}
+    <section class="section-moderator-list">
+        {% if (app.session.flashbag.get('message')) %}
+            <div class="flashbang flashbang-error">{{ app.session.flashbag.get('message') }}</div>
+        {% endif %}
+
+        <div class="box">
+            <a href="{{ path('moderation.system.deploy') }}" class="button">Deploy</a> <a href="{{ path('moderation.system.rollback') }}" class="button">Rollback</a>
+        </div>
+
+        <div class="box">
+            Generate On All Songs Actions<br /><strong>(ATTENTION: They can take a while!)</strong><br /><br />
+            <a href="{{ path('moderation.system.generate.thumbnails') }}" class="button">Generate Thumbnails</a><br /><br />
+            <a href="{{ path('moderation.system.cleanup.temp') }}" class="button">Cleanup Temp Folder</a>
+        </div>
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/moderation.css?v=' ~ date().timestamp) }}" />
+{% endblock %}

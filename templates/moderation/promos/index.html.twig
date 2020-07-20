@@ -1,0 +1,35 @@
+{% extends 'moderation/base.html.twig' %}
+
+{% set sectionTitle = 'Promos' %}
+
+{% block moderationContent %}
+    <section class="section-moderator-list">
+        <div class="box">
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Title</th>
+                    <th>Visible</th>
+                    <th style="width: 150px"></th>
+                </tr>
+                {% for promo in promos %}
+                    <tr {{ promo.isVisible ? "class=\"active\"" : ""}}>
+                        <td>{{ promo.type }}</td>
+                        <td>{{ promo.title }}</td>
+                        <td>{{ promo.isVisible ? "Yes" : "No" }}</td>
+                        <td>
+                            <a href="{{ path('moderation.promos.remove', {promoId: promo.id}) }}" class="button">X</a>
+                            <a href="{{ path('moderation.promos.switchVisibility', {promoId: promo.id}) }}" class="button">Vis</a>
+                            <a href="{{ path('moderation.promos.edit', {promoId: promo.id}) }}" class="button">Edit</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <br /><br /><a href="{{ path('moderation.promos.add') }}" class="button">New Promo</a>
+        </div>
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/moderation.css?v=' ~ date().timestamp) }}" />
+{% endblock %}

@@ -1,8 +1,45 @@
 .section-moderator-dashboard {
-    padding: 50px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 25px;
+    & header {
+        background: rgba(0,0,0,0.5);
+        padding: 50px;
+        padding-bottom: 0px;
+
+        & .title {
+            font-size: 32px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            font-family: 'Oswald', sans-serif;
+        }
+        & .tabs {
+            display: flex;
+
+            & .tab {
+                font-size: 14px;
+                font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 0.25em;
+                padding: 15px 40px;
+                border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
+                background: rgba(0,0,0,0.6);
+                color: rgba(255,255,255,0.4);
+                transition: 0.2s ease-in-out all;
+                text-decoration: none;
+
+                &:not(.active):hover {
+                    cursor: pointer;
+                    background: #272c2e;
+                    color: rgba(255,255,255,0.75);
+                }
+                &.active {
+                    opacity: 1;
+                    color: rgba(255,255,255,1);
+                    background: #212629;
+                }
+            }
+        }
+    }
 
     & .box {
         background: rgba(255,255,255,0.1);
@@ -47,6 +84,9 @@
             }
         }
     }
+}
+.section-moderator-list {
+    padding: 50px;
 }
 .section-moderator-add {
     padding: 50px;

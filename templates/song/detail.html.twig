@@ -7,17 +7,17 @@
     <meta property="og:description" content="Charted by {{ song.charter }} &dash; Views: {{ song.views|default(0) }}, Downloads: {{ song.downloads|default(0) }}"/>
     <meta property="og:type" content="music.song"/>
     <meta property="og:url" content="{{ path('song.detail', {songId: song.id}) }}"/>
-    <meta property="og:image" content="{{ asset("uploads/cover/" ~ song.fileReference ~ ".png?v=" ~ date().timestamp) }}"/>
+    <meta property="og:image" content="{{ asset("uploads/thumbnail/" ~ song.fileReference ~ ".jpg?v=" ~ date().timestamp) }}"/>
 {% endblock %}
 
 {% block content %}
     <section class="section-song-detail">
-        <div class="song-detail-background" style="background-image: url({{ asset("uploads/cover/" ~ song.fileReference ~ ".png?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});">
+        <div class="song-detail-background" style="background-image: url({{ asset("uploads/thumbnail/" ~ song.fileReference ~ ".jpg?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});">
             <div class="song-detail-background-cover"></div>
         </div>
         <div class="song-detail">
             <div class="song-meta">
-                <div class="cover" style="background-image: url({{ asset("uploads/cover/" ~ song.fileReference ~ ".png?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});"></div>
+                <div class="cover" style="background-image: url({{ asset("uploads/thumbnail/" ~ song.fileReference ~ ".jpg?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});"></div>
                 <div class="song-metadata">
                     <div class="song-title">{{ song.title }}</div>
                     <div class="song-subtitle">{{ song.subtitle }}</div>

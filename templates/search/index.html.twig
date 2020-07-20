@@ -7,7 +7,7 @@
         <header>
             <div class="title">Search</div>
             <div class="actions">
-                <form action="" method="GET">
+                <form action="{{ path('search.index') }}" method="GET">
                     <input name="q" type="search" placeholder="Search for songs, tags & profiles..." value="{{ searchQuery|default('') }}" />
                 </form>
                 <a href="{{ path('search.index', {showAll: true}) }}" class="button">Show all</a>

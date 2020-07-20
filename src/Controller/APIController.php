@@ -123,7 +123,7 @@ class APIController extends AbstractController
             $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
             $oneResult['hasExtremeDifficulty'] = $result->getHasExtremeDifficulty();
             $oneResult['hasXDDifficulty'] = $result->getHasXDDifficulty();
-            $oneResult['cover'] = $baseUrl."/uploads/cover/".$result->getFileReference().".png";
+            $oneResult['cover'] = $baseUrl."/uploads/thumbnail/".$result->getFileReference().".jpg";
             $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
 
             $data[] = $oneResult;
@@ -158,7 +158,7 @@ class APIController extends AbstractController
             $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
             $oneResult['hasExtremeDifficulty'] = $result->getHasExtremeDifficulty();
             $oneResult['hasXDDifficulty'] = $result->getHasXDDifficulty();
-            $oneResult['cover'] = $baseUrl."/uploads/cover/".$result->getFileReference().".png";
+            $oneResult['cover'] = $baseUrl."/uploads/thumbnail/".$result->getFileReference().".jpg";
             $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
 
             $data[] = $oneResult;
@@ -193,7 +193,7 @@ class APIController extends AbstractController
             $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
             $oneResult['hasExtremeDifficulty'] = $result->getHasExtremeDifficulty();
             $oneResult['hasXDDifficulty'] = $result->getHasXDDifficulty();
-            $oneResult['cover'] = $baseUrl."/uploads/cover/".$result->getFileReference().".png";
+            $oneResult['cover'] = $baseUrl."/uploads/thumbnail/".$result->getFileReference().".jpg";
             $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
 
             $data[] = $oneResult;
@@ -245,7 +245,7 @@ class APIController extends AbstractController
             $data['tags'] = $result->getTagsArray();
             $data['fileReference'] = $result->getFileReference();
             $data['paths']['ogg'] = $baseUrl."/uploads/audio/".$result->getFileReference()."_0.ogg";
-            $data['paths']['cover'] = $baseUrl."/uploads/cover/".$result->getFileReference().".png";
+            $data['paths']['cover'] = $baseUrl."/uploads/thumbnail/".$result->getFileReference().".jpg";
             $data['paths']['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
             $data['description'] = $result->getDescription();
             $data['views'] = $result->getViews();
@@ -462,7 +462,7 @@ class APIController extends AbstractController
                 $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
                 $oneResult['hasExtremeDifficulty'] = $result->getHasExtremeDifficulty();
                 $oneResult['hasXDDifficulty'] = $result->getHasXDDifficulty();
-                $oneResult['cover'] = $baseUrl."/uploads/cover/".$result->getFileReference().".png";
+                $oneResult['cover'] = $baseUrl."/uploads/thumbnail/".$result->getFileReference().".jpg";
                 $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
 
                 $data['songs'][] = $oneResult;
@@ -535,7 +535,7 @@ class APIController extends AbstractController
             $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
             $oneResult['hasExtremeDifficulty'] = $result->getHasExtremeDifficulty();
             $oneResult['hasXDDifficulty'] = $result->getHasXDDifficulty();
-            $oneResult['cover'] = $baseUrl."/uploads/cover/".$result->getFileReference().".png";
+            $oneResult['cover'] = $baseUrl."/uploads/thumbnail/".$result->getFileReference().".jpg";
             $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
 
             $data['songs'][] = $oneResult;
@@ -574,7 +574,7 @@ class APIController extends AbstractController
             $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
             $oneResult['hasExtremeDifficulty'] = $result->getHasExtremeDifficulty();
             $oneResult['hasXDDifficulty'] = $result->getHasXDDifficulty();
-            $oneResult['cover'] = $baseUrl."/uploads/cover/".$result->getFileReference().".png";
+            $oneResult['cover'] = $baseUrl."/uploads/thumbnail/".$result->getFileReference().".jpg";
             $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
 
             $data['songs'][] = $oneResult;

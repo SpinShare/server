@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ sectionTitle }}{% endblock %}
+
+{% block content %}
+<section class="section-moderator-dashboard">
+        <header>
+            <div class="title">{{ sectionTitle }}</div>
+
+            <div class="tabs">
+                <a class="tab {% if 'moderation.reports.user' in app.request.attributes.get('_route') %}active{% endif %}" href="{{ path('moderation.reports.user.index') }}">User Reports</a>
+                <a class="tab {% if 'moderation.reports.song' in app.request.attributes.get('_route') %}active{% endif %}" href="{{ path('moderation.reports.song.index') }}">Song Reports</a>
+                
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="tab {% if 'moderation.promos' in app.request.attributes.get('_route') %}active{% endif %}" href="{{ path('moderation.promos.index') }}">Promos</a>
+                    <a class="tab {% if 'moderation.clientreleases' in app.request.attributes.get('_route') %}active{% endif %}" href="{{ path('moderation.clientreleases.index') }}">Client Releases</a>
+                    <a class="tab {% if 'moderation.system' in app.request.attributes.get('_route')  %}active{% endif %}" href="{{ path('moderation.system.index') }}">System</a>
+                {% endif %}
+            </div>
+        </header>
+
+        {% block moderationContent %}
+        {% endblock %}
+</section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/moderation.css?v=' ~ date().timestamp) }}" />
+{% endblock %}

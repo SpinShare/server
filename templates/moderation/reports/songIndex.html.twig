@@ -1,0 +1,30 @@
+{% extends 'moderation/base.html.twig' %}
+
+{% set sectionTitle = 'Song Reports' %}
+
+{% block moderationContent %}
+    <section class="section-moderator-list">
+        <div class="box">
+            <table>
+                <tr>
+                    <th style="width: 120px">Song ID</th>
+                    <th>Reason</th>
+                    <th style="width: 150px">Report Date</th>
+                    <th style="width: 80px"></th>
+                </tr>
+                {% for report in songReports %}
+                    <tr {{ report.status == 2 ? "class=\"inactive\"" : ""}}>
+                        <td>{{ report.songId }}</td>
+                        <td>{{ report.reason }}</td>
+                        <td>{{ report.reportDate|date('d/m/Y') }}</td>
+                        <td><a href="{{ path('moderation.reports.song', {reportId: report.id}) }}" class="button">Open</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/moderation.css?v=' ~ date().timestamp) }}" />
+{% endblock %}

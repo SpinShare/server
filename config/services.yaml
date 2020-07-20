@@ -10,6 +10,7 @@ parameters:
     avatar_path: "%kernel.project_dir%/public/uploads/avatar"
     promo_path: "%kernel.project_dir%/public/uploads/promo"
     client_path: "%kernel.project_dir%/public/uploads/client"
+    thumbnail_path: "%kernel.project_dir%/public/uploads/thumbnail"
     temp_path: "%kernel.project_dir%/public/uploads/temp"
 
 services:

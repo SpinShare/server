@@ -26,39 +26,103 @@ body {
 }
 main {
     display: grid;
-    margin-left: 60px;
+    padding-top: 60px;
 
     & aside {
-        background: rgba(255,255,255,0.1);
+        background: #000;
         display: grid;
         position: fixed;
+        z-index: 1000;
         top: 0px;
         left: 0px;
-        bottom: 0px;
-        grid-template-rows: 1fr auto;
+        right: 0px;
+        grid-template-columns: 180px auto 1fr auto;
 
-        & .item {
-            width: 60px;
+        & .logo {
+            padding: 15px 30px;
             height: 60px;
-            opacity: 0.4;
+            & img {
+                height: 100%;
+            }
+        }
+        & nav {
             display: flex;
-            justify-content: center;
+            flex-direction: row;
             align-items: center;
-            background: transparent;
-            color :#fff;
-            transition: 0.2s ease opacity, 0.2s ease background;
-
-            &:hover {
-                opacity: 1;
-                cursor: pointer;
+            justify-content: center;
+            
+            & .upload-button {
+                align-items: center;
+                justify-content: center;
+                padding: 0px 15px;
             }
-            &.active {
-                opacity: 1;
-                background: rgb(226, 44, 120);
-            }
+            & .item {
+                min-width: 60px;
+                height: 60px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background: transparent;
+                border-bottom: 2px solid transparent;
+                color :#fff;
+                transition: 0.2s ease opacity, 0.2s ease background;
+    
+                &:hover {
+                    cursor: pointer;
 
-            & .mdi {
-                font-size: 22px;
+                    & .mdi {
+                        opacity: 1;
+                    }
+                }
+                &.active {
+                    border-color: rgb(226, 44, 120);
+
+                    & .mdi {
+                        opacity: 1;
+                    }
+                }
+    
+                & .mdi {
+                    font-size: 22px;
+                    opacity: 0.4;
+                }
+            }
+            & .user-avatar {
+                width: 32px;
+                height: 32px;
+                background-position: center;
+                background-size: cover;
+                border-radius: 50px;
+            }
+        }
+        & .search {
+            align-self: center;
+            justify-self: center;
+
+            input {
+                width: 100%;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 14px;
+                background: transparent;
+                color: #fff;
+                border-radius: 4px;
+                padding: 9px 20px;
+                background: rgba(255,255,255,0.15);
+                border: 0px;
+                transition: 0.2s ease-in-out all;
+                min-width: 500px;
+            
+                &:hover {
+                    background: rgba(255,255,255,0.3);
+                    color: #fff;
+                }
+                &:focus {
+                    outline: 0;
+                    background: rgba(255,255,255,0.3);
+                }
+                &::placeholder {
+                    color: rgba(255,255,255,0.5);
+                }
             }
         }
     }
@@ -90,6 +154,7 @@ button, .button {
 
     &:hover {
         opacity: 0.6;
+        text-decoration: none;
     }
     &:focus {
         outline: 0;
@@ -369,5 +434,40 @@ input[type="range"]::-ms-fill-lower {
     }
     &.inactive {
         box-shadow: 0px 2px 10px 5px rgba(0, 0, 0, 0.2);
+    }
+}
+@media screen and (max-width: 550px) {
+    .song-row {
+        & .song-list {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+}
+@media screen and (min-width: 550px) and (max-width: 780px) {
+    .song-row {
+        & .song-list {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}
+@media screen and (min-width: 780px) and (max-width: 1000px) {
+    .song-row {
+        & .song-list {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+}
+@media screen and (min-width: 1000px) and (max-width: 1400px) {
+    .song-row {
+        & .song-list {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+}
+@media screen and (min-width: 1400px) {
+    .song-row {
+        & .song-list {
+            grid-template-columns: repeat(6, 1fr);
+        }
     }
 }

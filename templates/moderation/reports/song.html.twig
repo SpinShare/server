@@ -1,8 +1,8 @@
-{% extends 'base.html.twig' %}
+{% extends 'moderation/base.html.twig' %}
 
-{% block title %}Moderator Dashboard{% endblock %}
+{% set sectionTitle = 'Song Report' %}
 
-{% block content %}
+{% block moderationContent %}
 <section class="section-moderator-report">
     <div class="user-column">
         <div class="box">
@@ -113,8 +113,4 @@
         {% endif %}
     </div>
 </section>
-{% endblock %}
-
-{% block styles %}
-    <link rel="stylesheet" href="{{ asset('assets/css/moderation.css?v=' ~ date().timestamp) }}" />
 {% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Spin Rhythm XD Custom Charts{% endblock %}
+
+{% block content %}
+    <section class="section-startup">
+        <div class="tabs">
+            <a href="{{ path('index.index') }}" {% if app.request.attributes.get('_route') == 'index.index' %}class="active"{% endif %}><span>Frontpage</span></a>
+            <a href="{{ path('index.new') }}" {% if app.request.attributes.get('_route') == 'index.new' %}class="active"{% endif %}><span>New</span></a>
+            <a href="{{ path('index.hot') }}" {% if app.request.attributes.get('_route') == 'index.hot' %}class="active"{% endif %}><span>Hot</span></a>
+            <a href="{{ path('index.popular') }}" {% if app.request.attributes.get('_route') == 'index.popular' %}class="active"{% endif %}><span>Popular</span></a>
+        </div>
+
+        {% block indexContent %}{% endblock %}
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/startup.css?v=' ~ date().timestamp) }}" />
+{% endblock %}
