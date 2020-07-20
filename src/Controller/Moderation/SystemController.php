@@ -30,26 +30,6 @@ class SystemController extends AbstractController
     }
     
     /**
-     * @Route("/moderation/system/deploy", name="moderation.system.deploy")
-     */
-    public function systemDeploy(Request $request)
-    {
-        shell_exec("bash /var/www/spinshare/pull-volatile.sh");
-
-        return $this->redirectToRoute('moderation.system.index');
-    }
-    
-    /**
-     * @Route("/moderation/system/rollback", name="moderation.system.rollback")
-     */
-    public function systemRollback(Request $request)
-    {
-        shell_exec("dep rollback");
-
-        return $this->redirectToRoute('moderation.system.index');
-    }
-    
-    /**
      * @Route("/moderation/system/cleanup/temp", name="moderation.system.cleanup.temp")
      */
     public function systemCleanupTemp(Request $request)
