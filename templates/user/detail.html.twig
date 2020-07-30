@@ -12,7 +12,7 @@
                             {% if app.user.id == user.id %}
                                 <form method="post" action="" enctype="multipart/form-data" class="user-avatar-change">
                                     <input typoe="hidden" name="save" value="changeAvatar" />
-                                    <input type="file" name="newAvatar" onchange="document.querySelector('form').submit()" />
+                                    <input type="file" name="newAvatar" onchange="document.querySelector('.user-avatar-change').submit()" />
                                     <i class="mdi mdi-image-edit"></i>
                                 </form>
                             {% endif %}

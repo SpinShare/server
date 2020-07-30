@@ -19,7 +19,7 @@ body {
 }
 ::-webkit-scrollbar {
     background: #212529;
-    width: 5px;
+    width: 10px;
 }
 ::-webkit-scrollbar-thumb {
     background: #fff;
@@ -525,8 +525,8 @@ input[type="range"]::-ms-fill-lower {
         }
     }
     &:not(.inactive):hover {
-        transform: scale(1.1);
         cursor: pointer;
+        background: rgba(255,255,255,0.2);
         box-shadow: 0px 4px 20px 5px rgba(0, 0, 0, 0.4);
 
         & .song-cover {
@@ -602,8 +602,8 @@ input[type="range"]::-ms-fill-lower {
     }
 
     &:not(.inactive):hover {
-        transform: scale(1.1);
         cursor: pointer;
+        background: rgba(255,255,255,0.2);
         box-shadow: 0px 4px 20px 5px rgba(0, 0, 0, 0.4);
     }
     &.inactive {

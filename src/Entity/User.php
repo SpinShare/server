@@ -61,6 +61,11 @@
          */
         private $userNotifications;
 
+        /**
+         * @ORM\Column(type="integer")
+         */
+        private $theme;
+
         public function __construct()
         {
             parent::__construct();
@@ -248,6 +253,18 @@
                     $userNotification->setUser(null);
                 }
             }
+
+            return $this;
+        }
+
+        public function getTheme(): ?int
+        {
+            return $this->theme;
+        }
+
+        public function setTheme(int $theme): self
+        {
+            $this->theme = $theme;
 
             return $this;
         }

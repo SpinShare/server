@@ -35,7 +35,7 @@
                         <i class="mdi mdi-play"></i>
                     </div>
                     <div class="volume">
-                        <input type="range" min="0" max="100" value="50" class="playerVolume" onChange="UpdateVolume()" />
+                        <input type="range" min="0" max="100" value="50" class="playerVolume" onInput="UpdateVolume()" />
                     </div>
                 </div>
                 <a href="spinshare-song://{{ song.id }}" class="action">

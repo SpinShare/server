@@ -17,4 +17,10 @@
 
 {% block styles %}
     <link rel="stylesheet" href="{{ asset('assets/css/startup.css?v=' ~ date().timestamp) }}" />
+
+    {% if is_granted("ROLE_USER") %}
+        {% if app.user.theme == 1 %}
+            <link rel="stylesheet" href="{{ asset('assets/css-theme1/startup.css?v=' ~ date().timestamp) }}" />
+        {% endif %}
+    {% endif %}
 {% endblock %}

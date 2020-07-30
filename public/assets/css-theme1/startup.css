@@ -1,0 +1,15 @@
+.section-startup .tabs a {
+  opacity: 0.4;
+}
+.section-startup .tabs a:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+.section-startup .tabs a.active {
+  opacity: 1;
+}
+.section-startup .tabs a.active:after {
+  background: linear-gradient(135deg, #fd2f85, #7a34ec);
+}
+.social-buttons .item:hover {
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.2);
+}
