@@ -68,6 +68,17 @@
                         </a>
                     {% endif %}
                 {% endif %}
+                {% if is_granted('ROLE_MODERATOR') %}
+                    <a href="{{ path('moderation.song.toggleTournament', {songId: song.id}) }}" class="action">
+                        <div class="icon">
+                            {% if song.isTournament %}
+                                <i class="mdi mdi-heart-remove"></i>
+                            {% else %}
+                                <i class="mdi mdi-heart-plus"></i>
+                            {% endif %}
+                        </div>
+                    </a>
+                {% endif %}
             </div>
             <div class="song-statistics">
                 <div class="stat">

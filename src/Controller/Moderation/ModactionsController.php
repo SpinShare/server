@@ -320,4 +320,21 @@ class ModactionsController extends AbstractController
 
         return $this->redirectToRoute('user.detail', array('userId' => $userId));
     }
+    
+    /**
+     * @Route("/moderation/song/toggleTournament/{songId}", name="moderation.song.toggleTournament")
+     */
+    public function userToggleTournament(Request $request, int $songId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        $songToToggle = $em->getRepository(Song::class)->findOneBy(array('id' => $songId));
+        $songToToggle->setIsTournament(!$songToToggle->getIsTournament());
+
+        $em->persist($songToToggle);
+        $em->flush();
+
+        return $this->redirectToRoute('song.detail', array('songId' => $songId));
+    }
 }
