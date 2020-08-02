@@ -26,7 +26,11 @@ class APITournamentController extends AbstractController
         $tournamentCharts = $em->getRepository(Song::class)->findBy(array('isTournament' => true));
 
         foreach($tournamentCharts as $tournamentChart) {
-            $data[] = $tournamentChart->getJSON();
+            $chartItem = $tournamentChart->getJSON();
+
+            $chartItem['srtbMD5'] = md5_file($this->getParameter('srtb_path').DIRECTORY_SEPARATOR.$tournamentChart->getFileReference().".srtb");
+
+            $data[] = $chartItem;
         }
 
         $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
