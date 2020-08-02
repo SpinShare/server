@@ -69,6 +69,11 @@ class Song
     private $isExplicit;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true, options={"default": false})
+     */
+    private $isTournament;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $hasEasyDifficulty;
@@ -249,6 +254,18 @@ class Song
         return $this;
     }
 
+    public function getIsTournament(): ?bool
+    {
+        return $this->isTournament;
+    }
+
+    public function setIsTournament(bool $isTournament): self
+    {
+        $this->isTournament = $isTournament;
+
+        return $this;
+    }
+
     public function getHasEasyDifficulty(): ?bool
     {
         return $this->hasEasyDifficulty;
@@ -393,5 +410,31 @@ class Song
         }
 
         return $this;
+    }
+
+    public function getJSON() {
+        $response = array(
+            'id' => $this->id,
+            'title' => $this->title,
+            'subtitle' => $this->subtitle,
+            'artist' => $this->artist,
+            'charter' => $this->charter,
+            'uploader' => $this->uploader,
+            'fileReference' => $this->fileReference,
+            'tags' => $this->getTagsArray(),
+            'views' => $this->views,
+            'downloads' => $this->downloads,
+            'isExplicit' => $this->isExplicit,
+            'isTournament' => $this->isTournament,
+            'hasEasyDifficulty' => $this->hasEasyDifficulty,
+            'hasNormalDifficulty' => $this->hasNormalDifficulty,
+            'hasHardDifficulty' => $this->hasHardDifficulty,
+            'hasExtremeDifficulty' => $this->hasExtremeDifficulty,
+            'hasXDDifficulty' => $this->hasXDDifficulty,
+            'uploadDate' => $this->uploadDate,
+            'description' => $this->description
+        );
+
+        return $response;
     }
 }

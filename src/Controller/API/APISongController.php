@@ -45,26 +45,10 @@ class APISongController extends AbstractController
             $em->persist($result);
             $em->flush();
 
-            $data['id'] = $result->getId();
-            $data['title'] = $result->getTitle();
-            $data['subtitle'] = $result->getSubtitle();
-            $data['artist'] = $result->getArtist();
-            $data['charter'] = $result->getCharter();
-            $data['hasEasyDifficulty'] = $result->getHasEasyDifficulty();
-            $data['hasNormalDifficulty'] = $result->getHasNormalDifficulty();
-            $data['hasHardDifficulty'] = $result->getHasHardDifficulty();
-            $data['hasExtremeDifficulty'] = $result->getHasExtremeDifficulty();
-            $data['hasXDDifficulty'] = $result->getHasXDDifficulty();
-            $data['uploader'] = $result->getUploader();
-            $data['uploadDate'] = $result->getUploadDate();
-            $data['tags'] = $result->getTagsArray();
-            $data['fileReference'] = $result->getFileReference();
+            $data = $result->getJSON();
             $data['paths']['ogg'] = $baseUrl."/uploads/audio/".$result->getFileReference()."_0.ogg";
             $data['paths']['cover'] = $baseUrl."/uploads/thumbnail/".$result->getFileReference().".jpg";
             $data['paths']['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
-            $data['description'] = $result->getDescription();
-            $data['views'] = $result->getViews();
-            $data['downloads'] = $result->getDownloads();
     
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
             $response->headers->set('Access-Control-Allow-Origin', '*');
