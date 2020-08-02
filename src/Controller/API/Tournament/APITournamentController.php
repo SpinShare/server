@@ -17,10 +17,11 @@ class APITournamentController extends AbstractController
     /**
      * @Route("/api/tournament/mappool", name="api.tournament.mappool")
      */
-    public function tournamentMappool()
+    public function tournamentMappool(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $data = [];
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         // Botch
         $tournamentCharts = $em->getRepository(Song::class)->findBy(array('isTournament' => true));
@@ -29,6 +30,9 @@ class APITournamentController extends AbstractController
             $chartItem = $tournamentChart->getJSON();
 
             $chartItem['srtbMD5'] = md5_file($this->getParameter('srtb_path').DIRECTORY_SEPARATOR.$tournamentChart->getFileReference().".srtb");
+            $chartItem['paths']['ogg'] = $baseUrl."/uploads/audio/".$tournamentChart->getFileReference()."_0.ogg";
+            $chartItem['paths']['cover'] = $baseUrl."/uploads/thumbnail/".$tournamentChart->getFileReference().".jpg";
+            $chartItem['paths']['zip'] = $this->generateUrl('api.songs.download', array('id' => $tournamentChart->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
 
             $data[] = $chartItem;
         }
