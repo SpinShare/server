@@ -1,0 +1,63 @@
+html {
+  font-size: 12px !important;
+}
+.sidebar-group {
+  margin-top: 25px;
+}
+.navbar-brand span {
+  font-size: 14px;
+}
+.content-wrapper {
+  padding: 30px 0px;
+}
+.sidebar-link-with-icon.active {
+  color: #e22c78 !important;
+}
+.sidebar-link-with-icon.active .sidebar-icon {
+  color: #e22c78 !important;
+}
+.content .card {
+  margin: 1rem 0rem;
+}
+.content .card pre {
+  overflow-y: auto;
+}
+/* Sidenav */
+@media (max-width: 992px) {
+  .on-this-page-nav-container {
+    display: none;
+  }
+}
+.on-this-page-nav {
+  position: fixed;
+  margin-right: 1rem;
+  z-index: 20;
+  background-color: #ffffff;
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+.dark-mode .on-this-page-nav {
+  background-color: #25282c;
+}
+.on-this-page-nav .title {
+  font-weight: 500;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.on-this-page-nav a {
+  text-align: left;
+  display: block;
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  line-height: 1.6rem;
+  color: rgba(0, 0, 0, 0.7);
+  border-left: 1px solid rgba(0, 0, 0, 0.15);
+}
+.dark-mode .on-this-page-nav a {
+  color: rgba(255, 255, 255, 0.65);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+.on-this-page-nav a:hover,
+.dark-mode .on-this-page-nav a:hover {
+  color: #1890ff;
+  text-decoration: none;
+}

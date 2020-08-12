@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+		<meta name="viewport" content="width=device-width" />
+
+		<!-- Meta -->
+		<link rel="icon" href="https://spinsha.re/assets/img/favicon.png" />
+		<title>Tournaments - SpinShare API</title>
+
+		<!-- Style -->
+		<link href="https://cdn.jsdelivr.net/gh/halfmoonui/halfmoon@1.0.3/css/halfmoon.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" />
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+	<body class="with-custom-webkit-scrollbars with-custom-css-scrollbars dark-mode" data-dm-shortcut-enabled="true" data-set-preferred-theme-onload="true">
+		<div class="page-wrapper with-navbar with-sidebar">
+
+			<nav class="navbar">
+				<a href="#" class="navbar-brand">
+					<img class="hidden-lm" src="https://spinsha.re/assets/img/logo_colored_ondark.svg" />
+					<img class="hidden-dm" src="https://spinsha.re/assets/img/logo_colored_onwhite.svg" />
+					<span>API Documentation</span>
+				</a>
+			</nav>
+
+			<div class="sidebar">
+				<div class="sidebar-group">
+					<h5 class="sidebar-title">Getting started</h5>
+					<div class="sidebar-divider"></div>
+					<a href="index.htm" class="sidebar-link sidebar-link-with-icon">
+						<span class="sidebar-icon">
+							<i class="mdi mdi-hand-peace-variant" aria-hidden="true"></i>
+						</span>
+						Introduction
+					</a>
+					<a href="usage-policy.htm" class="sidebar-link sidebar-link-with-icon">
+						<span class="sidebar-icon">
+							<i class="mdi mdi-police-badge" aria-hidden="true"></i>
+						</span>
+						Usage Policy
+					</a>
+					<a href="endpoints-versioning.htm" class="sidebar-link sidebar-link-with-icon">
+						<span class="sidebar-icon">
+							<i class="mdi mdi-api" aria-hidden="true"></i>
+						</span>
+						Endpoints & Versioning
+					</a>
+					<a href="authentication.htm" class="sidebar-link sidebar-link-with-icon">
+						<span class="sidebar-icon">
+							<i class="mdi mdi-shield-account" aria-hidden="true"></i>
+						</span>
+						Authentication
+					</a>
+				</div>
+				
+				<div class="sidebar-group">
+					<h5 class="sidebar-title">Open APIs</h5>
+					<div class="sidebar-divider"></div>
+					<a href="open-discovery.htm" class="sidebar-link sidebar-link-with-icon">
+						<span class="sidebar-icon">
+							<i class="mdi mdi-magnify" aria-hidden="true"></i>
+						</span>
+						Discovery
+					</a>
+					<a href="open-promos.htm" class="sidebar-link sidebar-link-with-icon">
+						<span class="sidebar-icon">
+							<i class="mdi mdi-cursor-default-click" aria-hidden="true"></i>
+						</span>
+						Promos
+					</a>
+					<a href="open-songs.htm" class="sidebar-link sidebar-link-with-icon">
+						<span class="sidebar-icon">
+							<i class="mdi mdi-music-circle" aria-hidden="true"></i>
+						</span>
+						Songs
+					</a>
+					<a href="open-users.htm" class="sidebar-link sidebar-link-with-icon">
+						<span class="sidebar-icon">
+							<i class="mdi mdi-account-circle" aria-hidden="true"></i>
+						</span>
+						Users
+					</a>
+					<a href="open-tournaments.htm" class="sidebar-link sidebar-link-with-icon active">
+						<span class="sidebar-icon">
+							<i class="mdi mdi-boxing-glove" aria-hidden="true"></i>
+						</span>
+						Tournaments
+					</a>
+				</div>
+
+				<div class="sidebar-group">
+					<h5 class="sidebar-title">Connect APIs</h5>
+					<div class="sidebar-divider"></div>
+					<a href="connect-connect.htm" class="sidebar-link sidebar-link-with-icon">
+						<span class="sidebar-icon">
+							<i class="mdi mdi-toy-brick" aria-hidden="true"></i>
+						</span>
+						Connect
+					</a>
+				</div>
+			</div>
+
+			<div class="content-wrapper">
+				<div class="container-fluid">
+					<div class="row justify-content-center">
+						<div class="col-lg-7">
+							<div class="content">
+								<h1 class="content-title">
+									Tournaments
+								</h1>
+
+								<div class="alert alert-secondary" role="alert">
+									<h4 class="alert-heading">Attention</h4>
+									The Tournaments API was created as a last minute addition to the SpinShare SpeenOpen Summer 2020. It's usecase is very limited and will likely change after the tournament.
+								</div>
+                                
+                                <div class="card" id="mappool">
+                                    <h2 class="card-title">Mappool</h2>
+                                    <p>Returns the mappool of the current tournament.</p>
+
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Method</th>
+                                            <td>GET</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Endpoint</th>
+                                            <td>/tournament/mappool</td>
+                                        </tr>
+                                    </table>
+
+                                    <br /><br />
+
+                                    <strong>Output Body</strong>
+<pre class="code">
+{
+	"version":1,
+	"status":200,
+	"data":[
+		{
+			"id":183,
+			"title":"Immortal Flame",
+			"subtitle":"",
+			"artist":"Panda Eyes \u0026 Teminite",
+			"charter":"Aren Eternal \u0026 TheWay123",
+			"uploader":99,
+			"fileReference":"spinshare_5e9b78d27ee28",
+			"tags":[
+				"EDM",
+				"Dubstep",
+				"CTM-Friendly",
+				"XD",
+				"Diff 20-29"
+			],
+			"views":543,
+			"downloads":38,
+			"isExplicit":false,
+			"isTournament":true,
+			"hasEasyDifficulty":false,
+			"hasNormalDifficulty":false,
+			"hasHardDifficulty":false,
+			"hasExtremeDifficulty":false,
+			"hasXDDifficulty":true,
+			"uploadDate":{
+				"date":"2020-05-01 00:00:00.000000",
+				"timezone_type":3,
+				"timezone":"Europe\/Berlin"
+			},
+			"description":"Revision 1:\r\n - Added more movement in the intro\r\n - Revamped the build\r\n - Added some beats to the drop\r\n - Made more CTM friendly\r\n - Additional changes made by TheWay123\r\n - Assigned a difficulty\r\n - Assigned a background",
+			"srtbMD5":"fda722a33fb8655b3b803c821d7366e2",
+			"paths":{
+				"ogg":"https:\/\/spinsha.re\/uploads\/audio\/spinshare_5e9b78d27ee28_0.ogg",
+				"cover":"https:\/\/spinsha.re\/uploads\/thumbnail\/spinshare_5e9b78d27ee28.jpg",
+				"zip":"https:\/\/spinsha.re\/api\/song\/183\/download"
+			}
+		},
+		...
+	]
+}
+</pre>
+                                </div>
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="content">
+								<div class="on-this-page-nav">
+									<div class="title">On this page</div>
+									<a href="#mappool">Mappool</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<script src="https://cdn.jsdelivr.net/gh/halfmoonui/halfmoon@1.0.3/js/halfmoon.min.js"></script>
+	</body>
+</html>
