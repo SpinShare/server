@@ -62,7 +62,7 @@
         private $userNotifications;
 
         /**
-         * @ORM\Column(type="integer")
+         * @ORM\Column(type="integer", options={"default" : 0})
          */
         private $theme;
 
