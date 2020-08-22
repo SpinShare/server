@@ -15,6 +15,7 @@ use App\Entity\Song;
 use App\Entity\SongReview;
 use App\Entity\SongSpinPlay;
 use App\Entity\User;
+use App\Entity\UserCard;
 use App\Entity\Promo;
 
 class APIUserController extends AbstractController
@@ -45,10 +46,16 @@ class APIUserController extends AbstractController
                 $data['avatar'] = $baseUrl."/assets/img/defaultAvatar.jpg";
             }
 
-            // Get User Songs
+            // Get User Lists
             $resultsSongs = $em->getRepository(Song::class)->findBy(array('uploader' => $result->getId()), array('uploadDate' => 'DESC'));
+            $resultsReviews = $em->getRepository(SongReview::class)->findBy(array('user' => $result->getId()), array('reviewDate' => 'DESC'));
+            $resultsSpinPlays = $em->getRepository(SongSpinPlay::class)->findBy(array('user' => $result->getId(), 'isActive' => true), array('submitDate' => 'DESC'));
+            $resultsCards = $em->getRepository(UserCard::class)->findBy(array('user' => $result->getId()), array('givenDate' => 'DESC'));
 
             $data['songs'] = [];
+            $data['reviews'] = [];
+            $data['spinplays'] = [];
+            $data['cards'] = [];
                  
             foreach($resultsSongs as $result) {
                 $oneResult = [];
@@ -68,6 +75,25 @@ class APIUserController extends AbstractController
                 $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
 
                 $data['songs'][] = $oneResult;
+            }
+                 
+            foreach($resultsReviews as $result) {
+                $data['reviews'][] = $result->getJSON();
+            }
+                 
+            foreach($resultsSpinPlays as $result) {
+                $data['spinplays'][] = $result->getJSON();
+            }
+                 
+            foreach($resultsCards as $result) {
+                $oneResult = [];
+
+                $oneResult['id'] = $result->getId();
+                $oneResult['icon'] = $baseUrl."/uploads/card/".$result->getCard()->getIcon();
+                $oneResult['title'] = $result->getCard()->getTitle();
+                $oneResult['description'] = $result->getCard()->getDescription();
+
+                $data['cards'][] = $oneResult;
             }
     
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
