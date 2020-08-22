@@ -1,0 +1,57 @@
+{% extends 'moderation/base.html.twig' %}
+
+{% set sectionTitle = 'Give a card to a player' %}
+
+{% block moderationContent %}
+    <section class="section-moderator-add">
+        <div class="card">
+            <img src="{{ asset("uploads/card/" ~ card.icon) }}" style="width: 64px; height: 64px;" />
+            <div class="card-data">
+                <strong>{{ card.title }}</strong><br />
+                {{ card.description }}
+            </div>
+        </div>
+        <div class="box">
+            <form action="" method="post">
+                <input type="hidden" name="cardId" value="{{ card.id }}" />
+                <select name="userId">
+                    {% for value, user in allUsers %}
+                        <option value="{{ value }}">{{ user }}</option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Give" name="saveSingle" class="button" />
+            </form>
+        </div>
+        <div class="box">
+            <form action="" method="post">
+                <input type="hidden" name="cardId" value="{{ card.id }}" />
+                <textarea name="userIds" placeholder="1,2,69,1337" rows="10"></textarea>
+                <input type="submit" value="Give" name="saveMulti" class="button" />
+            </form>
+        </div>
+    </section>
+
+    <style>
+        .card {
+            width: 600px;
+            margin: 0 auto;
+            margin-bottom: 25px;
+            display: grid;
+            grid-template-columns: 64px 1fr;
+            grid-gap: 15px;
+            padding: 25px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+        }
+        .box {
+            width: 600px;
+            margin: 0 auto;
+        }
+        .box form {
+            margin-top: 0px !important;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            grid-gap: 15px;
+        }
+    </style>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'user/detail.html.twig' %}
+
+{% block userDetailContent %}
+    <div class="reviews">
+        {% if reviews|length > 0 %}
+            <div class="review-list">
+                {% for review in reviews %}
+                    <div class="review">
+                        <div class="metadata">
+                            <a href="{{ path('user.detail', {userId: review.user.id}) }}" class="avatar" style="background-image: url({{ asset('uploads/avatar/' ~ review.user.coverReference ~ '?t=' ~ date().timestamp) }}), url({{ asset("assets/img/defaultAvatar.jpg") }});"></a>
+                            <div class="text">
+                                <a href="{{ path('user.detail', {userId: review.user.id}) }}" class="username">{{ review.user.username }}</a>
+                                <div class="subline">
+                                    <i class="mdi {{ review.recommended ? 'mdi-thumb-up positive' : 'mdi-thumb-down negative' }}"></i>
+                                    <span>{{ review.reviewDate|date("dS F Y") }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        {% if review.comment != "" %}
+                            <div class="comment">{{ review.comment|nl2br }}</div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="song-list-noresults">
+                <div class="noresults-text">This user has no reviews yet.</div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

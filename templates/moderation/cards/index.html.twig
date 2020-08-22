@@ -1,0 +1,29 @@
+{% extends 'moderation/base.html.twig' %}
+
+{% set sectionTitle = 'Cards' %}
+
+{% block moderationContent %}
+    <section class="section-moderator-list">
+        <div class="box">
+            <table>
+                <tr>
+                    <th style="width: 50px;">Icon</th>
+                    <th>Title</th>
+                    <th style="width: 180px"></th>
+                </tr>
+                {% for card in cards %}
+                    <tr>
+                        <td><img src="{{ asset("uploads/card/" ~ card.icon) }}" style="width: 50px; height: 50px;" /></td>
+                        <td><strong>{{ card.title }}</strong><br />{{ card.description }}</td>
+                        <td><a href="{{ path('moderation.cards.give', {cardId: card.id}) }}" class="button">G</a> <a href="{{ path('moderation.cards.edit', {cardId: card.id}) }}" class="button">E</a> <a href="{{ path('moderation.cards.remove', {cardId: card.id}) }}" class="button">X</a></td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <br /><br /><a href="{{ path('moderation.cards.add') }}" class="button">New Card</a>
+        </div>
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/moderation.css?v=' ~ date().timestamp) }}" />
+{% endblock %}

@@ -3,6 +3,14 @@
 {% set sectionTitle = 'Security Settings' %}
 
 {% block settingsContent %}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flashbang flashbang-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
     <form action="" method="POST" class="settings-box">
         <div class="settings-title">Login</div>
         <div class="settings-item">

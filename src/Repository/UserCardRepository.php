@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\UserBadge;
+use App\Entity\UserCard;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method UserBadge|null find($id, $lockMode = null, $lockVersion = null)
- * @method UserBadge|null findOneBy(array $criteria, array $orderBy = null)
- * @method UserBadge[]    findAll()
- * @method UserBadge[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method UserCard|null find($id, $lockMode = null, $lockVersion = null)
+ * @method UserCard|null findOneBy(array $criteria, array $orderBy = null)
+ * @method UserCard[]    findAll()
+ * @method UserCard[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserBadgeRepository extends ServiceEntityRepository
+class UserCardRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, UserBadge::class);
+        parent::__construct($registry, UserCard::class);
     }
 
     // /**
-    //  * @return UserBadge[] Returns an array of UserBadge objects
+    //  * @return UserCard[] Returns an array of UserCard objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class UserBadgeRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?UserBadge
+    public function findOneBySomeField($value): ?UserCard
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.exampleField = :val')

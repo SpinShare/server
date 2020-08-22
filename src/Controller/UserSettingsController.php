@@ -28,10 +28,11 @@ class UserSettingsController extends AbstractController
         if($request->request->get('save')) {
             $formData = $request->request;
 
-            if($formData->get('email') != "" && $formData->get('username')) {
-                $existingUser = $em->getRepository(User::class)->findOneBy(array('username' => $formData->get('username'), 'email' => $formData->get('email')));
+            if($formData->get('email') != "" && $formData->get('username') != "") {
+                $existingUserEmail = $em->getRepository(User::class)->findOneBy(array('email' => $formData->get('email')));
+                $existingUserUsername = $em->getRepository(User::class)->findOneBy(array('username' => $formData->get('username')));
 
-                if($existingUser != $user) {
+                if($existingUserEmail == null && $existingUserEmail != $user || $existingUserUsername == null && $existingUserUsername != $user) {
                     $user->setEmail($formData->get('email'));
                     $user->setUsername($formData->get('username'));
                     $this->addFlash('success', 'Saved successfully!');

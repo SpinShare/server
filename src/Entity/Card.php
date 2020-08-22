@@ -36,11 +36,11 @@ class Card
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserCard", mappedBy="card")
      */
-    private $users;
+    private $userCards;
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->userCards = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -87,28 +87,28 @@ class Card
     /**
      * @return Collection|UserCard[]
      */
-    public function getUsers(): Collection
+    public function getUserCards(): Collection
     {
-        return $this->users;
+        return $this->userCards;
     }
 
-    public function addUser(UserCard $user): self
+    public function addUserCard(UserCard $userCard): self
     {
-        if (!$this->users->contains($user)) {
-            $this->users[] = $user;
-            $user->setCard($this);
+        if (!$this->userCards->contains($userCard)) {
+            $this->userCards[] = $userCard;
+            $userCard->setCard($this);
         }
 
         return $this;
     }
 
-    public function removeUser(UserCard $user): self
+    public function removeUserCard(UserCard $userCard): self
     {
-        if ($this->users->contains($user)) {
-            $this->users->removeElement($user);
+        if ($this->userCards->contains($userCard)) {
+            $this->userCards->removeElement($userCard);
             // set the owning side to null (unless already changed)
-            if ($user->getCard() === $this) {
-                $user->setCard(null);
+            if ($userCard->getCard() === $this) {
+                $userCard->setCard(null);
             }
         }
 

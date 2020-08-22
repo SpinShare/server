@@ -23,24 +23,29 @@ class NotificationController extends AbstractController
 
         $notificationToClear = $em->getRepository(UserNotification::class)->findOneBy(array('id' => $notificationID, 'user' => $this->getUser()));
 
-        $em->remove($notificationToClear);
-        $em->flush();
+        if($notificationToClear != null) {
+            $em->remove($notificationToClear);
+            $em->flush();
 
-        switch($notificationToClear->getNotificationType()) {
-            default:
-            case 0:
-                // System
-                $returnUrl = $request->query->get('returnUrl');
-                return $this->redirect($returnUrl);
-            break;
-            case 1:
-                // Review
-                return $this->redirectToRoute('song.detail', ['songId' => $notificationToClear->getConnectedSong()->getId(), 'tab' => 'reviews']);
-            break;
-            case 2:
-                // SpinPlay
-                return $this->redirectToRoute('song.detail', ['songId' => $notificationToClear->getConnectedSong()->getId(), 'tab' => 'spinplays']);
-            break;
+            switch($notificationToClear->getNotificationType()) {
+                default:
+                case 0:
+                    // System
+                    $returnUrl = $request->query->get('returnUrl');
+                    return $this->redirect($returnUrl);
+                break;
+                case 1:
+                    // Review
+                    return $this->redirectToRoute('song.detail', ['songId' => $notificationToClear->getConnectedSong()->getId(), 'tab' => 'reviews']);
+                break;
+                case 2:
+                    // SpinPlay
+                    return $this->redirectToRoute('song.detail', ['songId' => $notificationToClear->getConnectedSong()->getId(), 'tab' => 'spinplays']);
+                break;
+            }
+        } else {
+            $returnUrl = $request->query->get('returnUrl');
+            return $this->redirect($returnUrl);
         }
     }
     /**

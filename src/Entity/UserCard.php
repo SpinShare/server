@@ -17,13 +17,17 @@ class UserCard
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Card", inversedBy="users")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Card", inversedBy="userCards")
      */
     private $card;
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="userCards")
+     */
+    private $user;
+
+    /**
+     * @ORM\Column(type="datetime")
      */
     private $givenDate;
 
@@ -40,6 +44,18 @@ class UserCard
     public function setCard(?Card $card): self
     {
         $this->card = $card;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

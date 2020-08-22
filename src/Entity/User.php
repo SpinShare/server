@@ -66,6 +66,11 @@
          */
         private $theme;
 
+        /**
+         * @ORM\OneToMany(targetEntity="App\Entity\UserCard", mappedBy="user")
+         */
+        private $userCards;
+
         public function __construct()
         {
             parent::__construct();
@@ -74,7 +79,9 @@
             // your own logic
 
             $this->connections = new ArrayCollection();
-            $this->userNotifications = new ArrayCollection();        }
+            $this->userNotifications = new ArrayCollection();
+            $this->userCards = new ArrayCollection();
+        }
 
         public function getCoverReference(): ?string
         {
@@ -265,6 +272,37 @@
         public function setTheme(int $theme): self
         {
             $this->theme = $theme;
+
+            return $this;
+        }
+
+        /**
+         * @return Collection|UserCard[]
+         */
+        public function getUserCards(): Collection
+        {
+            return $this->userCards;
+        }
+
+        public function addUserCard(UserCard $userCard): self
+        {
+            if (!$this->userCards->contains($userCard)) {
+                $this->userCards[] = $userCard;
+                $userCard->setUser($this);
+            }
+
+            return $this;
+        }
+
+        public function removeUserCard(UserCard $userCard): self
+        {
+            if ($this->userCards->contains($userCard)) {
+                $this->userCards->removeElement($userCard);
+                // set the owning side to null (unless already changed)
+                if ($userCard->getUser() === $this) {
+                    $userCard->setUser(null);
+                }
+            }
 
             return $this;
         }

@@ -1,0 +1,19 @@
+{% extends 'user/detail.html.twig' %}
+
+{% block userDetailContent %}
+    <div class="spinplays">
+        {% if spinPlays|length > 0 %}
+            <div class="video-list">
+                {% for spinplay in spinPlays %}
+                    <div class="spinplay">
+                        <a href="{{ spinplay.videoUrl }}" target="_blank" class="thumbnail" style="background-image: url('{{ spinplay.videoThumbnail }}');"></a>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="song-list-noresults">
+                <div class="noresults-text">This user did not release any SpinPlays yet.</div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

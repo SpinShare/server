@@ -14,16 +14,10 @@
             </div>
         </header>
 
-        {% for label, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="flashbang flashbang-{{ label }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endfor %}
-
-        {% block settingsContent %}
-        {% endblock %}
+        <div class="settings-content">
+            {% block settingsContent %}
+            {% endblock %}
+        </div>
     </section>
 {% endblock %}
 

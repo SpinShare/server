@@ -4,89 +4,99 @@
 
 {% block content %}
     <section class="section-user-detail">
-        <div class="user-detail-background" style="background-image: url({{ asset('uploads/avatar/' ~ user.coverReference ~ '?t=' ~ date().timestamp) }}), url({{ asset("assets/img/defaultAvatar.jpg") }});">
-            <div class="user-detail-dim">
-                <div class="user-detail">
-                    <div class="user-avatar" style="background-image: url({{ asset('uploads/avatar/' ~ user.coverReference ~ '?t=' ~ date().timestamp) }}), url({{ asset("assets/img/defaultAvatar.jpg") }});">
+        <header>
+            <div class="detail">
+                <div class="user-avatar" style="background-image: url({{ asset('uploads/avatar/' ~ user.coverReference ~ '?t=' ~ date().timestamp) }}), url({{ asset("assets/img/defaultAvatar.jpg") }});">
+                    {% if is_granted("ROLE_USER") %}
+                        {% if app.user.id == user.id %}
+                            <form method="post" action="" enctype="multipart/form-data" class="user-avatar-change">
+                                <input typoe="hidden" name="save" value="changeAvatar" />
+                                <input type="file" name="newAvatar" onchange="document.querySelector('.user-avatar-change').submit()" />
+                                <i class="mdi mdi-image-edit"></i>
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="user-data">
+                    <div class="user-name">{{ user.username }}</div>
+                    <div class="user-actions">
+                        <a href="{{ path('report.user', {userId: user.id}) }}" class="button">Report</a>
+                        <a href="spinshare-user://{{ user.id }}" class="button">Open in Client</a>
                         {% if is_granted("ROLE_USER") %}
-                            {% if app.user.id == user.id %}
-                                <form method="post" action="" enctype="multipart/form-data" class="user-avatar-change">
-                                    <input typoe="hidden" name="save" value="changeAvatar" />
-                                    <input type="file" name="newAvatar" onchange="document.querySelector('.user-avatar-change').submit()" />
-                                    <i class="mdi mdi-image-edit"></i>
-                                </form>
+                            {% if is_granted('ROLE_MODERATOR') and user.id != app.user.id %}
+                                {% if user.enabled %}
+                                    <a href="{{ path('moderation.user.ban', {userId: user.id}) }}" class="button">Ban User</a>
+                                {% else %}
+                                    <a href="{{ path('moderation.user.unban', {userId: user.id}) }}" class="button">Unban User</a>
+                                {% endif %}
+                                <a href="{{ path('moderation.user.resetAvatar', {userId: user.id}) }}" class="button">Reset Avatar</a>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <a href="{{ path('moderation.user.toggleMod', {userId: user.id}) }}" class="button">{{ ("ROLE_MODERATOR" in user.roles) ? "Demote to User" : "Promote to Mod" }}</a>
+                                    <a href="{{ path('moderation.user.togglePatreon', {userId: user.id}) }}" class="button">{{ user.isPatreon ? "Remove Patreon" : "Make Patreon" }}</a>
+                                {% endif %}
                             {% endif %}
                         {% endif %}
                     </div>
-                    <div class="user-meta-data">
-                        <div class="user-name">{{ user.username }}</div>
-                        {% if user.isVerified %}
-                            <div class="user-badge" title="Verified"><i class="mdi mdi-check-decagram"></i></div>
-                        {% endif %}
-                        {% if user.isPatreon %}
-                            <div class="user-badge" title="Patreon Supporter"><i class="mdi mdi-patreon"></i></div>
-                        {% endif %}
-                    </div>
                 </div>
             </div>
-        </div>
-        <div class="user-detail-actions">
-            <a href="spinshare-user://{{ user.id }}" class="button">Open in Client</a>
-            <a href="{{ path('report.user', {userId: user.id}) }}" class="button">Report</a>
-        </div>
-        {% if is_granted("ROLE_USER") %}
-            {% if is_granted('ROLE_MODERATOR') and user.id != app.user.id %}
-                <div class="user-detail-actions-moderation">
-                    {% if user.enabled %}
-                        <a href="{{ path('moderation.user.ban', {userId: user.id}) }}" class="button">Ban User</a>
-                    {% else %}
-                        <a href="{{ path('moderation.user.unban', {userId: user.id}) }}" class="button">Unban User</a>
-                    {% endif %}
-                    <a href="{{ path('moderation.user.resetAvatar', {userId: user.id}) }}" class="button">Reset Avatar</a>
-                    <a href="{{ path('moderation.user.toggleVerified', {userId: user.id}) }}" class="button">{{ user.isVerified ? "Unverify" : "Verify" }}</a>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('moderation.user.toggleMod', {userId: user.id}) }}" class="button">{{ ("ROLE_MODERATOR" in user.roles) ? "Demote to User" : "Promote to Mod" }}</a>
-                        <a href="{{ path('moderation.user.togglePatreon', {userId: user.id}) }}" class="button">{{ user.isPatreon ? "Remove Patreon" : "Make Patreon" }}</a>
-                    {% endif %}
-                </div>
-            {% endif %}
-        {% endif %}
-        <div class="song-row song-row-user">
-            <div class="song-header">
-                <div class="row-title row-title-noactions">Uploaded Songs</div>
-            </div>
-            {% if uploads|length > 0 %}
-                <div class="song-list">
-                    {% for song in uploads %}
-                        <a class="song-item" href="{{ path('song.detail', {songId: song.id}) }}">
-                            <div class="song-cover" style="background-image: url({{ asset("uploads/thumbnail/" ~ song.fileReference ~ ".jpg?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});">
-                                <div class="song-charter-info">
-                                    <div class="song-charter"><i class="mdi mdi-account-circle"></i><span>{{ song.charter|default('Unknown') }}</span></div>
-                                </div>
-                            </div>
-                            <div class="song-metadata">
-                                <div class="song-title">{{ song.title|default('Untitles') }}</div>
-                                <div class="song-artist">{{ song.artist|default('Unknown') }}</div>
-                                <div class="song-difficulties">
-                                    <img src="{{ asset('assets/img/difficultyEasy.svg') }}" class="{{ song.hasEasyDifficulty ? "active" : "" }}" alt="Easy Difficulty" />
-                                    <img src="{{ asset('assets/img/difficultyNormal.svg') }}" class="{{ song.hasNormalDifficulty ? "active" : "" }}" alt="Normal Difficulty" />
-                                    <img src="{{ asset('assets/img/difficultyHard.svg') }}" class="{{ song.hasHardDifficulty ? "active" : "" }}" alt="Hard Difficulty" />
-                                    <img src="{{ asset('assets/img/difficultyExtreme.svg') }}" class="{{ song.hasExtremeDifficulty ? "active" : "" }}" alt="Extreme Difficulty" />
-                                    <img src="{{ asset('assets/img/difficultyXD.svg') }}" class="{{ song.hasXDDifficulty ? "active" : "" }}" alt="xD Difficulty" />
-                                </div>
-                            </div>
-                        </a>
+
+            {% if user.userCards|length > 0 %}
+                <div class="cards">
+                    {% for userCard in user.userCards %}
+                        <div class="card" style="background-image: url({{ asset('uploads/card/' ~ userCard.card.icon) }})" onclick="openCardOverlay('{{ userCard.card.title }}', '{{ userCard.card.description }}', '{{ userCard.givenDate|date("dS F Y") }}', '{{ asset('uploads/card/' ~ userCard.card.icon) }}')"></div>
                     {% endfor %}
                 </div>
-            {% else %}
-                <div class="song-list-noresults">
-                    <div class="noresults-text">This user did not upload any songs yet.</div>
-                </div>
             {% endif %}
-        </div>
+
+            <div class="tabs">
+                <a class="tab {% if app.request.attributes.get('_route') == 'user.detail.charts' %}active{% endif %}" href="{{ path('user.detail.charts', {userId: user.id}) }}">Charts ({{ charts|length|default("0") }})</a>
+                <a class="tab {% if app.request.attributes.get('_route') == 'user.detail.reviews' %}active{% endif %}" href="{{ path('user.detail.reviews', {userId: user.id}) }}">Reviews ({{ reviews|length|default("0")}})</a>
+                <a class="tab {% if app.request.attributes.get('_route') == 'user.detail.spinplays' %}active{% endif %}" href="{{ path('user.detail.spinplays', {userId: user.id}) }}">SpinPlays ({{ spinPlays|length|default("0")}})</a>
+            </div>
+        </header>
+        
+        {% block userDetailContent %}
+        {% endblock %}
     </section>
+
+    <div class="card-overlay">
+        <div class="close" onclick="closeCardOverlay()"><i class="mdi mdi-close"></i></div>
+
+        <div class="overlay-content">
+            <img src="" class="card-icon" data-tilt data-tilt-glare data-tilt-max-glare="0.8" data-tilt-full-page-listening data-tilt-reverse="true" data-tilt-max="40" />
+
+            <div class="card-title">Card Title</div>
+            <div class="card-description">This card was given out to every player of the Spring 2020 SpinShare Speen Open tournament.</div>
+            <div class="card-given">Card Date</div>
+            <div class="button" onclick="closeCardOverlay()">Close</div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block styles %}
     <link rel="stylesheet" href="{{ asset('assets/css/userdetail.css?v=' ~ date().timestamp) }}" />
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('assets/js/vanilla-tilt.min.js') }}"></script>
+    <script>
+        let UICardOverlay = document.querySelector(".card-overlay");
+        let UICardTitle = UICardOverlay.querySelector(".card-title");
+        let UICardDescription = UICardOverlay.querySelector(".card-description");
+        let UICardGiven = UICardOverlay.querySelector(".card-given");
+        let UICardIcon = UICardOverlay.querySelector(".card-icon");
+
+        function openCardOverlay(title, description, givenDate, iconUrl) {
+            UICardIcon.src = iconUrl;
+            UICardTitle.innerText = title;
+            UICardDescription.innerText = description;
+            UICardGiven.innerText = givenDate;
+
+            UICardOverlay.classList.add("active");
+        }
+
+        function closeCardOverlay() {
+            UICardOverlay.classList.remove("active");
+        }
+    </script>
 {% endblock %}

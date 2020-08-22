@@ -1,29 +1,24 @@
-.section-user-detail .user-detail-background {
-  background-size: cover;
-  background-position: center;
+.section-user-detail header {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 25px 50px;
+  padding-bottom: 0px;
 }
-.section-user-detail .user-detail-background .user-detail-dim {
-  backdrop-filter: blur(10px);
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4), #212629);
-}
-.section-user-detail .user-detail-background .user-detail-dim .user-detail {
-  padding: 50px;
+.section-user-detail header .detail {
+  margin-bottom: 15px;
   display: grid;
-  grid-template-columns: 200px 1fr;
-  grid-gap: 25px;
+  grid-template-columns: 80px 1fr;
+  grid-gap: 15px;
 }
-.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-avatar {
-  width: 200px;
-  height: 200px;
-  align-self: center;
-  background: #eee;
+.section-user-detail header .detail .user-avatar {
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
-  background-size: cover;
   background-position: center;
+  background-size: cover;
   position: relative;
   overflow: hidden;
 }
-.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-avatar .user-avatar-change {
+.section-user-detail header .detail .user-avatar .user-avatar-change {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -37,10 +32,10 @@
   transition: 0.2s ease opacity;
   cursor: pointer;
 }
-.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-avatar .user-avatar-change .mdi {
-  font-size: 48px;
+.section-user-detail header .detail .user-avatar .user-avatar-change .mdi {
+  font-size: 28px;
 }
-.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-avatar .user-avatar-change input {
+.section-user-detail header .detail .user-avatar .user-avatar-change input {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -49,39 +44,210 @@
   cursor: pointer;
   opacity: 0;
 }
-.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-avatar:hover .user-avatar-change {
+.section-user-detail header .detail .user-avatar:hover .user-avatar-change {
   opacity: 1;
 }
-.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-meta-data {
-  display: flex;
-  height: 48px;
-  align-items: center;
-}
-.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-meta-data .user-name {
-  font-weight: bold;
-  font-size: 48px;
-}
-.section-user-detail .user-detail-background .user-detail-dim .user-detail .user-meta-data .user-badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 32px;
-  margin-left: 20px;
-}
-.section-user-detail .user-detail-actions,
-.section-user-detail .user-detail-actions-moderation {
-  padding: 50px;
-  padding-top: 0px;
+.section-user-detail header .detail .user-data {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-gap: 25px;
+  grid-template-rows: 1fr 40px;
 }
-.section-user-detail .user-detail-actions.user-detail-actions-moderation,
-.section-user-detail .user-detail-actions-moderation.user-detail-actions-moderation {
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+.section-user-detail header .detail .user-data .user-name {
+  font-size: 22px;
+  margin-bottom: 22px;
+}
+.section-user-detail header .detail .user-data .user-actions .button {
+  margin-right: 7px;
+}
+.section-user-detail header .cards {
+  margin-bottom: 25px;
+  display: flex;
+}
+.section-user-detail header .cards .card {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+  background-position: center;
+  background-size: cover;
+  opacity: 1;
+  transition: 0.2s ease-in-out opacity;
+}
+.section-user-detail header .cards .card:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+.section-user-detail header .tabs {
+  display: flex;
+}
+.section-user-detail header .tabs .tab {
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  padding: 15px 40px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  background: rgba(0, 0, 0, 0.6);
+  color: rgba(255, 255, 255, 0.4);
+  transition: 0.2s ease-in-out all;
+  text-decoration: none;
+}
+.section-user-detail header .tabs .tab:not(.active):hover {
+  cursor: pointer;
+  background: #272c2e;
+  color: rgba(255, 255, 255, 0.75);
+}
+.section-user-detail header .tabs .tab.active {
+  opacity: 1;
+  color: #ffffff;
+  background: #212629;
 }
 .section-user-detail .song-row-user {
-  padding: 0px 50px;
-  margin-bottom: 50px;
+  padding: 50px;
   display: grid;
+}
+.section-user-detail .reviews {
+  padding: 50px;
+}
+.section-user-detail .reviews .review-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 25px;
+}
+.section-user-detail .reviews .review-list .review {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  padding: 20px;
+}
+.section-user-detail .reviews .review-list .review .metadata {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-gap: 15px;
+}
+.section-user-detail .reviews .review-list .review .metadata .avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 48px;
+  background-position: center;
+  background-size: cover;
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  transition: 0.2s ease-in-out opacity;
+}
+.section-user-detail .reviews .review-list .review .metadata .avatar:hover {
+  opacity: 0.6;
+}
+.section-user-detail .reviews .review-list .review .metadata .text .username {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  transition: 0.2s ease-in-out opacity;
+}
+.section-user-detail .reviews .review-list .review .metadata .text .username:hover {
+  opacity: 0.6;
+}
+.section-user-detail .reviews .review-list .review .metadata .text .subline {
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+}
+.section-user-detail .reviews .review-list .review .metadata .text .subline i.positive {
+  color: #62d38a;
+}
+.section-user-detail .reviews .review-list .review .metadata .text .subline i.negative {
+  color: #f73c56;
+}
+.section-user-detail .reviews .review-list .review .metadata .text .subline span {
+  opacity: 0.6;
+}
+.section-user-detail .reviews .review-list .review .comment {
+  margin-top: 15px;
+  line-height: 1.5em;
+  word-break: normal;
+  overflow: hidden;
+  transition: 1s ease max-height;
+}
+.section-user-detail .spinplays {
+  padding: 50px;
+}
+.section-user-detail .spinplays .video-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 15px;
+}
+.section-user-detail .spinplays .video-list .spinplay {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  color: #fff;
+  text-decoration: none;
+}
+.section-user-detail .spinplays .video-list .spinplay .thumbnail {
+  width: 100%;
+  display: block;
+  padding-top: 56.25%;
+  background: rgba(255, 255, 255, 0.1);
+  background-position: center;
+  background-size: cover;
+  transition: 0.2s ease-in-out opacity;
+}
+.section-user-detail .spinplays .video-list .spinplay .thumbnail:hover {
+  opacity: 0.6;
+}
+.card-overlay {
+  display: none;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 1200;
+  background: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+}
+.card-overlay.active {
+  display: flex;
+}
+.card-overlay .close {
+  font-size: 32px;
+  color: #fff;
+  position: absolute;
+  top: 40px;
+  right: 40px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out opacity;
+}
+.card-overlay .close:hover {
+  opacity: 0.6;
+}
+.card-overlay .overlay-content {
+  max-width: 320px;
+  text-align: center;
+}
+.card-overlay .overlay-content img {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 50px;
+}
+.card-overlay .overlay-content .card-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.card-overlay .overlay-content .card-description {
+  line-height: 1.5em;
+  opacity: 0.75;
+  margin-bottom: 10px;
+}
+.card-overlay .overlay-content .card-given {
+  margin-bottom: 25px;
+  font-weight: bold;
+}
+.card-overlay .overlay-content .button {
+  display: inline-block;
 }

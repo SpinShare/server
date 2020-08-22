@@ -3,6 +3,14 @@
 {% set sectionTitle = 'General Settings' %}
 
 {% block settingsContent %}
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flashbang flashbang-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
     <form action="" method="POST" class="settings-box">
         <div class="settings-title">General</div>
         <div class="settings-item">
@@ -18,7 +26,7 @@
             </div>
         </div>
         <div class="settings-save">
-            <button>Save</button>
+            <input type="submit" class="button" name="save" value="Save" />
         </div>
     </form>
 {% endblock %}
