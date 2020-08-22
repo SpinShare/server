@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Entity\Card;
 use App\Entity\User;
 use App\Entity\UserCard;
+use App\Entity\UserNotification;
 
 class CardsController extends AbstractController
 {
@@ -63,6 +64,15 @@ class CardsController extends AbstractController
                 $newUserCard->setGivenDate(new \DateTime());
 
                 $em->persist($newUserCard);
+
+                $newNotification = new UserNotification();
+                $newNotification->setUser($user);
+                $newNotification->setNotificationType(3);
+                $newNotification->setNotificationData("");
+                $newNotification->setConnectedCard($newUserCard->getCard());
+                $newNotification->setConnectedUser($user);
+    
+                $em->persist($newNotification);
                 $em->flush();
             }
 

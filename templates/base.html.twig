@@ -73,6 +73,8 @@
                           <div class="notification-icon">
                             {% if notification.notificationType == 0 %}
                               <i class="mdi mdi-server"></i>
+                            {% elseif notification.notificationType == 3 %}
+                              <div class="cover" style="background-image: url({{ asset("uploads/card/" ~ notification.connectedCard.icon) }});"></div>
                             {% else %}
                               <div class="cover" style="background-image: url({{ asset("uploads/thumbnail/" ~ notification.connectedSong.fileReference ~ ".jpg?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});"></div>
                             {% endif %}
@@ -84,6 +86,8 @@
                             <strong>{{ notification.connectedUser.username }}</strong> reviewed your chart <strong>{{ notification.connectedSong.title }}</strong>.
                           {% elseif notification.notificationType == 2 %}
                             <strong>{{ notification.connectedUser.username }}</strong> added a SpinPlay to your chart <strong>{{ notification.connectedSong.title }}</strong>.
+                          {% elseif notification.notificationType == 3 %}
+                            You've received the profile card <strong>{{ notification.connectedCard.title }}</strong>.
                           {% endif %}
                           </div>
                         </a>

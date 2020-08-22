@@ -41,6 +41,11 @@ class UserNotification
      */
     private $connectedUser;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Card")
+     */
+    private $connectedCard;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -102,6 +107,18 @@ class UserNotification
     public function setConnectedUser(?User $connectedUser): self
     {
         $this->connectedUser = $connectedUser;
+
+        return $this;
+    }
+
+    public function getConnectedCard(): ?Card
+    {
+        return $this->connectedCard;
+    }
+
+    public function setConnectedCard(?Card $connectedCard): self
+    {
+        $this->connectedCard = $connectedCard;
 
         return $this;
     }
