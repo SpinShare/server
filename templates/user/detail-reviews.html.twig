@@ -5,11 +5,11 @@
         {% if reviews|length > 0 %}
             <div class="review-list">
                 {% for review in reviews %}
-                    <div class="review">
+                    <a href="{{ path('song.detail', {songId: review.song.id, tab: 'reviews'}) }}" class="review">
                         <div class="metadata">
-                            <a href="{{ path('user.detail', {userId: review.user.id}) }}" class="avatar" style="background-image: url({{ asset('uploads/avatar/' ~ review.user.coverReference ~ '?t=' ~ date().timestamp) }}), url({{ asset("assets/img/defaultAvatar.jpg") }});"></a>
+                            <div class="avatar" style="background-image: url({{ asset('uploads/avatar/' ~ review.user.coverReference ~ '?t=' ~ date().timestamp) }}), url({{ asset("assets/img/defaultAvatar.jpg") }});"></div>
                             <div class="text">
-                                <a href="{{ path('user.detail', {userId: review.user.id}) }}" class="username">{{ review.user.username }}</a>
+                                <div class="username">{{ review.user.username }}</div>
                                 <div class="subline">
                                     <i class="mdi {{ review.recommended ? 'mdi-thumb-up positive' : 'mdi-thumb-down negative' }}"></i>
                                     <span>{{ review.reviewDate|date("dS F Y") }}</span>
@@ -19,7 +19,7 @@
                         {% if review.comment != "" %}
                             <div class="comment">{{ review.comment|nl2br }}</div>
                         {% endif %}
-                    </div>
+                    </a>
                 {% endfor %}
             </div>
         {% else %}

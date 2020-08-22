@@ -117,6 +117,8 @@
   background: rgba(255, 255, 255, 0.1);
   border-radius: 4px;
   padding: 20px;
+  display: block;
+  transition: 0.2s ease-in-out opacity;
 }
 .section-user-detail .reviews .review-list .review .metadata {
   display: grid;
@@ -144,16 +146,14 @@
   display: block;
   color: #fff;
   text-decoration: none;
-  transition: 0.2s ease-in-out opacity;
-}
-.section-user-detail .reviews .review-list .review .metadata .text .username:hover {
-  opacity: 0.6;
 }
 .section-user-detail .reviews .review-list .review .metadata .text .subline {
   display: grid;
   grid-gap: 5px;
   grid-template-columns: auto 1fr;
   align-items: center;
+  color: #fff;
+  text-decoration: none;
 }
 .section-user-detail .reviews .review-list .review .metadata .text .subline i.positive {
   color: #62d38a;
@@ -168,8 +168,11 @@
   margin-top: 15px;
   line-height: 1.5em;
   word-break: normal;
-  overflow: hidden;
-  transition: 1s ease max-height;
+  color: #fff;
+  text-decoration: none;
+}
+.section-user-detail .reviews .review-list .review:hover {
+  opacity: 0.4;
 }
 .section-user-detail .spinplays {
   padding: 50px;

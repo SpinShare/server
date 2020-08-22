@@ -134,6 +134,8 @@
                 background: rgba(255,255,255,0.1);
                 border-radius: 4px;
                 padding: 20px;
+                display: block;
+                transition: 0.2s ease-in-out opacity;
 
                 & .metadata {
                     display: grid;
@@ -163,17 +165,14 @@
                             display: block;
                             color: #fff;
                             text-decoration: none;
-                            transition: 0.2s ease-in-out opacity;
-
-                            &:hover {
-                                opacity: 0.6;
-                            }
                         }
                         & .subline {
                             display: grid;
                             grid-gap: 5px;
                             grid-template-columns: auto 1fr;
                             align-items: center;
+                            color: #fff;
+                            text-decoration: none;
 
                             & i.positive { color: #62d38a; }
                             & i.negative { color: #f73c56; }
@@ -189,8 +188,12 @@
                     margin-top: 15px;
                     line-height: 1.5em;
                     word-break: normal;
-                    overflow: hidden;
-                    transition: 1s ease max-height;
+                    color: #fff;
+                    text-decoration: none;
+                }
+
+                &:hover {
+                    opacity: 0.4;
                 }
             }
         }
