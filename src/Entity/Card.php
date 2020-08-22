@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\BadgeRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CardRepository")
  */
-class Badge
+class Card
 {
     /**
      * @ORM\Id()
@@ -34,7 +34,7 @@ class Badge
     private $icon;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserBadge", mappedBy="badge")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserCard", mappedBy="card")
      */
     private $users;
 
@@ -85,30 +85,30 @@ class Badge
     }
 
     /**
-     * @return Collection|UserBadge[]
+     * @return Collection|UserCard[]
      */
     public function getUsers(): Collection
     {
         return $this->users;
     }
 
-    public function addUser(UserBadge $user): self
+    public function addUser(UserCard $user): self
     {
         if (!$this->users->contains($user)) {
             $this->users[] = $user;
-            $user->setBadge($this);
+            $user->setCard($this);
         }
 
         return $this;
     }
 
-    public function removeUser(UserBadge $user): self
+    public function removeUser(UserCard $user): self
     {
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
             // set the owning side to null (unless already changed)
-            if ($user->getBadge() === $this) {
-                $user->setBadge(null);
+            if ($user->getCard() === $this) {
+                $user->setCard(null);
             }
         }
 

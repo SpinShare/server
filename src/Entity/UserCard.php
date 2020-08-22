@@ -5,9 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\UserBadgeRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\UserCardRepository")
  */
-class UserBadge
+class UserCard
 {
     /**
      * @ORM\Id()
@@ -17,10 +17,10 @@ class UserBadge
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Badge", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Card", inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $badge;
+    private $card;
 
     /**
      * @ORM\Column(type="date")
@@ -32,14 +32,14 @@ class UserBadge
         return $this->id;
     }
 
-    public function getBadge(): ?Badge
+    public function getCard(): ?Card
     {
-        return $this->badge;
+        return $this->card;
     }
 
-    public function setBadge(?Badge $badge): self
+    public function setCard(?Card $card): self
     {
-        $this->badge = $badge;
+        $this->card = $card;
 
         return $this;
     }
