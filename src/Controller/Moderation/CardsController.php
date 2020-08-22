@@ -80,7 +80,7 @@ class CardsController extends AbstractController
         }
 
         if($request->request->get('saveMulti') == "Give") {
-            $userIds = explode(",", $request->request->get('userId'));
+            $userIds = explode(",", $request->request->get('userIds'));
 
             foreach($userIds as $userId) {
                 $user = $em->getRepository(User::class)->findOneBy(array('id' => $userId));
@@ -92,8 +92,17 @@ class CardsController extends AbstractController
                     $newUserCard->setCard($card);
                     $newUserCard->setUser($user);
                     $newUserCard->setGivenDate(new \DateTime());
-        
+                    
                     $em->persist($newUserCard);
+
+                    $newNotification = new UserNotification();
+                    $newNotification->setUser($user);
+                    $newNotification->setNotificationType(3);
+                    $newNotification->setNotificationData("");
+                    $newNotification->setConnectedCard($newUserCard->getCard());
+                    $newNotification->setConnectedUser($user);
+        
+                    $em->persist($newNotification);
                     $em->flush();
                 }
 
