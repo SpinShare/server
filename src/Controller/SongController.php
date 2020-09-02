@@ -27,12 +27,17 @@ class SongController extends AbstractController
     /**
      * @Route("/song/{songId}", name="song.detail")
      */
-    public function songDetail(Request $request, int $songId)
+    public function songDetail(Request $request, $songId)
     {
         $em = $this->getDoctrine()->getManager();
         $data = [];
 
-        $resultSong = $em->getRepository(Song::class)->findOneBy(array('id' => $songId));
+        if(strpos($songId, "spinshare_") !== false) {
+            $resultSong = $em->getRepository(Song::class)->findOneBy(array('fileReference' => $songId));
+        } else {
+            $resultSong = $em->getRepository(Song::class)->findOneBy(array('id' => $songId));
+        }
+
         if(!$resultSong) throw new NotFoundHttpException();
 
         $resultSong->setViews($resultSong->getViews() + 1);
