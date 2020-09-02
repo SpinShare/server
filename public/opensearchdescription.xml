@@ -6,5 +6,5 @@
     <InputEncoding>UTF-8</InputEncoding>
     <SearchForm>https://spinsha.re</SearchForm>
     <Url type="text/html" template="https://spinsha.re/search?q={searchTerms}"/>
-    <Image height="16" width="16" type="image/png">https://spinshare.b-cdn.net/assets/img/favicon.png</Image>
+    <Image height="16" width="16" type="image/png">https://spinsha.re/assets/img/favicon.png</Image>
 </OpenSearchDescription>
