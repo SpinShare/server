@@ -34,6 +34,7 @@ class SongController extends AbstractController
 
         if(strpos($songId, "spinshare_") !== false) {
             $resultSong = $em->getRepository(Song::class)->findOneBy(array('fileReference' => $songId));
+            $songId = $resultSong->getId();
         } else {
             $resultSong = $em->getRepository(Song::class)->findOneBy(array('id' => $songId));
         }
