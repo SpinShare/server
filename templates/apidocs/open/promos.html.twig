@@ -1,0 +1,84 @@
+{% extends 'apidocs/base.html.twig' %}
+
+{% block title %}Promos{% endblock %}
+
+{% block content %}
+					<div class="row justify-content-center">
+						<div class="col-lg-7">
+							<div class="content">
+								<h1 class="content-title">
+									Promos
+                                </h1>
+                                
+                                <div class="card" id="active">
+                                    <h2 class="card-title">Active Promos</h2>
+                                    <p>Returns the 2 active promos.</p>
+
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Method</th>
+                                            <td>GET</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Endpoint</th>
+                                            <td>/promos</td>
+                                        </tr>
+                                    </table>
+
+                                    <br />
+
+                                    <div class="alert alert-secondary" role="alert">
+                                        <h4 class="alert-heading">Attention</h4>
+                                        The <code class="code">title</code> property has to be parsed as HTML.
+                                    </div>
+
+                                    <br />
+
+                                    <strong>Output Body</strong>
+<pre class="code">
+{
+    "version":1,
+    "status":200,
+    "data":[
+        {
+            "id":2,
+            "title":"Support\u003Cbr\/\u003ESpinSha.re!",
+            "type":"SUPPORT",
+            "textColor":"#222222",
+            "color":"#f96753",
+            "button":{
+                "type":3,
+                "data":"https:\/\/patreon.com\/spinshare"
+            },
+            "isVisible":true,
+            "image_path":"https:\/\/spinsha.re\/uploads\/promo\/promo_5e8de86c19536.png"
+        },
+        {
+            "id":1,
+            "title":"Join our\u003Cbr \/\u003EDiscord!",
+            "type":"SOCIAL",
+            "textColor":"#222",
+            "color":"#7289DA",
+            "button":{
+                "type":3,
+                "data":"https:\/\/spinsha.re\/discord"
+            },
+            "isVisible":true,
+            "image_path":"https:\/\/spinsha.re\/uploads\/promo\/promo_5e8de7f753038.png"
+        }
+    ]
+}
+</pre>
+                                </div>
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="content">
+								<div class="on-this-page-nav">
+									<div class="title">On this page</div>
+									<a href="#active">Active Promos</a>
+								</div>
+							</div>
+						</div>
+					</div>
+{% endblock %}

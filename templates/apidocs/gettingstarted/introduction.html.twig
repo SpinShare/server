@@ -1,0 +1,49 @@
+{% extends 'apidocs/base.html.twig' %}
+
+{% block title %}Introduction{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="content">
+                <h1 class="content-title">
+                    Introduction
+                </h1>
+
+                <p>Welcome to the SpinShare API Documentation! These pages focus on all the data you can access from SpinSha.re to make cool stuff. Whether you're working on a Twitch bot, a mod for the game or anything else helping, we want you to be able to use our platform to make your projects even better!<br /><br />So what are we waiting for? Let's create something awesome together!</p>
+            </div>
+            <div class="content">
+                <h1 class="content-title">
+                    Support
+                </h1>
+
+                <p>If you need any help implementing the SpinShare API, feel free to ask us anything in the <code class="code">#development</code> channel on our <a href="https://spinsha.re/discord" target="_blank">Discord Server</a>.</p>
+            </div>
+            <div class="content">
+                <h1 class="content-title">
+                    Changelog
+                </h1>
+
+                <div class="alert alert-primary" role="alert">
+                    <h4 class="alert-heading">Last Update</h4>
+                    This documentation was last updated on 09/09/2020 at 19:50 CEST
+                </div>
+
+                <div class="card">
+                    <h2 class="card-title">09/09/2020</h2>
+                    <ul>
+                        <li>Removed Charts, Reviews and SpinPlays from the UserDetail endpoint</li>
+                        <li>Renamed the UserDetail endpoint to UserOverview</li>
+                        <li>Added an endpoint for UserCharts, UserReviews and UserSpinPlays</li>
+                        <li>Added song reference to the UserReviews endpoint</li>
+                        <li>Added counts of charts, reviews and spinplays to the UserOverview endpoint</li>
+                        <li>Ported the documentation to the main codebase</li>
+                        <li>Added a deprecation warning to the PopularSongs endpoint</li>
+                        <li>Added ConnectReview endpoint documentation</li>
+                        <li>Added ConnectProfile endpoint documentation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

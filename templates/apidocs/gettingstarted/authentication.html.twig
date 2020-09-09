@@ -1,0 +1,20 @@
+{% extends 'apidocs/base.html.twig' %}
+
+{% block title %}Authentication{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="content">
+                <h1 class="content-title">
+                    Authentication
+                </h1>
+
+                <p>Open APIs don't require any type of authentication, these APIs are read-only and only give you publicly accessible data.
+                If you need to modify content and/or want more detailled data (as well as user-private data), you need to use our Connect
+                Authentication system. More information about how to register an app and authenticate it can be found on
+                the <a href="{{ path('api.docs.connect.connect') }}">Connect</a> page.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

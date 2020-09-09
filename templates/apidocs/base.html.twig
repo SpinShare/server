@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -7,13 +7,13 @@
 		<meta name="viewport" content="width=device-width" />
 
 		<!-- Meta -->
-		<link rel="icon" href="https://spinsha.re/assets/img/favicon.png" />
-		<title>Authentication - SpinShare API</title>
+        <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon.png') }}" />
+		<title>{% block title %}{% endblock %} ~ SpinShare API</title>
 
 		<!-- Style -->
 		<link href="https://cdn.jsdelivr.net/gh/halfmoonui/halfmoon@1.0.3/css/halfmoon.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" />
-		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="{{ asset('assets/css/apidocs.css?v=' ~ date().timestamp) }}" />
 	</head>
 	<body class="with-custom-webkit-scrollbars with-custom-css-scrollbars dark-mode" data-dm-shortcut-enabled="true" data-set-preferred-theme-onload="true">
 		<div class="page-wrapper with-navbar with-sidebar">
@@ -36,25 +36,25 @@
 				<div class="sidebar-group">
 					<h5 class="sidebar-title">Getting started</h5>
 					<div class="sidebar-divider"></div>
-					<a href="index.htm" class="sidebar-link sidebar-link-with-icon">
+					<a href="{{ path('api.docs.introduction') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.introduction' %}active{% endif %}">
 						<span class="sidebar-icon">
 							<i class="mdi mdi-hand-peace-variant" aria-hidden="true"></i>
 						</span>
 						Introduction
 					</a>
-					<a href="usage-policy.htm" class="sidebar-link sidebar-link-with-icon">
+					<a href="{{ path('api.docs.usagePolicy') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.usagePolicy' %}active{% endif %}">
 						<span class="sidebar-icon">
 							<i class="mdi mdi-police-badge" aria-hidden="true"></i>
 						</span>
 						Usage Policy
 					</a>
-					<a href="endpoints-versioning.htm" class="sidebar-link sidebar-link-with-icon">
+					<a href="{{ path('api.docs.endpointsVersioning') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.endpointsVersioning' %}active{% endif %}">
 						<span class="sidebar-icon">
 							<i class="mdi mdi-api" aria-hidden="true"></i>
 						</span>
-						Endpoints & Versioning
+						Endpoints &amp; Versioning
 					</a>
-					<a href="authentication.htm" class="sidebar-link sidebar-link-with-icon active">
+					<a href="{{ path('api.docs.authentication') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.authentication' %}active{% endif %}">
 						<span class="sidebar-icon">
 							<i class="mdi mdi-shield-account" aria-hidden="true"></i>
 						</span>
@@ -62,34 +62,35 @@
 					</a>
 				</div>
 				
+                
 				<div class="sidebar-group">
 					<h5 class="sidebar-title">Open APIs</h5>
 					<div class="sidebar-divider"></div>
-					<a href="open-discovery.htm" class="sidebar-link sidebar-link-with-icon">
+					<a href="{{ path('api.docs.open.discovery') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.open.discovery' %}active{% endif %}">
 						<span class="sidebar-icon">
 							<i class="mdi mdi-magnify" aria-hidden="true"></i>
 						</span>
 						Discovery
 					</a>
-					<a href="open-promos.htm" class="sidebar-link sidebar-link-with-icon">
+					<a href="{{ path('api.docs.open.promos') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.open.promos' %}active{% endif %}">
 						<span class="sidebar-icon">
 							<i class="mdi mdi-cursor-default-click" aria-hidden="true"></i>
 						</span>
 						Promos
 					</a>
-					<a href="open-songs.htm" class="sidebar-link sidebar-link-with-icon">
+					<a href="{{ path('api.docs.open.songs') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.open.songs' %}active{% endif %}">
 						<span class="sidebar-icon">
 							<i class="mdi mdi-music-circle" aria-hidden="true"></i>
 						</span>
 						Songs
 					</a>
-					<a href="open-users.htm" class="sidebar-link sidebar-link-with-icon">
+					<a href="{{ path('api.docs.open.users') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.open.users' %}active{% endif %}">
 						<span class="sidebar-icon">
 							<i class="mdi mdi-account-circle" aria-hidden="true"></i>
 						</span>
 						Users
 					</a>
-					<a href="open-tournaments.htm" class="sidebar-link sidebar-link-with-icon">
+					<a href="{{ path('api.docs.open.tournaments') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.open.tournaments' %}active{% endif %}">
 						<span class="sidebar-icon">
 							<i class="mdi mdi-boxing-glove" aria-hidden="true"></i>
 						</span>
@@ -100,32 +101,34 @@
 				<div class="sidebar-group">
 					<h5 class="sidebar-title">Connect APIs</h5>
 					<div class="sidebar-divider"></div>
-					<a href="connect-connect.htm" class="sidebar-link sidebar-link-with-icon">
+					<a href="{{ path('api.docs.connect.connect') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.connect.connect' %}active{% endif %}">
 						<span class="sidebar-icon">
 							<i class="mdi mdi-toy-brick" aria-hidden="true"></i>
 						</span>
 						Connect
+					</a>
+					<a href="{{ path('api.docs.connect.profile') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.connect.profile' %}active{% endif %}">
+						<span class="sidebar-icon">
+							<i class="mdi mdi-shield-account" aria-hidden="true"></i>
+						</span>
+						Profile
+					</a>
+					<a href="{{ path('api.docs.connect.reviews') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.connect.reviews' %}active{% endif %}">
+						<span class="sidebar-icon">
+							<i class="mdi mdi-thumbs-up-down" aria-hidden="true"></i>
+						</span>
+						Reviews
 					</a>
 				</div>
 			</div>
 
 			<div class="content-wrapper">
 				<div class="container-fluid">
-					<div class="row justify-content-center">
-						<div class="col-lg-7">
-							<div class="content">
-								<h1 class="content-title">
-									Authentication
-								</h1>
-
-								<p>Open APIs don't require any type of authentication, these APIs are read-only and only give you publicly accessible data. If you need to modify content and/or want more detailled data (as well as user-private data), you need to use our Connect Authentication system. More information about how to register an app and authenticate it can be found on the <a href="connect-connect.htm">Connect</a> page.</p>
-							</div>
-						</div>
-					</div>
+                    {% block content %}{% endblock %}
 				</div>
 			</div>
 
 		</div>
-		<script src="https://cdn.jsdelivr.net/gh/halfmoonui/halfmoon@1.0.3/js/halfmoon.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/gh/halfmoonui/halfmoon@1.0.4/js/halfmoon.min.js"></script>
 	</body>
 </html>

@@ -1,116 +1,8 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-		<meta name="viewport" content="width=device-width" />
+{% extends 'apidocs/base.html.twig' %}
 
-		<!-- Meta -->
-		<link rel="icon" href="https://spinsha.re/assets/img/favicon.png" />
-		<title>Discovery - SpinShare API</title>
+{% block title %}Discovery{% endblock %}
 
-		<!-- Style -->
-		<link href="https://cdn.jsdelivr.net/gh/halfmoonui/halfmoon@1.0.3/css/halfmoon.min.css" rel="stylesheet" />
-		<link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" />
-		<link rel="stylesheet" href="css/style.css" />
-	</head>
-	<body class="with-custom-webkit-scrollbars with-custom-css-scrollbars dark-mode" data-dm-shortcut-enabled="true" data-set-preferred-theme-onload="true">
-		<div class="page-wrapper with-navbar with-sidebar">
-
-			<nav class="navbar">
-				<div class="navbar-content">
-					<button class="btn btn-action" type="button" onclick="halfmoon.toggleSidebar()">
-						<i class="mdi mdi-menu" aria-hidden="true"></i>
-						<span class="sr-only">Toggle sidebar</span>
-					</button>
-				</div>
-				<a href="#" class="navbar-brand">
-					<img class="hidden-lm" src="https://spinsha.re/assets/img/logo_colored_ondark.svg" />
-					<img class="hidden-dm" src="https://spinsha.re/assets/img/logo_colored_onwhite.svg" />
-					<span>API Documentation</span>
-				</a>
-			</nav>
-
-			<div class="sidebar">
-				<div class="sidebar-group">
-					<h5 class="sidebar-title">Getting started</h5>
-					<div class="sidebar-divider"></div>
-					<a href="index.htm" class="sidebar-link sidebar-link-with-icon">
-						<span class="sidebar-icon">
-							<i class="mdi mdi-hand-peace-variant" aria-hidden="true"></i>
-						</span>
-						Introduction
-					</a>
-					<a href="usage-policy.htm" class="sidebar-link sidebar-link-with-icon">
-						<span class="sidebar-icon">
-							<i class="mdi mdi-police-badge" aria-hidden="true"></i>
-						</span>
-						Usage Policy
-					</a>
-					<a href="endpoints-versioning.htm" class="sidebar-link sidebar-link-with-icon">
-						<span class="sidebar-icon">
-							<i class="mdi mdi-api" aria-hidden="true"></i>
-						</span>
-						Endpoints & Versioning
-					</a>
-					<a href="authentication.htm" class="sidebar-link sidebar-link-with-icon">
-						<span class="sidebar-icon">
-							<i class="mdi mdi-shield-account" aria-hidden="true"></i>
-						</span>
-						Authentication
-					</a>
-				</div>
-				
-				<div class="sidebar-group">
-					<h5 class="sidebar-title">Open APIs</h5>
-					<div class="sidebar-divider"></div>
-					<a href="open-discovery.htm" class="sidebar-link sidebar-link-with-icon active">
-						<span class="sidebar-icon">
-							<i class="mdi mdi-magnify" aria-hidden="true"></i>
-						</span>
-						Discovery
-					</a>
-					<a href="open-promos.htm" class="sidebar-link sidebar-link-with-icon">
-						<span class="sidebar-icon">
-							<i class="mdi mdi-cursor-default-click" aria-hidden="true"></i>
-						</span>
-						Promos
-					</a>
-					<a href="open-songs.htm" class="sidebar-link sidebar-link-with-icon">
-						<span class="sidebar-icon">
-							<i class="mdi mdi-music-circle" aria-hidden="true"></i>
-						</span>
-						Songs
-					</a>
-					<a href="open-users.htm" class="sidebar-link sidebar-link-with-icon">
-						<span class="sidebar-icon">
-							<i class="mdi mdi-account-circle" aria-hidden="true"></i>
-						</span>
-						Users
-					</a>
-					<a href="open-tournaments.htm" class="sidebar-link sidebar-link-with-icon">
-						<span class="sidebar-icon">
-							<i class="mdi mdi-boxing-glove" aria-hidden="true"></i>
-						</span>
-						Tournaments
-					</a>
-				</div>
-
-				<div class="sidebar-group">
-					<h5 class="sidebar-title">Connect APIs</h5>
-					<div class="sidebar-divider"></div>
-					<a href="connect-connect.htm" class="sidebar-link sidebar-link-with-icon">
-						<span class="sidebar-icon">
-							<i class="mdi mdi-toy-brick" aria-hidden="true"></i>
-						</span>
-						Connect
-					</a>
-				</div>
-			</div>
-
-			<div class="content-wrapper">
-				<div class="container-fluid">
+{% block content %}
 					<div class="row justify-content-center">
 						<div class="col-lg-7">
 							<div class="content">
@@ -337,7 +229,7 @@
                                 </div>
                                 
                                 <div class="card" id="popular">
-                                    <h2 class="card-title">Popular Songs</h2>
+                                    <h2 class="card-title">Popular Songs <span class="badge badge-secondary">deprecated</span></h2>
                                     <p>Returns the 12 most popular songs of all time. Use <code class="code">offset</code> for pagination.</p>
 
                                     <table class="table table-bordered">
@@ -351,7 +243,12 @@
                                         </tr>
                                     </table>
 
-                                    <br /><br />
+                                    <br />
+                                    <div class="alert alert-secondary" role="alert">
+                                        <h4 class="alert-heading">Deprecated</h4>
+                                        This API-Endpoint will soon be removed and shouldn't been used anymore.
+                                    </div>
+                                    <br />
 
                                     <strong>Output Body (Success)</strong>
 <pre class="code">
@@ -399,15 +296,9 @@
 									<a href="#searchAll">Search All</a>
 									<a href="#new">New Songs</a>
 									<a href="#hot">Hot Songs</a>
-									<a href="#popular">Popular Songs</a>
+									<a href="#popular">Popular Songs <span class="badge badge-secondary">Deprecated</span></a>
 								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-
-		</div>
-		<script src="https://cdn.jsdelivr.net/gh/halfmoonui/halfmoon@1.0.3/js/halfmoon.min.js"></script>
-	</body>
-</html>
+{% endblock %}

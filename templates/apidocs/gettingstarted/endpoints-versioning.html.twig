@@ -1,0 +1,44 @@
+{% extends 'apidocs/base.html.twig' %}
+
+{% block title %}Endpoints &amp; Versioning{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="content">
+                <h1 class="content-title">
+                    Endpoints & Versioning
+                </h1>
+
+                <p>Every API-Endpoint is prefixed with <code class="code">https://spinsha.re/api/</code>. Additionally, every API-call reports back the API-version in form of the <code class="code">version</code> property. If you want to ping the API (to check if it's online), you can run the Ping API-call.</p>
+                
+                <div class="card" id="detail">
+                    <h2 class="card-title">Ping</h2>
+                    <p>Pong's back.</p>
+
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Method</th>
+                            <td>GET</td>
+                        </tr>
+                        <tr>
+                            <th>Endpoint</th>
+                            <td>/ping</td>
+                        </tr>
+                    </table>
+
+                    <br /><br />
+
+                    <strong>Output Body</strong>
+<pre class="code">
+{
+"version":1,
+"status":200,
+"pong":true
+}
+</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

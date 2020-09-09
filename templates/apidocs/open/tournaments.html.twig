@@ -1,0 +1,94 @@
+{% extends 'apidocs/base.html.twig' %}
+
+{% block title %}Tournaments{% endblock %}
+
+{% block content %}
+					<div class="row justify-content-center">
+						<div class="col-lg-7">
+							<div class="content">
+								<h1 class="content-title">
+									Tournaments
+								</h1>
+
+								<div class="alert alert-secondary" role="alert">
+									<h4 class="alert-heading">Attention</h4>
+									The Tournaments API was created as a last minute addition to the SpinShare SpeenOpen Summer 2020. It's usecase is very limited and will likely change after the tournament.
+								</div>
+                                
+                                <div class="card" id="mappool">
+                                    <h2 class="card-title">Mappool</h2>
+                                    <p>Returns the mappool of the current tournament.</p>
+
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Method</th>
+                                            <td>GET</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Endpoint</th>
+                                            <td>/tournament/mappool</td>
+                                        </tr>
+                                    </table>
+
+                                    <br /><br />
+
+                                    <strong>Output Body</strong>
+<pre class="code">
+{
+	"version":1,
+	"status":200,
+	"data":[
+		{
+			"id":183,
+			"title":"Immortal Flame",
+			"subtitle":"",
+			"artist":"Panda Eyes \u0026 Teminite",
+			"charter":"Aren Eternal \u0026 TheWay123",
+			"uploader":99,
+			"fileReference":"spinshare_5e9b78d27ee28",
+			"tags":[
+				"EDM",
+				"Dubstep",
+				"CTM-Friendly",
+				"XD",
+				"Diff 20-29"
+			],
+			"views":543,
+			"downloads":38,
+			"isExplicit":false,
+			"isTournament":true,
+			"hasEasyDifficulty":false,
+			"hasNormalDifficulty":false,
+			"hasHardDifficulty":false,
+			"hasExtremeDifficulty":false,
+			"hasXDDifficulty":true,
+			"uploadDate":{
+				"date":"2020-05-01 00:00:00.000000",
+				"timezone_type":3,
+				"timezone":"Europe\/Berlin"
+			},
+			"description":"Revision 1:\r\n - Added more movement in the intro\r\n - Revamped the build\r\n - Added some beats to the drop\r\n - Made more CTM friendly\r\n - Additional changes made by TheWay123\r\n - Assigned a difficulty\r\n - Assigned a background",
+			"srtbMD5":"fda722a33fb8655b3b803c821d7366e2",
+			"paths":{
+				"ogg":"https:\/\/spinsha.re\/uploads\/audio\/spinshare_5e9b78d27ee28_0.ogg",
+				"cover":"https:\/\/spinsha.re\/uploads\/thumbnail\/spinshare_5e9b78d27ee28.jpg",
+				"zip":"https:\/\/spinsha.re\/api\/song\/183\/download"
+			}
+		},
+		...
+	]
+}
+</pre>
+                                </div>
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="content">
+								<div class="on-this-page-nav">
+									<div class="title">On this page</div>
+									<a href="#mappool">Mappool</a>
+								</div>
+							</div>
+						</div>
+					</div>
+{% endblock %}

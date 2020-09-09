@@ -1,0 +1,86 @@
+{% extends 'apidocs/base.html.twig' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+					<div class="row justify-content-center">
+						<div class="col-lg-7">
+							<div class="content">
+								<h1 class="content-title">
+									Profile
+                                </h1>
+                                
+                                <div class="card" id="overview">
+                                    <h2 class="card-title">Overview</h2>
+                                    <p>Returns a general overview of information about the connected user.</p>
+
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Method</th>
+                                            <td>GET</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Endpoint</th>
+                                            <td>/connect/profile</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Query Parameters</th>
+                                            <td>(string) connectToken</td>
+                                        </tr>
+                                    </table>
+
+                                    <br /><br />
+
+                                    <strong>Output Body (Success)</strong>
+<pre class="code">
+{
+   "version":1,
+   "status":200,
+   "data":{
+      "id":1,
+      "username":"taw",
+      "isVerified":true,
+      "isPatreon":true,
+      "avatar":"https:\/\/spinsha.re\/uploads\/avatar\/5f4147b117c7b.png"
+   }
+}
+</pre>
+<br /><br />
+
+                                    <strong>Responses</strong>
+                                    <br /><br />
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Code</th>
+                                                <th>Explaination</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>200</td>
+                                                <td>The profile exists.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>422</td>
+                                                <td>Some parameters were missing.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>403</td>
+                                                <td>Your connectToken is missing or wrong.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+						</div>
+						<div class="col-lg-3">
+							<div class="content">
+								<div class="on-this-page-nav">
+									<div class="title">On this page</div>
+									<a href="#overview">Overview</a>
+								</div>
+							</div>
+						</div>
+					</div>
+{% endblock %}

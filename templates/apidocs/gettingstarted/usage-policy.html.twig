@@ -1,0 +1,40 @@
+{% extends 'apidocs/base.html.twig' %}
+
+{% block title %}Usage Policy{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="content">
+                <h1 class="content-title">
+                    Usage Policy
+                </h1>
+
+                <p>Our Usage Policy serves as the Terms of Service of the SpinShare API. Please follow this ruleset if you are using the SpinShare API.</p>
+
+                <div class="card">
+                    <h2 class="card-title">DO</h2>
+                    <ul>
+                        <li>Protect userdata.</li>
+                        <li>Provide users with information about which data you access</li>
+                        <li>Add a label or a backlink to SpinShare</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h2 class="card-title">DON'T</h2>
+                    <ul>
+                        <li>Use API data for a purpose not connected to SpinShare or Spin Rhythm XD</li>
+                        <li>Obtain passwords or other credentials</li>
+                        <li>Use userdata for marketing or advertisements</li>
+                        <li>Sell or license API data</li>
+                        <li>Scrape API data (caching is excluded from this)</li>
+                        <li>Use this API data to do anything illegal or harmful</li>
+                    </ul>
+                </div>
+
+                <p>We currently don't ratelimit our open APIs. However, we still would like you to keep an eye on your API usage and cache API data whenever possible.</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
