@@ -118,6 +118,7 @@ class SongReview
     public function getJSON() {
         $response = array(
             'id' => $this->id,
+            'song' => $this->song->getJSON(),
             'user' => $this->user->getJSON(),
             'recommended' => $this->recommended,
             'comment' => $this->comment,
