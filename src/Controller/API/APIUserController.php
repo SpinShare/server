@@ -52,10 +52,47 @@ class APIUserController extends AbstractController
             $resultsSpinPlays = $em->getRepository(SongSpinPlay::class)->findBy(array('user' => $result->getId(), 'isActive' => true), array('submitDate' => 'DESC'));
             $resultsCards = $em->getRepository(UserCard::class)->findBy(array('user' => $result->getId()), array('givenDate' => 'DESC'));
 
-            $data['songs'] = [];
-            $data['reviews'] = [];
-            $data['spinplays'] = [];
+            $data['songs'] = count($resultsSongs);
+            $data['reviews'] = count($resultsReviews);
+            $data['spinplays'] = count($resultsSpinPlays);
             $data['cards'] = [];
+                 
+            foreach($resultsCards as $result) {
+                $oneResult = [];
+
+                $oneResult['id'] = $result->getId();
+                $oneResult['icon'] = $baseUrl."/uploads/card/".$result->getCard()->getIcon();
+                $oneResult['title'] = $result->getCard()->getTitle();
+                $oneResult['givenDate'] = $result->getGivenDate();
+                $oneResult['description'] = $result->getCard()->getDescription();
+
+                $data['cards'][] = $oneResult;
+            }
+    
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
+        }
+    }
+
+    /**
+     * @Route("/api/user/{userId}/charts", name="api.users.detail.charts")
+     */
+    public function userDetailCharts(Request $request, int $userId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        $result = $em->getRepository(User::class)->findOneBy(array('id' => $userId));
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
+        if(!$result) {
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
+        } else {
+            // Get User Lists
+            $resultsSongs = $em->getRepository(Song::class)->findBy(array('uploader' => $result->getId()), array('uploadDate' => 'DESC'));
                  
             foreach($resultsSongs as $result) {
                 $oneResult = [];
@@ -74,26 +111,63 @@ class APIUserController extends AbstractController
                 $oneResult['cover'] = $baseUrl."/uploads/thumbnail/".$result->getFileReference().".jpg";
                 $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
 
-                $data['songs'][] = $oneResult;
+                $data[] = $oneResult;
             }
+    
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
+        }
+    }
+
+    /**
+     * @Route("/api/user/{userId}/reviews", name="api.users.detail.reviews")
+     */
+    public function userDetailReviews(Request $request, int $userId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        $result = $em->getRepository(User::class)->findOneBy(array('id' => $userId));
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
+        if(!$result) {
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
+        } else {
+            $resultsReviews = $em->getRepository(SongReview::class)->findBy(array('user' => $result->getId()), array('reviewDate' => 'DESC'));
                  
             foreach($resultsReviews as $result) {
-                $data['reviews'][] = $result->getJSON();
+                $data[] = $result->getJSON();
             }
+    
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
+        }
+    }
+    
+    /**
+     * @Route("/api/user/{userId}/spinplays", name="api.users.detail.spinplays")
+     */
+    public function userDetailSpinPlays(Request $request, int $userId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        $result = $em->getRepository(User::class)->findOneBy(array('id' => $userId));
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
+        if(!$result) {
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
+        } else {
+            $resultsSpinPlays = $em->getRepository(SongSpinPlay::class)->findBy(array('user' => $result->getId(), 'isActive' => true), array('submitDate' => 'DESC'));
                  
             foreach($resultsSpinPlays as $result) {
-                $data['spinplays'][] = $result->getJSON();
-            }
-                 
-            foreach($resultsCards as $result) {
-                $oneResult = [];
-
-                $oneResult['id'] = $result->getId();
-                $oneResult['icon'] = $baseUrl."/uploads/card/".$result->getCard()->getIcon();
-                $oneResult['title'] = $result->getCard()->getTitle();
-                $oneResult['description'] = $result->getCard()->getDescription();
-
-                $data['cards'][] = $oneResult;
+                $data[] = $result->getJSON();
             }
     
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
