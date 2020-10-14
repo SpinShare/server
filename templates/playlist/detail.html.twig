@@ -23,7 +23,7 @@
         <div class="playlist-content">
             <div class="playlist-detail">
                 <div class="playlist-description">
-                    {{ playlist.description }}
+                    {{ playlist.description|nl2br }}
                 </div>
                 {% if not playlist.isOfficial %}
                     <div class="playlist-uploader">
@@ -46,7 +46,13 @@
                     <div class="playlist-charters">
                         <div class="label">With Charts by</div>
                         <div class="charters">
-                            {% for song in playlist.songs %}{{ song.charter }},&#32;{% endfor %}
+                            {% set charters = [] %}
+                            {% for song in playlist.songs %}
+                                {% if song.charter not in charters %}
+                                    {{ song.charter }},&#32;
+                                    {% set charters = charters|merge([song.charter]) %}
+                                {% endif %}
+                            {% endfor %}
                         </div>
                     </div>
                 {% endif %}
