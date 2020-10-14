@@ -53,6 +53,19 @@
         grid-gap: 25px;
 
         & .playlist-detail {
+            & .playlist-description {
+                background: #383C3F;
+                border-radius: 4px;
+                line-height: 1.5em;
+                display: grid;
+                grid-gap: 20px;
+                padding: 20px;
+
+                & .text {
+                    line-height: 1.5em;
+                    opacity: 0.7;
+                }
+            }
             & .playlist-uploader {
                 display: grid;
                 grid-template-columns: auto 1fr;
@@ -64,17 +77,21 @@
                     opacity: 0.6;
                 }
             }
-
-            & .playlist-description {
-                background: #383C3F;
-                border-radius: 4px;
+            & .playlist-charters {
                 display: grid;
-                grid-gap: 20px;
-                padding: 20px;
+                grid-template-columns: auto 1fr;
+                grid-gap: 15px;
+                margin-top: 25px;
 
-                & .text {
+                & .label {
+                    align-self: center;
+                    opacity: 0.6;
+                }
+                & .charters {
+                    background: #383C3F;
+                    padding: 15px;
                     line-height: 1.5em;
-                    opacity: 0.7;
+                    border-radius: 4px;
                 }
             }
         }

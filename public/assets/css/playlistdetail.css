@@ -46,6 +46,18 @@
   grid-template-columns: 500px 1fr;
   grid-gap: 25px;
 }
+.section-playlist-detail .playlist-content .playlist-detail .playlist-description {
+  background: #383C3F;
+  border-radius: 4px;
+  line-height: 1.5em;
+  display: grid;
+  grid-gap: 20px;
+  padding: 20px;
+}
+.section-playlist-detail .playlist-content .playlist-detail .playlist-description .text {
+  line-height: 1.5em;
+  opacity: 0.7;
+}
 .section-playlist-detail .playlist-content .playlist-detail .playlist-uploader {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -56,15 +68,20 @@
   align-self: center;
   opacity: 0.6;
 }
-.section-playlist-detail .playlist-content .playlist-detail .playlist-description {
-  background: #383C3F;
-  border-radius: 4px;
+.section-playlist-detail .playlist-content .playlist-detail .playlist-charters {
   display: grid;
-  grid-gap: 20px;
-  padding: 20px;
+  grid-template-columns: auto 1fr;
+  grid-gap: 15px;
+  margin-top: 25px;
 }
-.section-playlist-detail .playlist-content .playlist-detail .playlist-description .text {
+.section-playlist-detail .playlist-content .playlist-detail .playlist-charters .label {
+  align-self: center;
+  opacity: 0.6;
+}
+.section-playlist-detail .playlist-content .playlist-detail .playlist-charters .charters {
+  background: #383C3F;
+  padding: 15px;
   line-height: 1.5em;
-  opacity: 0.7;
+  border-radius: 4px;
 }
 /*# sourceMappingURL=playlistdetail.css.map */

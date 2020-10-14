@@ -26,21 +26,29 @@
                     {{ playlist.description }}
                 </div>
                 {% if not playlist.isOfficial %}
-                <div class="playlist-uploader">
-                    <div class="label">Created by</div>
-                    <a href="{{ path('user.detail', {userId: user.id}) }}" class="user-item">
-                        <div class="user-avatar" style="background-image: url({{ asset('uploads/avatar/' ~ user.coverReference ~ '?t=' ~ date().timestamp) }}), url({{ asset("assets/img/defaultAvatar.jpg") }});"></div>
-                        <div class="user-metadata">
-                            <div class="user-username">{{ user.username }}</div>
-                            {% if user.isVerified %}
-                                <div class="user-badge"><i class="mdi mdi-check-decagram"></i></div>
-                            {% endif %}
-                            {% if user.isPatreon %}
-                                <div class="user-badge"><i class="mdi mdi-patreon"></i></div>
-                            {% endif %}
+                    <div class="playlist-uploader">
+                        <div class="label">Created by</div>
+                        <a href="{{ path('user.detail', {userId: user.id}) }}" class="user-item">
+                            <div class="user-avatar" style="background-image: url({{ asset('uploads/avatar/' ~ user.coverReference ~ '?t=' ~ date().timestamp) }}), url({{ asset("assets/img/defaultAvatar.jpg") }});"></div>
+                            <div class="user-metadata">
+                                <div class="user-username">{{ user.username }}</div>
+                                {% if user.isVerified %}
+                                    <div class="user-badge"><i class="mdi mdi-check-decagram"></i></div>
+                                {% endif %}
+                                {% if user.isPatreon %}
+                                    <div class="user-badge"><i class="mdi mdi-patreon"></i></div>
+                                {% endif %}
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+                {% if playlist.songs|length > 0 %}
+                    <div class="playlist-charters">
+                        <div class="label">With Charts by</div>
+                        <div class="charters">
+                            {% for song in playlist.songs %}{{ song.charter }},&nbsp;{% endfor %}
                         </div>
-                    </a>
-                </div>
+                    </div>
                 {% endif %}
             </div>
             <div class="song-row song-row-playlist">
