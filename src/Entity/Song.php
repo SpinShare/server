@@ -118,10 +118,16 @@ class Song
      */
     private $spinPlays;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\SongPlaylist", mappedBy="songs")
+     */
+    private $songPlaylists;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
         $this->spinPlays = new ArrayCollection();
+        $this->songPlaylists = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -436,5 +442,33 @@ class Song
         );
 
         return $response;
+    }
+
+    /**
+     * @return Collection|SongPlaylist[]
+     */
+    public function getSongPlaylists(): Collection
+    {
+        return $this->songPlaylists;
+    }
+
+    public function addSongPlaylist(SongPlaylist $songPlaylist): self
+    {
+        if (!$this->songPlaylists->contains($songPlaylist)) {
+            $this->songPlaylists[] = $songPlaylist;
+            $songPlaylist->addSong($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSongPlaylist(SongPlaylist $songPlaylist): self
+    {
+        if ($this->songPlaylists->contains($songPlaylist)) {
+            $this->songPlaylists->removeElement($songPlaylist);
+            $songPlaylist->removeSong($this);
+        }
+
+        return $this;
     }
 }
