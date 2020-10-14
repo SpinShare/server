@@ -26,29 +26,29 @@
             </div>
             <div class="song-actions">
                 <div class="action-row">
-                <a href="{{ path('song.download', {songId: song.id}) }}" class="action">
-                    <div class="icon">
-                        <i class="mdi mdi-download"></i>
+                    <a href="{{ path('song.download', {songId: song.id}) }}" class="action">
+                        <div class="icon">
+                            <i class="mdi mdi-download"></i>
+                        </div>
+                    </a>
+                    <div class="action-player">
+                        <div class="icon">
+                            <i class="mdi mdi-play"></i>
+                        </div>
+                        <div class="volume">
+                            <input type="range" min="0" max="100" value="50" class="playerVolume" onInput="UpdateVolume()" />
+                        </div>
                     </div>
-                </a>
-                <div class="action-player">
-                    <div class="icon">
-                        <i class="mdi mdi-play"></i>
-                    </div>
-                    <div class="volume">
-                        <input type="range" min="0" max="100" value="50" class="playerVolume" onInput="UpdateVolume()" />
-                    </div>
-                </div>
-                <a href="spinshare-song://{{ song.id }}" class="action">
-                    <div class="icon">
-                        <i class="mdi mdi-open-in-new"></i>
-                    </div>
-                </a>
-                <a href="{{ path('report.song', {songId: song.id}) }}" class="action">
-                    <div class="icon">
-                        <i class="mdi mdi-flag-outline"></i>
-                    </div>
-                </a>
+                    <a href="spinshare-song://{{ song.id }}" class="action">
+                        <div class="icon">
+                            <i class="mdi mdi-open-in-new"></i>
+                        </div>
+                    </a>
+                    <a href="{{ path('report.song', {songId: song.id}) }}" class="action">
+                        <div class="icon">
+                            <i class="mdi mdi-flag-outline"></i>
+                        </div>
+                    </a>
                 {% if is_granted('ROLE_USER') %}
                     </div>
                     <div class="action-row">
@@ -75,8 +75,8 @@
                                 <i class="mdi mdi-playlist-plus"></i>
                             </div>
                         </div>
-                    </div>
                 {% endif %}
+                </div>
             </div>
             <div class="song-statistics">
                 <div class="stat">

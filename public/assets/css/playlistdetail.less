@@ -49,7 +49,7 @@
     & .playlist-content {
         padding: 50px;
         display: grid;
-        grid-template-columns: 500px 1fr;
+        grid-template-columns: 400px 1fr;
         grid-gap: 25px;
 
         & .playlist-detail {
@@ -79,8 +79,8 @@
             }
             & .playlist-charters {
                 display: grid;
-                grid-template-columns: auto 1fr;
-                grid-gap: 15px;
+                grid-template-rows: auto 1fr;
+                grid-gap: 8px;
                 margin-top: 25px;
 
                 & .label {
@@ -93,6 +93,11 @@
                     line-height: 1.5em;
                     border-radius: 4px;
                 }
+            }
+        }
+        & .song-row-playlist {
+            & .song-list {
+                grid-template-columns: repeat(5, 1fr);
             }
         }
     }
