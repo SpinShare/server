@@ -31,3 +31,4 @@
 ###> IDE ###
 .idea/
 ###< IDE ###
+public/.htaccess
