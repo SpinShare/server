@@ -1,0 +1,112 @@
+{% extends 'apidocs/base.html.twig' %}
+
+{% block title %}Playlists{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="content">
+                <h1 class="content-title">
+                    Playlists
+                </h1>
+
+                <div class="card" id="detail">
+                    <h2 class="card-title">Detail</h2>
+                    <p>Returns more detailled information about a playlist.</p>
+
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Method</th>
+                            <td>GET</td>
+                        </tr>
+                        <tr>
+                            <th>Endpoint</th>
+                            <td>/playlist/<code class="code">playlistID</code></td>
+                        </tr>
+                    </table>
+
+                    <br />
+
+                    <div class="alert alert-primary" role="alert">
+                        <h4 class="alert-heading">Information</h4>
+                        Do not display user information, if <code class="code">isOfficial</code> is set to true as it indicates an official SpinShare playlist instead of a user playlist.
+                    </div>
+
+                    <br />
+
+                    <strong>Output Body</strong>
+                    <pre class="code">
+{
+  "version": 1,
+  "status": 200,
+  "data": {
+    "id": 2,
+    "title": "Test Playlist",
+    "description": "Test Description",
+    "fileReference": "playlist_5f86ea264a93b",
+    "user": {
+      "id": 1,
+      "username": "taw.moe",
+      "coverReference": "5f86d761933e1.png",
+      "isVerified": null,
+      "isPatreon": null
+    },
+    "songs": [
+      {
+        "id": 6,
+        "title": "Delete",
+        "subtitle": "from Technokinesis\r\n",
+        "artist": "Meganeko",
+        "charter": "Stride and Juch.",
+        "uploader": 1,
+        "fileReference": "spinshare_5f86d7f1e46e1",
+        "tags": [
+          ""
+        ],
+        "views": 8,
+        "downloads": null,
+        "isExplicit": false,
+        "hasEasyDifficulty": false,
+        "hasNormalDifficulty": false,
+        "hasHardDifficulty": false,
+        "hasExtremeDifficulty": false,
+        "hasXDDifficulty": true,
+        "uploadDate": {
+          "date": "2020-10-14 12:50:25.000000",
+          "timezone_type": 3,
+          "timezone": "Europe\/Berlin"
+        },
+        "description": null
+      }
+    ],
+    "isOfficial": true,
+    "paths": {
+      "cover": "http:\/\/spinsha.re\/uploads\/cover\/playlist_5f86ea264a93b.png"
+    }
+  }
+}
+</pre>
+
+                    <br />
+
+                    <strong>Output Body (Not Found)</strong>
+                    <pre class="code">
+{
+    "version":1,
+    "status":404,
+    "data":[]
+}
+</pre>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="content">
+                <div class="on-this-page-nav">
+                    <div class="title">On this page</div>
+                    <a href="#detail">Detail</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

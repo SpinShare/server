@@ -87,6 +87,17 @@ class APIDocsController extends AbstractController
     }
 
     /**
+     * @Route("/api/docs/open/playlists", name="api.docs.open.playlists")
+     */
+    public function openPlaylists(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        return $this->render('apidocs/open/playlists.html.twig', $data);
+    }
+
+    /**
      * @Route("/api/docs/open/users", name="api.docs.open.users")
      */
     public function openUsers(Request $request)

@@ -84,6 +84,12 @@
 						</span>
 						Songs
 					</a>
+					<a href="{{ path('api.docs.open.playlists') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.open.playlists' %}active{% endif %}">
+						<span class="sidebar-icon">
+							<i class="mdi mdi-playlist-music" aria-hidden="true"></i>
+						</span>
+						Playlists
+					</a>
 					<a href="{{ path('api.docs.open.users') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.open.users' %}active{% endif %}">
 						<span class="sidebar-icon">
 							<i class="mdi mdi-account-circle" aria-hidden="true"></i>
