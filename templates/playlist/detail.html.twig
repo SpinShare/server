@@ -46,7 +46,7 @@
                     <div class="playlist-charters">
                         <div class="label">With Charts by</div>
                         <div class="charters">
-                            {% for song in playlist.songs %}{{ song.charter }},&nbsp;{% endfor %}
+                            {% for song in playlist.songs %}{{ song.charter }},&#32;{% endfor %}
                         </div>
                     </div>
                 {% endif %}
