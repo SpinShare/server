@@ -2,6 +2,7 @@
 
 namespace App\Controller\API\Tournament;
 
+use App\Entity\SongPlaylist;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,9 +25,9 @@ class APITournamentController extends AbstractController
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         // Botch
-        $tournamentCharts = $em->getRepository(Song::class)->findBy(array('isTournament' => true));
+        $tournamentPlaylist = $em->getRepository(SongPlaylist::class)->findOneBy(array('id' => "2"));
 
-        foreach($tournamentCharts as $tournamentChart) {
+        foreach($tournamentPlaylist->getSongs() as $tournamentChart) {
             $chartItem = $tournamentChart->getJSON();
 
             $chartItem['srtbMD5'] = md5_file($this->getParameter('srtb_path').DIRECTORY_SEPARATOR.$tournamentChart->getFileReference().".srtb");
