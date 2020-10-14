@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Playlist{% endblock %}
+
+{% block content %}
+    <section class="section-upload">
+        {{ form_start(form) }}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flashbang flashbang-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <div class="box">
+            <div class="title">Create Playlist</div>
+            <div class="tags-input">
+                {{ form_row(form.title) }}
+            </div>
+            <div class="tags-input">
+                {{ form_row(form.description) }}
+            </div>
+            <div class="upload-input">
+                {{ form_row(form.coverPath) }}
+                <div class="upload-input-select active">
+                    <i class="mdi mdi-folder-upload"></i>
+                    <div>SELECT A COVER<br />FOR YOUR PLAYLIST</div>
+                </div>
+                <div class="upload-input-selected">
+                    <i class="mdi mdi-folder-image"></i>
+                    <div></div>
+                </div>
+            </div>
+            <div class="actions">
+                {{ form_row(form.save) }}
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('assets/js/upload.js') }}"></script>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/upload.css?v=' ~ date().timestamp) }}" />
+{% endblock %}

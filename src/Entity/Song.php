@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -67,11 +68,6 @@ class Song
      * @ORM\Column(type="boolean", nullable=true, options={"default": false})
      */
     private $isExplicit;
-
-    /**
-     * @ORM\Column(type="boolean", nullable=true, options={"default": false})
-     */
-    private $isTournament;
 
     /**
      * @ORM\Column(type="boolean")
@@ -260,18 +256,6 @@ class Song
         return $this;
     }
 
-    public function getIsTournament(): ?bool
-    {
-        return $this->isTournament;
-    }
-
-    public function setIsTournament(bool $isTournament): self
-    {
-        $this->isTournament = $isTournament;
-
-        return $this;
-    }
-
     public function getHasEasyDifficulty(): ?bool
     {
         return $this->hasEasyDifficulty;
@@ -332,12 +316,12 @@ class Song
         return $this;
     }
 
-    public function getUploadDate(): ?\DateTimeInterface
+    public function getUploadDate(): ?DateTimeInterface
     {
         return $this->uploadDate;
     }
 
-    public function setUploadDate(\DateTimeInterface $uploadDate): self
+    public function setUploadDate(DateTimeInterface $uploadDate): self
     {
         $this->uploadDate = $uploadDate;
 
@@ -419,7 +403,7 @@ class Song
     }
 
     public function getJSON() {
-        $response = array(
+        return array(
             'id' => $this->id,
             'title' => $this->title,
             'subtitle' => $this->subtitle,
@@ -431,7 +415,6 @@ class Song
             'views' => $this->views,
             'downloads' => $this->downloads,
             'isExplicit' => $this->isExplicit,
-            'isTournament' => $this->isTournament,
             'hasEasyDifficulty' => $this->hasEasyDifficulty,
             'hasNormalDifficulty' => $this->hasNormalDifficulty,
             'hasHardDifficulty' => $this->hasHardDifficulty,
@@ -440,8 +423,6 @@ class Song
             'uploadDate' => $this->uploadDate,
             'description' => $this->description
         );
-
-        return $response;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -133,12 +134,12 @@ class SongReport
         return $this;
     }
 
-    public function getReportDate(): ?\DateTimeInterface
+    public function getReportDate(): ?DateTimeInterface
     {
         return $this->reportDate;
     }
 
-    public function setReportDate(\DateTimeInterface $reportDate): self
+    public function setReportDate(DateTimeInterface $reportDate): self
     {
         $this->reportDate = $reportDate;
 

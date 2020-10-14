@@ -98,9 +98,21 @@
                 <div class="item item-user" tabindex="0">
                   <div class="user-avatar" style="background-image: url({{ asset('uploads/avatar/' ~ app.user.coverReference ~ '?t=' ~ date().timestamp) }}), url({{ asset("assets/img/defaultAvatar.jpg") }});"></div>
                   <div class="user-actions">
-                    <a href="{{ path('user.detail', {userId: app.user.id}) }}" class="user-action-item">
-                      <i class="mdi mdi-account"></i>
-                      <span>My Profile</span>
+                    <a href="{{ path('user.detail', {userId: app.user.id, area: "charts"}) }}" class="user-action-item">
+                      <i class="mdi mdi-music"></i>
+                      <span>My Charts</span>
+                    </a>
+                    <a href="{{ path('user.detail', {userId: app.user.id, area: "playlists"}) }}" class="user-action-item">
+                      <i class="mdi mdi-playlist-music"></i>
+                      <span>My Playlists</span>
+                    </a>
+                    <a href="{{ path('user.detail', {userId: app.user.id, area: "reviews"}) }}" class="user-action-item">
+                      <i class="mdi mdi-thumbs-up-down"></i>
+                      <span>My Reviews</span>
+                    </a>
+                    <a href="{{ path('user.detail', {userId: app.user.id, area: "spinplays"}) }}" class="user-action-item">
+                      <i class="mdi mdi-youtube"></i>
+                      <span>My SpinPlays</span>
                     </a>
                     <a href="{{ path('user.settings') }}" class="user-action-item">
                       <i class="mdi mdi-cog"></i>

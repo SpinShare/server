@@ -1,0 +1,82 @@
+.section-playlist-detail {
+    & .cover {
+        width: 100%;
+        height: 300px;
+        background: rgba(255,255,255,0.1);
+        background-size: cover;
+        background-position: left center;
+
+        & .shade {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            transition: 0.2s ease all;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            & .content {
+                text-align: center;
+                text-shadow: 0px 4px 18px rgba(0, 0, 0, 0.6);
+
+                & .title {
+                    font-size: 48px;
+                    margin-bottom: 5px;
+                    font-family: 'Oswald', sans-serif;
+
+                    & .official-badge {
+                        display: inline-block;
+                        font-family: 'Open Sans', sans-serif;
+                        font-weight: bold;
+                        font-size: 12px;
+                        padding: 2px 10px;
+                        border-radius: 4px;
+                        background: #fff;
+                        color: #000;
+                        text-shadow: 0px 0px 0px transparent;
+                        margin-left: 10px;
+                        transform: translateY(-11px);
+                    }
+                }
+
+                & .quickinfo {
+                    font-size: 18px;
+                    opacity: 0.6;
+                }
+            }
+        }
+    }
+    & .playlist-content {
+        padding: 50px;
+        display: grid;
+        grid-template-columns: 500px 1fr;
+        grid-gap: 25px;
+
+        & .playlist-detail {
+            & .playlist-uploader {
+                display: grid;
+                grid-template-columns: auto 1fr;
+                grid-gap: 15px;
+                margin-top: 25px;
+
+                & .label {
+                    align-self: center;
+                    opacity: 0.6;
+                }
+            }
+
+            & .playlist-description {
+                background: #383C3F;
+                border-radius: 4px;
+                display: grid;
+                grid-gap: 20px;
+                padding: 20px;
+
+                & .text {
+                    line-height: 1.5em;
+                    opacity: 0.7;
+                }
+            }
+        }
+    }
+}

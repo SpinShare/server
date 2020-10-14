@@ -43,6 +43,12 @@ class SongPlaylist
      */
     private $songs;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="songPlaylists")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $user;
+
     public function __construct()
     {
         $this->songs = new ArrayCollection();
@@ -123,6 +129,36 @@ class SongPlaylist
         if ($this->songs->contains($song)) {
             $this->songs->removeElement($song);
         }
+
+        return $this;
+    }
+
+    public function getJSON() {
+        $songs = array();
+
+        foreach($this->songs as $song) {
+            $songs[] = $song->getJSON();
+        }
+
+        return array(
+            'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'fileReference' => $this->fileReference,
+            'user' => $this->user->getJSON(),
+            'songs' => $songs,
+            'isOfficial' => $this->isOfficial
+        );
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

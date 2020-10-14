@@ -71,6 +71,11 @@
          */
         private $userCards;
 
+        /**
+         * @ORM\OneToMany(targetEntity="App\Entity\SongPlaylist", mappedBy="user")
+         */
+        private $songPlaylists;
+
         public function __construct()
         {
             parent::__construct();
@@ -81,6 +86,7 @@
             $this->connections = new ArrayCollection();
             $this->userNotifications = new ArrayCollection();
             $this->userCards = new ArrayCollection();
+            $this->songPlaylists = new ArrayCollection();
         }
 
         public function getCoverReference(): ?string
@@ -179,15 +185,13 @@
         }
 
         public function getJSON() {
-            $response = array(
+            return array(
                 'id' => $this->id,
                 'username' => $this->username,
                 'coverReference' => $this->coverReference,
                 'isVerified' => $this->isVerified,
                 'isPatreon' => $this->isPatreon
             );
-    
-            return $response;
         }
 
         public function getConnectCode(): ?string
@@ -301,6 +305,37 @@
                 // set the owning side to null (unless already changed)
                 if ($userCard->getUser() === $this) {
                     $userCard->setUser(null);
+                }
+            }
+
+            return $this;
+        }
+
+        /**
+         * @return Collection|SongPlaylist[]
+         */
+        public function getSongPlaylists(): Collection
+        {
+            return $this->songPlaylists;
+        }
+
+        public function addSongPlaylist(SongPlaylist $songPlaylist): self
+        {
+            if (!$this->songPlaylists->contains($songPlaylist)) {
+                $this->songPlaylists[] = $songPlaylist;
+                $songPlaylist->setUser($this);
+            }
+
+            return $this;
+        }
+
+        public function removeSongPlaylist(SongPlaylist $songPlaylist): self
+        {
+            if ($this->songPlaylists->contains($songPlaylist)) {
+                $this->songPlaylists->removeElement($songPlaylist);
+                // set the owning side to null (unless already changed)
+                if ($songPlaylist->getUser() === $this) {
+                    $songPlaylist->setUser(null);
                 }
             }
 

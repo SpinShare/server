@@ -25,9 +25,7 @@ class SongRepository extends ServiceEntityRepository
             ->orderBy('e.uploadDate', 'DESC')
             ->setFirstResult(12 * $page)
             ->setMaxResults(12);
-        $result = $qb->getQuery()->getResult();
-
-        return $result;
+        return $qb->getQuery()->getResult();
     }
 
     public function getHot(int $page) {
@@ -41,9 +39,7 @@ class SongRepository extends ServiceEntityRepository
             ->setMaxResults(12)
             ->setParameter('begin', new \DateTime('NOW'))
             ->setParameter('end', new \DateTime('-7 days'));
-        $result = $qb->getQuery()->getResult();
-
-        return $result;
+        return $qb->getQuery()->getResult();
     }
 
     public function getPopular(int $page) {
@@ -53,8 +49,6 @@ class SongRepository extends ServiceEntityRepository
             ->orderBy('e.views', 'DESC')
             ->setFirstResult(12 * $page)
             ->setMaxResults(12);
-        $result = $qb->getQuery()->getResult();
-
-        return $result;
+        return $qb->getQuery()->getResult();
     }
 }

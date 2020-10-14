@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,12 +52,12 @@ class ClientRelease
         return $this->id;
     }
 
-    public function getUploadDate(): ?\DateTimeInterface
+    public function getUploadDate(): ?DateTimeInterface
     {
         return $this->uploadDate;
     }
 
-    public function setUploadDate(\DateTimeInterface $uploadDate): self
+    public function setUploadDate(DateTimeInterface $uploadDate): self
     {
         $this->uploadDate = $uploadDate;
 

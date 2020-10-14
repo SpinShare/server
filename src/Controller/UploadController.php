@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -15,6 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use App\Entity\Song;
 use App\Utils\HelperFunctions;
+use ZipArchive;
 
 class UploadController extends AbstractController
 {
@@ -51,7 +53,7 @@ class UploadController extends AbstractController
                 $song->setUploadDate(new \DateTime('NOW'));
                 $song->setIsExplicit($data['isExplicit']);
 
-                $zip = new \ZipArchive;
+                $zip = new ZipArchive;
                 if($zip->open($backupFile)) {
                     try {
                         // extract backup
@@ -124,8 +126,7 @@ class UploadController extends AbstractController
                                 $hf = new HelperFunctions();
                                 $hf->delTree($extractionPath);
 
-                                var_dump($e);
-                                exit;
+                                return $this->render('upload/index.html.twig', $tempVars);
                             }
 
                             try {
@@ -150,8 +151,7 @@ class UploadController extends AbstractController
                                 $hf = new HelperFunctions();
                                 $hf->delTree($extractionPath);
 
-                                var_dump($e);
-                                exit;
+                                return $this->render('upload/index.html.twig', $tempVars);
                             }
 
                             try {
@@ -172,8 +172,7 @@ class UploadController extends AbstractController
                                 $hf = new HelperFunctions();
                                 $hf->delTree($extractionPath);
 
-                                var_dump($e);
-                                exit;
+                                return $this->render('upload/index.html.twig', $tempVars);
                             }
 
                             // write new track/clip info
@@ -207,14 +206,12 @@ class UploadController extends AbstractController
                         } catch(\Exception $e) {
                             $this->addFlash('error', 'Uploading failed. Please report back to our development team!');
 
-                            var_dump($e);
-                            exit;
+                            return $this->render('upload/index.html.twig', $tempVars);
                         }
                     } catch(\Exception $e) {
                         $this->addFlash('error', 'Uploading failed. Please report back to our development team!');
 
-                        var_dump($e);
-                        exit;
+                        return $this->render('upload/index.html.twig', $tempVars);
                     }
                 } else {
                     $this->addFlash('error', 'Uploading failed. Please report back to our development team!');

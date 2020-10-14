@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -47,7 +48,6 @@ class SongSpinPlay
 
     public function __construct()
     {
-        $this->user = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -93,18 +93,18 @@ class SongSpinPlay
 
     public function getVideoThumbnail(): ?string
     {
-        $videoUrlSplitted = explode('/' , $this->videoUrl);
-        $splittedCount = count($videoUrlSplitted);
+        $videoUrlSplit = explode('/' , $this->videoUrl);
+        $splitCount = count($videoUrlSplit);
 
-        return $this->fetch_highest_res(str_replace("watch?v=", "", $videoUrlSplitted[$splittedCount - 1]));
+        return $this->fetch_highest_res(str_replace("watch?v=", "", $videoUrlSplit[$splitCount - 1]));
     }
 
-    public function getSubmitDate(): ?\DateTimeInterface
+    public function getSubmitDate(): ?DateTimeInterface
     {
         return $this->submitDate;
     }
 
-    public function setSubmitDate(\DateTimeInterface $submitDate): self
+    public function setSubmitDate(DateTimeInterface $submitDate): self
     {
         $this->submitDate = $submitDate;
 
@@ -134,7 +134,7 @@ class SongSpinPlay
     }
 
     public function getJSON() {
-        $response = array(
+        return array(
             'id' => $this->id,
             'user' => $this->user->getJSON(),
             'videoUrl' => $this->videoUrl,
@@ -142,7 +142,5 @@ class SongSpinPlay
             'submitDate' => $this->submitDate,
             'isActive' => $this->isActive
         );
-
-        return $response;
     }
 }

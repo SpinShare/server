@@ -49,9 +49,10 @@
             {% endif %}
 
             <div class="tabs">
-                <a class="tab {% if app.request.attributes.get('_route') == 'user.detail.charts' %}active{% endif %}" href="{{ path('user.detail.charts', {userId: user.id}) }}">Charts ({{ charts|length|default("0") }})</a>
-                <a class="tab {% if app.request.attributes.get('_route') == 'user.detail.reviews' %}active{% endif %}" href="{{ path('user.detail.reviews', {userId: user.id}) }}">Reviews ({{ reviews|length|default("0")}})</a>
-                <a class="tab {% if app.request.attributes.get('_route') == 'user.detail.spinplays' %}active{% endif %}" href="{{ path('user.detail.spinplays', {userId: user.id}) }}">SpinPlays ({{ spinPlays|length|default("0")}})</a>
+                <a class="tab {% if area == 'charts' %}active{% endif %}" href="{{ path('user.detail', {userId: user.id, area: "charts"}) }}">Charts ({{ charts|length|default("0") }})</a>
+                <a class="tab {% if area == 'playlists' %}active{% endif %}" href="{{ path('user.detail', {userId: user.id, area: "playlists"}) }}">Playlists ({{ playlists|length|default("0")}})</a>
+                <a class="tab {% if area == 'reviews' %}active{% endif %}" href="{{ path('user.detail', {userId: user.id, area: "reviews"}) }}">Reviews ({{ reviews|length|default("0")}})</a>
+                <a class="tab {% if area == 'spinplays' %}active{% endif %}" href="{{ path('user.detail', {userId: user.id, area: "spinplays"}) }}">SpinPlays ({{ spinPlays|length|default("0")}})</a>
             </div>
         </header>
         

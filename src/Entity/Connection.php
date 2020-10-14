@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -54,12 +55,12 @@ class Connection
         return $this;
     }
 
-    public function getConnectDate(): ?\DateTimeInterface
+    public function getConnectDate(): ?DateTimeInterface
     {
         return $this->connectDate;
     }
 
-    public function setConnectDate(\DateTimeInterface $connectDate): self
+    public function setConnectDate(DateTimeInterface $connectDate): self
     {
         $this->connectDate = $connectDate;
 

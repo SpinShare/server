@@ -1,0 +1,31 @@
+{% extends 'user/detail.html.twig' %}
+
+{% block userDetailContent %}
+    <div class="playlist-row playlist-row-user">
+        {% if playlists|length > 0 %}
+            <div class="playlist-list">
+                {% for playlist in playlists %}
+                    <a href="{{ path('playlist.detail', {playlistId: playlist.id}) }}" class="playlist-item" style="background-image: url({{ asset('uploads/cover/' ~ playlist.fileReference ~ '.png?t=' ~ date().timestamp) }});">
+                        <div class="shade">
+                            <div class="content">
+                                <div class="title">{{ playlist.title }}{% if playlist.isOfficial %}<span class="official-badge">OFFICIAL</span>{% endif %}</div>
+                                <div class="quickinfo">{{ playlist.songs|length }} Charts</div>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="list-noresults">
+                <!-- <div class="noresults-text">This user did not create any playlists yet.</div> -->
+                <div class="noresults-text">Coming Soon!</div>
+            </div>
+        {% endif %}
+    </div>
+
+    {% if(is_granted('ROLE_MODERATOR') and user.id == app.user.id) %}
+    <div class="playlist-action">
+        <a href="{{ path('playlist.create') }}" class="button">Add New</a>
+    </div>
+    {% endif %}
+{% endblock %}

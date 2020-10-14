@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -60,12 +61,12 @@ class UserCard
         return $this;
     }
 
-    public function getGivenDate(): ?\DateTimeInterface
+    public function getGivenDate(): ?DateTimeInterface
     {
         return $this->givenDate;
     }
 
-    public function setGivenDate(\DateTimeInterface $givenDate): self
+    public function setGivenDate(DateTimeInterface $givenDate): self
     {
         $this->givenDate = $givenDate;
 

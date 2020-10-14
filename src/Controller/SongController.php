@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\SongPlaylist;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -62,6 +63,31 @@ class SongController extends AbstractController
         $data['activeAction'] = $request->query->get('action');
 
         if($this->getUser() != null) {
+            $resultUserPlaylists = $em->getRepository(SongPlaylist::class)->findBy(array('user' => $this->getUser()));
+
+            if($request->request->get('submitPlaylist')) {
+                $allValues = $request->request->all();
+
+                foreach($resultUserPlaylists as $playlist) {
+                    $playlist->removeSong($resultSong);
+                    $em->persist($playlist);
+                }
+
+                foreach($allValues as $key => $value) {
+                    if(strpos($key, "playlist_") !== false) {
+                        if($value == "on") {
+                            $checkedPlaylist = $resultUserPlaylists[str_replace("playlist_", "", $key)];
+                            $checkedPlaylist->addSong($resultSong);
+                            $em->persist($checkedPlaylist);
+                        }
+                    }
+                }
+
+                $em->flush();
+            }
+
+            $data['userPlaylists'] = $resultUserPlaylists;
+
             $resultUserReview = $em->getRepository(SongReview::class)->findBy(array('song' => $resultSong, 'user' => $this->getUser()));
             $data['userReview'] = $resultUserReview;
 

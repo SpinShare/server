@@ -105,6 +105,16 @@
   padding: 50px;
   display: grid;
 }
+.section-user-detail .playlist-row-user {
+  padding: 50px;
+  display: grid;
+}
+.section-user-detail .playlist-action {
+  padding: 0px 50px 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .section-user-detail .reviews {
   padding: 50px;
 }
@@ -254,3 +264,4 @@
 .card-overlay .overlay-content .button {
   display: inline-block;
 }
+/*# sourceMappingURL=userdetail.css.map */

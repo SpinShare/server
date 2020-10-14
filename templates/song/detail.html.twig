@@ -25,6 +25,7 @@
                 </div>
             </div>
             <div class="song-actions">
+                <div class="action-row">
                 <a href="{{ path('song.download', {songId: song.id}) }}" class="action">
                     <div class="icon">
                         <i class="mdi mdi-download"></i>
@@ -49,35 +50,32 @@
                     </div>
                 </a>
                 {% if is_granted('ROLE_USER') %}
-                    {% if uploader.id == app.user.id %}
-                        <a href="{{ path('song.update', {songId: song.id}) }}" class="action">
+                    </div>
+                    <div class="action-row">
+                        {% if uploader.id == app.user.id %}
+                            <a href="{{ path('song.update', {songId: song.id}) }}" class="action">
+                                <div class="icon">
+                                    <i class="mdi mdi-pencil"></i>
+                                </div>
+                            </a>
+                            <a href="{{ path('song.delete', {songId: song.id}) }}" class="action">
+                                <div class="icon">
+                                    <i class="mdi mdi-delete"></i>
+                                </div>
+                            </a>
+                        {% elseif is_granted('ROLE_MODERATOR') %}
+                            <a href="{{ path('moderation.song.remove', {songId: song.id}) }}" onclick="return confirm('Are you sure? This action cannot be undone!')" class="action">
+                                <div class="icon">
+                                    <i class="mdi mdi-delete"></i>
+                                </div>
+                            </a>
+                        {% endif %}
+                        <div class="action" onclick="openPlaylistOverlay()">
                             <div class="icon">
-                                <i class="mdi mdi-pencil"></i>
+                                <i class="mdi mdi-playlist-plus"></i>
                             </div>
-                        </a>
-                        <a href="{{ path('song.delete', {songId: song.id}) }}" class="action">
-                            <div class="icon">
-                                <i class="mdi mdi-delete"></i>
-                            </div>
-                        </a>
-                    {% elseif is_granted('ROLE_MODERATOR') %}
-                        <a href="{{ path('moderation.song.remove', {songId: song.id}) }}" onclick="return confirm('Are you sure? This action cannot be undone!')" class="action">
-                            <div class="icon">
-                                <i class="mdi mdi-delete"></i>
-                            </div>
-                        </a>
-                    {% endif %}
-                {% endif %}
-                {% if is_granted('ROLE_MODERATOR') %}
-                    <a href="{{ path('moderation.song.toggleTournament', {songId: song.id}) }}" class="action">
-                        <div class="icon">
-                            {% if song.isTournament %}
-                                <i class="mdi mdi-heart-remove"></i>
-                            {% else %}
-                                <i class="mdi mdi-heart-plus"></i>
-                            {% endif %}
                         </div>
-                    </a>
+                    </div>
                 {% endif %}
             </div>
             <div class="song-statistics">
@@ -309,6 +307,42 @@
             {% endif %}
         </div>
     </section>
+
+    {% if is_granted('ROLE_USER') %}
+        <div class="playlist-overlay">
+            <div class="close" onclick="closePlaylistOverlay()"><i class="mdi mdi-close"></i></div>
+
+            <form action="" method="POST" class="overlay-content">
+                <div class="title">ADD TO PLAYLIST</div>
+                <div class="playlist-list">
+                    {% if is_granted('ROLE_MODERATOR') %}
+                        {% for key,playlist in userPlaylists %}
+                            {% set isInPlaylist = false %}
+                            {% for playlistSong in playlist.songs %}
+                                {% if playlistSong.id == song.id %}
+                                    {% set isInPlaylist = true %}
+                                {% endif %}
+                            {% endfor %}
+
+                            <label class="playlist-item">
+                                <input type="checkbox" name="playlist_{{ key }}" {{ isInPlaylist ? 'checked' : '' }} />
+                                <span>{{ playlist.title }}</span>
+                            </label>
+                        {% endfor %}
+                        {% if userPlaylists|length == 0 %}
+                            <div class="playlist-empty">You don't have any playlists yet.</div>
+                        {% endif %}
+                    {% else %}
+                        <div class="playlist-empty">Coming Soon</div>
+                    {% endif %}
+                </div>
+                <div class="actions">
+                    <div class="button" onclick="closePlaylistOverlay()">Close</div>
+                    {% if is_granted('ROLE_MODERATOR') %}<input type="submit" value="Save" name="submitPlaylist" class="button" />{% endif %}
+                </div>
+            </form>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block styles %}
@@ -318,7 +352,7 @@
 {% block scripts %}
     <script>
         // Song Preview
-        let songActions = document.querySelector(".song-actions");
+        let songActionsRow = document.querySelector(".action-row");
         let playerToggle = document.querySelector(".song-actions .action-player .icon");
         let playerVolume = document.querySelector(".song-actions .playerVolume");
 
@@ -345,7 +379,7 @@
             }
             isPlaying = true;
 
-            songActions.classList.add("player-active");
+            songActionsRow.classList.add("player-active");
             playerToggle.innerHTML = '<i class="mdi mdi-stop"></i>';
         }
 
@@ -356,15 +390,17 @@
             }
             currentPreviewAudio = null;
             isPlaying = false;
-            
-            songActions.classList.remove("player-active");
+
+            songActionsRow.classList.remove("player-active");
             playerToggle.innerHTML = '<i class="mdi mdi-play"></i>';
         }
 
         function UpdateVolume() {
             currentPreviewAudio.volume = playerVolume.value / 100;
         }
-
+    </script>
+    <script>
+        // Comments
         function ToggleComment(commentID) {
             let DOMtoggleComment = document.querySelector("#toggleComment-" + commentID);
             let DOMcomment = document.querySelector("#comment-" + commentID);
@@ -377,12 +413,12 @@
                 DOMcomment.classList.add('collapsed');
             }
         }
-        
+
         let DOMAllToggleComments = document.querySelectorAll(".toggleComment");
         DOMAllToggleComments.forEach((DOMtoggleComment) => {
             let commentID = DOMtoggleComment.id.replace("toggleComment-", "");
             let DOMcomment = document.querySelector("#comment-" + commentID);
-            
+
             console.log(DOMcomment.offsetHeight);
 
             if(DOMcomment.offsetHeight > 84) {
@@ -392,5 +428,16 @@
                 DOMtoggleComment.style.display = "none";
             }
         });
+    </script>
+    <script>
+        let UIPlaylistOverlay = document.querySelector(".playlist-overlay");
+
+        function openPlaylistOverlay() {
+            UIPlaylistOverlay.classList.add("active");
+        }
+
+        function closePlaylistOverlay() {
+            UIPlaylistOverlay.classList.remove("active");
+        }
     </script>
 {% endblock %}

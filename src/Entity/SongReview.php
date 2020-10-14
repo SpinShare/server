@@ -47,7 +47,6 @@ class SongReview
 
     public function __construct()
     {
-        $this->user = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -116,7 +115,7 @@ class SongReview
     }
 
     public function getJSON() {
-        $response = array(
+        return array(
             'id' => $this->id,
             'song' => $this->song->getJSON(),
             'user' => $this->user->getJSON(),
@@ -124,7 +123,5 @@ class SongReview
             'comment' => $this->comment,
             'reviewDate' => $this->reviewDate
         );
-
-        return $response;
     }
 }
