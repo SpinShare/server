@@ -27,3 +27,7 @@
 /public/uploads/card/
 /public/uploads/thumbnail/
 ###< customspeens-server ###
+
+###> IDE ###
+.idea/
+###< IDE ###
