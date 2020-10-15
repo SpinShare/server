@@ -2,9 +2,8 @@
     & .cover {
         width: 100%;
         height: 300px;
-        background: rgba(255,255,255,0.1);
         background-size: cover;
-        background-position: left center;
+        background: rgba(255, 255, 255, 0.1) left center;
 
         & .shade {
             width: 100%;
@@ -17,7 +16,7 @@
 
             & .content {
                 text-align: center;
-                text-shadow: 0px 4px 18px rgba(0, 0, 0, 0.6);
+                text-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
 
                 & .title {
                     font-size: 48px;
@@ -33,7 +32,7 @@
                         border-radius: 4px;
                         background: #fff;
                         color: #000;
-                        text-shadow: 0px 0px 0px transparent;
+                        text-shadow: 0 0 0 transparent;
                         margin-left: 10px;
                         transform: translateY(-11px);
                     }
@@ -92,6 +91,16 @@
                     padding: 15px;
                     line-height: 1.5em;
                     border-radius: 4px;
+                }
+                & .username {
+                    opacity: 1;
+                    color: #fff;
+                    text-decoration: none;
+                    transition: 0.2s ease-in-out opacity;
+
+                    &:hover {
+                        opacity: 0.6;
+                    }
                 }
             }
         }

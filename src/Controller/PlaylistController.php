@@ -97,7 +97,6 @@ class PlaylistController extends AbstractController
         $chartAuthors = [];
 
         $resultPlaylist = $em->getRepository(SongPlaylist::class)->findOneBy(array('id' => $playlistId));
-
         if(!$resultPlaylist) throw new NotFoundHttpException();
 
         $resultUser = $em->getRepository(User::class)->findOneBy(array('id' => $resultPlaylist->getUser()));

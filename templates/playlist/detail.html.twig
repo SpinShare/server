@@ -49,10 +49,11 @@
                             {% set charters = [] %}
                             {% for song in playlist.songs %}
                                 {% if song.charter not in charters %}
-                                    {% if loop.index == 1 %}
-                                    {{ song.charter }}
+                                    {% if loop.first %}
+                                        <a class="username" href="{{ path('user.detail', {userId: song.uploader}) }}">{{ song.charter }}</a>,
+                                    {% else %}
+                                        <a class="username" href="{{ path('user.detail', {userId: song.uploader}) }}">{{ song.charter }}</a>
                                     {% endif %}
-                                    ,&#32{{ song.charter }}
                                     {% set charters = charters|merge([song.charter]) %}
                                 {% endif %}
                             {% endfor %}
@@ -78,5 +79,5 @@
 {% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{{ asset('assets/css/playlistdetail.css?v=' ~ date().timestamp) }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/playlistdetail.css?v=' ~ date().timestamp) }}"/>
 {% endblock %}
