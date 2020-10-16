@@ -551,8 +551,8 @@ input[type="range"]::-ms-fill-lower {
 .playlist-item {
   height: 200px;
   background: rgba(255, 255, 255, 0.1);
+  background-position: center;
   background-size: cover;
-  background-position: left center;
   border-radius: 6px;
   color: #fff;
   text-decoration: none;
