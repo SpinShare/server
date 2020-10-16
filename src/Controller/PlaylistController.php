@@ -121,7 +121,7 @@ class PlaylistController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $data = [];
 
-        $resultPlaylist = $em->getRepository(Song::class)->findOneBy(array('id' => $playlistId, 'user' => $user->getId()));
+        $resultPlaylist = $em->getRepository(SongPlaylist::class)->findOneBy(array('id' => $playlistId, 'user' => $user->getId()));
         $data['playlist'] = $resultPlaylist;
 
         if(!$resultPlaylist) {

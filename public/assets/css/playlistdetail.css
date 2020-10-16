@@ -1,8 +1,8 @@
 .section-playlist-detail .cover {
   width: 100%;
   height: 300px;
+  background: rgba(255, 255, 255, 0.1) center;
   background-size: cover;
-  background: rgba(255, 255, 255, 0.1) left center;
 }
 .section-playlist-detail .cover .shade {
   width: 100%;
