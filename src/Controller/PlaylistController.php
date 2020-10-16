@@ -127,16 +127,23 @@ class PlaylistController extends AbstractController
         if(!$resultPlaylist) {
             throw new NotFoundHttpException();
         } else {
-            if($request->query->get('isConfirmed')) {
+            // if($request->query->get('isConfirmed')) {
+                // remove the banner cover
+                try {
+                    @unlink($this->getParameter('cover_path').DIRECTORY_SEPARATOR.$resultPlaylist->getFileReference().".png");
+                } catch(FileNotFoundException $e) {
+
+                }
+
                 // remove the entity
                 $em->remove($resultPlaylist);
                 $em->flush();
 
                 // Redirect
                 return $this->redirectToRoute('user.detail', ['userId' => $user->getId(), 'area' => 'playlists']);
-            } else {
+            /* } else {
                 return $this->render('playlist/delete.html.twig', $data);
-            }
+            } */
         }
     }
 

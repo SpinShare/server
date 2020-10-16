@@ -6,12 +6,14 @@
             <div class="playlist-list">
                 {% for playlist in playlists %}
                     <a href="{{ path('playlist.detail', {playlistId: playlist.id}) }}" class="playlist-item" style="background-image: url({{ asset('uploads/cover/' ~ playlist.fileReference ~ '.png?t=' ~ date().timestamp) }});">
-                        <div class="shade">
-                            <div class="content">
-                                <div class="title">{{ playlist.title }}{% if playlist.isOfficial %}<span class="official-badge">OFFICIAL</span>{% endif %}</div>
-                                <div class="quickinfo">{{ playlist.songs|length }} Charts</div>
+                        {% if not playlist.isOfficial %}
+                            <div class="shade">
+                                <div class="content">
+                                    <div class="title">{{ playlist.title }}{% if playlist.isOfficial %}<span class="official-badge">OFFICIAL</span>{% endif %}</div>
+                                    <div class="quickinfo">{{ playlist.songs|length }} Charts</div>
+                                </div>
                             </div>
-                        </div>
+                        {% endif %}
                     </a>
                 {% endfor %}
             </div>

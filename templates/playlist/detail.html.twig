@@ -13,12 +13,14 @@
 {% block content %}
     <section class="section-playlist-detail">
         <div class="cover" style="background-image: url({{ asset('uploads/cover/' ~ playlist.fileReference ~ '.png?t=' ~ date().timestamp) }});">
-            <div class="shade">
-                <div class="content">
-                    <div class="title">{{ playlist.title }}{% if playlist.isOfficial %}<span class="official-badge">OFFICIAL</span>{% endif %}</div>
-                    <div class="quickinfo">{{ playlistCount }} Charts</div>
+            {% if not playlist.isOfficial %}
+                <div class="shade">
+                    <div class="content">
+                        <div class="title">{{ playlist.title }}{% if playlist.isOfficial %}<span class="official-badge">OFFICIAL</span>{% endif %}</div>
+                        <div class="quickinfo">{{ playlistCount }} Charts</div>
+                    </div>
                 </div>
-            </div>
+            {% endif %}
         </div>
         <div class="playlist-content">
             <div class="playlist-detail">
