@@ -46,9 +46,7 @@
           </nav>
 
           <form action="{{ path('search.index') }}" method="GET" class="search">
-              {% if app.request.attributes.get('_route') != 'search.index' %}
-                <input name="q" type="search" placeholder="Search for songs, tags & profiles..." value="{{ searchQuery|default('') }}" />
-              {% endif %}
+            <input name="q" type="search" placeholder="Search for songs, tags & profiles..." value="{{ searchQuery|default('') }}" />
           </form>
 
           <nav class="items-right">

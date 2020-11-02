@@ -7,9 +7,6 @@
         <header>
             <div class="title">Search</div>
             <div class="actions">
-                <form action="{{ path('search.index') }}" method="GET">
-                    <input name="q" type="search" placeholder="Search for songs, tags & profiles..." value="{{ searchQuery|default('') }}" />
-                </form>
                 <a href="{{ path('search.index', {showAll: true}) }}" class="button">Show all</a>
             </div>
         </header>
@@ -23,9 +20,6 @@
                 {% endif %}
                 {% if results.users|length > 0 %}
                     <div class="user-row search-results-users">
-                        <div class="user-header">
-                            <div class="row-title row-title-noactions">Users</div>
-                        </div>
                         <div class="user-list">
                             {% for user in results.users %}
                                 <a href="{{ path('user.detail', {userId: user.id}) }}" class="user-item">
@@ -46,9 +40,6 @@
                 {% endif %}
                 {% if results.songs|length > 0 %}
                     <div class="song-row search-results-songs">
-                        <div class="song-header">
-                            <div class="row-title row-title-noactions">Songs</div>
-                        </div>
                         <div class="song-list">
                             {% for song in results.songs %}
                                 {{ include('components/song-item.html.twig', {song: song}) }}
