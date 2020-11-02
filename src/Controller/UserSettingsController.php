@@ -32,12 +32,19 @@ class UserSettingsController extends AbstractController
                 $existingUserEmail = $em->getRepository(User::class)->findOneBy(array('email' => $formData->get('email')));
                 $existingUserUsername = $em->getRepository(User::class)->findOneBy(array('username' => $formData->get('username')));
 
-                if($existingUserEmail == null && $existingUserEmail != $user || $existingUserUsername == null && $existingUserUsername != $user) {
-                    $user->setEmail($formData->get('email'));
-                    $user->setUsername($formData->get('username'));
-                    $this->addFlash('success', 'Saved successfully!');
-                } else {
-                    $this->addFlash('error', 'Email or username are already in use!');
+                if($formData->get('email') != $user->getEmail() || $formData->get('username') != $user->getUsername()) {
+                    if($existingUserEmail == null && $existingUserEmail != $user || $existingUserUsername == null && $existingUserUsername != $user) {
+                        $user->setEmail($formData->get('email'));
+                        $user->setUsername($formData->get('username'));
+                        $this->addFlash('success', 'Saved new username/email successfully!');
+                    } else {
+                        $this->addFlash('error', 'Email or username are already in use!');
+                    }
+                }
+
+                if($formData->get('pronouns') != $user->getPronouns()) {
+                    $user->setPronouns($formData->get('pronouns'));
+                    $this->addFlash('success', 'Saved preferred pronouns successfully!');
                 }
             } else {
                 $this->addFlash('error', 'Email and username can\'t be empty!');

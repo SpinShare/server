@@ -78,8 +78,6 @@
   font-size: 12px;
   color: #fff;
   background: rgba(255, 255, 255, 0.2);
-  text-transform: uppercase;
-  font-weight: 700;
   border-radius: 4px;
   padding: 7px 14px;
   border: 0px;
@@ -117,12 +115,6 @@
 .section-settings .settings-content .settings-box .settings-item .settings-input input[type="email"]:disabled {
   opacity: 0.4;
 }
-.section-settings .settings-content .settings-box .settings-item .settings-input input[type="text"],
-.section-settings .settings-content .settings-box .settings-item .settings-input input[type="password"],
-.section-settings .settings-content .settings-box .settings-item .settings-input input[type="email"] {
-  text-transform: initial;
-  font-weight: normal;
-}
 .section-settings .settings-content .settings-box .settings-item .settings-input input[type="text"]:hover,
 .section-settings .settings-content .settings-box .settings-item .settings-input input[type="password"]:hover,
 .section-settings .settings-content .settings-box .settings-item .settings-input input[type="email"]:hover {
@@ -130,6 +122,12 @@
 }
 .section-settings .settings-content .settings-box .settings-item .settings-input select:hover {
   cursor: pointer;
+}
+.section-settings .settings-content .settings-box .settings-item .settings-input span {
+  font-size: 12px;
+  line-height: 1.25em;
+  margin-top: 10px;
+  opacity: 0.6;
 }
 .section-settings .settings-content .settings-box .settings-save {
   margin-top: 15px;

@@ -18,7 +18,7 @@
                     {% endif %}
                 </div>
                 <div class="user-data">
-                    <div class="user-name">{{ user.username }} {% if user.isPatreon %}<i class="mdi mdi-patreon"></i>{% endif %}</div>
+                    <div class="user-name">{% if user.pronouns != "" %}<span>{{ user.pronouns }}</span> {% endif %}{{ user.username }} {% if user.isPatreon %}<i class="mdi mdi-patreon"></i>{% endif %}</div>
                     <div class="user-actions">
                         <a href="{{ path('report.user', {userId: user.id}) }}" class="button">Report</a>
                         <a href="spinshare-user://{{ user.id }}" class="button">Open in Client</a>

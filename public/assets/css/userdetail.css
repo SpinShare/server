@@ -55,6 +55,17 @@
   font-size: 22px;
   margin-bottom: 22px;
 }
+.section-user-detail header .detail .user-data .user-name span {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 8px;
+  font-weight: bold;
+  padding: 4px 6px;
+  border-radius: 2px;
+  transform: translateY(-3px);
+  margin-right: 5px;
+}
 .section-user-detail header .detail .user-data .user-actions .button {
   margin-right: 7px;
 }
@@ -265,4 +276,3 @@
 .card-overlay .overlay-content .button {
   display: inline-block;
 }
-/*# sourceMappingURL=userdetail.css.map */

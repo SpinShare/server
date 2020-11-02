@@ -80,8 +80,6 @@
                         font-size: 12px;
                         color: #fff;
                         background: rgba(255,255,255,0.2);
-                        text-transform: uppercase;
-                        font-weight: 700;
                         border-radius: 4px;
                         padding: 7px 14px;
                         border: 0px;
@@ -106,15 +104,18 @@
                         }
                     }
                     & input[type="text"], input[type="password"], input[type="email"] {
-                        text-transform: initial;
-                        font-weight: normal;
-                        
                         &:hover {
                             cursor: text;
                         }
                     }
                     & select:hover {
                         cursor: pointer;
+                    }
+                    span {
+                        font-size: 12px;
+                        line-height: 1.25em;
+                        margin-top: 10px;
+                        opacity: 0.6;
                     }
                 }
             }
