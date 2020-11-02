@@ -76,6 +76,11 @@
          */
         private $songPlaylists;
 
+        /**
+         * @ORM\Column(type="string", length=32, nullable=true)
+         */
+        private $pronouns;
+
         public function __construct()
         {
             parent::__construct();
@@ -190,7 +195,8 @@
                 'username' => $this->username,
                 'coverReference' => $this->coverReference,
                 'isVerified' => $this->isVerified,
-                'isPatreon' => $this->isPatreon
+                'isPatreon' => $this->isPatreon,
+                'pronouns' => $this->pronouns
             );
         }
 
@@ -338,6 +344,18 @@
                     $songPlaylist->setUser(null);
                 }
             }
+
+            return $this;
+        }
+
+        public function getPronouns(): ?string
+        {
+            return $this->pronouns;
+        }
+
+        public function setPronouns(?string $pronouns): self
+        {
+            $this->pronouns = $pronouns;
 
             return $this;
         }

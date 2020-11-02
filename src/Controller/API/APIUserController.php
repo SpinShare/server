@@ -40,6 +40,7 @@ class APIUserController extends AbstractController
             $data['username'] = $result->getUsername();
             $data['isVerified'] = $result->getIsVerified();
             $data['isPatreon'] = $result->getIsPatreon();
+            $data['pronouns'] = $result->getPronouns();
             if($result->getCoverReference()) {
                 $data['avatar'] = $baseUrl."/uploads/avatar/".$result->getCoverReference();
             } else {
