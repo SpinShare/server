@@ -33,8 +33,8 @@ class SongRepository extends ServiceEntityRepository
         $qb
             ->where('e.uploadDate <= :begin')
             ->andWhere('e.uploadDate >= :end')
-            ->addOrderBy('e.downloads', 'DESC')
             ->addOrderBy('e.views', 'DESC')
+            ->addOrderBy('e.downloads', 'DESC')
             ->setFirstResult(12 * $page)
             ->setMaxResults(12)
             ->setParameter('begin', new \DateTime('NOW'))
@@ -45,8 +45,8 @@ class SongRepository extends ServiceEntityRepository
     public function getPopular(int $page) {
         $qb = $this->createQueryBuilder("e");
         $qb
-            ->addOrderBy('e.downloads', 'DESC')
             ->addOrderBy('e.views', 'DESC')
+            ->addOrderBy('e.downloads', 'DESC')
             ->setFirstResult(12 * $page)
             ->setMaxResults(12);
         return $qb->getQuery()->getResult();
