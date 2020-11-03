@@ -145,6 +145,10 @@ class APISongController extends AbstractController
             return $response;
         } else {
             try {
+                $result->setDownloads($result->getDownloads() + 1);
+                $em->persist($result);
+                $em->flush();
+
                 $coverFiles = glob($this->getParameter('cover_path').DIRECTORY_SEPARATOR.$result->getFileReference().".png");
                 $oggFiles = glob($this->getParameter('audio_path').DIRECTORY_SEPARATOR.$result->getFileReference()."_*.ogg");
 
