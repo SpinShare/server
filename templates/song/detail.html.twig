@@ -315,25 +315,21 @@
             <form action="" method="POST" class="overlay-content">
                 <div class="title">ADD TO PLAYLIST</div>
                 <div class="playlist-list">
-                    {% if is_granted('ROLE_MODERATOR') %}
-                        {% for key,playlist in userPlaylists %}
-                            {% set isInPlaylist = false %}
-                            {% for playlistSong in playlist.songs %}
-                                {% if playlistSong.id == song.id %}
-                                    {% set isInPlaylist = true %}
-                                {% endif %}
-                            {% endfor %}
-
-                            <label class="playlist-item">
-                                <input type="checkbox" name="playlist_{{ key }}" {{ isInPlaylist ? 'checked' : '' }} />
-                                <span>{{ playlist.title }}</span>
-                            </label>
+                    {% for key,playlist in userPlaylists %}
+                        {% set isInPlaylist = false %}
+                        {% for playlistSong in playlist.songs %}
+                            {% if playlistSong.id == song.id %}
+                                {% set isInPlaylist = true %}
+                            {% endif %}
                         {% endfor %}
-                        {% if userPlaylists|length == 0 %}
-                            <div class="playlist-empty">You don't have any playlists yet.</div>
-                        {% endif %}
-                    {% else %}
-                        <div class="playlist-empty">Coming Soon</div>
+
+                        <label class="playlist-item">
+                            <input type="checkbox" name="playlist_{{ key }}" {{ isInPlaylist ? 'checked' : '' }} />
+                            <span>{{ playlist.title }}</span>
+                        </label>
+                    {% endfor %}
+                    {% if userPlaylists|length == 0 %}
+                        <div class="playlist-empty">You don't have any playlists yet.</div>
                     {% endif %}
                 </div>
                 <div class="actions">
