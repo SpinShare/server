@@ -26,7 +26,7 @@ class SearchController extends AbstractController
         $resultsSongs = [];
 
         if($request->query->get('showAll') == "1") {
-            $resultsSongs = $em->getRepository(Song::class)->findBy(array(), array('id' => 'DESC'));
+            $resultsSongs = $em->getRepository(Song::class)->findBy(array('publicationStatus' => array(0, 1)), array('id' => 'DESC'));
 
             $data['results']['users'] = $resultsUsers;
             $data['results']['songs'] = $resultsSongs;
@@ -41,7 +41,8 @@ class SearchController extends AbstractController
 
                 
                 $resultsSongs = $em->getRepository(Song::class)->createQueryBuilder('o')
-                                                                ->where('o.title LIKE :query')
+                                                                ->where('o.publicationStatus IN (0, 1)')
+                                                                ->andWhere('o.title LIKE :query')
                                                                 ->orWhere('o.subtitle LIKE :query')
                                                                 ->orWhere('o.tags LIKE :query')
                                                                 ->orWhere('o.artist LIKE :query')
