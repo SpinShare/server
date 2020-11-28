@@ -6,6 +6,10 @@
             <div class="review-list">
                 {% for review in reviews %}
                     <a href="{{ path('song.detail', {songId: review.song.id, tab: 'reviews'}) }}" class="review">
+                        <div class="song">
+                            <div class="cover" style="background-image: url({{ asset("uploads/thumbnail/" ~ review.song.fileReference ~ ".jpg?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});"></div>
+                            <div class="text"><strong>{{ review.song.title }}</strong> &dash; {{ review.song.artist }}</div>
+                        </div>
                         <div class="metadata">
                             <div class="avatar" style="background-image: url({{ asset('uploads/avatar/' ~ review.user.coverReference ~ '?t=' ~ date().timestamp) }}), url({{ asset("assets/img/defaultAvatar.jpg") }});"></div>
                             <div class="text">
