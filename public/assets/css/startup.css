@@ -29,33 +29,74 @@
   color: #ffffff;
   background: #212629;
 }
-.staff-promos {
+.section-startup .frontpage {
+  width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 25px;
-  width: 1114px;
-  margin: 0 auto;
-  margin-top: 50px;
+  grid-template-columns: 100px 1fr;
+  grid-gap: 50px;
+  padding: 50px;
 }
-.staff-promos:empty {
+.section-startup .frontpage .social-buttons {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 15px;
+}
+.section-startup .frontpage .social-buttons .item {
+  height: 75px;
+  display: flex;
+  color: #fff;
+  justify-content: center;
+  align-items: center;
+  font-size: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  transition: 0.2s ease-in-out all;
+}
+.section-startup .frontpage .social-buttons .item.item-discord {
+  background: linear-gradient(135deg, #99aab5, #7289da);
+}
+.section-startup .frontpage .social-buttons .item.item-twitter {
+  background: linear-gradient(135deg, #d0e6f7, #1da1f2);
+}
+.section-startup .frontpage .social-buttons .item.item-youtube {
+  background: linear-gradient(135deg, #ff0000, #c20000);
+}
+.section-startup .frontpage .social-buttons .item.item-twitch {
+  background: linear-gradient(135deg, #b9a3e3, #6441a5);
+}
+.section-startup .frontpage .social-buttons .item.item-patreon {
+  background: linear-gradient(135deg, #ff8575, #e75744);
+}
+.section-startup .frontpage .social-buttons .item:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+.section-startup .frontpage .staff-promos {
+  display: grid;
+  grid-template-columns: 545px 545px 1fr;
+}
+.section-startup .frontpage .staff-promos:empty {
   display: none;
 }
-.staff-promos .staff-promo {
+.section-startup .frontpage .staff-promos .staff-promo {
   background: #fff;
+  background-position: center right;
+  background-size: cover;
   border-radius: 6px;
   padding: 50px;
   height: 256px;
   display: grid;
   grid-template-rows: auto 100px auto;
 }
-.staff-promos .staff-promo .promo-type {
+.section-startup .frontpage .staff-promos .staff-promo .promo-type {
   color: #aaa;
   justify-self: left;
   font-size: 12px;
   font-weight: bold;
   letter-spacing: 0.3em;
 }
-.staff-promos .staff-promo .promo-title {
+.section-startup .frontpage .staff-promos .staff-promo .promo-title {
   font-weight: bold;
   font-size: 34px;
   justify-self: left;
@@ -63,7 +104,7 @@
   letter-spacing: -0.025em;
   color: #222;
 }
-.staff-promos .staff-promo .promo-button {
+.section-startup .frontpage .staff-promos .staff-promo .promo-button {
   font-size: 14px;
   font-weight: bold;
   text-transform: uppercase;
@@ -75,49 +116,11 @@
   transition: 0.2s ease-in-out opacity;
   text-decoration: none;
 }
-.staff-promos .staff-promo .promo-button:hover {
+.section-startup .frontpage .staff-promos .staff-promo .promo-button:hover {
   cursor: pointer;
   opacity: 0.6;
-}
-.social-buttons {
-  display: grid;
-  width: 650px;
-  margin: 0 auto;
-  margin-top: 25px;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  grid-gap: 15px;
-}
-.social-buttons .item {
-  height: 75px;
-  display: flex;
-  color: #fff;
-  justify-content: center;
-  align-items: center;
-  font-size: 32px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-  transition: 0.2s ease-in-out all;
-}
-.social-buttons .item.item-discord {
-  background: linear-gradient(135deg, #99aab5, #7289da);
-}
-.social-buttons .item.item-twitter {
-  background: linear-gradient(135deg, #d0e6f7, #1da1f2);
-}
-.social-buttons .item.item-youtube {
-  background: linear-gradient(135deg, #ff0000, #c20000);
-}
-.social-buttons .item.item-twitch {
-  background: linear-gradient(135deg, #b9a3e3, #6441a5);
-}
-.social-buttons .item.item-patreon {
-  background: linear-gradient(135deg, #ff8575, #e75744);
-}
-.social-buttons .item:hover {
-  transform: scale(1.1);
-  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.4);
-  cursor: pointer;
 }
 .song-row {
   padding: 50px;
 }
+/*# sourceMappingURL=startup.css.map */

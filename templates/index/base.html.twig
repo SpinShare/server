@@ -9,7 +9,6 @@
                 <a href="{{ path('index.index') }}" class="tab {% if app.request.attributes.get('_route') == 'index.index' %}active{% endif %}">Frontpage</a>
                 <a href="{{ path('index.new') }}" class="tab {% if app.request.attributes.get('_route') == 'index.new' %}active{% endif %}">New</a>
                 <a href="{{ path('index.hot') }}" class="tab {% if app.request.attributes.get('_route') == 'index.hot' %}active{% endif %}">Hot</a>
-                <a href="{{ path('index.popular') }}" class="tab {% if app.request.attributes.get('_route') == 'index.popular' %}active{% endif %}">Popular</a>
             </div>
         </header>
 

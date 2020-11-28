@@ -65,6 +65,42 @@
                     opacity: 0.7;
                 }
             }
+            & .playlist-actions {
+                margin-top: 25px;
+                transition: all 0.2s ease-in-out;
+                border-radius: 4px;
+                overflow: hidden;
+                background: #fff;
+
+                & .action-row {
+                    display: flex;
+
+                    & .action {
+                        background: linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+                        flex-grow: 1;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        color: #222;
+                        text-decoration: none;
+                        transition: all 0.2s ease-in-out;
+                        cursor: pointer;
+
+                        & .icon {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            height: 48px;
+                            width: 48px;
+                            font-size: 24px;
+                        }
+
+                        &:hover {
+                            opacity: 0.6;
+                        }
+                    }
+                }
+            }
             & .playlist-uploader {
                 display: grid;
                 grid-template-columns: auto 1fr;

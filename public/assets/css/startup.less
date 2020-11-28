@@ -33,101 +33,104 @@
             }
         }
     }
-}
 
-.staff-promos {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 25px;
-    width: 1114px;
-    margin: 0 auto;
-    margin-top: 50px;
-
-    &:empty {
-        display: none;
-    }
-
-    & .staff-promo {
-        background: #fff;
-        border-radius: 6px;
-        padding: 50px;
-        height: 256px;
+    & .frontpage {
+        width: 100%;
         display: grid;
-        grid-template-rows: auto 100px auto;
+        grid-template-columns: 100px 1fr;
+        grid-gap: 50px;
+        padding: 50px;
 
-        & .promo-type {
-            color: #aaa;
-            justify-self: left;
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: 0.3em;
-        }
-        & .promo-title {
-            font-weight: bold;
-            font-size: 34px;
-            justify-self: left;
-            align-self: flex-start;
-            letter-spacing: -0.025em;
-            color: #222;
-        }
-        & .promo-button {
-            font-size: 14px;
-            font-weight: bold;
-            text-transform: uppercase;
-            padding: 10px 25px;
-            color: #fff;
-            background: #aaa;
-            justify-self: left;
-            border-radius: 6px;
-            transition: 0.2s ease-in-out opacity;
-            text-decoration: none;
+        & .social-buttons {
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-gap: 15px;
 
-            &:hover {
-                cursor: pointer;
-                opacity: 0.6;
+            & .item {
+                height: 75px;
+                display: flex;
+                color: #fff;
+                justify-content: center;
+                align-items: center;
+                font-size: 32px;
+                background: rgba(255,255,255,0.2);
+                border-radius: 6px;
+                transition: 0.2s ease-in-out all;
+
+                &.item-discord {
+                    background: linear-gradient(135deg, #99aab5, #7289da);
+                }
+                &.item-twitter {
+                    background: linear-gradient(135deg, #d0e6f7, #1da1f2);
+                }
+                &.item-youtube {
+                    background: linear-gradient(135deg, #ff0000, #c20000);
+                }
+                &.item-twitch {
+                    background: linear-gradient(135deg, #b9a3e3, #6441a5);
+                }
+                &.item-patreon {
+                    background: linear-gradient(135deg, #ff8575, #e75744);
+                }
+
+                &:hover {
+                    transform: scale(1.05);
+                    box-shadow: 0px 4px 16px rgba(0,0,0,0.4);
+                    cursor: pointer;
+                }
             }
         }
-    }
-}
-.social-buttons {
-    display: grid;
-    width: 650px;
-    margin: 0 auto;
-    margin-top: 25px;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-gap: 15px;
+        & .staff-promos {
+            display: grid;
+            grid-template-columns: 545px 545px 1fr;
 
-    & .item {
-        height: 75px;
-        display: flex;
-        color: #fff;
-        justify-content: center;
-        align-items: center;
-        font-size: 32px;
-        background: rgba(255,255,255,0.2);
-        border-radius: 6px;
-        transition: 0.2s ease-in-out all;
+            &:empty {
+                display: none;
+            }
 
-        &.item-discord {
-            background: linear-gradient(135deg, #99aab5, #7289da);
-        }
-        &.item-twitter {
-            background: linear-gradient(135deg, #d0e6f7, #1da1f2);
-        }
-        &.item-youtube {
-            background: linear-gradient(135deg, #ff0000, #c20000);
-        }
-        &.item-twitch {
-            background: linear-gradient(135deg, #b9a3e3, #6441a5);
-        }
-        &.item-patreon {
-            background: linear-gradient(135deg, #ff8575, #e75744);
-        }
+            & .staff-promo {
+                background: #fff;
+                background-position: center right;
+                background-size: cover;
+                border-radius: 6px;
+                padding: 50px;
+                height: 256px;
+                display: grid;
+                grid-template-rows: auto 100px auto;
 
-        &:hover {
-            transform: scale(1.1);
-        box-shadow: 0px 4px 16px rgba(0,0,0,0.4);
-            cursor: pointer;
+                & .promo-type {
+                    color: #aaa;
+                    justify-self: left;
+                    font-size: 12px;
+                    font-weight: bold;
+                    letter-spacing: 0.3em;
+                }
+                & .promo-title {
+                    font-weight: bold;
+                    font-size: 34px;
+                    justify-self: left;
+                    align-self: flex-start;
+                    letter-spacing: -0.025em;
+                    color: #222;
+                }
+                & .promo-button {
+                    font-size: 14px;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    padding: 10px 25px;
+                    color: #fff;
+                    background: #aaa;
+                    justify-self: left;
+                    border-radius: 6px;
+                    transition: 0.2s ease-in-out opacity;
+                    text-decoration: none;
+
+                    &:hover {
+                        cursor: pointer;
+                        opacity: 0.6;
+                    }
+                }
+            }
         }
     }
 }

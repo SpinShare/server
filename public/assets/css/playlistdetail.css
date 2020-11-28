@@ -57,6 +57,38 @@
   line-height: 1.5em;
   opacity: 0.7;
 }
+.section-playlist-detail .playlist-content .playlist-detail .playlist-actions {
+  margin-top: 25px;
+  transition: all 0.2s ease-in-out;
+  border-radius: 4px;
+  overflow: hidden;
+  background: #fff;
+}
+.section-playlist-detail .playlist-content .playlist-detail .playlist-actions .action-row {
+  display: flex;
+}
+.section-playlist-detail .playlist-content .playlist-detail .playlist-actions .action-row .action {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #222;
+  text-decoration: none;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+.section-playlist-detail .playlist-content .playlist-detail .playlist-actions .action-row .action .icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 48px;
+  width: 48px;
+  font-size: 24px;
+}
+.section-playlist-detail .playlist-content .playlist-detail .playlist-actions .action-row .action:hover {
+  opacity: 0.6;
+}
 .section-playlist-detail .playlist-content .playlist-detail .playlist-uploader {
   display: grid;
   grid-template-columns: auto 1fr;

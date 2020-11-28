@@ -19,15 +19,12 @@
             </div>
         {% else %}
             <div class="list-noresults">
-                <!-- <div class="noresults-text">This user did not create any playlists yet.</div> -->
-                <div class="noresults-text">Coming Soon!</div>
+                <div class="noresults-text">This user did not create any playlists yet.</div>
             </div>
         {% endif %}
     </div>
 
-    {% if(is_granted('ROLE_MODERATOR') and user.id == app.user.id) %}
     <div class="playlist-action">
         <a href="{{ path('playlist.create') }}" class="button">Add New</a>
     </div>
-    {% endif %}
 {% endblock %}

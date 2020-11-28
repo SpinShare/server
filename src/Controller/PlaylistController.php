@@ -108,6 +108,66 @@ class PlaylistController extends AbstractController
 
         return $this->render('playlist/detail.html.twig', $data);
     }
+    /**
+     * @Route("/playlist/edit/{playlistId}", name="playlist.edit")
+     * @param Request $request
+     * @param int $playlistId
+     * @return RedirectResponse|Response
+     */
+    public function playlistEdit(Request $request, $playlistId)
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+        $data['formData'] = "";
+
+        $playlist = $em->getRepository(SongPlaylist::class)->findOneBy(array('id' => $playlistId, 'user' => $user->getId()));
+
+        $form = $this->createFormBuilder()
+            ->add('title', TextType::class, ['label' => 'Title', 'data' => $playlist->getTitle(), 'row_attr' => array('class' => 'tags-field'), 'required' => true])
+            ->add('description', TextareaType::class, ['label' => 'Description', 'data' => $playlist->getDescription(), 'attr' => array('rows' => 5), 'row_attr' => array('class' => 'tags-field'), 'required' => false])
+            ->add('coverPath', FileType::class, ['label' => 'Cover Image', 'row_attr' => array('class' => 'upload-field'), 'attr' => array('accept' => '.png, .jpg, .jpeg')])
+            ->add('save', SubmitType::class, ['label' => 'Save'])
+            ->getForm();
+        $form->handleRequest($request);
+
+        $data['form'] = $form->createView();
+
+        if($form->isSubmitted() && $form->isValid()) {
+            $formData = $form->getData();
+
+            try {
+                $playlist->setTitle($formData['title']);
+                $playlist->setDescription($formData['description']);
+
+                if($formData['coverPath']) {
+                    // Remove old Cover
+                    try {
+                        @unlink($this->getParameter('cover_path').DIRECTORY_SEPARATOR.$playlist->getFileReference().".png");
+                    } catch(FileNotFoundException $e) {
+
+                    }
+
+                    // Upload new Cover
+                    $playlist->setFileReference("playlist_" . uniqid());
+                    rename($formData['coverPath'], $this->getParameter('cover_path') . DIRECTORY_SEPARATOR . $playlist->getFileReference() . ".png");
+                }
+
+                $em->persist($playlist);
+                $em->flush();
+
+                return $this->redirectToRoute('playlist.detail', ['playlistId' => $playlist->getId()]);
+            } catch(Exception $e) {
+                $this->addFlash('error', 'Editing failed. Please report back to our development team!');
+
+                var_dump($e);
+
+                return $this->render('playlist/edit.html.twig', $data);
+            }
+        }
+
+        return $this->render('playlist/edit.html.twig', $data);
+    }
 
     /**
      * @Route("/playlist/{playlistId}/delete", name="playlist.delete")

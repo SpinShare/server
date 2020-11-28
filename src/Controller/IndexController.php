@@ -64,23 +64,6 @@ class IndexController extends AbstractController
     }
 
     /**
-     * @Route("/popular", name="index.popular")
-     */
-    public function popular(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $data = [];
-        
-        $popularOffset = $request->query->get('popularOffset') ? $request->query->get('popularOffset') : 0;
-        $resultsPopularSongs = $em->getRepository(Song::class)->getPopular($popularOffset);
-
-        $data['popularSongs'] = $resultsPopularSongs;
-        $data['popularOffset'] = $popularOffset;
-
-        return $this->render('index/popular.html.twig', $data);
-    }
-
-    /**
      * @Route("/support", name="index.support")
      */
     public function support(Request $request)

@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use App\Entity\ClientRelease;
 use App\Entity\Song;
+use App\Entity\SongPlaylist;
 use App\Entity\User;
 use App\Entity\SongReport;
 use App\Entity\UserReport;
@@ -336,5 +337,42 @@ class ModactionsController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute('song.detail', array('songId' => $songId));
+    }
+    /**
+     * @Route("/moderation/playlist/{playlistId}/remove", name="moderation.playlist.remove")
+     */
+    public function playlistRemove(Request $request, int $playlistId, \Swift_Mailer $mailer)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        $playlistToRemove = $em->getRepository(SongPlaylist::class)->findOneBy(array('id' => $playlistId));
+        $uploader = $em->getRepository(User::class)->findOneBy(array('id' => $playlistToRemove->getUser()));
+
+        try {
+            $message = (new \Swift_Message('Your playlist '.$playlistToRemove->getTitle().' was removed!'))
+                ->setFrom('legal@spinsha.re')
+                ->setTo($uploader->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'emails/moderation/playlistRemoved.txt.twig',
+                        ['playlist' => $playlistToRemove]
+                    ), 'text/plain');
+
+            $mailer->send($message);
+        } catch ( \Exception $e ) { }
+
+        // Remove cover
+        try {
+            @unlink($this->getParameter('cover_path').DIRECTORY_SEPARATOR.$playlistToRemove->getFileReference().".png");
+        } catch(FileNotFoundException $e) {
+
+        }
+
+        $em->remove($playlistToRemove);
+
+        $em->flush();
+
+        return $this->redirectToRoute('user.detail', array('userId' => $uploader->getId()));
     }
 }

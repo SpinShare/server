@@ -11,29 +11,33 @@
 		<title>{% block title %}{% endblock %} ~ SpinShare API</title>
 
 		<!-- Style -->
-		<link href="https://cdn.jsdelivr.net/gh/halfmoonui/halfmoon@1.0.3/css/halfmoon.min.css" rel="stylesheet" />
+		<link href="https://cdn.jsdelivr.net/gh/halfmoonui/halfmoon@1.1.1/css/halfmoon.min.css" rel="stylesheet" />
 		<link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" />
 		<link rel="stylesheet" href="{{ asset('assets/css/apidocs.css?v=' ~ date().timestamp) }}" />
 	</head>
 	<body class="with-custom-webkit-scrollbars with-custom-css-scrollbars dark-mode" data-dm-shortcut-enabled="true" data-set-preferred-theme-onload="true">
 		<div class="page-wrapper with-navbar with-sidebar">
 
-			<nav class="navbar">
+			<nav class="navbar justify-content-between">
 				<div class="navbar-content">
 					<button class="btn btn-action" type="button" onclick="halfmoon.toggleSidebar()">
 						<i class="mdi mdi-menu" aria-hidden="true"></i>
 						<span class="sr-only">Toggle sidebar</span>
 					</button>
+					<a href="#" class="navbar-brand">
+						<img class="hidden-lm" src="https://spinsha.re/assets/img/logo_colored_ondark.svg" />
+						<img class="hidden-dm" src="https://spinsha.re/assets/img/logo_colored_onwhite.svg" />
+						<span>API Documentation</span>
+					</a>
 				</div>
-				<a href="#" class="navbar-brand">
-					<img class="hidden-lm" src="https://spinsha.re/assets/img/logo_colored_ondark.svg" />
-					<img class="hidden-dm" src="https://spinsha.re/assets/img/logo_colored_onwhite.svg" />
-					<span>API Documentation</span>
-				</a>
+				<div class="navbar-content">
+					<a href="{{ path('index.index') }}" class="btn btn-danger btn-sm">Back to SpinSha.re</a>
+				</div>
 			</nav>
 
 			<div class="sidebar">
 				<div class="sidebar-group">
+
 					<h5 class="sidebar-title">Getting started</h5>
 					<div class="sidebar-divider"></div>
 					<a href="{{ path('api.docs.introduction') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.introduction' %}active{% endif %}">

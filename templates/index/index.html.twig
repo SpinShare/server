@@ -1,167 +1,34 @@
 {% extends 'index/base.html.twig' %}
 
 {% block indexContent %}
-{#
-    <div class="srxd-birthday">
-        <div class="ceiling"></div>
-        <div class="cake"></div>
-
-        <div class="balloons">
+    <div class="frontpage">
+        <div class="social-buttons">
+            <a href="https://spinsha.re/discord" class="item item-discord"><i class="mdi mdi-discord"></i></a>
+            <a href="https://twitter.com/WeAreSpinShare" class="item item-twitter"><i class="mdi mdi-twitter"></i></a>
+            <a href="https://www.youtube.com/channel/UCh7ftpzIqlHw5p_-HXHwMBw" class="item item-youtube"><i class="mdi mdi-youtube"></i></a>
+            <a href="https://twitch.tv/SpinShare" class="item item-twitch"><i class="mdi mdi-twitch"></i></a>
+            <a href="https://patreon.com/spinshare" class="item item-patreon"><i class="mdi mdi-patreon"></i></a>
         </div>
 
-        <div class="text">
-            <h1>Happy Birthday, Spin Rhythm XD!</h1>
-            <p>On this day, one year ago, Spin Rhythm XD was released on Steam!<br />Ever since that faithful day, the galaxy has not been the same!<br />We're so happy for the community Super Spin Digital gave us<br />and we wish them well for the future!</p>
+        <div class="staff-promos">
+            {% for promo in promos %}
+                <div class="staff-promo" style="background-image: url({{ asset('uploads/promo/' ~ promo.imagePath) }});">
+                    <div class="promo-type" style="color: {{ promo.color }};">{{ promo.type }}</div>
+                    <div class="promo-title" style="color: {{ promo.textColor }};">{{ promo.title|raw }}</div>
+                    {% if promo.buttonType == 0 %}
+                        {# Song #}
+                        <a href="{{ path('song.detail', {songId: promo.buttonData}) }}" class="promo-button" style="background-color: {{ promo.color }};">CHECK IT OUT</a>
+                    {% endif %}
+                    {% if promo.buttonType == 2 %}
+                        {# Search Query #}
+                        <a href="{{ path('search.index', {q: promo.buttonData}) }}" class="promo-button" style="background-color: {{ promo.color }};">CHECK IT OUT</a>
+                    {% endif %}
+                    {% if promo.buttonType == 3 %}
+                        {# External Link #}
+                        <a href="{{ promo.buttonData }}" target="_blank" class="promo-button" style="background-color: {{ promo.color }};">CHECK IT OUT</a>
+                    {% endif %}
+                </div>
+            {% endfor %}
         </div>
-    </div>
-    <script>
-        let DOMBalloons = document.querySelector(".balloons");
-
-        for(let i = 0; i < 6; i++) {
-            createBalloon(i);
-            createBalloon(i);
-            createBalloon(i);
-        }
-
-        function createBalloon(delayIndex) {
-            // Create DOM Element
-            let DOMBalloon = document.createElement("div");
-            DOMBalloon.classList.add("balloon");
-            DOMBalloon.style.animationDelay = -delayIndex * 0.8 + "s";
-            DOMBalloon.style.left = (Math.random() * 100) + "%";
-
-            let randomColor = Math.random() * 100;
-            if(randomColor > 66) {
-                DOMBalloon.classList.add("balloonRed");
-            } else if(randomColor > 33 && randomColor < 66) {
-                DOMBalloon.classList.add("balloonBlue");
-            } else {
-                DOMBalloon.classList.add("balloonGreen");
-            }
-
-            // Random Placement
-            DOMBalloons.appendChild(DOMBalloon);
-        }
-    </script>
-    <style>
-        .srxd-birthday {
-            background: #251333;
-            max-width: 1114px;
-            width: 90%;
-            margin: 0 auto;
-            border-radius: 10px;
-            margin-top: 50px;
-            padding: 25px;
-            padding-top: 100px;
-            position: relative;
-            overflow: hidden;
-        }
-        .srxd-birthday .balloons {
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            right: 0px;
-            bottom: 0px;
-        }
-        .srxd-birthday .balloons .balloon {
-            width: 65px;
-            height: 125px;
-            opacity: 0;
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: absolute;
-            animation: balloonAnim 5s linear infinite;
-        }
-        .srxd-birthday .balloons .balloonRed {
-            background-image: url('{{ asset('assets/img/birthday-balloonRed.svg') }}');
-        }
-        .srxd-birthday .balloons .balloonGreen {
-            background-image: url('{{ asset('assets/img/birthday-balloonGreen.svg') }}');
-        }
-        .srxd-birthday .balloons .balloonBlue {
-            background-image: url('{{ asset('assets/img/birthday-balloonBlue.svg') }}');
-        }
-        .srxd-birthday .text {
-            text-align: center;
-        }
-        .srxd-birthday .text h1 {
-            margin: 0;
-            font-size: 32px;
-            line-height: 1.1;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            font-family: 'Oswald', sans-serif;
-        }
-        .srxd-birthday .text p {
-            font-size: 1.15em;
-        }
-        .srxd-birthday .ceiling {
-            position: absolute;
-            left: 0px;
-            right: 0px;
-            top: 0px;
-            height: 70px;
-            background: url('{{ asset('assets/img/birthday-ceiling.svg') }}');
-            background-position: center;
-            background-size: contain;
-        }
-        .srxd-birthday .cake {
-            height: 100px;
-            background: url('{{ asset('assets/img/birthday-cake.svg') }}');
-            background-size: contain;
-            background-position: center;
-            background-repeat: no-repeat;
-            width: 90%;
-            margin: 0 auto;
-            margin-bottom: 50px;
-        }
-        @keyframes balloonAnim {
-            0% {
-                transform: translate(20px, 450px);
-            }
-            25% {
-                transform: translate(-20px, 307px);
-            }
-            50% {
-                transform: translate(20px, 164px);
-                opacity: 1;
-            }
-            75% {
-                transform: translate(-20px, 21px);
-            }
-            100% {
-                transform: translate(20px, -125px);
-            }
-        }
-    </style> #}
-
-    <div class="staff-promos">
-        {% for promo in promos %}
-            <div class="staff-promo" style="background-image: url({{ asset('uploads/promo/' ~ promo.imagePath) }});">
-                <div class="promo-type" style="color: {{ promo.color }};">{{ promo.type }}</div>
-                <div class="promo-title" style="color: {{ promo.textColor }};">{{ promo.title|raw }}</div>
-                {% if promo.buttonType == 0 %}
-                    {# Song #}
-                    <a href="{{ path('song.detail', {songId: promo.buttonData}) }}" class="promo-button" style="background-color: {{ promo.color }};">CHECK IT OUT</a>
-                {% endif %}
-                {% if promo.buttonType == 2 %}
-                    {# Search Query #}
-                    <a href="{{ path('search.index', {q: promo.buttonData}) }}" class="promo-button" style="background-color: {{ promo.color }};">CHECK IT OUT</a>
-                {% endif %}
-                {% if promo.buttonType == 3 %}
-                    {# External Link #}
-                    <a href="{{ promo.buttonData }}" target="_blank" class="promo-button" style="background-color: {{ promo.color }};">CHECK IT OUT</a>
-                {% endif %}
-            </div>
-        {% endfor %}
-    </div>
-
-    <div class="social-buttons">
-        <a href="https://spinsha.re/discord" class="item item-discord"><i class="mdi mdi-discord"></i></a>
-        <a href="https://twitter.com/WeAreSpinShare" class="item item-twitter"><i class="mdi mdi-twitter"></i></a>
-        <a href="https://www.youtube.com/channel/UCh7ftpzIqlHw5p_-HXHwMBw" class="item item-youtube"><i class="mdi mdi-youtube"></i></a>
-        <a href="https://twitch.tv/SpinShare" class="item item-twitch"><i class="mdi mdi-twitch"></i></a>
-        <a href="https://patreon.com/spinshare" class="item item-patreon"><i class="mdi mdi-patreon"></i></a>
     </div>
 {% endblock %}

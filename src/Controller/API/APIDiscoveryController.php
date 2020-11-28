@@ -94,32 +94,11 @@ class APIDiscoveryController extends AbstractController
      */
     public function songsPopular(Request $request, int $offset = 0)
     {
+        // TODO: Remove this later on
         $em = $this->getDoctrine()->getManager();
         $data = [];
 
-        $results = $em->getRepository(Song::class)->getPopular($offset);
-        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
-
-        foreach($results as $result) {
-            $oneResult = [];
-
-            $oneResult['id'] = $result->getId();
-            $oneResult['title'] = $result->getTitle();
-            $oneResult['subtitle'] = $result->getSubtitle();
-            $oneResult['artist'] = $result->getArtist();
-            $oneResult['charter'] = $result->getCharter();
-            $oneResult['hasEasyDifficulty'] = $result->getHasEasyDifficulty();
-            $oneResult['hasNormalDifficulty'] = $result->getHasNormalDifficulty();
-            $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
-            $oneResult['hasExtremeDifficulty'] = $result->getHasExtremeDifficulty();
-            $oneResult['hasXDDifficulty'] = $result->getHasXDDifficulty();
-            $oneResult['cover'] = $baseUrl."/uploads/thumbnail/".$result->getFileReference().".jpg";
-            $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
-
-            $data[] = $oneResult;
-        }
-
-        $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
+        $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => []]);
         $response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
     }
