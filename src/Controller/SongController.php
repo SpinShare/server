@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\SongPlaylist;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -214,6 +215,7 @@ class SongController extends AbstractController
             ->add('tags', TextType::class, ['label' => 'Tags', 'row_attr' => array('class' => 'tags-field'), 'required' => false, 'data' => $song->getTags()])
             ->add('description', TextareaType::class, ['label' => 'Description', 'attr' => array('rows' => 5), 'row_attr' => array('class' => 'tags-field'), 'required' => false, 'data' => $song->getDescription()])
             ->add('isExplicit', CheckboxType::class, ['label' => 'Is the song explicit?', 'row_attr' => array('class' => "tags-field"), 'required' => false, 'data' => $song->getIsExplicit()])
+            ->add('publicationStatus', ChoiceType::class, ['label' => 'Publication Status', 'row_attr' => array('class' => "tags-field"), 'required' => true, 'choices' => ['Public' => 0, 'Hide from lists' => 1, 'Unlisted' => 2]])
             ->add('save', SubmitType::class, ['label' => 'Upload'])
             ->getForm();
 
@@ -229,6 +231,7 @@ class SongController extends AbstractController
                 $song->setTags($data['tags']);
                 $song->setDescription($data['description']);
                 $song->setIsExplicit($data['isExplicit']);
+                $song->setPublicationStatus($data['publicationStatus']);
 
                 if($backupFile) {
                     $zip = new \ZipArchive;

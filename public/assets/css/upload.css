@@ -112,12 +112,20 @@
   border: 0px;
   transition: 0.2s ease-in-out background, 0.2s ease-in-out color;
 }
-.box .tags-input .tags-field select:not(:disabled):hover,
-.box .input .tags-field select:not(:disabled):hover,
-.box .tags-input .tags-field input[type="text"]:not(:disabled):hover,
-.box .input .tags-field input[type="text"]:not(:disabled):hover,
-.box .tags-input .tags-field textarea:not(:disabled):hover,
-.box .input .tags-field textarea:not(:disabled):hover {
+.box .tags-input .tags-field select:hover,
+.box .input .tags-field select:hover,
+.box .tags-input .tags-field input[type="text"]:hover,
+.box .input .tags-field input[type="text"]:hover,
+.box .tags-input .tags-field textarea:hover,
+.box .input .tags-field textarea:hover {
+  cursor: pointer;
+}
+.box .tags-input .tags-field select:not(:disabled):not(select):hover,
+.box .input .tags-field select:not(:disabled):not(select):hover,
+.box .tags-input .tags-field input[type="text"]:not(:disabled):not(select):hover,
+.box .input .tags-field input[type="text"]:not(:disabled):not(select):hover,
+.box .tags-input .tags-field textarea:not(:disabled):not(select):hover,
+.box .input .tags-field textarea:not(:disabled):not(select):hover {
   background: rgba(255, 255, 255, 0.4);
   color: #fff;
   cursor: text;
@@ -200,3 +208,4 @@
   border-color: #c5414c;
   color: #c5414c;
 }
+/*# sourceMappingURL=upload.css.map */

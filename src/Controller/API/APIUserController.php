@@ -48,7 +48,7 @@ class APIUserController extends AbstractController
             }
 
             // Get User Lists
-            $resultsSongs = $em->getRepository(Song::class)->findBy(array('uploader' => $result->getId()), array('uploadDate' => 'DESC'));
+            $resultsSongs = $em->getRepository(Song::class)->findBy(array('uploader' => $result->getId(), 'publicationStatus' => array(0, 1)), array('uploadDate' => 'DESC'));
             $resultsReviews = $em->getRepository(SongReview::class)->findBy(array('user' => $result->getId()), array('reviewDate' => 'DESC'));
             $resultsSpinPlays = $em->getRepository(SongSpinPlay::class)->findBy(array('user' => $result->getId(), 'isActive' => true), array('submitDate' => 'DESC'));
             $resultsCards = $em->getRepository(UserCard::class)->findBy(array('user' => $result->getId()), array('givenDate' => 'DESC'));

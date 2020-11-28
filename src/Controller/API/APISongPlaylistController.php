@@ -29,7 +29,7 @@ class APISongPlaylistController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $data = [];
 
-        $result = $em->getRepository(SongPlaylist::class)->findOneBy(array('id' => $id));
+        $result = $em->getRepository(SongPlaylist::class)->findOneBy(array('id' => $id, 'publicationStatus' => array(0, 1, 2)));
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         if(!$result) {

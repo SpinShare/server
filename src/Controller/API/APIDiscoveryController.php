@@ -117,7 +117,8 @@ class APIDiscoveryController extends AbstractController
 
         // Users
         $resultsUsers = $em->getRepository(User::class)->createQueryBuilder('o')
-                                                        ->where('o.username LIKE :query')
+                                                        ->where('o.publicationStatus IN (0, 1)')
+                                                        ->andWhere('o.username LIKE :query')
                                                         ->orderBy('o.id', 'DESC')
                                                         ->setParameter('query', '%'.$searchQuery.'%')
                                                         ->getQuery()
@@ -141,7 +142,8 @@ class APIDiscoveryController extends AbstractController
 
         // Songs
         $resultsSongs = $em->getRepository(Song::class)->createQueryBuilder('o')
-                                                        ->where('o.title LIKE :query')
+                                                        ->where('o.publicationStatus IN (0, 1)')
+                                                        ->andWhere('o.title LIKE :query')
                                                         ->orWhere('o.subtitle LIKE :query')
                                                         ->orWhere('o.tags LIKE :query')
                                                         ->orWhere('o.artist LIKE :query')

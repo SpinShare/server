@@ -70,6 +70,11 @@ class Song
     private $isExplicit;
 
     /**
+     * @ORM\Column(type="integer", nullable=true, options={"default": 0})
+     */
+    private $publicationStatus;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $hasEasyDifficulty;
@@ -256,6 +261,18 @@ class Song
         return $this;
     }
 
+    public function getPublicationStatus(): ?int
+    {
+        return $this->publicationStatus;
+    }
+
+    public function setPublicationStatus(int $publicationStatus): self
+    {
+        $this->publicationStatus = $publicationStatus;
+
+        return $this;
+    }
+
     public function getHasEasyDifficulty(): ?bool
     {
         return $this->hasEasyDifficulty;
@@ -415,6 +432,7 @@ class Song
             'views' => $this->views,
             'downloads' => $this->downloads,
             'isExplicit' => $this->isExplicit,
+            'publicationStatus' => $this->publicationStatus,
             'hasEasyDifficulty' => $this->hasEasyDifficulty,
             'hasNormalDifficulty' => $this->hasNormalDifficulty,
             'hasHardDifficulty' => $this->hasHardDifficulty,

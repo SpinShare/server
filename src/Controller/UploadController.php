@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
@@ -35,6 +36,7 @@ class UploadController extends AbstractController
                         ->add('tags', TextType::class, ['label' => 'Tags', 'row_attr' => array('class' => 'tags-field'), 'required' => false])
                         ->add('description', TextareaType::class, ['label' => 'Description', 'attr' => array('rows' => 5), 'row_attr' => array('class' => 'tags-field'), 'required' => false])
                         ->add('isExplicit', CheckboxType::class, ['label' => 'Is the song explicit?', 'row_attr' => array('class' => "tags-field"), 'required' => false])
+                        ->add('publicationStatus', ChoiceType::class, ['label' => 'Publication Status', 'row_attr' => array('class' => "tags-field"), 'required' => true, 'choices' => ['Public' => 0, 'Hide from lists' => 1, 'Unlisted' => 2]])
                         ->add('save', SubmitType::class, ['label' => 'Upload'])
                         ->getForm();
         $form->handleRequest($request);
@@ -52,6 +54,7 @@ class UploadController extends AbstractController
                 $song->setDescription($data['description']);
                 $song->setUploadDate(new \DateTime('NOW'));
                 $song->setIsExplicit($data['isExplicit']);
+                $song->setPublicationStatus($data['publicationStatus']);
 
                 $zip = new ZipArchive;
                 if($zip->open($backupFile)) {

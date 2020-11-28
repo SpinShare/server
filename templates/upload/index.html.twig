@@ -34,6 +34,10 @@
           <div class="input-notice">Add multiple tags by seperating them with a comma. (eg: "Memes,Funny,Osu")</div>
         </div>
         <div class="tags-input">
+          {{ form_row(uploadForm.publicationStatus) }}
+          <div class="input-notice">"Hide from lists" hides your chart from "New" and "Top".<br />"Unlisted" also hides it from the search and your profile (but not from playlists).</div>
+        </div>
+        <div class="tags-input">
           {{ form_row(uploadForm.isExplicit) }}
           <div class="input-notice">Are the lyrics, cover or any other meta data of this song unsuitable for children and/or not safe for work?</div>
         </div>

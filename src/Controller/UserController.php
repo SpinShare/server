@@ -52,7 +52,13 @@ class UserController extends AbstractController
         $resultUser = $em->getRepository(User::class)->findOneBy(array('id' => $userId));
         if(!$resultUser) throw new NotFoundHttpException();
 
-        $resultCharts = $em->getRepository(Song::class)->findBy(array('uploader' => $resultUser->getId()), array('uploadDate' => 'DESC'));
+
+        if($user == $resultUser) {
+            $resultCharts = $em->getRepository(Song::class)->findBy(array('uploader' => $resultUser->getId()), array('uploadDate' => 'DESC'));
+        } else {
+            $resultCharts = $em->getRepository(Song::class)->findBy(array('uploader' => $resultUser->getId(), 'publicationStatus' => array(0, 1)), array('uploadDate' => 'DESC'));
+        }
+
         $resultPlaylists = $em->getRepository(SongPlaylist::class)->findBy(array('user' => $resultUser->getId()), array('id' => 'DESC'));
         $resultReviews = $em->getRepository(SongReview::class)->findBy(array('user' => $resultUser->getId()), array('reviewDate' => 'DESC'));
         $resultSpinPlays = $em->getRepository(SongSpinPlay::class)->findBy(array('isActive' => true, 'user' => $resultUser->getId()), array('submitDate' => 'DESC'));
