@@ -313,6 +313,11 @@ button.button-disabled,
   opacity: 0.4;
   cursor: not-allowed;
 }
+button.button-icon,
+.button.button-icon {
+  padding: 5px 15px;
+  font-size: 18px;
+}
 input[type='range'] {
   overflow: hidden;
   width: 100%;

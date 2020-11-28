@@ -10,7 +10,7 @@
                     <th>Type</th>
                     <th>Title</th>
                     <th>Visible</th>
-                    <th style="width: 150px"></th>
+                    <th style="width: 200px"></th>
                 </tr>
                 {% for promo in promos %}
                     <tr {{ promo.isVisible ? "class=\"active\"" : ""}}>
@@ -18,9 +18,9 @@
                         <td>{{ promo.title }}</td>
                         <td>{{ promo.isVisible ? "Yes" : "No" }}</td>
                         <td>
-                            <a href="{{ path('moderation.promos.remove', {promoId: promo.id}) }}" class="button">X</a>
-                            <a href="{{ path('moderation.promos.switchVisibility', {promoId: promo.id}) }}" class="button">Vis</a>
-                            <a href="{{ path('moderation.promos.edit', {promoId: promo.id}) }}" class="button">Edit</a>
+                            <a href="{{ path('moderation.promos.switchVisibility', {promoId: promo.id}) }}" class="button button-icon"><span class="mdi mdi-eye"></span></a>
+                            <a href="{{ path('moderation.promos.edit', {promoId: promo.id}) }}" class="button button-icon"><span class="mdi mdi-pencil"></span></a>
+                            <a href="{{ path('moderation.promos.remove', {promoId: promo.id}) }}" class="button button-icon"><span class="mdi mdi-delete"></span></a>
                         </td>
                     </tr>
                 {% endfor %}

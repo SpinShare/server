@@ -3,11 +3,27 @@
 {% set sectionTitle = 'Edit an existing promo' %}
 
 {% block moderationContent %}
-    <section class="section-moderator-add">
+    <section class="section-moderator-add section-promo-crud">
         <div class="box">
             {{ form_start(editForm) }}
             {{ form_widget(editForm) }}
             {{ form_end(editForm) }}
         </div>
+        <div class="preview">
+            <div class="staff-promo" style="/* background image */">
+                <div class="promo-type">PromoType</div>
+                <div class="promo-title">PromoTitle</div>
+                <a href="#" target="_blank" class="promo-button">CHECK IT OUT</a>
+            </div>
+        </div>
     </section>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ asset('assets/js/promoPreview.js') }}"></script>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/moderation.css?v=' ~ date().timestamp) }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/startup.css?v=' ~ date().timestamp) }}" />
 {% endblock %}

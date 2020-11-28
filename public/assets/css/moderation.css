@@ -95,7 +95,7 @@
 }
 .section-moderator-add .box form {
   margin-top: 15px;
-  width: 550px;
+  width: 600px;
 }
 .section-moderator-add .box form > div {
   display: grid;
@@ -104,7 +104,7 @@
 }
 .section-moderator-add .box form > div > div {
   display: grid;
-  grid-template-columns: 150px 1fr;
+  grid-template-columns: 200px 1fr;
   grid-gap: 15px;
 }
 .section-moderator-add .box form > div > div select,
@@ -211,3 +211,12 @@
 .section-moderator-report .box .report-data .report-item .column {
   opacity: 0.4;
 }
+.section-promo-crud {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 50px;
+}
+.section-promo-crud .preview .staff-promo {
+  width: 545px;
+}
+/*# sourceMappingURL=moderation.css.map */

@@ -73,7 +73,7 @@ class PromosController extends AbstractController
                 $em->persist($newPromo);
                 $em->flush();
 
-                return $this->redirectToRoute('moderation.index');
+                return $this->redirectToRoute('moderation.promos.index');
             } catch(FileException $e) {
 
             }
@@ -138,7 +138,7 @@ class PromosController extends AbstractController
                 $em->persist($promo);
                 $em->flush();
 
-                return $this->redirectToRoute('moderation.index');
+                return $this->redirectToRoute('moderation.promos.index');
             } catch(FileException $e) {
 
             }

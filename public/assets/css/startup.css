@@ -79,8 +79,8 @@
 .section-startup .frontpage .staff-promos:empty {
   display: none;
 }
-.section-startup .frontpage .staff-promos .staff-promo {
-  background: #fff;
+.staff-promo {
+  background-color: rgba(255, 255, 255, 0.1);
   background-position: center right;
   background-size: cover;
   border-radius: 6px;
@@ -89,14 +89,14 @@
   display: grid;
   grid-template-rows: auto 100px auto;
 }
-.section-startup .frontpage .staff-promos .staff-promo .promo-type {
+.staff-promo .promo-type {
   color: #aaa;
   justify-self: left;
   font-size: 12px;
   font-weight: bold;
   letter-spacing: 0.3em;
 }
-.section-startup .frontpage .staff-promos .staff-promo .promo-title {
+.staff-promo .promo-title {
   font-weight: bold;
   font-size: 34px;
   justify-self: left;
@@ -104,19 +104,19 @@
   letter-spacing: -0.025em;
   color: #222;
 }
-.section-startup .frontpage .staff-promos .staff-promo .promo-button {
+.staff-promo .promo-button {
   font-size: 14px;
   font-weight: bold;
   text-transform: uppercase;
   padding: 10px 25px;
   color: #fff;
-  background: #aaa;
+  background: #222;
   justify-self: left;
   border-radius: 6px;
   transition: 0.2s ease-in-out opacity;
   text-decoration: none;
 }
-.section-startup .frontpage .staff-promos .staff-promo .promo-button:hover {
+.staff-promo .promo-button:hover {
   cursor: pointer;
   opacity: 0.6;
 }
