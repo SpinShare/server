@@ -190,7 +190,7 @@ class APIDiscoveryController extends AbstractController
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         $jsonBody = json_decode($request->getContent(), true);
-        if(!$jsonBody) {
+        if($jsonBody == NULL) {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
             $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
