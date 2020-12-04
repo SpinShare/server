@@ -189,7 +189,14 @@ class APIDiscoveryController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
-        $searchQuery = json_decode($request->getContent(), true)['searchQuery'];
+        $jsonBody = json_decode($request->getContent(), true);
+        if(!$jsonBody) {
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
+        }
+
+        $searchQuery = ['searchQuery'];
 
         $data = [];
         $data['users'] = [];
