@@ -107,8 +107,8 @@ class APIDiscoveryController extends AbstractController
     }
 
     /**
-     * @Route("/api/search/{searchQuery}", name="api.search", requirements={"token"=".+"})
-     * @Route("/api/search/{searchQuery}/", requirements={"token"=".+"})
+     * @Route("/api/search/{searchQuery}", name="api.search", requirements={"searchQuery"=".+"})
+     * @Route("/api/search/{searchQuery}/", requirements={"searchQuery"=".+"})
      */
     public function search(Request $request, string $searchQuery)
     {
