@@ -21,6 +21,7 @@ class APISongController extends AbstractController
 {
     /**
      * @Route("/api/song/{idOrReference}", name="api.songs.detail")
+     * @Route("/api/song/{idOrReference}/")
      */
     public function songDetail(Request $request, $idOrReference)
     {
@@ -58,6 +59,7 @@ class APISongController extends AbstractController
 
     /**
      * @Route("/api/song/{idOrReference}/reviews", name="api.songs.detail.reviews")
+     * @Route("/api/song/{idOrReference}/reviews/")
      */
     public function songDetailReviews(Request $request, $idOrReference)
     {
@@ -95,6 +97,7 @@ class APISongController extends AbstractController
 
     /**
      * @Route("/api/song/{idOrReference}/spinplays", name="api.songs.detail.spinplays")
+     * @Route("/api/song/{idOrReference}/spinplays/")
      */
     public function songDetailSpinPlays(Request $request, $idOrReference)
     {
@@ -129,6 +132,7 @@ class APISongController extends AbstractController
 
     /**
      * @Route("/api/song/{id}/download", name="api.songs.download")
+     * @Route("/api/song/{id}/download/")
      */
     public function songDownload(int $id)
     {

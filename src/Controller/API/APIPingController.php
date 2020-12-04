@@ -21,6 +21,7 @@ class APIPingController extends AbstractController
 {
     /**
      * @Route("/api/ping", name="api.ping")
+     * @Route("/api/ping/")
      */
     public function ping()
     {

@@ -13,6 +13,7 @@ use Symfony\Component\HttpClient\HttpClient;
 use App\Entity\ClientRelease;
 use App\Entity\Song;
 use App\Entity\SongReview;
+use App\Entity\SongPlaylist;
 use App\Entity\SongSpinPlay;
 use App\Entity\User;
 use App\Entity\UserCard;
@@ -22,6 +23,7 @@ class APIUserController extends AbstractController
 {
     /**
      * @Route("/api/user/{userId}", name="api.users.detail")
+     * @Route("/api/user/{userId}/")
      */
     public function userDetail(Request $request, int $userId)
     {
@@ -78,6 +80,7 @@ class APIUserController extends AbstractController
 
     /**
      * @Route("/api/user/{userId}/charts", name="api.users.detail.charts")
+     * @Route("/api/user/{userId}/charts/")
      */
     public function userDetailCharts(Request $request, int $userId)
     {
@@ -123,6 +126,7 @@ class APIUserController extends AbstractController
 
     /**
      * @Route("/api/user/{userId}/reviews", name="api.users.detail.reviews")
+     * @Route("/api/user/{userId}/reviews/")
      */
     public function userDetailReviews(Request $request, int $userId)
     {
@@ -148,9 +152,39 @@ class APIUserController extends AbstractController
             return $response;
         }
     }
+
+    /**
+     * @Route("/api/user/{userId}/playlists", name="api.users.detail.playlists")
+     * @Route("/api/user/{userId}/playlists/")
+     */
+    public function userDetailPlaylists(Request $request, int $userId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        $result = $em->getRepository(User::class)->findOneBy(array('id' => $userId));
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
+        if(!$result) {
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
+        } else {
+            $resultsReviews = $em->getRepository(SongPlaylist::class)->findBy(array('user' => $result->getId()), array('id' => 'DESC'));
+                 
+            foreach($resultsReviews as $result) {
+                $data[] = $result->getJSON();
+            }
+    
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+            return $response;
+        }
+    }
     
     /**
      * @Route("/api/user/{userId}/spinplays", name="api.users.detail.spinplays")
+     * @Route("/api/user/{userId}/spinplays/")
      */
     public function userDetailSpinPlays(Request $request, int $userId)
     {

@@ -18,7 +18,8 @@ class APIConnectUserController extends AbstractController
 {
 
     /**
-     * @Route("/api/connect/profile/", name="api.connect.profile")
+     * @Route("/api/connect/profile", name="api.connect.profile")
+     * @Route("/api/connect/profile/")
      */
     public function getProfile(Request $request)
     {

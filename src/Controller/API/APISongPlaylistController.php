@@ -20,6 +20,7 @@ class APISongPlaylistController extends AbstractController
 {
     /**
      * @Route("/api/playlist/{id}", name="api.playlist.detail")
+     * @Route("/api/playlist/{id}/")
      * @param Request $request
      * @param $id
      * @return JsonResponse

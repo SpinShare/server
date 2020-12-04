@@ -18,6 +18,7 @@ class APIConnectController extends AbstractController
 {
     /**
      * @Route("/api/connect/generateCode", name="api.connect.generateCode")
+     * @Route("/api/connect/generateCode/")
      */
     public function generateCode()
     {
@@ -44,6 +45,7 @@ class APIConnectController extends AbstractController
     }
     /**
      * @Route("/api/connect/getToken", name="api.connect.getToken")
+     * @Route("/api/connect/getToken/")
      */
     public function getToken(Request $request)
     {
@@ -91,7 +93,8 @@ class APIConnectController extends AbstractController
     }
 
     /**
-     * @Route("/api/connect/validateToken/", name="api.connect.validateToken")
+     * @Route("/api/connect/validateToken", name="api.connect.validateToken")
+     * @Route("/api/connect/validateToken/")
      */
     public function validateToken(Request $request)
     {

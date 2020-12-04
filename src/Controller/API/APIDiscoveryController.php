@@ -21,6 +21,7 @@ class APIDiscoveryController extends AbstractController
 {
     /**
      * @Route("/api/songs/new/{offset}", name="api.songs.new")
+     * @Route("/api/songs/new/{offset}/")
      */
     public function songsNew(Request $request, int $offset = 0)
     {
@@ -56,6 +57,7 @@ class APIDiscoveryController extends AbstractController
 
     /**
      * @Route("/api/songs/hot/{offset}", name="api.songs.hot")
+     * @Route("/api/songs/hot/{offset}/")
      */
     public function songsHot(Request $request, int $offset = 0)
     {
@@ -91,6 +93,7 @@ class APIDiscoveryController extends AbstractController
 
     /**
      * @Route("/api/songs/popular/{offset}", name="api.songs.popular")
+     * @Route("/api/songs/popular/{offset}/")
      */
     public function songsPopular(Request $request, int $offset = 0)
     {
@@ -104,7 +107,8 @@ class APIDiscoveryController extends AbstractController
     }
 
     /**
-     * @Route("/api/search/{searchQuery}", name="api.search")
+     * @Route("/api/search/{searchQuery}", name="api.search", requirements={"token"=".+"})
+     * @Route("/api/search/{searchQuery}/", requirements={"token"=".+"})
      */
     public function search(Request $request, string $searchQuery)
     {
@@ -178,6 +182,7 @@ class APIDiscoveryController extends AbstractController
 
     /**
      * @Route("/api/searchAll", name="api.search.all")
+     * @Route("/api/searchAll/")
      */
     public function searchAll(Request $request)
     {

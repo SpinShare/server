@@ -21,6 +21,7 @@ class APIStreamStatusController extends AbstractController
 {
     /**
      * @Route("/api/streamStatus", name="api.streamStatus")
+     * @Route("/api/streamStatus/")
      */
     public function streamStatus()
     {

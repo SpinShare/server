@@ -21,6 +21,7 @@ class APIPromosController extends AbstractController
 {
     /**
      * @Route("/api/promos", name="api.promos")
+     * @Route("/api/promos/")
      */
     public function promos(Request $request)
     {

@@ -22,6 +22,7 @@ class APIConnectReviewsController extends AbstractController
 
     /**
      * @Route("/api/connect/reviews/{songID}/get", name="api.connect.reviews.get")
+     * @Route("/api/connect/reviews/{songID}/get/")
      */
     public function getReview(Request $request, $songID)
     {
@@ -71,6 +72,7 @@ class APIConnectReviewsController extends AbstractController
 
     /**
      * @Route("/api/connect/reviews/{songID}/add", name="api.connect.reviews.add")
+     * @Route("/api/connect/reviews/{songID}/add/")
      */
     public function addReview(Request $request, $songID)
     {

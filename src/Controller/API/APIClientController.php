@@ -21,6 +21,7 @@ class APIClientController extends AbstractController
 {
     /**
      * @Route("/api/latestVersion/{platform}", name="api.latestVersion")
+     * @Route("/api/latestVersion/{platform}/")
      */
     public function latestVersion(string $platform)
     {
