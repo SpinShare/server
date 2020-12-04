@@ -107,13 +107,89 @@ class APIDiscoveryController extends AbstractController
     }
 
     /**
-     * @Route("/api/search/{searchQuery}", name="api.search", requirements={"searchQuery"=".+"})
+     * @Route("/api/search/{searchQuery}", requirements={"searchQuery"=".+"})
      * @Route("/api/search/{searchQuery}/", requirements={"searchQuery"=".+"})
      */
-    public function search(Request $request, string $searchQuery)
+    public function searchParameter(Request $request, string $searchQuery)
     {
         $em = $this->getDoctrine()->getManager();
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
+        $data = [];
+        $data['users'] = [];
+        $data['songs'] = [];
+
+        // Users
+        $resultsUsers = $em->getRepository(User::class)->createQueryBuilder('o')
+                                                        ->where('o.username LIKE :query')
+                                                        ->orderBy('o.id', 'DESC')
+                                                        ->setParameter('query', '%'.$searchQuery.'%')
+                                                        ->getQuery()
+                                                        ->getResult();
+
+        foreach($resultsUsers as $result) {
+            $oneResult = [];
+
+            $oneResult['id'] = $result->getId();
+            $oneResult['username'] = $result->getUsername();
+            $oneResult['isVerified'] = $result->getIsVerified();
+            $oneResult['isPatreon'] = $result->getIsPatreon();
+            if($result->getCoverReference()) {
+                $oneResult['avatar'] = $baseUrl."/uploads/avatar/".$result->getCoverReference();
+            } else {
+                $oneResult['avatar'] = $baseUrl."/assets/img/defaultAvatar.jpg";
+            }
+
+            $data['users'][] = $oneResult;
+        }
+
+        // Songs
+        $resultsSongs = $em->getRepository(Song::class)->createQueryBuilder('o')
+                                                        ->where('o.title LIKE :query')
+                                                        ->orWhere('o.subtitle LIKE :query')
+                                                        ->orWhere('o.tags LIKE :query')
+                                                        ->orWhere('o.artist LIKE :query')
+                                                        ->orWhere('o.charter LIKE :query')
+                                                        ->andWhere('o.publicationStatus IN (0, 1)')
+                                                        ->orderBy('o.id', 'DESC')
+                                                        ->setParameter('query', '%'.$searchQuery.'%')
+                                                        ->getQuery()
+                                                        ->getResult();
+                
+        foreach($resultsSongs as $result) {
+            $oneResult = [];
+
+            $oneResult['id'] = $result->getId();
+            $oneResult['title'] = $result->getTitle();
+            $oneResult['subtitle'] = $result->getSubtitle();
+            $oneResult['artist'] = $result->getArtist();
+            $oneResult['charter'] = $result->getCharter();
+            $oneResult['hasEasyDifficulty'] = $result->getHasEasyDifficulty();
+            $oneResult['hasNormalDifficulty'] = $result->getHasNormalDifficulty();
+            $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
+            $oneResult['hasExtremeDifficulty'] = $result->getHasExtremeDifficulty();
+            $oneResult['hasXDDifficulty'] = $result->getHasXDDifficulty();
+            $oneResult['cover'] = $baseUrl."/uploads/thumbnail/".$result->getFileReference().".jpg";
+            $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
+
+            $data['songs'][] = $oneResult;
+        }
+
+        $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
+    }
+
+    /**
+     * @Route("/api/search", name="api.search")
+     * @Route("/api/search/")
+     */
+    public function search(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
+        $searchQuery = json_decode($request->getContent(), true)['searchQuery'];
 
         $data = [];
         $data['users'] = [];
