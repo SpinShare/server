@@ -196,7 +196,7 @@ class APIDiscoveryController extends AbstractController
             return $response;
         }
 
-        $searchQuery = ['searchQuery'];
+        $searchQuery = $jsonBody['searchQuery'];
 
         $data = [];
         $data['users'] = [];
