@@ -38,7 +38,7 @@ class APISongPlaylistController extends AbstractController
             return $response;
         } else {
             $data = $result->getJSON();
-            $data['paths']['cover'] = $baseUrl."/uploads/cover/".$result->getFileReference().".png";
+            $data['cover'] = $baseUrl."/uploads/cover/".$result->getFileReference().".png";
 
             // Add needed paths for display
             foreach($data['songs'] as $songKey => $songItem) {
