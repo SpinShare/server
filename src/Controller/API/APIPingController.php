@@ -26,7 +26,6 @@ class APIPingController extends AbstractController
     public function ping()
     {
         $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'pong' => true]);
-        $response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
     }
 }

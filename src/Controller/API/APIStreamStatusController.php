@@ -64,7 +64,6 @@ class APIStreamStatusController extends AbstractController
         }
 
         $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => $successful ? 200 : 500, 'data' => $data]);
-        $response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
     }
 }

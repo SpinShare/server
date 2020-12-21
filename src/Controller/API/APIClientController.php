@@ -35,7 +35,6 @@ class APIClientController extends AbstractController
         $data['patchVersion'] = $latestVersion->getPatchVersion();
 
         $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
-        $response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
     }
 }

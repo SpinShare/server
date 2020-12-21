@@ -35,11 +35,9 @@ class APIConnectController extends AbstractController
             $em->flush();
 
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $newCode]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         } else {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         }
     }
@@ -57,7 +55,6 @@ class APIConnectController extends AbstractController
 
         if($connectCode == "" || $connectAppApiKey == "") {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 400, 'data' => ["connectCode" => $connectCode, "connectAppApiKey" => $connectAppApiKey]]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         }
 
@@ -83,11 +80,9 @@ class APIConnectController extends AbstractController
             $em->flush();
 
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $newConnectToken]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         } else {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         }
     }
@@ -107,11 +102,9 @@ class APIConnectController extends AbstractController
 
         if($connectToken != "" && $connection) {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => []]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         } else {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         }
     }

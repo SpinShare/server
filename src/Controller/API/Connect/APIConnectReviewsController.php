@@ -34,7 +34,6 @@ class APIConnectReviewsController extends AbstractController
         // 422 - Parameter Missing
         if($connectToken == "") {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 422, 'data' => []]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         }
 
@@ -47,7 +46,6 @@ class APIConnectReviewsController extends AbstractController
             // 404 - Song not Found
             if(!$songToReview) {
                 $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
-                $response->headers->set('Access-Control-Allow-Origin', '*');
                 return $response;
             }
 
@@ -55,17 +53,14 @@ class APIConnectReviewsController extends AbstractController
             
             if($previousReview) {
                 $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $previousReview->getJSON()]);
-                $response->headers->set('Access-Control-Allow-Origin', '*');
                 return $response;
             } else {
                 $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
-                $response->headers->set('Access-Control-Allow-Origin', '*');
                 return $response;
             }
         } else {
             // 403 - Not Authenticated
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 403, 'data' => []]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         }
     }
@@ -87,7 +82,6 @@ class APIConnectReviewsController extends AbstractController
         // 422 - Parameter Missing
         if($connectToken == "" || $reviewRecommend == "" || $songID == "") {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 422, 'data' => []]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         }
 
@@ -101,7 +95,6 @@ class APIConnectReviewsController extends AbstractController
             // 404 - Song not Found
             if(!$songToReview) {
                 $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
-                $response->headers->set('Access-Control-Allow-Origin', '*');
                 return $response;
             }
 
@@ -117,7 +110,6 @@ class APIConnectReviewsController extends AbstractController
                 $em->flush();
 
                 $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => []]);
-                $response->headers->set('Access-Control-Allow-Origin', '*');
                 return $response;
             } else {
                 // Create new Review
@@ -142,13 +134,11 @@ class APIConnectReviewsController extends AbstractController
                 $em->flush();
 
                 $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 201, 'data' => []]);
-                $response->headers->set('Access-Control-Allow-Origin', '*');
                 return $response;
             }
         } else {
             // 403 - Not Authenticated
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 403, 'data' => []]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         }
     }

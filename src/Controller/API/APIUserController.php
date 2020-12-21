@@ -35,7 +35,6 @@ class APIUserController extends AbstractController
 
         if(!$result) {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         } else {
             $data['id'] = $result->getId();
@@ -73,7 +72,6 @@ class APIUserController extends AbstractController
             }
     
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         }
     }
@@ -92,7 +90,6 @@ class APIUserController extends AbstractController
 
         if(!$result) {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         } else {
             // Get User Lists
@@ -119,7 +116,6 @@ class APIUserController extends AbstractController
             }
     
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         }
     }
@@ -138,7 +134,6 @@ class APIUserController extends AbstractController
 
         if(!$result) {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         } else {
             $resultsReviews = $em->getRepository(SongReview::class)->findBy(array('user' => $result->getId()), array('reviewDate' => 'DESC'));
@@ -148,7 +143,6 @@ class APIUserController extends AbstractController
             }
     
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         }
     }
@@ -167,7 +161,6 @@ class APIUserController extends AbstractController
 
         if(!$result) {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         } else {
             $resultsReviews = $em->getRepository(SongPlaylist::class)->findBy(array('user' => $result->getId()), array('id' => 'DESC'));
@@ -177,7 +170,6 @@ class APIUserController extends AbstractController
             }
     
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         }
     }
@@ -196,7 +188,6 @@ class APIUserController extends AbstractController
 
         if(!$result) {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         } else {
             $resultsSpinPlays = $em->getRepository(SongSpinPlay::class)->findBy(array('user' => $result->getId(), 'isActive' => true), array('submitDate' => 'DESC'));
@@ -206,7 +197,6 @@ class APIUserController extends AbstractController
             }
     
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         }
     }

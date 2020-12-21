@@ -25,7 +25,7 @@ class APITournamentController extends AbstractController
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         // Botch
-        $tournamentPlaylist = $em->getRepository(SongPlaylist::class)->findOneBy(array('id' => "4"));
+        $tournamentPlaylist = $em->getRepository(SongPlaylist::class)->findOneBy(array('id' => "84"));
 
         foreach($tournamentPlaylist->getSongs() as $tournamentChart) {
             $chartItem = $tournamentChart->getJSON();
@@ -39,7 +39,6 @@ class APITournamentController extends AbstractController
         }
 
         $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
-        $response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
     }
 }

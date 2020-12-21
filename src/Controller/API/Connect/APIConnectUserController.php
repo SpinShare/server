@@ -31,7 +31,6 @@ class APIConnectUserController extends AbstractController
 
         if($connectToken == "") {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 403, 'data' => []]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         }
 
@@ -49,11 +48,9 @@ class APIConnectUserController extends AbstractController
             }
 
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         } else {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 403, 'data' => []]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         }
     }

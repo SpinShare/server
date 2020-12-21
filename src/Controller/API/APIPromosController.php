@@ -32,7 +32,6 @@ class APIPromosController extends AbstractController
 
         if(!$results) {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         } else {
             foreach($results as $result) {
@@ -52,7 +51,6 @@ class APIPromosController extends AbstractController
             }
     
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
-            $response->headers->set('Access-Control-Allow-Origin', '*');
             return $response;
         }
     }
