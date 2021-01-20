@@ -17,8 +17,11 @@
 
         <div class="box">
             Generate On All Songs Actions<br /><strong>(ATTENTION: They can take a while!)</strong><br /><br />
-            <a href="{{ path('moderation.system.generate.thumbnails') }}" class="button">Generate Thumbnails</a> <a href="{{ path('moderation.system.generate.thumbnails-missing') }}" class="button">Generate Missing Thumbnails</a><br /><br />
-            <a href="{{ path('moderation.system.cleanup.temp') }}" class="button">Cleanup Temp Folder</a>
+            <a href="{{ path('moderation.system.generate.thumbnails') }}" class="button">Generate Thumbnails</a><br /><br />
+            <a href="{{ path('moderation.system.generate.thumbnails-missing') }}" class="button">Generate Missing Thumbnails</a><br /><br />
+            <a href="{{ path('moderation.system.cleanup.temp') }}" class="button">Cleanup Temp Folder</a><br /><br />
+            <a href="{{ path('moderation.system.migration.updateHash') }}" class="button">Regenerate Update Hashes</a><br /><br />
+            <a href="{{ path('moderation.system.migration.difficultyRating') }}" class="button">Regenerate Difficulty Ratings</a>
         </div>
     </section>
 {% endblock %}

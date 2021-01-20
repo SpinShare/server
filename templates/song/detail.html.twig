@@ -84,11 +84,11 @@
                         <i class="mdi mdi-arm-flex"></i>
                     </div>
                     <div class="difficulties">
-                        <img src="{{ asset('assets/img/difficultyEasy.svg') }}" class="{{ song.hasEasyDifficulty ? "active" : "" }}" alt="Easy Difficulty" />
-                        <img src="{{ asset('assets/img/difficultyNormal.svg') }}" class="{{ song.hasNormalDifficulty ? "active" : "" }}" alt="Normal Difficulty" />
-                        <img src="{{ asset('assets/img/difficultyHard.svg') }}" class="{{ song.hasHardDifficulty ? "active" : "" }}" alt="Hard Difficulty" />
-                        <img src="{{ asset('assets/img/difficultyExtreme.svg') }}" class="{{ song.hasExtremeDifficulty ? "active" : "" }}" alt="Extreme Difficulty" />
-                        <img src="{{ asset('assets/img/difficultyXD.svg') }}" class="{{ song.hasXDDifficulty ? "active" : "" }}" alt="xD Difficulty" />
+                        {% if song.hasEasyDifficulty %}<div class="difficulty"><span>E</span> {{ song.easyDifficulty }}</div>{% endif %}
+                        {% if song.hasNormalDifficulty %}<div class="difficulty"><span>N</span> {{ song.normalDifficulty }}</div>{% endif %}
+                        {% if song.hasHardDifficulty %}<div class="difficulty"><span>H</span> {{ song.hardDifficulty }}</div>{% endif %}
+                        {% if song.hasExtremeDifficulty %}<div class="difficulty"><span>EX</span> {{ song.expertDifficulty }}</div>{% endif %}
+                        {% if song.hasXDDifficulty %}<div class="difficulty"><span>XD</span> {{ song.XDDifficulty }}</div>{% endif %}
                     </div>
                 </div>
                 {% if song.uploadDate|date("Y") > 2000 %}
@@ -98,6 +98,16 @@
                     </div>
                     <div class="content">
                     {{ song.uploadDate|date("dS F Y") }}
+                    </div>
+                </div>
+                {% endif %}
+                {% if song.updateDate|date("Y") > 2000 %}
+                <div class="stat">
+                    <div class="icon">
+                        <i class="mdi mdi-pencil"></i>
+                    </div>
+                    <div class="content">
+                    {{ song.updateDate|date("dS F Y") }}
                     </div>
                 </div>
                 {% endif %}

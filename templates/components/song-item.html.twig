@@ -8,16 +8,11 @@
         <div class="song-title">{{ song.title|default('Untitled') }}</div>
         <div class="song-artist">{{ song.artist|default('Unknown') }}</div>
         <div class="song-difficulties">
-            <div class="difficulty {{ song.hasEasyDifficulty ? "active" : "" }}"><span>E</span></div>
-            <div class="difficulty {{ song.hasNormalDifficulty ? "active" : "" }}"><span>N</span></div>
-            <div class="difficulty {{ song.hasHardDifficulty ? "active" : "" }}"><span>H</span></div>
-            <div class="difficulty {{ song.hasExtremeDifficulty ? "active" : "" }}"><span>EX</span></div>
-            <div class="difficulty {{ song.hasXDDifficulty ? "active" : "" }}"><span>XD</span></div>
-            <!-- <img src="{{ asset('assets/img/difficultyEasy.svg') }}" class="{{ song.hasEasyDifficulty ? "active" : "" }}" alt="Easy Difficulty" />
-            <img src="{{ asset('assets/img/difficultyNormal.svg') }}" class="{{ song.hasNormalDifficulty ? "active" : "" }}" alt="Normal Difficulty" />
-            <img src="{{ asset('assets/img/difficultyHard.svg') }}" class="{{ song.hasHardDifficulty ? "active" : "" }}" alt="Hard Difficulty" />
-            <img src="{{ asset('assets/img/difficultyExtreme.svg') }}" class="{{ song.hasExtremeDifficulty ? "active" : "" }}" alt="Extreme Difficulty" />
-            <img src="{{ asset('assets/img/difficultyXD.svg') }}" class="{{ song.hasXDDifficulty ? "active" : "" }}" alt="xD Difficulty" /> -->
+            {% if song.hasEasyDifficulty %}<div class="difficulty"><span>E</span> {{ song.easyDifficulty }}</div>{% endif %}
+            {% if song.hasNormalDifficulty %}<div class="difficulty"><span>N</span> {{ song.normalDifficulty }}</div>{% endif %}
+            {% if song.hasHardDifficulty %}<div class="difficulty"><span>H</span> {{ song.hardDifficulty }}</div>{% endif %}
+            {% if song.hasExtremeDifficulty %}<div class="difficulty"><span>EX</span> {{ song.expertDifficulty }}</div>{% endif %}
+            {% if song.hasXDDifficulty %}<div class="difficulty"><span>XD</span> {{ song.XDDifficulty }}</div>{% endif %}
         </div>
     </div>
 </a>

@@ -231,6 +231,7 @@ class SongController extends AbstractController
                 $song->setTags($data['tags']);
                 $song->setDescription($data['description']);
                 $song->setIsExplicit($data['isExplicit']);
+                $song->setUpdateDate(new \DateTime('NOW'));
                 $song->setPublicationStatus($data['publicationStatus']);
 
                 if($backupFile) {
@@ -305,12 +306,23 @@ class SongController extends AbstractController
                                     $song->setArtist($trackInfo->artistName);
                                     $song->setCharter($trackInfo->charter);
 
+                                    // Generate new UpdateHash
+                                    $song->setUpdateHash(md5(json_encode($srtbContent)));
+
+                                    // Reset Difficulty Ratings
                                     $song->setHasEasyDifficulty(false);
                                     $song->setHasNormalDifficulty(false);
                                     $song->setHasHardDifficulty(false);
                                     $song->setHasExtremeDifficulty(false);
                                     $song->setHasXDDifficulty(false);
 
+                                    $song->setEasyDifficulty(null);
+                                    $song->setNormalDifficulty(null);
+                                    $song->setHardDifficulty(null);
+                                    $song->setExpertDifficulty(null);
+                                    $song->setXDDifficulty(null);
+
+                                    // Detect difficulties
                                     foreach($trackInfo->difficulties as $oneData) {
                                         if(isset($oneData->_active) && $oneData->_active || !isset($oneData->_active)) {
                                             switch($oneData->_difficulty) {
@@ -330,6 +342,27 @@ class SongController extends AbstractController
                                                     $song->setHasXDDifficulty(true);
                                                     break;
                                             }
+                                        }
+                                    }
+
+                                    // Detect difficulty ratings
+                                    foreach($trackData as $trackDataItem) {
+                                        switch($trackDataItem->difficultyType) {
+                                            case 2:
+                                                $song->setEasyDifficulty($trackDataItem->difficultyRating);
+                                                break;
+                                            case 3:
+                                                $song->setNormalDifficulty($trackDataItem->difficultyRating);
+                                                break;
+                                            case 4:
+                                                $song->setHardDifficulty($trackDataItem->difficultyRating);
+                                                break;
+                                            case 5:
+                                                $song->setExpertDifficulty($trackDataItem->difficultyRating);
+                                                break;
+                                            case 6:
+                                                $song->setXDDifficulty($trackDataItem->difficultyRating);
+                                                break;
                                         }
                                     }
                                 } catch(Exception $e) {

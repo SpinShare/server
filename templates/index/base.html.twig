@@ -8,7 +8,9 @@
             <div class="tabs">
                 <a href="{{ path('index.index') }}" class="tab {% if app.request.attributes.get('_route') == 'index.index' %}active{% endif %}">Frontpage</a>
                 <a href="{{ path('index.new') }}" class="tab {% if app.request.attributes.get('_route') == 'index.new' %}active{% endif %}">New</a>
-                <a href="{{ path('index.hot') }}" class="tab {% if app.request.attributes.get('_route') == 'index.hot' %}active{% endif %}">Hot</a>
+                <a href="{{ path('index.updated') }}" class="tab {% if app.request.attributes.get('_route') == 'index.updated' %}active{% endif %}">Updated</a>
+                <a href="{{ path('index.hotThisWeek') }}" class="tab {% if app.request.attributes.get('_route') == 'index.hotThisWeek' %}active{% endif %}">Hot This Week</a>
+                <a href="{{ path('index.hotThisMonth') }}" class="tab {% if app.request.attributes.get('_route') == 'index.hotThisMonth' %}active{% endif %}">Hot This Month</a>
             </div>
         </header>
 

@@ -101,6 +101,9 @@ class UploadController extends AbstractController
                                 $song->setHasExtremeDifficulty(false);
                                 $song->setHasXDDifficulty(false);
 
+                                $song->setUpdateHash(md5(json_encode($srtbContent)));
+
+                                // Detect used difficulties
                                 foreach($trackInfo->difficulties as $oneData) {
                                     if(isset($oneData->_active) && $oneData->_active || !isset($oneData->_active)) {
                                         switch($oneData->_difficulty) {
@@ -122,7 +125,31 @@ class UploadController extends AbstractController
                                         }
                                     }
                                 }
+
+                                // Detect difficulty ratings
+                                foreach($trackData as $trackDataItem) {
+                                    switch($trackDataItem->difficultyType) {
+                                        case 2:
+                                            $song->setEasyDifficulty($trackDataItem->difficultyRating);
+                                            break;
+                                        case 3:
+                                            $song->setNormalDifficulty($trackDataItem->difficultyRating);
+                                            break;
+                                        case 4:
+                                            $song->setHardDifficulty($trackDataItem->difficultyRating);
+                                            break;
+                                        case 5:
+                                            $song->setExpertDifficulty($trackDataItem->difficultyRating);
+                                            break;
+                                        case 6:
+                                            $song->setXDDifficulty($trackDataItem->difficultyRating);
+                                            break;
+                                    }
+                                }
                             } catch(Exception $e) {
+                                var_dump($e);
+                                exit;
+
                                 $this->addFlash('error', 'Uploading failed. Please report back to our development team!');
 
                                 // clean up temp files

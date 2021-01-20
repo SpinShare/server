@@ -30,6 +30,15 @@ class SearchController extends AbstractController
 
             $data['results']['users'] = $resultsUsers;
             $data['results']['songs'] = $resultsSongs;
+
+            $filterEasy = true;
+            $filterNormal = true;
+            $filterHard = true;
+            $filterExpert = true;
+            $filterXD = true;
+    
+            $filterMinDifficulty = 0;
+            $filterMaxDifficulty = 99;
         } else {
             if($searchQuery != null) {
                 $resultsUsers = $em->getRepository(User::class)->createQueryBuilder('o')
@@ -39,24 +48,78 @@ class SearchController extends AbstractController
                                                                 ->getQuery()
                                                                 ->getResult();
 
-                
-                $resultsSongs = $em->getRepository(Song::class)->createQueryBuilder('o')
-                                                                ->where('o.title LIKE :query')
-                                                                ->orWhere('o.subtitle LIKE :query')
-                                                                ->orWhere('o.tags LIKE :query')
-                                                                ->orWhere('o.artist LIKE :query')
-                                                                ->orWhere('o.charter LIKE :query')
-                                                                ->andWhere('o.publicationStatus IN (0, 1)')
-                                                                ->orderBy('o.id', 'DESC')
-                                                                ->setParameter('query', '%'.$searchQuery.'%')
-                                                                ->getQuery()
-                                                                ->getResult();
+                $resultsSongs = $em->getRepository(Song::class)->createQueryBuilder('o');
+
+                $resultsSongs->where('o.title LIKE :query');
+                $resultsSongs->orWhere('o.subtitle LIKE :query');
+                $resultsSongs->orWhere('o.tags LIKE :query');
+                $resultsSongs->orWhere('o.artist LIKE :query');
+                $resultsSongs->orWhere('o.charter LIKE :query');
+
+                // Add Filters for difficulty
+                $filterEasy = $request->query->get('diffEasy') == 'on' ? true : false;
+                $filterNormal = $request->query->get('diffNormal') == 'on' ? true : false;
+                $filterHard = $request->query->get('diffHard') == 'on' ? true : false;
+                $filterExpert = $request->query->get('diffExpert') == 'on' ? true : false;
+                $filterXD = $request->query->get('diffXD') == 'on' ? true : false;
+
+                // Add Filters for difficulty ratings
+                $filterMinDifficulty = intval($request->query->get('diffRatingFrom'));
+                $filterMaxDifficulty = intval($request->query->get('diffRatingTo'));
+
+                if($filterMinDifficulty == null) { $filterMinDifficulty = 0; }
+                if($filterMaxDifficulty == null) { $filterMaxDifficulty = 99; }
+
+                $resultsSongs->setParameter('query', "%".$searchQuery."%");
+                $resultsSongs->andWhere('o.publicationStatus IN (0, 1)');
+                $resultsSongs->orderBy('o.id', 'DESC');
+
+                $resultsSongs = $resultsSongs->getQuery()->getResult();
+
+                // Filter Song Results
+                $filteredResultsSongs = [];
+                foreach($resultsSongs as $resultSong) {
+                    // Has the required difficulty
+                    if($filterEasy && $resultSong->getHasEasyDifficulty() ||
+                        $filterNormal && $resultSong->getHasNormalDifficulty() ||
+                        $filterHard && $resultSong->getHasHardDifficulty() ||
+                        $filterExpert && $resultSong->getHasExtremeDifficulty() ||
+                        $filterXD && $resultSong->getHasXDDifficulty()) {
+
+                        // Has the minimum difficulty rating
+                        if($resultSong->getHasEasyDifficulty() && $resultSong->getEasyDifficulty() >= $filterMinDifficulty ||
+                            $resultSong->getHasNormalDifficulty() && $resultSong->getNormalDifficulty() >= $filterMinDifficulty ||
+                            $resultSong->getHasHardDifficulty() && $resultSong->getHardDifficulty() >= $filterMinDifficulty ||
+                            $resultSong->getHasExtremeDifficulty() && $resultSong->getExpertDifficulty() >= $filterMinDifficulty ||
+                            $resultSong->getHasXDDifficulty() && $resultSong->getXDDifficulty() >= $filterMinDifficulty) {
+
+                            // Has the maximum difficulty rating
+                            if($resultSong->getHasEasyDifficulty() && $resultSong->getEasyDifficulty() <= $filterMaxDifficulty ||
+                                $resultSong->getHasNormalDifficulty() && $resultSong->getNormalDifficulty() <= $filterMaxDifficulty ||
+                                $resultSong->getHasHardDifficulty() && $resultSong->getHardDifficulty() <= $filterMaxDifficulty ||
+                                $resultSong->getHasExtremeDifficulty() && $resultSong->getExpertDifficulty() <= $filterMaxDifficulty ||
+                                $resultSong->getHasXDDifficulty() && $resultSong->getXDDifficulty() <= $filterMaxDifficulty) {
+
+                                $filteredResultsSongs[] = $resultSong;
+                            }
+                        }
+                    }
+                }
 
                 $data['results']['users'] = $resultsUsers;
-                $data['results']['songs'] = $resultsSongs;
+                $data['results']['songs'] = $filteredResultsSongs;
             }
         }
+
         $data['searchQuery'] = $searchQuery;
+        $data['filterEasy'] = $filterEasy;
+        $data['filterNormal'] = $filterNormal;
+        $data['filterHard'] = $filterHard;
+        $data['filterExpert'] = $filterExpert;
+        $data['filterXD'] = $filterXD;
+
+        $data['diffRatingFrom'] = $filterMinDifficulty;
+        $data['diffRatingTo'] = $filterMaxDifficulty;
 
         return $this->render('search/index.html.twig', $data);
     }

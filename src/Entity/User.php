@@ -42,7 +42,7 @@
         private $reviews;
 
         /**
-         * @ORM\ManyToMany(targetEntity="App\Entity\SongSpinPlay", mappedBy="user")
+         * @ORM\OneToMany(targetEntity="App\Entity\SongSpinPlay", mappedBy="user")
          */
         private $spinPlays;
 

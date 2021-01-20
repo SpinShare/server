@@ -125,14 +125,19 @@
 }
 .section-song-detail .song-detail .song-statistics .stat .difficulties {
   align-self: center;
+  height: 20px;
+  display: flex;
 }
-.section-song-detail .song-detail .song-statistics .stat .difficulties img {
-  height: 25px;
-  margin-right: 5px;
-  opacity: 0.4;
+.section-song-detail .song-detail .song-statistics .stat .difficulties .difficulty {
+  background: #fff;
+  color: #000;
+  border-radius: 4px;
+  padding: 3px 8px;
+  margin-right: 4px;
+  font-size: 10px;
 }
-.section-song-detail .song-detail .song-statistics .stat .difficulties img.active {
-  opacity: 1;
+.section-song-detail .song-detail .song-statistics .stat .difficulties .difficulty span {
+  font-weight: bold;
 }
 .section-song-detail .song-detail .song-statistics .stat .content {
   align-self: center;
@@ -687,4 +692,3 @@
     grid-template-columns: 1fr;
   }
 }
-/*# sourceMappingURL=songdetail.css.map */
