@@ -100,9 +100,39 @@ class Song
     private $hasXDDifficulty;
 
     /**
+     * @ORM\Column(type="integer", nullable=true, options={"default": 0})
+     */
+    private $easyDifficulty;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true, options={"default": 0})
+     */
+    private $normalDifficulty;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true, options={"default": 0})
+     */
+    private $hardDifficulty;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true, options={"default": 0})
+     */
+    private $expertDifficulty;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true, options={"default": 0})
+     */
+    private $XDDifficulty;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $uploadDate;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $updateHash;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -123,6 +153,11 @@ class Song
      * @ORM\ManyToMany(targetEntity="App\Entity\SongPlaylist", mappedBy="songs")
      */
     private $songPlaylists;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updateDate;
 
     public function __construct()
     {
@@ -333,6 +368,86 @@ class Song
         return $this;
     }
 
+    public function getEasyDifficulty(): ?int
+    {
+        return $this->easyDifficulty;
+    }
+
+    public function setEasyDifficulty(?int $easyDifficulty): self
+    {
+        if($easyDifficulty != null) {
+            $this->easyDifficulty = max(0, min(99, $easyDifficulty));
+        } else {
+            $this->easyDifficulty = $easyDifficulty;
+        }
+
+        return $this;
+    }
+
+    public function getNormalDifficulty(): ?int
+    {
+        return $this->normalDifficulty;
+    }
+
+    public function setNormalDifficulty(?int $normalDifficulty): self
+    {
+        if($normalDifficulty != null) {
+            $this->normalDifficulty = max(0, min(99, $normalDifficulty));
+        } else {
+            $this->normalDifficulty = $normalDifficulty;
+        }
+
+        return $this;
+    }
+
+    public function getHardDifficulty(): ?int
+    {
+        return $this->hardDifficulty;
+    }
+
+    public function setHardDifficulty(?int $hardDifficulty): self
+    {
+        if($hardDifficulty != null) {
+            $this->hardDifficulty = max(0, min(99, $hardDifficulty));
+        } else {
+            $this->hardDifficulty = $hardDifficulty;
+        }
+
+        return $this;
+    }
+
+    public function getExpertDifficulty(): ?int
+    {
+        return $this->expertDifficulty;
+    }
+
+    public function setExpertDifficulty(?int $expertDifficulty): self
+    {
+        if($expertDifficulty != null) {
+            $this->expertDifficulty = max(0, min(99, $expertDifficulty));
+        } else {
+            $this->expertDifficulty = $expertDifficulty;
+        }
+
+        return $this;
+    }
+
+    public function getXDDifficulty(): ?int
+    {
+        return $this->XDDifficulty;
+    }
+
+    public function setXDDifficulty(?int $XDDifficulty): self
+    {
+        if($XDDifficulty != null) {
+            $this->XDDifficulty = max(0, min(99, $XDDifficulty));
+        } else {
+            $this->XDDifficulty = $XDDifficulty;
+        }
+
+        return $this;
+    }
+
     public function getUploadDate(): ?DateTimeInterface
     {
         return $this->uploadDate;
@@ -341,6 +456,18 @@ class Song
     public function setUploadDate(DateTimeInterface $uploadDate): self
     {
         $this->uploadDate = $uploadDate;
+
+        return $this;
+    }
+
+    public function getUpdateHash(): ?string
+    {
+        return $this->updateHash;
+    }
+
+    public function setUpdateHash(?string $updateHash): self
+    {
+        $this->updateHash = $updateHash;
 
         return $this;
     }
@@ -438,7 +565,14 @@ class Song
             'hasHardDifficulty' => $this->hasHardDifficulty,
             'hasExtremeDifficulty' => $this->hasExtremeDifficulty,
             'hasXDDifficulty' => $this->hasXDDifficulty,
+            'easyDifficulty' => $this->easyDifficulty,
+            'normalDifficulty' => $this->normalDifficulty,
+            'hardDifficulty' => $this->hardDifficulty,
+            'expertDifficulty' => $this->expertDifficulty,
+            'XDDifficulty' => $this->XDDifficulty,
             'uploadDate' => $this->uploadDate,
+            'updateDate' => $this->updateDate,
+            'updateHash' => $this->updateHash,
             'description' => $this->description
         );
     }
@@ -467,6 +601,18 @@ class Song
             $this->songPlaylists->removeElement($songPlaylist);
             $songPlaylist->removeSong($this);
         }
+
+        return $this;
+    }
+
+    public function getUpdateDate(): ?\DateTimeInterface
+    {
+        return $this->updateDate;
+    }
+
+    public function setUpdateDate(?\DateTimeInterface $updateDate): self
+    {
+        $this->updateDate = $updateDate;
 
         return $this;
     }

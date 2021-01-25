@@ -143,14 +143,20 @@
 
                 & .difficulties {
                     align-self: center;
-
-                    & img {
-                        height: 25px;
-                        margin-right: 5px;
-                        opacity: 0.4;
-
-                        &.active {
-                            opacity: 1;
+                    height: 20px;
+                    display: flex;
+        
+                    & .difficulty {
+                        background: #fff;
+                        color: #000;
+                        border-radius: 4px;
+                        padding: 3px 8px;
+                        margin-right: 4px;
+                        font-size: 10px;
+        
+                        & span {
+                            // padding-right: 3px;
+                            font-weight: bold;
                         }
                     }
                 }

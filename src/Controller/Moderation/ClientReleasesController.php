@@ -83,7 +83,7 @@ class ClientReleasesController extends AbstractController
                 $em->persist($newRelease);
                 $em->flush();
 
-                return $this->redirectToRoute('moderation.index');
+                return $this->redirectToRoute('moderation.clientreleases.index');
             } catch(FileException $e) {
 
             }
@@ -118,6 +118,6 @@ class ClientReleasesController extends AbstractController
         $em->remove($releaseToRemove);
         $em->flush();
 
-        return $this->redirectToRoute('moderation.index');
+        return $this->redirectToRoute('moderation.clientreleases.index');
     }
 }

@@ -379,6 +379,11 @@ input[type="range"]::-ms-fill-lower {
         grid-template-columns: repeat(6, 1fr);
         grid-gap: 15px;
     }
+    & .song-list-5 {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-gap: 15px;
+    }
     & .pagination {
         text-align: right;
         margin-top: 25px;
@@ -494,15 +499,10 @@ input[type="range"]::-ms-fill-lower {
                 padding: 3px 8px;
                 margin-right: 4px;
                 font-size: 10px;
-                opacity: 0.3;
 
                 & span {
                     // padding-right: 3px;
                     font-weight: bold;
-                }
-
-                &.active {
-                    opacity: 1;
                 }
             }
         }

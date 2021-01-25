@@ -1,0 +1,23 @@
+{% extends 'index/base.html.twig' %}
+
+{% block indexContent %}
+        <div class="song-row song-row-hot">
+            <div class="song-list">
+                {% for song in hotMonthSongs %}
+                    {{ include('components/song-item.html.twig', {song: song}) }}
+                {% endfor %}
+            </div>
+            <div class="pagination">
+                {% if hotMonthOffset > 0 %}
+                    <a href="{{ path('index.hot', {hotMonthOffset: hotMonthOffset - 1}) }}" class="button"><i class="mdi mdi-chevron-left"></i> PREVIOUS</a>
+                {% else %}
+                    <a class="button button-disabled"><i class="mdi mdi-chevron-left"></i> PREVIOUS</a>
+                {% endif %}
+                {% if hotMonthSongs|length < 12 %}
+                    <a class="button button-disabled">NEXT <i class="mdi mdi-chevron-right"></i></a>
+                {% else %}
+                    <a href="{{ path('index.hot', {hotMonthOffset: hotMonthOffset + 1}) }}" class="button">NEXT <i class="mdi mdi-chevron-right"></i></a>
+                {% endif %}
+            </div>
+        </div>
+{% endblock %}

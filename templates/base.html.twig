@@ -48,6 +48,13 @@
 
           <form action="{{ path('search.index') }}" method="GET" class="search">
             <input name="q" type="search" placeholder="Search for songs, tags & profiles..." value="{{ searchQuery|default('') }}" />
+            <input type="hidden" name="diffEasy" value="on" />
+            <input type="hidden" name="diffNormal" value="on" />
+            <input type="hidden" name="diffHard" value="on" />
+            <input type="hidden" name="diffExpert" value="on" />
+            <input type="hidden" name="diffXD" value="on" />
+            <input type="hidden" name="diffRatingFrom" value="0" />
+            <input type="hidden" name="diffRatingTo" value="99" />
           </form>
 
           <nav class="items-right">

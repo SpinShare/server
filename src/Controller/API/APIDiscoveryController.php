@@ -44,6 +44,13 @@ class APIDiscoveryController extends AbstractController
             $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
             $oneResult['hasExtremeDifficulty'] = $result->getHasExtremeDifficulty();
             $oneResult['hasXDDifficulty'] = $result->getHasXDDifficulty();
+            $oneResult['easyDifficulty'] = $result->getEasyDifficulty();
+            $oneResult['normalDifficulty'] = $result->getNormalDifficulty();
+            $oneResult['hardDifficulty'] = $result->getHardDifficulty();
+            $oneResult['expertDifficulty'] = $result->getExpertDifficulty();
+            $oneResult['XDDifficulty'] = $result->getXDDifficulty();
+            $oneResult['updateDate'] = $result->getUpdateDate();
+            $oneResult['updateHash'] = $result->getUpdateHash();
             $oneResult['cover'] = $baseUrl."/uploads/thumbnail/".$result->getFileReference().".jpg";
             $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -55,15 +62,15 @@ class APIDiscoveryController extends AbstractController
     }
 
     /**
-     * @Route("/api/songs/hot/{offset}", name="api.songs.hot")
-     * @Route("/api/songs/hot/{offset}/")
+     * @Route("/api/songs/updated/{offset}", name="api.songs.updated")
+     * @Route("/api/songs/updated/{offset}/")
      */
-    public function songsHot(Request $request, int $offset = 0)
+    public function songsUpdated(Request $request, int $offset = 0)
     {
         $em = $this->getDoctrine()->getManager();
         $data = [];
 
-        $results = $em->getRepository(Song::class)->getHot($offset);
+        $results = $em->getRepository(Song::class)->getUpdated($offset);
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         foreach($results as $result) {
@@ -79,6 +86,13 @@ class APIDiscoveryController extends AbstractController
             $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
             $oneResult['hasExtremeDifficulty'] = $result->getHasExtremeDifficulty();
             $oneResult['hasXDDifficulty'] = $result->getHasXDDifficulty();
+            $oneResult['easyDifficulty'] = $result->getEasyDifficulty();
+            $oneResult['normalDifficulty'] = $result->getNormalDifficulty();
+            $oneResult['hardDifficulty'] = $result->getHardDifficulty();
+            $oneResult['expertDifficulty'] = $result->getExpertDifficulty();
+            $oneResult['XDDifficulty'] = $result->getXDDifficulty();
+            $oneResult['updateDate'] = $result->getUpdateDate();
+            $oneResult['updateHash'] = $result->getUpdateHash();
             $oneResult['cover'] = $baseUrl."/uploads/thumbnail/".$result->getFileReference().".jpg";
             $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -90,16 +104,86 @@ class APIDiscoveryController extends AbstractController
     }
 
     /**
-     * @Route("/api/songs/popular/{offset}", name="api.songs.popular")
-     * @Route("/api/songs/popular/{offset}/")
+     * @Route("/api/songs/hotThisWeek/{offset}", name="api.songs.hotThisWeek")
+     * @Route("/api/songs/hotThisWeek/{offset}/")
      */
-    public function songsPopular(Request $request, int $offset = 0)
+    public function songsHotThisWeek(Request $request, int $offset = 0)
     {
-        // TODO: Remove this later on
         $em = $this->getDoctrine()->getManager();
         $data = [];
 
-        $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => []]);
+        $results = $em->getRepository(Song::class)->getHotThisWeek($offset);
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
+        foreach($results as $result) {
+            $oneResult = [];
+
+            $oneResult['id'] = $result->getId();
+            $oneResult['title'] = $result->getTitle();
+            $oneResult['subtitle'] = $result->getSubtitle();
+            $oneResult['artist'] = $result->getArtist();
+            $oneResult['charter'] = $result->getCharter();
+            $oneResult['hasEasyDifficulty'] = $result->getHasEasyDifficulty();
+            $oneResult['hasNormalDifficulty'] = $result->getHasNormalDifficulty();
+            $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
+            $oneResult['hasExtremeDifficulty'] = $result->getHasExtremeDifficulty();
+            $oneResult['hasXDDifficulty'] = $result->getHasXDDifficulty();
+            $oneResult['easyDifficulty'] = $result->getEasyDifficulty();
+            $oneResult['normalDifficulty'] = $result->getNormalDifficulty();
+            $oneResult['hardDifficulty'] = $result->getHardDifficulty();
+            $oneResult['expertDifficulty'] = $result->getExpertDifficulty();
+            $oneResult['XDDifficulty'] = $result->getXDDifficulty();
+            $oneResult['updateDate'] = $result->getUpdateDate();
+            $oneResult['updateHash'] = $result->getUpdateHash();
+            $oneResult['cover'] = $baseUrl."/uploads/thumbnail/".$result->getFileReference().".jpg";
+            $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
+
+            $data[] = $oneResult;
+        }
+
+        $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
+        return $response;
+    }
+
+    /**
+     * @Route("/api/songs/hotThisMonth/{offset}", name="api.songs.hotThisMonth")
+     * @Route("/api/songs/hotThisMonth/{offset}/")
+     */
+    public function songsHotThisMonth(Request $request, int $offset = 0)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        $results = $em->getRepository(Song::class)->getHotThisMonth($offset);
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
+        foreach($results as $result) {
+            $oneResult = [];
+
+            $oneResult['id'] = $result->getId();
+            $oneResult['title'] = $result->getTitle();
+            $oneResult['subtitle'] = $result->getSubtitle();
+            $oneResult['artist'] = $result->getArtist();
+            $oneResult['charter'] = $result->getCharter();
+            $oneResult['hasEasyDifficulty'] = $result->getHasEasyDifficulty();
+            $oneResult['hasNormalDifficulty'] = $result->getHasNormalDifficulty();
+            $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
+            $oneResult['hasExtremeDifficulty'] = $result->getHasExtremeDifficulty();
+            $oneResult['hasXDDifficulty'] = $result->getHasXDDifficulty();
+            $oneResult['easyDifficulty'] = $result->getEasyDifficulty();
+            $oneResult['normalDifficulty'] = $result->getNormalDifficulty();
+            $oneResult['hardDifficulty'] = $result->getHardDifficulty();
+            $oneResult['expertDifficulty'] = $result->getExpertDifficulty();
+            $oneResult['XDDifficulty'] = $result->getXDDifficulty();
+            $oneResult['updateDate'] = $result->getUpdateDate();
+            $oneResult['updateHash'] = $result->getUpdateHash();
+            $oneResult['cover'] = $baseUrl."/uploads/thumbnail/".$result->getFileReference().".jpg";
+            $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
+
+            $data[] = $oneResult;
+        }
+
+        $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
         return $response;
     }
 
@@ -166,6 +250,13 @@ class APIDiscoveryController extends AbstractController
             $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
             $oneResult['hasExtremeDifficulty'] = $result->getHasExtremeDifficulty();
             $oneResult['hasXDDifficulty'] = $result->getHasXDDifficulty();
+            $oneResult['easyDifficulty'] = $result->getEasyDifficulty();
+            $oneResult['normalDifficulty'] = $result->getNormalDifficulty();
+            $oneResult['hardDifficulty'] = $result->getHardDifficulty();
+            $oneResult['expertDifficulty'] = $result->getExpertDifficulty();
+            $oneResult['XDDifficulty'] = $result->getXDDifficulty();
+            $oneResult['updateDate'] = $result->getUpdateDate();
+            $oneResult['updateHash'] = $result->getUpdateHash();
             $oneResult['cover'] = $baseUrl."/uploads/thumbnail/".$result->getFileReference().".jpg";
             $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -223,19 +314,65 @@ class APIDiscoveryController extends AbstractController
         }
 
         // Songs
-        $resultsSongs = $em->getRepository(Song::class)->createQueryBuilder('o')
-                                                        ->where('o.title LIKE :query')
-                                                        ->orWhere('o.subtitle LIKE :query')
-                                                        ->orWhere('o.tags LIKE :query')
-                                                        ->orWhere('o.artist LIKE :query')
-                                                        ->orWhere('o.charter LIKE :query')
-                                                        ->andWhere('o.publicationStatus IN (0, 1)')
-                                                        ->orderBy('o.id', 'DESC')
-                                                        ->setParameter('query', '%'.$searchQuery.'%')
-                                                        ->getQuery()
-                                                        ->getResult();
+        $resultsSongs = $em->getRepository(Song::class)->createQueryBuilder('o');
+
+        $resultsSongs->where('o.title LIKE :query');
+        $resultsSongs->orWhere('o.subtitle LIKE :query');
+        $resultsSongs->orWhere('o.tags LIKE :query');
+        $resultsSongs->orWhere('o.artist LIKE :query');
+        $resultsSongs->orWhere('o.charter LIKE :query');
+
+        // Add Filters for difficulty
+        $filterEasy = isset($jsonBody['diffEasy']) ? $jsonBody['diffEasy'] : true;
+        $filterNormal = isset($jsonBody['diffNormal']) ? $jsonBody['diffNormal'] : true;
+        $filterHard = isset($jsonBody['diffHard']) ? $jsonBody['diffHard'] : true;
+        $filterExpert = isset($jsonBody['diffExpert']) ? $jsonBody['diffExpert'] : true;
+        $filterXD = isset($jsonBody['diffXD']) ? $jsonBody['diffXD'] : true;
+
+        // Add Filters for difficulty ratings
+        $filterMinDifficulty = intval(isset($jsonBody['diffRatingFrom']) ? $jsonBody['diffRatingFrom'] : 0);
+        $filterMaxDifficulty = intval(isset($jsonBody['diffRatingTo']) ? $jsonBody['diffRatingTo'] : 99);
+
+        if($filterMinDifficulty == null) { $filterMinDifficulty = 0; }
+        if($filterMaxDifficulty == null) { $filterMaxDifficulty = 99; }
+
+        $resultsSongs->setParameter('query', "%".$searchQuery."%");
+        $resultsSongs->andWhere('o.publicationStatus IN (0, 1)');
+        $resultsSongs->orderBy('o.id', 'DESC');
+
+        $resultsSongs = $resultsSongs->getQuery()->getResult();
+        
+        // Filter Song Results
+        $filteredResultsSongs = [];
+        foreach($resultsSongs as $resultSong) {
+            // Has the required difficulty
+            if($filterEasy && $resultSong->getHasEasyDifficulty() ||
+                $filterNormal && $resultSong->getHasNormalDifficulty() ||
+                $filterHard && $resultSong->getHasHardDifficulty() ||
+                $filterExpert && $resultSong->getHasExtremeDifficulty() ||
+                $filterXD && $resultSong->getHasXDDifficulty()) {
+
+                // Has the minimum difficulty rating
+                if($resultSong->getHasEasyDifficulty() && $resultSong->getEasyDifficulty() >= $filterMinDifficulty ||
+                    $resultSong->getHasNormalDifficulty() && $resultSong->getNormalDifficulty() >= $filterMinDifficulty ||
+                    $resultSong->getHasHardDifficulty() && $resultSong->getHardDifficulty() >= $filterMinDifficulty ||
+                    $resultSong->getHasExtremeDifficulty() && $resultSong->getExpertDifficulty() >= $filterMinDifficulty ||
+                    $resultSong->getHasXDDifficulty() && $resultSong->getXDDifficulty() >= $filterMinDifficulty) {
+
+                    // Has the maximum difficulty rating
+                    if($resultSong->getHasEasyDifficulty() && $resultSong->getEasyDifficulty() <= $filterMaxDifficulty ||
+                        $resultSong->getHasNormalDifficulty() && $resultSong->getNormalDifficulty() <= $filterMaxDifficulty ||
+                        $resultSong->getHasHardDifficulty() && $resultSong->getHardDifficulty() <= $filterMaxDifficulty ||
+                        $resultSong->getHasExtremeDifficulty() && $resultSong->getExpertDifficulty() <= $filterMaxDifficulty ||
+                        $resultSong->getHasXDDifficulty() && $resultSong->getXDDifficulty() <= $filterMaxDifficulty) {
+
+                        $filteredResultsSongs[] = $resultSong;
+                    }
+                }
+            }
+        }
                 
-        foreach($resultsSongs as $result) {
+        foreach($filteredResultsSongs as $result) {
             $oneResult = [];
 
             $oneResult['id'] = $result->getId();
@@ -248,6 +385,13 @@ class APIDiscoveryController extends AbstractController
             $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
             $oneResult['hasExtremeDifficulty'] = $result->getHasExtremeDifficulty();
             $oneResult['hasXDDifficulty'] = $result->getHasXDDifficulty();
+            $oneResult['easyDifficulty'] = $result->getEasyDifficulty();
+            $oneResult['normalDifficulty'] = $result->getNormalDifficulty();
+            $oneResult['hardDifficulty'] = $result->getHardDifficulty();
+            $oneResult['expertDifficulty'] = $result->getExpertDifficulty();
+            $oneResult['XDDifficulty'] = $result->getXDDifficulty();
+            $oneResult['updateDate'] = $result->getUpdateDate();
+            $oneResult['updateHash'] = $result->getUpdateHash();
             $oneResult['cover'] = $baseUrl."/uploads/thumbnail/".$result->getFileReference().".jpg";
             $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
 
@@ -287,6 +431,13 @@ class APIDiscoveryController extends AbstractController
             $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
             $oneResult['hasExtremeDifficulty'] = $result->getHasExtremeDifficulty();
             $oneResult['hasXDDifficulty'] = $result->getHasXDDifficulty();
+            $oneResult['easyDifficulty'] = $result->getEasyDifficulty();
+            $oneResult['normalDifficulty'] = $result->getNormalDifficulty();
+            $oneResult['hardDifficulty'] = $result->getHardDifficulty();
+            $oneResult['expertDifficulty'] = $result->getExpertDifficulty();
+            $oneResult['XDDifficulty'] = $result->getXDDifficulty();
+            $oneResult['updateDate'] = $result->getUpdateDate();
+            $oneResult['updateHash'] = $result->getUpdateHash();
             $oneResult['cover'] = $baseUrl."/uploads/thumbnail/".$result->getFileReference().".jpg";
             $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
 

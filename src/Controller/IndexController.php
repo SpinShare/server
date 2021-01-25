@@ -47,20 +47,54 @@ class IndexController extends AbstractController
     }
 
     /**
-     * @Route("/hot", name="index.hot")
+     * @Route("/updated", name="index.updated")
      */
-    public function hot(Request $request)
+    public function updated(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $data = [];
         
-        $hotOffset = $request->query->get('hotOffset') ? $request->query->get('hotOffset') : 0;
-        $resultsHotSongs = $em->getRepository(Song::class)->getHot($hotOffset);
+        $updatedOffset = $request->query->get('updatedOffset') ? $request->query->get('updatedOffset') : 0;
+        $resultsUpdatedSongs = $em->getRepository(Song::class)->getUpdated($updatedOffset);
 
-        $data['hotSongs'] = $resultsHotSongs;
-        $data['hotOffset'] = $hotOffset;
+        $data['updatedSongs'] = $resultsUpdatedSongs;
+        $data['updatedOffset'] = $updatedOffset;
 
-        return $this->render('index/hot.html.twig', $data);
+        return $this->render('index/updated.html.twig', $data);
+    }
+
+    /**
+     * @Route("/hotThisWeek", name="index.hotThisWeek")
+     */
+    public function hotThisWeek(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+        
+        $hotWeekOffset = $request->query->get('hotWeekOffset') ? $request->query->get('hotWeekOffset') : 0;
+        $resultsHotWeekSongs = $em->getRepository(Song::class)->getHotThisWeek($hotWeekOffset);
+
+        $data['hotWeekSongs'] = $resultsHotWeekSongs;
+        $data['hotWeekOffset'] = $hotWeekOffset;
+
+        return $this->render('index/hotThisWeek.html.twig', $data);
+    }
+
+    /**
+     * @Route("/hotThisMonth", name="index.hotThisMonth")
+     */
+    public function hotThisMonth(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+        
+        $hotMonthOffset = $request->query->get('hotMonthOffset') ? $request->query->get('hotMonthOffset') : 0;
+        $resultsHotMonthSongs = $em->getRepository(Song::class)->getHotThisMonth($hotMonthOffset);
+
+        $data['hotMonthSongs'] = $resultsHotMonthSongs;
+        $data['hotMonthOffset'] = $hotMonthOffset;
+
+        return $this->render('index/hotThisMonth.html.twig', $data);
     }
 
     /**

@@ -24,12 +24,23 @@ class SongRepository extends ServiceEntityRepository
         $qb
             ->where('e.publicationStatus = 0')
             ->orderBy('e.uploadDate', 'DESC')
-            ->setFirstResult(12 * $page)
-            ->setMaxResults(12);
+            ->setFirstResult(10 * $page)
+            ->setMaxResults(10);
         return $qb->getQuery()->getResult();
     }
 
-    public function getHot(int $page) {
+    public function getUpdated(int $page) {
+        $qb = $this->createQueryBuilder("e");
+        $qb
+            ->where('e.publicationStatus = 0')
+            ->orderBy('e.updateDate', 'DESC')
+            ->addOrderBy('e.uploadDate', 'DESC')
+            ->setFirstResult(10 * $page)
+            ->setMaxResults(10);
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getHotThisWeek(int $page) {
         $qb = $this->createQueryBuilder("e");
         $qb
             ->where('e.publicationStatus = 0')
@@ -37,10 +48,25 @@ class SongRepository extends ServiceEntityRepository
             ->andWhere('e.uploadDate >= :end')
             ->orderBy('e.downloads', 'DESC')
             ->addOrderBy('e.views', 'DESC')
-            ->setFirstResult(12 * $page)
-            ->setMaxResults(12)
+            ->setFirstResult(10 * $page)
+            ->setMaxResults(10)
             ->setParameter('begin', new \DateTime('NOW'))
             ->setParameter('end', new \DateTime('-7 days'));
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getHotThisMonth(int $page) {
+        $qb = $this->createQueryBuilder("e");
+        $qb
+            ->where('e.publicationStatus = 0')
+            ->andWhere('e.uploadDate <= :begin')
+            ->andWhere('e.uploadDate >= :end')
+            ->orderBy('e.downloads', 'DESC')
+            ->addOrderBy('e.views', 'DESC')
+            ->setFirstResult(10 * $page)
+            ->setMaxResults(10)
+            ->setParameter('begin', new \DateTime('NOW'))
+            ->setParameter('end', new \DateTime('-1 month'));
         return $qb->getQuery()->getResult();
     }
 

@@ -4,12 +4,57 @@
 
 {% block content %}
     <section class="section-search">
-        <header>
-            <div class="title">Search</div>
-            <div class="actions">
-                <a href="{{ path('search.index', {showAll: true}) }}" class="button">Show all</a>
-            </div>
-        </header>
+        <div class="search-filters">
+            <form action="" method="get">
+                <input type="hidden" name="q" value="{{ searchQuery }}" />
+
+                <header>Difficulties Included</header>
+                <div class="filter-input">
+                    <label class="filter-difficulty">
+                        <input type="checkbox" name="diffEasy" {{ filterEasy ? 'checked' : '' }} />
+                        <span></span>
+                        <div>Easy</div>
+                    </label>
+                    <label class="filter-difficulty">
+                        <input type="checkbox" name="diffNormal" {{ filterNormal ? 'checked' : '' }} />
+                        <span></span>
+                        <div>Normal</div>
+                    </label>
+                    <label class="filter-difficulty">
+                        <input type="checkbox" name="diffHard" {{ filterHard ? 'checked' : '' }} />
+                        <span></span>
+                        <div>Hard</div>
+                    </label>
+                    <label class="filter-difficulty">
+                        <input type="checkbox" name="diffExpert" {{ filterExpert ? 'checked' : '' }} />
+                        <span></span>
+                        <div>Expert</div>
+                    </label>
+                    <label class="filter-difficulty">
+                        <input type="checkbox" name="diffXD" {{ filterXD ? 'checked' : '' }} />
+                        <span></span>
+                        <div>XD</div>
+                    </label>
+                </div>
+                
+                <header>Difficulty Rating</header>
+                <div class="filter-input">
+                    <label class="filter-rating">
+                        <input type="number" name="diffRatingFrom" value="{{ diffRatingFrom }}" />
+                        <div>Minimal Rating</div>
+                    </label>
+                    <label class="filter-rating">
+                        <input type="number" name="diffRatingTo" value="{{ diffRatingTo }}" />
+                        <div>Maximum Rating</div>
+                    </label>
+                </div>
+
+                <input type="submit" value="Filter" />
+            </form>
+
+            <!-- <a href="{{ path('search.index', {showAll: true}) }}" class="button">Show all</a> -->
+        </div>
+
         {% if results is defined %}
             <div class="search-results">
                 {% if results.users|length == 0 and results.songs|length == 0 %}
@@ -40,7 +85,7 @@
                 {% endif %}
                 {% if results.songs|length > 0 %}
                     <div class="song-row search-results-songs">
-                        <div class="song-list">
+                        <div class="song-list-5">
                             {% for song in results.songs %}
                                 {{ include('components/song-item.html.twig', {song: song}) }}
                             {% endfor %}
