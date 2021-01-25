@@ -13,7 +13,7 @@
                 {% else %}
                     <a class="button button-disabled"><i class="mdi mdi-chevron-left"></i> PREVIOUS</a>
                 {% endif %}
-                {% if hotMonthSongs|length < 12 %}
+                {% if hotMonthSongs|length < 10 %}
                     <a class="button button-disabled">NEXT <i class="mdi mdi-chevron-right"></i></a>
                 {% else %}
                     <a href="{{ path('index.hot', {hotMonthOffset: hotMonthOffset + 1}) }}" class="button">NEXT <i class="mdi mdi-chevron-right"></i></a>

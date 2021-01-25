@@ -13,7 +13,7 @@
                 {% else %}
                     <a class="button button-disabled"><i class="mdi mdi-chevron-left"></i> PREVIOUS</a>
                 {% endif %}
-                {% if newSongs|length < 12 %}
+                {% if newSongs|length < 10 %}
                     <a class="button button-disabled">NEXT <i class="mdi mdi-chevron-right"></i></a>
                 {% else %}
                     <a href="{{ path('index.new', {newOffset: newOffset + 1}) }}" class="button">NEXT <i class="mdi mdi-chevron-right"></i></a>
