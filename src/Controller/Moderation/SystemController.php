@@ -139,7 +139,7 @@ class SystemController extends AbstractController
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         // Calculate Max Count
-        $songCount = $em->getRepository(Song::class)->createQueryBuilder('u')->select('MAX(id)')->getQuery()->getSingleScalarResult();
+        $songCount = $em->getRepository(Song::class)->createQueryBuilder('u')->select('MAX(u.id)')->getQuery()->getSingleScalarResult();
         if($songID > $songCount) {
             return $this->redirectToRoute('moderation.system.index');
         }
@@ -254,7 +254,7 @@ class SystemController extends AbstractController
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         // Calculate Max Count
-        $songCount = $em->getRepository(Song::class)->createQueryBuilder('u')->select('MAX(id)')->getQuery()->getSingleScalarResult();
+        $songCount = $em->getRepository(Song::class)->createQueryBuilder('u')->select('MAX(u.id)')->getQuery()->getSingleScalarResult();
         if($songID > $songCount) {
             return $this->redirectToRoute('moderation.system.index');
         }
