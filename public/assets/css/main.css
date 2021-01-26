@@ -626,8 +626,3 @@ input[type="range"]::-ms-fill-lower {
     grid-template-columns: repeat(4, 1fr);
   }
 }
-@media screen and (min-width: 1400px) {
-  .song-row .song-list {
-    grid-template-columns: repeat(6, 1fr);
-  }
-}
