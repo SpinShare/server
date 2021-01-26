@@ -9,14 +9,14 @@
             </div>
             <div class="pagination">
                 {% if hotWeekOffset > 0 %}
-                    <a href="{{ path('index.hot', {hotWeekOffset: hotWeekOffset - 1}) }}" class="button"><i class="mdi mdi-chevron-left"></i> PREVIOUS</a>
+                    <a href="{{ path('index.hotThisMonth', {hotWeekOffset: hotWeekOffset - 1}) }}" class="button"><i class="mdi mdi-chevron-left"></i> PREVIOUS</a>
                 {% else %}
                     <a class="button button-disabled"><i class="mdi mdi-chevron-left"></i> PREVIOUS</a>
                 {% endif %}
                 {% if hotWeekSongs|length < 10 %}
                     <a class="button button-disabled">NEXT <i class="mdi mdi-chevron-right"></i></a>
                 {% else %}
-                    <a href="{{ path('index.hot', {hotWeekOffset: hotWeekOffset + 1}) }}" class="button">NEXT <i class="mdi mdi-chevron-right"></i></a>
+                    <a href="{{ path('index.hotThisMonth', {hotWeekOffset: hotWeekOffset + 1}) }}" class="button">NEXT <i class="mdi mdi-chevron-right"></i></a>
                 {% endif %}
             </div>
         </div>
