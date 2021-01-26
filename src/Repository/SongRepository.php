@@ -33,6 +33,7 @@ class SongRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder("e");
         $qb
             ->where('e.publicationStatus = 0')
+            ->andWhere('e.updateDate != e.uploadDate')
             ->orderBy('e.updateDate', 'DESC')
             ->addOrderBy('e.uploadDate', 'DESC')
             ->setFirstResult(10 * $page)
