@@ -151,7 +151,7 @@
                     {% if song.tags != "" %}
                         <div class="tags">
                             {% for tag in song.tagsArray %}
-                                <a href="{{ path('search.index', {q: tag}) }}" class="tag">{{ tag }}</a>
+                                <a href="{{ path('search.index', {q: tag, diffEasy: 'on', diffNormal: 'on', diffHard: 'on', diffExpert: 'on', diffXD: 'on', diffRatingFrom: 0, diffRatingTo: 99}) }}" class="tag">{{ tag }}</a>
                             {% endfor %}
                         </div>
                     {% endif %}
