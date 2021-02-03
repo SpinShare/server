@@ -4,7 +4,7 @@
 
 {% block meta %}
     <meta property="og:title" content="{{ song.title }} on SpinShare"/>
-    <meta property="og:description" content="Charted by {{ song.charter }} &dash; Views: {{ song.views|default(0) }}, Downloads: {{ song.downloads|default(0) }}"/>
+    <meta property="og:description" content="Charted by {{ song.charter }} &dash; Views: {{ song.views|default(0) }}, Downloads: {{ song.downloads|default(0) }} &dash; {% if song.hasEasyDifficulty %}(E {{ song.easyDifficulty }}) {%endif%}{% if song.hasNormalDifficulty %}(´N {{ song.normalDifficulty }}) {%endif%}{% if song.hasHardDifficulty %}(H {{ song.hardDifficulty }}) {%endif%}{% if song.hasExtremeDifficulty %}(EX {{ song.expertDifficulty }}) {%endif%}{% if song.hasXDDifficulty %}(E {{ song.XDDifficulty }}) {%endif%}"/>
     <meta property="og:type" content="music.song"/>
     <meta property="og:url" content="{{ path('song.detail', {songId: song.id}) }}"/>
     <meta property="og:image" content="{{ asset("uploads/thumbnail/" ~ song.fileReference ~ ".jpg?v=" ~ date().timestamp) }}"/>
