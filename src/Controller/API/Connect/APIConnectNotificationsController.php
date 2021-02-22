@@ -60,7 +60,7 @@ class APIConnectNotificationsController extends AbstractController
         $connectToken = $request->query->get('connectToken');
         $notificationIDToClear = $request->query->get('notificationID');
 
-        if($connectToken == "" || $notificationIDToClear = "") {
+        if($connectToken == "" || $notificationIDToClear == "") {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 403, 'data' => []]);
             return $response;
         }
@@ -68,7 +68,7 @@ class APIConnectNotificationsController extends AbstractController
         $connection = $em->getRepository(Connection::class)->findOneBy(array('connectToken' => $connectToken));
 
         if($connection) {
-            $notificationToClear = $em->getRepository(UserNotification::class)->findOneBy(array('id' => $notificationIDToClear, 'user' => $connection->getUser()));
+            $notificationToClear = $em->getRepository(UserNotification::class)->findOneBy(array('id' => intval($notificationIDToClear), 'user' => $connection->getUser()));
 
             if($notificationToClear) {
                 $em->remove($notificationToClear);
