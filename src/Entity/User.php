@@ -193,10 +193,10 @@
             return array(
                 'id' => $this->id,
                 'username' => $this->username,
-                'coverReference' => $this->coverReference,
                 'isVerified' => $this->isVerified,
                 'isPatreon' => $this->isPatreon,
-                'pronouns' => $this->pronouns
+                'pronouns' => $this->pronouns,
+                'avatar' => $_ENV['ASSET_BASE_URL'].DIRECTORY_SEPARATOR.$_ENV['ASSET_AVATAR_FOLDER'].DIRECTORY_SEPARATOR.$this->coverReference
             );
         }
 

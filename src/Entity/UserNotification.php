@@ -122,4 +122,16 @@ class UserNotification
 
         return $this;
     }
+
+    public function getJSON() {
+        return array(
+            'id' => $this->id,
+            'user' => $this->user->getJSON(),
+            'notificationType' => $this->notificationType,
+            'notificationData' => $this->notificationData,
+            'connectedSong' => $this->connectedSong != null ? $this->connectedSong->getJSON() : null,
+            'connectedUser' => $this->connectedUser != null ? $this->connectedUser->getJSON() : null,
+            'connectedCard' => $this->connectedCard != null ? $this->connectedCard->getJSON() : null
+        );
+    }
 }
