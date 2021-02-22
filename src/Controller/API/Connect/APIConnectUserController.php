@@ -37,6 +37,7 @@ class APIConnectUserController extends AbstractController
 
         if($connection) {
             $data = $connection->getUser()->getJSON();
+            $data['notificationsCount'] = count($connection->getUser()->getUserNotifications());
 
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
             return $response;
