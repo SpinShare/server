@@ -1,0 +1,397 @@
+{% extends 'apidocs/base.html.twig' %}
+
+{% block title %}Notifications{% endblock %}
+
+{% block content %}
+					<div class="row justify-content-center">
+						<div class="col-lg-7">
+							<div class="content">
+								<h1 class="content-title">
+									Notifications
+                                </h1>
+                                
+                                <div class="card" id="overview">
+                                    <h2 class="card-title">Overview</h2>
+                                    <p>Notifications are short bits of information about a certain action or process that are important to the user. There are multiple types of notifications users can receive.</p>
+
+                                    <br />
+
+                                    <div class="alert alert-primary" role="alert">
+                                        <h4 class="alert-heading">Information</h4>
+                                        Display all notification types if possible and always display system messages as is.
+                                    </div>
+
+                                    <br />
+
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Type</th>
+                                            <td>Description</td>
+                                            <td>Connected Data</td>
+                                            <td>Example Wording</td>
+                                        </tr>
+                                        <tr>
+                                            <th>0</th>
+                                            <td>System Message</td>
+                                            <td>notificationData</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <td>New Review</td>
+                                            <td>connectedUser, connectedSong</td>
+                                            <td><strong>[user]</strong> reviewed your chart <strong>[title]</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <th>2</th>
+                                            <td>New SpinPlay</td>
+                                            <td>connectedUser, connectedSong</td>
+                                            <td><strong>[user]</strong> added a SpinPlay to your chart <strong>[title]</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <th>3</th>
+                                            <td>Received Card</td>
+                                            <td>connectedCard</td>
+                                            <td>You've received the profile card <strong>[title]</strong></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                                <div class="card" id="getNotifications">
+                                    <h2 class="card-title">Get Notifications</h2>
+                                    <p>Returns all notifications of the connected user.</p>
+
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Method</th>
+                                            <td>GET</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Endpoint</th>
+                                            <td>/connect/getNotifications</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Query Parameters</th>
+                                            <td>(string) connectToken</td>
+                                        </tr>
+                                    </table>
+
+                                    <br /><br />
+
+                                    <strong>Output Body (Success)</strong>
+<pre class="code">
+{
+  "version": 1,
+  "status": 200,
+  "data": [
+    {
+      "id": 36,
+      "user": {
+        "id": 1,
+        "username": "taw.moe",
+        "isVerified": null,
+        "isPatreon": null,
+        "pronouns": null,
+        "avatar": "http:\/\/localhost\/www\/spinshare\/server\/public\/uploads\/\\avatar\/\\5f86d761933e1.png"
+      },
+      "notificationType": 0,
+      "notificationData": "Lorem Ipsum dolor sit amet",
+      "connectedSong": null,
+      "connectedUser": null,
+      "connectedCard": null
+    },
+    {
+      "id": 37,
+      "user": {
+        "id": 1,
+        "username": "taw.moe",
+        "isVerified": null,
+        "isPatreon": null,
+        "pronouns": null,
+        "avatar": "http:\/\/localhost\/www\/spinshare\/server\/public\/uploads\/\\avatar\/\\5f86d761933e1.png"
+      },
+      "notificationType": 1,
+      "notificationData": "",
+      "connectedSong": {
+        "id": 2,
+        "title": "Bubble Tea",
+        "subtitle": "",
+        "artist": "dark cat",
+        "charter": "CdNDouglas",
+        "uploader": 1,
+        "fileReference": "spinshare_5f86d7d85eee6",
+        "tags": [
+          ""
+        ],
+        "views": 50,
+        "downloads": 9,
+        "isExplicit": false,
+        "publicationStatus": 0,
+        "hasEasyDifficulty": false,
+        "hasNormalDifficulty": false,
+        "hasHardDifficulty": false,
+        "hasExtremeDifficulty": true,
+        "hasXDDifficulty": false,
+        "easyDifficulty": 0,
+        "normalDifficulty": 0,
+        "hardDifficulty": 0,
+        "expertDifficulty": 22,
+        "XDDifficulty": 0,
+        "uploadDate": {
+          "date": "2020-10-14 12:50:00.000000",
+          "timezone_type": 3,
+          "timezone": "Europe\/Berlin"
+        },
+        "updateDate": null,
+        "updateHash": "7c55b7e2cfba50b06d93c2f076dc7c72",
+        "description": null
+      },
+      "connectedUser": {
+        "id": 2,
+        "username": "gaben",
+        "isVerified": null,
+        "isPatreon": null,
+        "pronouns": "he\/him",
+        "avatar": "http:\/\/localhost\/www\/spinshare\/server\/public\/uploads\/\\avatar\/\\"
+      },
+      "connectedCard": null
+    },
+    {
+      "id": 38,
+      "user": {
+        "id": 1,
+        "username": "taw.moe",
+        "isVerified": null,
+        "isPatreon": null,
+        "pronouns": null,
+        "avatar": "http:\/\/localhost\/www\/spinshare\/server\/public\/uploads\/\\avatar\/\\5f86d761933e1.png"
+      },
+      "notificationType": 2,
+      "notificationData": "",
+      "connectedSong": {
+        "id": 2,
+        "title": "Bubble Tea",
+        "subtitle": "",
+        "artist": "dark cat",
+        "charter": "CdNDouglas",
+        "uploader": 1,
+        "fileReference": "spinshare_5f86d7d85eee6",
+        "tags": [
+          ""
+        ],
+        "views": 50,
+        "downloads": 9,
+        "isExplicit": false,
+        "publicationStatus": 0,
+        "hasEasyDifficulty": false,
+        "hasNormalDifficulty": false,
+        "hasHardDifficulty": false,
+        "hasExtremeDifficulty": true,
+        "hasXDDifficulty": false,
+        "easyDifficulty": 0,
+        "normalDifficulty": 0,
+        "hardDifficulty": 0,
+        "expertDifficulty": 22,
+        "XDDifficulty": 0,
+        "uploadDate": {
+          "date": "2020-10-14 12:50:00.000000",
+          "timezone_type": 3,
+          "timezone": "Europe\/Berlin"
+        },
+        "updateDate": null,
+        "updateHash": "7c55b7e2cfba50b06d93c2f076dc7c72",
+        "description": null
+      },
+      "connectedUser": {
+        "id": 2,
+        "username": "gaben",
+        "isVerified": null,
+        "isPatreon": null,
+        "pronouns": "he\/him",
+        "avatar": "http:\/\/localhost\/www\/spinshare\/server\/public\/uploads\/\\avatar\/\\"
+      },
+      "connectedCard": null
+    },
+    {
+      "id": 39,
+      "user": {
+        "id": 1,
+        "username": "taw.moe",
+        "isVerified": null,
+        "isPatreon": null,
+        "pronouns": null,
+        "avatar": "http:\/\/localhost\/www\/spinshare\/server\/public\/uploads\/\\avatar\/\\5f86d761933e1.png"
+      },
+      "notificationType": 3,
+      "notificationData": "",
+      "connectedSong": null,
+      "connectedUser": null,
+      "connectedCard": {
+        "id": 1,
+        "title": "The Way Album",
+        "description": "Test Lorem Ipsum",
+        "icon": "http:\/\/localhost\/www\/spinshare\/server\/public\/uploads\/\\card\/\\card_d8386f6a40166202b34e1d50730882bb.png"
+      }
+    }
+  ]
+}
+</pre>
+<br /><br />
+
+                                    <strong>Responses</strong>
+                                    <br /><br />
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Code</th>
+                                                <th>Explaination</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>200</td>
+                                                <td>Successful response of notifications.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>422</td>
+                                                <td>Some parameters were missing.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>403</td>
+                                                <td>Your connectToken is missing or wrong.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="card" id="clearNotification">
+                                    <h2 class="card-title">Clear Notification</h2>
+                                    <p>Clears a notification of the connected user.</p>
+                                    
+                                    <br />
+
+                                    <div class="alert alert-secondary" role="alert">
+                                        <h4 class="alert-heading">Attention</h4>
+                                        Never clear a notification without user interaction (eg: they click on it). This action is permanent.
+                                    </div>
+
+                                    <br />
+
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Method</th>
+                                            <td>GET</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Endpoint</th>
+                                            <td>/connect/clearNotification</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Query Parameters</th>
+                                            <td>(string) connectToken<br />
+                                                (int) notificationID</td>
+                                        </tr>
+                                    </table>
+
+                                    <br /><br />
+
+                                    <strong>Responses</strong>
+                                    <br /><br />
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Code</th>
+                                                <th>Explaination</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>200</td>
+                                                <td>The notification was cleared.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>404</td>
+                                                <td>The notification did not exist.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>422</td>
+                                                <td>Some parameters were missing.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>403</td>
+                                                <td>Your connectToken is missing or wrong.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="card" id="clearAllNotifications">
+                                    <h2 class="card-title">Clear All Notifications</h2>
+                                    <p>Clears all notifications of the connected user.</p>
+                                    
+                                    <br />
+
+                                    <div class="alert alert-secondary" role="alert">
+                                        <h4 class="alert-heading">Attention</h4>
+                                        Never clear all notifications of a user if not specifically requested. This action is permanent.
+                                    </div>
+
+                                    <br />
+
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Method</th>
+                                            <td>GET</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Endpoint</th>
+                                            <td>/connect/clearAllNotifications</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Query Parameters</th>
+                                            <td>(string) connectToken</td>
+                                        </tr>
+                                    </table>
+
+                                    <br /><br />
+
+                                    <strong>Responses</strong>
+                                    <br /><br />
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Code</th>
+                                                <th>Explaination</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>200</td>
+                                                <td>The notifications were cleared.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>422</td>
+                                                <td>Some parameters were missing.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>403</td>
+                                                <td>Your connectToken is missing or wrong.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+						</div>
+						<div class="col-lg-3">
+							<div class="content">
+								<div class="on-this-page-nav">
+									<div class="title">On this page</div>
+									<a href="#overview">Overview</a>
+									<a href="#getNotifications">Get Notifications</a>
+                                    <a href="#clearNotification">Clear Notification</a>
+                                    <a href="#clearAllNotifications">Clear All Notifications</a>
+								</div>
+							</div>
+						</div>
+					</div>
+{% endblock %}

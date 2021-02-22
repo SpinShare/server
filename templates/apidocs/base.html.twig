@@ -123,6 +123,12 @@
 						</span>
 						Profile
 					</a>
+					<a href="{{ path('api.docs.connect.notifications') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.connect.notifications' %}active{% endif %}">
+						<span class="sidebar-icon">
+							<i class="mdi mdi-bell" aria-hidden="true"></i>
+						</span>
+						Notifications
+					</a>
 					<a href="{{ path('api.docs.connect.reviews') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.connect.reviews' %}active{% endif %}">
 						<span class="sidebar-icon">
 							<i class="mdi mdi-thumbs-up-down" aria-hidden="true"></i>

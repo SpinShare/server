@@ -142,6 +142,17 @@ class APIDocsController extends AbstractController
     }
 
     /**
+     * @Route("/api/docs/connect/notifications", name="api.docs.connect.notifications")
+     */
+    public function connectNotifications(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        return $this->render('apidocs/connect/notifications.html.twig', $data);
+    }
+
+    /**
      * @Route("/api/docs/connect/reviews", name="api.docs.connect.reviews")
      */
     public function connectReviews(Request $request)
