@@ -31,22 +31,12 @@ class APIUserController extends AbstractController
         $data = [];
 
         $result = $em->getRepository(User::class)->findOneBy(array('id' => $userId));
-        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         if(!$result) {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
             return $response;
         } else {
-            $data['id'] = $result->getId();
-            $data['username'] = $result->getUsername();
-            $data['isVerified'] = $result->getIsVerified();
-            $data['isPatreon'] = $result->getIsPatreon();
-            $data['pronouns'] = $result->getPronouns();
-            if($result->getCoverReference()) {
-                $data['avatar'] = $baseUrl."/uploads/avatar/".$result->getCoverReference();
-            } else {
-                $data['avatar'] = $baseUrl."/assets/img/defaultAvatar.jpg";
-            }
+            $data = $result->getJSON();
 
             // Get User Lists
             $resultsSongs = $em->getRepository(Song::class)->findBy(array('uploader' => $result->getId(), 'publicationStatus' => array(0, 1)), array('uploadDate' => 'DESC'));
@@ -62,15 +52,7 @@ class APIUserController extends AbstractController
             $data['cards'] = [];
                  
             foreach($resultsCards as $result) {
-                $oneResult = [];
-
-                $oneResult['id'] = $result->getId();
-                $oneResult['icon'] = $baseUrl."/uploads/card/".$result->getCard()->getIcon();
-                $oneResult['title'] = $result->getCard()->getTitle();
-                $oneResult['givenDate'] = $result->getGivenDate();
-                $oneResult['description'] = $result->getCard()->getDescription();
-
-                $data['cards'][] = $oneResult;
+                $data['cards'][] = $result->getJSON();
             }
     
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
@@ -132,7 +114,6 @@ class APIUserController extends AbstractController
         $data = [];
 
         $result = $em->getRepository(User::class)->findOneBy(array('id' => $userId));
-        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         if(!$result) {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
@@ -159,7 +140,6 @@ class APIUserController extends AbstractController
         $data = [];
 
         $result = $em->getRepository(User::class)->findOneBy(array('id' => $userId));
-        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         if(!$result) {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
@@ -168,10 +148,7 @@ class APIUserController extends AbstractController
             $resultsPlaylists = $em->getRepository(SongPlaylist::class)->findBy(array('user' => $result->getId()), array('id' => 'DESC'));
                  
             foreach($resultsPlaylists as $result) {
-                $newItem = $result->getJSON();
-                $newItem['cover'] = $baseUrl."/uploads/cover/".$result->getFileReference().".png";
-
-                $data[] = $newItem;
+                $data[] = $result->getJSON();
             }
     
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
@@ -189,7 +166,6 @@ class APIUserController extends AbstractController
         $data = [];
 
         $result = $em->getRepository(User::class)->findOneBy(array('id' => $userId));
-        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         if(!$result) {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
