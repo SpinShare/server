@@ -193,6 +193,8 @@ class APIDiscoveryController extends AbstractController
      */
     public function searchParameter(Request $request, string $searchQuery)
     {
+        // TODO: DEPRECATE
+
         $em = $this->getDoctrine()->getManager();
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
@@ -273,6 +275,8 @@ class APIDiscoveryController extends AbstractController
      */
     public function search(Request $request)
     {
+        // TODO: DEPRECATE
+
         $em = $this->getDoctrine()->getManager();
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
@@ -408,6 +412,8 @@ class APIDiscoveryController extends AbstractController
      */
     public function searchAll(Request $request)
     {
+        // TODO: DEPRECATE
+
         $em = $this->getDoctrine()->getManager();
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
@@ -454,6 +460,9 @@ class APIDiscoveryController extends AbstractController
      */
     public function searchCharts(Request $request)
     {
+        // TODO: DOCUMENTATION
+        // TODO: Allow Optional PublicationStatus if Connection Provided
+
         $em = $this->getDoctrine()->getManager();
 
         $jsonBody = json_decode($request->getContent(), true);
@@ -467,7 +476,6 @@ class APIDiscoveryController extends AbstractController
 
         $data = [];
 
-        // Songs
         $resultsSongs = $em->getRepository(Song::class)->createQueryBuilder('o');
 
         if($searchQuery != "") {
@@ -542,6 +550,43 @@ class APIDiscoveryController extends AbstractController
             $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
 
             $data[] = $oneResult;
+        }
+
+        $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
+        return $response;
+    }
+
+    /**
+     * @Route("/api/searchUsers", name="api.searchUsers")
+     * @Route("/api/searchUsers/")
+     */
+    public function searchUsers(Request $request)
+    {
+        // TODO: DOCUMENTATION
+        // TODO: Filter Out Banned users
+
+        $em = $this->getDoctrine()->getManager();
+
+        $jsonBody = json_decode($request->getContent(), true);
+
+        if($jsonBody == NULL) {
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
+            return $response;
+        }
+
+        $searchQuery = $jsonBody['searchQuery'];
+
+        $data = [];
+
+        $resultsUsers = $em->getRepository(User::class)->createQueryBuilder('o')
+                                                        ->where('o.username LIKE :query')
+                                                        ->orderBy('o.id', 'DESC')
+                                                        ->setParameter('query', '%'.$searchQuery.'%')
+                                                        ->getQuery()
+                                                        ->getResult();
+
+        foreach($resultsUsers as $result) {
+            $data[] = $result->getJSON();
         }
 
         $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);

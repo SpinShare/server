@@ -574,7 +574,7 @@ class Song
             'updateDate' => $this->updateDate,
             'updateHash' => $this->updateHash,
             'description' => $this->description,
-            'cover' => $_ENV['ASSET_BASE_URL']."/".$_ENV['ASSET_COVER_FOLDER']."/".$this->getFileReference().".png"
+            'cover' => $this->fileReference != '' ? $_ENV['ASSET_BASE_URL']."/".$_ENV['ASSET_COVER_FOLDER']."/".$this->fileReference.".png" : 'https://spinshare.b-cdn.net/assets/img/defaultAlbumArt.jpg',
         );
     }
 

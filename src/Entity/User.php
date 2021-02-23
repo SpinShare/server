@@ -196,7 +196,7 @@
                 'isVerified' => $this->isVerified,
                 'isPatreon' => $this->isPatreon,
                 'pronouns' => $this->pronouns,
-                'avatar' => $_ENV['ASSET_BASE_URL']."/".$_ENV['ASSET_AVATAR_FOLDER']."/".$this->coverReference
+                'avatar' => $this->coverReference != '' ? $_ENV['ASSET_BASE_URL']."/".$_ENV['ASSET_AVATAR_FOLDER']."/".$this->coverReference : "https://spinshare.b-cdn.net/assets/img/defaultAvatar.jpg",
             );
         }
 
