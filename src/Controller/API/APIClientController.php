@@ -25,6 +25,8 @@ class APIClientController extends AbstractController
      */
     public function latestVersion(string $platform)
     {
+        // TODO: DOCUMENTATION
+        
         $em = $this->getDoctrine()->getManager();
         $data = [];
 
