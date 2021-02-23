@@ -25,6 +25,8 @@ class APIPromosController extends AbstractController
      */
     public function promos(Request $request)
     {
+        // TODO: DEPRECATION
+
         $em = $this->getDoctrine()->getManager();
 
         $results = $em->getRepository(Promo::class)->findBy(array('isVisible' => true), array('id' => 'DESC'), 2);
@@ -35,19 +37,31 @@ class APIPromosController extends AbstractController
             return $response;
         } else {
             foreach($results as $result) {
-                $oneResult = [];
+                $data[] = $result->getJSON();
+            }
+    
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
+            return $response;
+        }
+    }
 
-                $oneResult['id'] = $result->getId();
-                $oneResult['title'] = $result->getTitle();
-                $oneResult['type'] = $result->getType();
-                $oneResult['textColor'] = $result->getTextColor();
-                $oneResult['color'] = $result->getColor();
-                $oneResult['button']['type'] = $result->getButtonType();
-                $oneResult['button']['data'] = $result->getButtonData();
-                $oneResult['isVisible'] = $result->getIsVisible();
-                $oneResult['image_path'] = $baseUrl."/uploads/promo/".$result->getImagePath();
+    /**
+     * @Route("/api/activePromos", name="api.activePromos")
+     * @Route("/api/activePromos/")
+     */
+    public function activePromos(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
 
-                $data[] = $oneResult;
+        $results = $em->getRepository(Promo::class)->findBy(array('isVisible' => true), array('id' => 'DESC'));
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
+        if(!$results) {
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
+            return $response;
+        } else {
+            foreach($results as $result) {
+                $data[] = $result->getJSON();
             }
     
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);

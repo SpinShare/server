@@ -156,4 +156,20 @@ class Promo
 
         return $this;
     }
+
+    public function getJSON() {
+        return array(
+            'id' => $this->id,
+            'title' => $this->title,
+            'type' => $this->type,
+            'textColor' => $this->textColor,
+            'color' => $this->color,
+            'button' => array(
+                'type' => $this->buttonType,
+                'data' => $this->buttonData
+            ),
+            'isVisible' => $this->isVisible,
+            'image_path' => $_ENV['ASSET_BASE_URL']."/".$_ENV['ASSET_PROMO_FOLDER']."/".$this->imagePath,
+        );
+    }
 }
