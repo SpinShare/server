@@ -148,7 +148,7 @@ class SongPlaylist
             'user' => $this->user->getJSON(),
             'songs' => $songs,
             'isOfficial' => $this->isOfficial,
-            'cover' => $_ENV['ASSET_BASE_URL'].DIRECTORY_SEPARATOR.$_ENV['ASSET_COVER_FOLDER'].DIRECTORY_SEPARATOR.$this->fileReference.".png"
+            'cover' => $_ENV['ASSET_BASE_URL']."/".$_ENV['ASSET_COVER_FOLDER']."/".$this->fileReference.".png"
         );
     }
 

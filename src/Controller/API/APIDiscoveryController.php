@@ -447,4 +447,104 @@ class APIDiscoveryController extends AbstractController
         $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
         return $response;
     }
+
+    /**
+     * @Route("/api/searchCharts", name="api.searchCharts")
+     * @Route("/api/searchCharts/")
+     */
+    public function searchCharts(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $jsonBody = json_decode($request->getContent(), true);
+
+        if($jsonBody == NULL) {
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
+            return $response;
+        }
+
+        $searchQuery = $jsonBody['searchQuery'];
+
+        $data = [];
+
+        // Songs
+        $resultsSongs = $em->getRepository(Song::class)->createQueryBuilder('o');
+
+        if($searchQuery != "") {
+            $resultsSongs->where('o.title LIKE :query');
+            $resultsSongs->orWhere('o.subtitle LIKE :query');
+            $resultsSongs->orWhere('o.tags LIKE :query');
+            $resultsSongs->orWhere('o.artist LIKE :query');
+            $resultsSongs->orWhere('o.charter LIKE :query');
+        }
+
+        // Add Filters for difficulty
+        $filterEasy = isset($jsonBody['diffEasy']) ? $jsonBody['diffEasy'] : true;
+        $filterNormal = isset($jsonBody['diffNormal']) ? $jsonBody['diffNormal'] : true;
+        $filterHard = isset($jsonBody['diffHard']) ? $jsonBody['diffHard'] : true;
+        $filterExpert = isset($jsonBody['diffExpert']) ? $jsonBody['diffExpert'] : true;
+        $filterXD = isset($jsonBody['diffXD']) ? $jsonBody['diffXD'] : true;
+
+        // Add Filters for Explicit Content
+        $filterExplicit = isset($jsonBody['showExplicit']) ? $jsonBody['showExplicit'] : false;
+
+        // Add Filters for difficulty ratings
+        $filterMinDifficulty = intval(isset($jsonBody['diffRatingFrom']) ? $jsonBody['diffRatingFrom'] : 0);
+        $filterMaxDifficulty = intval(isset($jsonBody['diffRatingTo']) ? $jsonBody['diffRatingTo'] : 99);
+
+        if($filterMinDifficulty == null) { $filterMinDifficulty = 0; }
+        if($filterMaxDifficulty == null) { $filterMaxDifficulty = 99; }
+
+        if($searchQuery != "") {
+            $resultsSongs->setParameter('query', "%".$searchQuery."%");
+        }
+        $resultsSongs->andWhere('o.publicationStatus IN (0, 1)');
+        $resultsSongs->orderBy('o.id', 'DESC');
+
+        $resultsSongs = $resultsSongs->getQuery()->getResult();
+        
+        // Filter Song Results
+        $filteredResultsSongs = [];
+        foreach($resultsSongs as $resultSong) {
+            // Has the required difficulty
+            if($filterEasy && $resultSong->getHasEasyDifficulty() ||
+                $filterNormal && $resultSong->getHasNormalDifficulty() ||
+                $filterHard && $resultSong->getHasHardDifficulty() ||
+                $filterExpert && $resultSong->getHasExtremeDifficulty() ||
+                $filterXD && $resultSong->getHasXDDifficulty()) {
+
+                // Has the minimum difficulty rating
+                if($resultSong->getHasEasyDifficulty() && $resultSong->getEasyDifficulty() >= $filterMinDifficulty ||
+                    $resultSong->getHasNormalDifficulty() && $resultSong->getNormalDifficulty() >= $filterMinDifficulty ||
+                    $resultSong->getHasHardDifficulty() && $resultSong->getHardDifficulty() >= $filterMinDifficulty ||
+                    $resultSong->getHasExtremeDifficulty() && $resultSong->getExpertDifficulty() >= $filterMinDifficulty ||
+                    $resultSong->getHasXDDifficulty() && $resultSong->getXDDifficulty() >= $filterMinDifficulty) {
+
+                    // Has the maximum difficulty rating
+                    if($resultSong->getHasEasyDifficulty() && $resultSong->getEasyDifficulty() <= $filterMaxDifficulty ||
+                        $resultSong->getHasNormalDifficulty() && $resultSong->getNormalDifficulty() <= $filterMaxDifficulty ||
+                        $resultSong->getHasHardDifficulty() && $resultSong->getHardDifficulty() <= $filterMaxDifficulty ||
+                        $resultSong->getHasExtremeDifficulty() && $resultSong->getExpertDifficulty() <= $filterMaxDifficulty ||
+                        $resultSong->getHasXDDifficulty() && $resultSong->getXDDifficulty() <= $filterMaxDifficulty) {
+
+                        if($filterExplicit || $resultSong->getIsExplicit() == $filterExplicit) {
+                            $filteredResultsSongs[] = $resultSong;
+                        }
+                    }
+                }
+            }
+        }
+                
+        foreach($filteredResultsSongs as $result) {
+            $oneResult = [];
+
+            $oneResult = $result->getJSON();
+            $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
+
+            $data[] = $oneResult;
+        }
+
+        $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
+        return $response;
+    }
 }

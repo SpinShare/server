@@ -76,7 +76,7 @@ class UserCard
     public function getJSON() {
         return array(
             'id' => $this->id,
-            'icon' => $_ENV['ASSET_BASE_URL'].DIRECTORY_SEPARATOR.$_ENV['ASSET_CARD_FOLDER'].DIRECTORY_SEPARATOR.$this->getCard()->getIcon(),
+            'icon' => $_ENV['ASSET_BASE_URL']."/".$_ENV['ASSET_CARD_FOLDER']."/".$this->getCard()->getIcon(),
             'title' => $this->getCard()->getTitle(),
             'givenDate' => $this->getGivenDate(),
             'description' => $this->getCard()->getDescription()

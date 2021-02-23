@@ -196,7 +196,7 @@
                 'isVerified' => $this->isVerified,
                 'isPatreon' => $this->isPatreon,
                 'pronouns' => $this->pronouns,
-                'avatar' => $_ENV['ASSET_BASE_URL'].DIRECTORY_SEPARATOR.$_ENV['ASSET_AVATAR_FOLDER'].DIRECTORY_SEPARATOR.$this->coverReference
+                'avatar' => $_ENV['ASSET_BASE_URL']."/".$_ENV['ASSET_AVATAR_FOLDER']."/".$this->coverReference
             );
         }
 

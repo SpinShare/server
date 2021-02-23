@@ -120,7 +120,7 @@ class Card
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'icon' => $_ENV['ASSET_BASE_URL'].DIRECTORY_SEPARATOR.$_ENV['ASSET_CARD_FOLDER'].DIRECTORY_SEPARATOR.$this->icon,
+            'icon' => $_ENV['ASSET_BASE_URL']."/".$_ENV['ASSET_CARD_FOLDER']."/".$this->icon,
         );
     }
 }

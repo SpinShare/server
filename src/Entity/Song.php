@@ -574,7 +574,7 @@ class Song
             'updateDate' => $this->updateDate,
             'updateHash' => $this->updateHash,
             'description' => $this->description,
-            'cover' => $_ENV['ASSET_BASE_URL'].DIRECTORY_SEPARATOR.$_ENV['ASSET_COVER_FOLDER'].DIRECTORY_SEPARATOR.$this->getFileReference().".png"
+            'cover' => $_ENV['ASSET_BASE_URL']."/".$_ENV['ASSET_COVER_FOLDER']."/".$this->getFileReference().".png"
         );
     }
 
