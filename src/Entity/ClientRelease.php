@@ -123,4 +123,17 @@ class ClientRelease
 
         return $this;
     }
+
+    public function getJSON() {
+        return array(
+            'id' => $this->id,
+            'uploadDate' => $this->uploadDate,
+            'stringVersion' => $this->majorVersion.'.'.$this->minorVersion.'.'.$this->patchVersion,
+            'majorVersion' => $this->majorVersion,
+            'minorVersion' => $this->minorVersion,
+            'patchVersion' => $this->patchVersion,
+            'platform' => $this->platform,
+            'path' => $_ENV['ASSET_BASE_URL']."/".$_ENV['ASSET_CLIENT_FOLDER']."/".$this->fileReference,
+        );
+    }
 }
