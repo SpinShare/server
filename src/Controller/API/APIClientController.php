@@ -31,9 +31,14 @@ class APIClientController extends AbstractController
         $data = [];
 
         $latestVersion = $em->getRepository(ClientRelease::class)->findOneBy(array('platform' => $platform), array('majorVersion' => 'DESC', 'minorVersion' => 'DESC', 'patchVersion' => 'DESC'));
-        $data = $latestVersion->getJSON();
 
-        $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
+        if($latestVersion) {
+            $data = $latestVersion->getJSON();
+
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
+        } else {
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
+        }
         return $response;
     }
 }
