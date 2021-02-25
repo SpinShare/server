@@ -250,7 +250,7 @@ class Song
 
     public function getTagsArray()
     {
-        return array_map('trim', explode(",", $this->tags));
+        return array_filter( array_map('trim', explode(",", $this->tags) ), 'strlen');
     }
 
     public function setTags(?string $tags): self
