@@ -65,6 +65,17 @@ class APIDocsController extends AbstractController
     }
 
     /**
+     * @Route("/api/docs/open/client", name="api.docs.open.client")
+     */
+    public function openClient(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        return $this->render('apidocs/open/client.html.twig', $data);
+    }
+
+    /**
      * @Route("/api/docs/open/promos", name="api.docs.open.promos")
      */
     public function openPromos(Request $request)
@@ -139,6 +150,17 @@ class APIDocsController extends AbstractController
         $data = [];
 
         return $this->render('apidocs/connect/profile.html.twig', $data);
+    }
+
+    /**
+     * @Route("/api/docs/connect/playlists", name="api.docs.connect.playlists")
+     */
+    public function connectPlaylists(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        return $this->render('apidocs/connect/playlists.html.twig', $data);
     }
 
     /**
