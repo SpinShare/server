@@ -25,8 +25,6 @@ class APIPromosController extends AbstractController
      */
     public function promos(Request $request)
     {
-        // TODO: DEPRECATION
-
         $em = $this->getDoctrine()->getManager();
 
         $results = $em->getRepository(Promo::class)->findBy(array('isVisible' => true), array('id' => 'DESC'), 2);

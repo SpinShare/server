@@ -10,9 +10,9 @@
 									Promos
                                 </h1>
                                 
-                                <div class="card" id="active">
-                                    <h2 class="card-title">Active Promos</h2>
-                                    <p>Returns the 2 active promos.</p>
+                                <div class="card" id="promos">
+                                    <h2 class="card-title">Promos</h2>
+                                    <p>Returns the latest 2 active promos.</p>
 
                                     <table class="table table-bordered">
                                         <tr>
@@ -22,6 +22,74 @@
                                         <tr>
                                             <th>Endpoint</th>
                                             <td>/promos</td>
+                                        </tr>
+                                    </table>
+
+                                    <br />
+
+                                    <div class="alert alert-secondary" role="alert">
+                                        <h4 class="alert-heading">Deprecation Notice</h4>
+                                        This API-Call will be removed at a later point and shouldn't be used anymore.
+                                    </div>
+
+                                    <br />
+
+                                    <div class="alert alert-secondary" role="alert">
+                                        <h4 class="alert-heading">Attention</h4>
+                                        The <code class="code">title</code> property has to be parsed as HTML.
+                                    </div>
+
+                                    <br />
+
+                                    <strong>Output Body</strong>
+<pre class="code">
+{
+    "version":1,
+    "status":200,
+    "data":[
+        {
+            "id":2,
+            "title":"Support\u003Cbr\/\u003ESpinSha.re!",
+            "type":"SUPPORT",
+            "textColor":"#222222",
+            "color":"#f96753",
+            "button":{
+                "type":3,
+                "data":"https:\/\/patreon.com\/spinshare"
+            },
+            "isVisible":true,
+            "image_path":"https:\/\/spinsha.re\/uploads\/promo\/promo_5e8de86c19536.png"
+        },
+        {
+            "id":1,
+            "title":"Join our\u003Cbr \/\u003EDiscord!",
+            "type":"SOCIAL",
+            "textColor":"#222",
+            "color":"#7289DA",
+            "button":{
+                "type":3,
+                "data":"https:\/\/spinsha.re\/discord"
+            },
+            "isVisible":true,
+            "image_path":"https:\/\/spinsha.re\/uploads\/promo\/promo_5e8de7f753038.png"
+        }
+    ]
+}
+</pre>
+                                </div>
+                                
+                                <div class="card" id="activePromos">
+                                    <h2 class="card-title">Active Promos</h2>
+                                    <p>Returns all active promos.</p>
+
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Method</th>
+                                            <td>GET</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Endpoint</th>
+                                            <td>/activePromos</td>
                                         </tr>
                                     </table>
 
@@ -76,7 +144,8 @@
 							<div class="content">
 								<div class="on-this-page-nav">
 									<div class="title">On this page</div>
-									<a href="#active">Active Promos</a>
+									<a href="#promos">Promos</a>
+                                    <a href="#activePromos">Active Promos</a>
 								</div>
 							</div>
 						</div>
