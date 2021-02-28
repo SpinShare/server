@@ -76,6 +76,12 @@
 						</span>
 						Discovery
 					</a>
+					<a href="{{ path('api.docs.open.client') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.open.client' %}active{% endif %}">
+						<span class="sidebar-icon">
+							<i class="mdi mdi-desktop-tower-monitor" aria-hidden="true"></i>
+						</span>
+						Client
+					</a>
 					<a href="{{ path('api.docs.open.promos') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.open.promos' %}active{% endif %}">
 						<span class="sidebar-icon">
 							<i class="mdi mdi-cursor-default-click" aria-hidden="true"></i>
@@ -122,6 +128,12 @@
 							<i class="mdi mdi-shield-account" aria-hidden="true"></i>
 						</span>
 						Profile
+					</a>
+					<a href="{{ path('api.docs.connect.playlists') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.connect.playlists' %}active{% endif %}">
+						<span class="sidebar-icon">
+							<i class="mdi mdi-playlist-music" aria-hidden="true"></i>
+						</span>
+						Playlists
 					</a>
 					<a href="{{ path('api.docs.connect.notifications') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.connect.notifications' %}active{% endif %}">
 						<span class="sidebar-icon">
