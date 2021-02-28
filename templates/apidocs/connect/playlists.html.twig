@@ -1,0 +1,110 @@
+{% extends 'apidocs/base.html.twig' %}
+
+{% block title %}Playlists{% endblock %}
+
+{% block content %}
+					<div class="row justify-content-center">
+						<div class="col-lg-7">
+							<div class="content">
+								<h1 class="content-title">
+									Playlists
+                                </h1>
+                                
+                                <div class="card" id="getPlaylists">
+                                    <h2 class="card-title">Get Playlists</h2>
+                                    <p>Gets all playlists of the connected user.</p>
+
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Method</th>
+                                            <td>GET</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Endpoint</th>
+                                            <td>/connect/playlists</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Query Parameters</th>
+                                            <td>(string) connectToken</td>
+                                        </tr>
+                                    </table>
+
+                                    <br />
+
+                                    <div class="alert alert-secondary" role="alert">
+                                        <h4 class="alert-heading">Attention</h4>
+                                        Please visually differ playlists, whose <code class="code">isOfficial</code> property is <code class="code">true</code> as these playlists are official playlists by the SpinShare team.
+                                    </div>
+
+                                    <br />
+
+                                    <strong>Output Body (Success)</strong>
+<pre class="code">
+{
+  "version": 1,
+  "status": 200,
+  "data": [
+    {
+      "id": 3,
+      "title": "Banger Charts",
+      "description": "This playlist consists of absolute banger charts!",
+      "fileReference": "playlist_5fc2522691a9d",
+      "user": {
+        "id": 1,
+        "username": "taw.moe",
+        "isVerified": null,
+        "isPatreon": null,
+        "pronouns": "she/her",
+        "avatar": "https:\/\/spinsha.re\/uploads\/avatar\/5f86d761933e1.png"
+      },
+      "songs": [],
+      "isOfficial": false,
+      "cover": "https:\/\/spinsha.re\/uploads\/cover\/playlist_5fc2522691a9d.png"
+    },
+    [...]
+  ]
+}
+</pre>
+<br /><br />
+
+                                    <strong>Responses</strong>
+                                    <br /><br />
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th>Code</th>
+                                                <th>Explaination</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>200</td>
+                                                <td>Return of the playlists</td>
+                                            </tr>
+                                            <tr>
+                                                <td>422</td>
+                                                <td>Some parameters were missing.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>403</td>
+                                                <td>Your connectToken is missing or wrong.</td>
+                                            </tr>
+                                            <tr>
+                                                <td>404</td>
+                                                <td>This song does not exist or there is no review from this user.</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="content">
+								<div class="on-this-page-nav">
+									<div class="title">On this page</div>
+									<a href="#getPlaylists">Get Playlists</a>
+								</div>
+							</div>
+						</div>
+					</div>
+{% endblock %}
