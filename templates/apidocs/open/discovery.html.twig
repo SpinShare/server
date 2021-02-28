@@ -36,7 +36,14 @@
                                         </tr>
                                     </table>
 
-                                    <br /><br />
+                                    <br />
+
+                                    <div class="alert alert-secondary" role="alert">
+                                        <h4 class="alert-heading">Deprecation Notice</h4>
+                                        This API-Call will be removed at a later point and shouldn't be used anymore.
+                                    </div>
+
+                                    <br />
 
                                     <strong>Output Body</strong>
 <pre class="code">
@@ -83,6 +90,130 @@
 </pre>
                                 </div>
                                 
+                                <div class="card" id="searchCharts">
+                                    <h2 class="card-title">Search Charts</h2>
+                                    <p>Returns charts based on the <code class="code">searchQuery</code> provided.</p>
+
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Method</th>
+                                            <td>GET</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Endpoint</th>
+                                            <td>/searchCharts</td>
+                                        </tr>
+                                        <tr>
+                                            <th>JSON Body</th>
+                                            <td>(string) searchQuery<br />
+                                                (bool) diffEasy<br />
+                                                (bool) diffNormal<br />
+                                                (bool) diffHard<br />
+                                                (bool) diffExpert<br />
+                                                (bool) diffXD<br />
+                                                (int) diffRatingFrom<br />
+                                                (int) diffRatingTo<br />
+                                                (bool) showExplicit</td>
+                                        </tr>
+                                    </table>
+
+                                    <br /><br />
+
+                                    <strong>Output Body</strong>
+<pre class="code">
+{
+    "version":1,
+    "status":200,
+    "data":[
+        {
+            "id": 13,
+            "title": "I'm Just",
+            "subtitle": "Remix",
+            "artist": "Artizan",
+            "charter": "TreXDer",
+            "uploader": 1,
+            "fileReference": "spinshare_600f0dcfd717b",
+            "tags": [
+                "poggers",
+                "schmoggers",
+                "stride"
+            ],
+            "views": 18,
+            "downloads": 5,
+            "isExplicit": false,
+            "publicationStatus": 0,
+            "hasEasyDifficulty": false,
+            "hasNormalDifficulty": false,
+            "hasHardDifficulty": true,
+            "hasExtremeDifficulty": true,
+            "hasXDDifficulty": true,
+            "easyDifficulty": false,
+            "normalDifficulty": false,
+            "hardDifficulty": 22,
+            "expertDifficulty": 31,
+            "XDDifficulty": 45,
+            "uploadDate": {
+                "date": "2021-01-25 19:28:31.000000",
+                "timezone_type": 3,
+                "timezone": "Europe\/Berlin"
+            },
+            "updateDate": {
+                "date": "2021-02-03 23:15:32.000000",
+                "timezone_type": 3,
+                "timezone": "Europe\/Berlin"
+            },
+            "updateHash": "ab6f6ce4942623196537ea19bc8e6b3f",
+            "description": null,
+            "cover": "https:\/\/spinsha.re\/uploads\/cover\/spinshare_600f0dcfd717b.png",
+            "zip": "https:\/\/spinsha.re\/api\/song\/13\/download"
+        },
+        ...
+    ]
+}
+</pre>
+                                </div>
+                                
+                                <div class="card" id="searchUsers">
+                                    <h2 class="card-title">Search Users</h2>
+                                    <p>Returns users based on the <code class="code">searchQuery</code> provided.</p>
+
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Method</th>
+                                            <td>GET</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Endpoint</th>
+                                            <td>/searchUsers</td>
+                                        </tr>
+                                        <tr>
+                                            <th>JSON Body</th>
+                                            <td>(string) searchQuery</td>
+                                        </tr>
+                                    </table>
+
+                                    <br /><br />
+
+                                    <strong>Output Body</strong>
+<pre class="code">
+{
+    "version": 1,
+    "status": 200,
+    "data": [
+        {
+            "id": 2,
+            "username": "taw.moe",
+            "isVerified": null,
+            "isPatreon": null,
+            "pronouns": "she\/her",
+            "avatar": "https:\/\/spinshare.b-cdn.net\/assets\/img\/defaultAvatar.jpg"
+        },
+        ...
+    ]
+}
+</pre>
+                                </div>
+                                
                                 <div class="card" id="searchAll">
                                     <h2 class="card-title">Search All</h2>
                                     <p>Returns all songs and users.</p>
@@ -98,7 +229,14 @@
                                         </tr>
                                     </table>
 
-                                    <br /><br />
+                                    <br />
+
+                                    <div class="alert alert-secondary" role="alert">
+                                        <h4 class="alert-heading">Deprecation Notice</h4>
+                                        This API-Call will be removed at a later point and shouldn't be used anymore.
+                                    </div>
+
+                                    <br />
 
                                     <strong>Output Body</strong>
 <pre class="code">
@@ -385,8 +523,10 @@
 							<div class="content">
 								<div class="on-this-page-nav">
 									<div class="title">On this page</div>
-									<a href="#search">Search</a>
-									<a href="#searchAll">Search All</a>
+									<a href="#search"><span class="badge badge-secondary">Deprecated</span> Search</a>
+									<a href="#searchCharts">Search Charts</a>
+									<a href="#searchUsers">Search Users</a>
+									<a href="#searchAll"><span class="badge badge-secondary">Deprecated</span> Search All</a>
 									<a href="#new">New Songs</a>
 									<a href="#updated">Updated Songs</a>
 									<a href="#hotThisWeek">Hot This Week Songs</a>
