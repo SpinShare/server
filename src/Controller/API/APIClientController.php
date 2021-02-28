@@ -24,9 +24,7 @@ class APIClientController extends AbstractController
      * @Route("/api/latestVersion/{platform}/")
      */
     public function latestVersion(string $platform)
-    {
-        // TODO: DOCUMENTATION
-        
+    {   
         $em = $this->getDoctrine()->getManager();
         $data = [];
 

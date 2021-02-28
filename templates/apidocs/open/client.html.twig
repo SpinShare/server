@@ -1,0 +1,65 @@
+{% extends 'apidocs/base.html.twig' %}
+
+{% block title %}Client{% endblock %}
+
+{% block content %}
+					<div class="row justify-content-center">
+						<div class="col-lg-7">
+							<div class="content">
+								<h1 class="content-title">
+									Client
+                                </h1>
+                                
+                                <div class="card" id="getLatestVersion">
+                                    <h2 class="card-title">Get Latest Verison</h2>
+                                    <p>Get's the latest version of the SpinShare Client for a set platform.</p>
+
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Method</th>
+                                            <td>GET</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Endpoint</th>
+                                            <td>/latestVersion/<code class="code">platform</code></td>
+                                        </tr>
+                                    </table>
+
+                                    <br />
+
+                                    <strong>Output Body</strong>
+<pre class="code">
+{
+    "version": 1,
+    "status": 200,
+    "data":
+    {
+        "id": 1,
+        "uploadDate":
+        {
+            "date": "2021-02-23 20:35:22.000000",
+            "timezone_type": 3,
+            "timezone": "Europe/Berlin"
+        },
+        "stringVersion": "2.5.0",
+        "majorVersion": 2,
+        "minorVersion": 5,
+        "patchVersion": 0,
+        "platform": "win32",
+        "path": "https://spinsha.re/uploads/client/SpinShare_win32_2_5_0.exe"
+    }
+}
+</pre>
+                                </div>
+							</div>
+						</div>
+						<div class="col-lg-3">
+							<div class="content">
+								<div class="on-this-page-nav">
+									<div class="title">On this page</div>
+									<a href="#getLatestVersion">Get Latest Version</a>
+								</div>
+							</div>
+						</div>
+					</div>
+{% endblock %}
