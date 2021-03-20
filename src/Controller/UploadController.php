@@ -106,6 +106,37 @@ class UploadController extends AbstractController
                                 // Detect used difficulties
                                 foreach($trackInfo->difficulties as $oneData) {
                                     if(isset($oneData->_active) && $oneData->_active || !isset($oneData->_active)) {
+                                        $assetIndex = str_replace("TrackData_", "", $oneData->assetName);
+
+                                        switch($trackData[$assetIndex]->difficultyType) {
+                                            case 2:
+                                                $song->setHasEasyDifficulty(true);
+                                                $song->setEasyDifficulty($trackData[$assetIndex]->difficultyRating);
+                                                break;
+                                            case 3:
+                                                $song->setHasNormalDifficulty(true);
+                                                $song->setNormalDifficulty($trackData[$assetIndex]->difficultyRating);
+                                                break;
+                                            case 4:
+                                                $song->setHasHardDifficulty(true);
+                                                $song->setHardDifficulty($trackData[$assetIndex]->difficultyRating);
+                                                break;
+                                            case 5:
+                                                $song->setHasExtremeDifficulty(true);
+                                                $song->setExpertDifficulty($trackData[$assetIndex]->difficultyRating);
+                                                break;
+                                            case 6:
+                                                $song->setHasXDDifficulty(true);
+                                                $song->setXDDifficulty($trackData[$assetIndex]->difficultyRating);
+                                                break;
+                                        }
+                                    }
+                                }
+
+                                // Detect used difficulties
+                                /*
+                                foreach($trackInfo->difficulties as $oneData) {
+                                    if(isset($oneData->_active) && $oneData->_active || !isset($oneData->_active)) {
                                         switch($oneData->_difficulty) {
                                             case 2:
                                                 $song->setHasEasyDifficulty(true);
@@ -145,7 +176,7 @@ class UploadController extends AbstractController
                                             $song->setXDDifficulty($trackDataItem->difficultyRating);
                                             break;
                                     }
-                                }
+                                } */
                             } catch(Exception $e) {
                                 var_dump($e);
                                 exit;

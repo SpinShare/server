@@ -322,24 +322,31 @@ class SongController extends AbstractController
                                     $song->setExpertDifficulty(null);
                                     $song->setXDDifficulty(null);
 
-                                    // Detect difficulties
+                                    // Detect used difficulties
                                     foreach($trackInfo->difficulties as $oneData) {
                                         if(isset($oneData->_active) && $oneData->_active || !isset($oneData->_active)) {
-                                            switch($oneData->_difficulty) {
+                                            $assetIndex = str_replace("TrackData_", "", $oneData->assetName);
+
+                                            switch($trackData[$assetIndex]->difficultyType) {
                                                 case 2:
                                                     $song->setHasEasyDifficulty(true);
+                                                    $song->setEasyDifficulty($trackData[$assetIndex]->difficultyRating);
                                                     break;
                                                 case 3:
                                                     $song->setHasNormalDifficulty(true);
+                                                    $song->setNormalDifficulty($trackData[$assetIndex]->difficultyRating);
                                                     break;
                                                 case 4:
                                                     $song->setHasHardDifficulty(true);
+                                                    $song->setHardDifficulty($trackData[$assetIndex]->difficultyRating);
                                                     break;
                                                 case 5:
                                                     $song->setHasExtremeDifficulty(true);
+                                                    $song->setExpertDifficulty($trackData[$assetIndex]->difficultyRating);
                                                     break;
                                                 case 6:
                                                     $song->setHasXDDifficulty(true);
+                                                    $song->setXDDifficulty($trackData[$assetIndex]->difficultyRating);
                                                     break;
                                             }
                                         }

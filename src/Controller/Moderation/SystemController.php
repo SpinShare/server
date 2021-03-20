@@ -182,29 +182,6 @@ class SystemController extends AbstractController
             $songToProcess->setHasHardDifficulty(false);
             $songToProcess->setHasExtremeDifficulty(false);
             $songToProcess->setHasXDDifficulty(false);
-            
-            // Detect used difficulties
-            foreach($trackInfo->difficulties as $oneData) {
-                if(isset($oneData->_active) && $oneData->_active || !isset($oneData->_active)) {
-                    switch($oneData->_difficulty) {
-                        case 2:
-                            $songToProcess->setHasEasyDifficulty(true);
-                            break;
-                        case 3:
-                            $songToProcess->setHasNormalDifficulty(true);
-                            break;
-                        case 4:
-                            $songToProcess->setHasHardDifficulty(true);
-                            break;
-                        case 5:
-                            $songToProcess->setHasExtremeDifficulty(true);
-                            break;
-                        case 6:
-                            $songToProcess->setHasXDDifficulty(true);
-                            break;
-                    }
-                }
-            }
 
             // Reset difficulty ratings
             $songToProcess->setEasyDifficulty(false);
@@ -213,24 +190,33 @@ class SystemController extends AbstractController
             $songToProcess->setExpertDifficulty(false);
             $songToProcess->setXDDifficulty(false);
 
-            // Detect difficulty ratings
-            foreach($trackData as $trackDataItem) {
-                switch($trackDataItem->difficultyType) {
-                    case 2:
-                        $songToProcess->setEasyDifficulty($trackDataItem->difficultyRating);
-                        break;
-                    case 3:
-                        $songToProcess->setNormalDifficulty($trackDataItem->difficultyRating);
-                        break;
-                    case 4:
-                        $songToProcess->setHardDifficulty($trackDataItem->difficultyRating);
-                        break;
-                    case 5:
-                        $songToProcess->setExpertDifficulty($trackDataItem->difficultyRating);
-                        break;
-                    case 6:
-                        $songToProcess->setXDDifficulty($trackDataItem->difficultyRating);
-                        break;
+            // Detect used difficulties
+            foreach($trackInfo->difficulties as $oneData) {
+                if(isset($oneData->_active) && $oneData->_active || !isset($oneData->_active)) {
+                    $assetIndex = str_replace("TrackData_", "", $oneData->assetName);
+
+                    switch($trackData[$assetIndex]->difficultyType) {
+                        case 2:
+                            $songToProcess->setHasEasyDifficulty(true);
+                            $songToProcess->setEasyDifficulty($trackData[$assetIndex]->difficultyRating);
+                            break;
+                        case 3:
+                            $songToProcess->setHasNormalDifficulty(true);
+                            $songToProcess->setNormalDifficulty($trackData[$assetIndex]->difficultyRating);
+                            break;
+                        case 4:
+                            $songToProcess->setHasHardDifficulty(true);
+                            $songToProcess->setHardDifficulty($trackData[$assetIndex]->difficultyRating);
+                            break;
+                        case 5:
+                            $songToProcess->setHasExtremeDifficulty(true);
+                            $songToProcess->setExpertDifficulty($trackData[$assetIndex]->difficultyRating);
+                            break;
+                        case 6:
+                            $songToProcess->setHasXDDifficulty(true);
+                            $songToProcess->setXDDifficulty($trackData[$assetIndex]->difficultyRating);
+                            break;
+                    }
                 }
             }
 
