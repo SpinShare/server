@@ -26,7 +26,21 @@ class IndexController extends AbstractController
         $activePromos = $em->getRepository(Promo::class)->findBy(array('isVisible' => true), array('id' => 'DESC'), 2);
         $data['promos'] = $activePromos;
 
+        /* Stories */
+        $userStories = $em->getRepository(User::class)->findBy(array('isPatreon' => true));
+        shuffle($userStories);
+        $userStories = array_slice($userStories, 0, 12);
+        $data['users'] = $userStories;
+
         return $this->render('index/index.html.twig', $data);
+    }
+
+    /**
+     * @Route("/story/{userId}", name="index.story")
+     */
+    public function indexStory(Request $request, $userId)
+    {
+        return $this->redirect('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
     }
 
     /**
