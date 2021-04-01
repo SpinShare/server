@@ -11,8 +11,6 @@
         </div>
 
         <div class="staff-promos">
-            {{ include('components/aprilfools.html.twig') }}
-
             {% for promo in promos %}
                 <div class="staff-promo" style="background-image: url({{ asset('uploads/promo/' ~ promo.imagePath) }});">
                     <div class="promo-type" style="color: {{ promo.color }};">{{ promo.type }}</div>
