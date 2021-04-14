@@ -338,6 +338,24 @@ class ModactionsController extends AbstractController
 
         return $this->redirectToRoute('song.detail', array('songId' => $songId));
     }
+    
+    /**
+     * @Route("/moderation/song/fixInflation/{songId}", name="moderation.song.fixInflation")
+     */
+    public function songFixInflation(Request $request, int $songId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        $songToFix = $em->getRepository(Song::class)->findOneBy(array('id' => $songId));
+        $songToFix->setDownloads(ceil($songToFix->getViews() / 3));
+
+        $em->persist($songToFix);
+        $em->flush();
+
+        return $this->redirectToRoute('song.detail', array('songId' => $songId));
+    }
+
     /**
      * @Route("/moderation/playlist/{playlistId}/remove", name="moderation.playlist.remove")
      */

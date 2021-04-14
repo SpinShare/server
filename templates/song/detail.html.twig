@@ -69,6 +69,11 @@
                                     <i class="mdi mdi-delete"></i>
                                 </div>
                             </a>
+                            <a href="{{ path('moderation.song.fixInflation', {songId: song.id}) }}" onclick="return confirm('Are you sure? This action cannot be undone!')" class="action">
+                                <div class="icon">
+                                    <i class="mdi mdi-auto-fix"></i>
+                                </div>
+                            </a>
                         {% endif %}
                         <div class="action" onclick="openPlaylistOverlay()">
                             <div class="icon">
