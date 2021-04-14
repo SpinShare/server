@@ -106,13 +106,13 @@
                     </div>
                 </div>
                 {% endif %}
-                {% if song.updateDate|date("Y") > 2000 && song.uploadDate|date("dS F Y") != "now"|date("dS F Y") %}
+                {% if song.updateDate|date("Y") > 2000 %}
                 <div class="stat">
                     <div class="icon">
                         <i class="mdi mdi-pencil"></i>
                     </div>
                     <div class="content">
-                    {{ song.updateDate|date("dS F Y") }}
+                    {{ song.updateDate|date("dS F Y") }} || {{ song.updateDate }}
                     </div>
                 </div>
                 {% endif %}
