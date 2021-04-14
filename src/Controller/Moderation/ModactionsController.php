@@ -348,7 +348,7 @@ class ModactionsController extends AbstractController
         $data = [];
 
         $songToFix = $em->getRepository(Song::class)->findOneBy(array('id' => $songId));
-        $songToFix->setDownloads(ceil($songToFix->getViews() / 3));
+        $songToFix->setDownloads(ceil($songToFix->getViews() / 2.5));
 
         $em->persist($songToFix);
         $em->flush();
