@@ -45,8 +45,19 @@ class APISongController extends AbstractController
             $em->persist($result);
             $em->flush();
 
+            // TODO: This is a quick fix for mp3 support, swap with proper mp3 flag later on
+            $oggURL = $baseUrl."/uploads/audio/".$result->getFileReference()."_0.ogg";
+            $mp3URL = $baseUrl."/uploads/audio/".$result->getFileReference()."_0.mp3";
+            $oggHeaders = get_headers($oggURL);
+
+            if(stripos($oggHeaders[0],"200 OK")) {
+                $audioURL = $oggURL;
+            } else {
+                $audioURL = $mp3URL;
+            }
+
             $data = $result->getJSON();
-            $data['paths']['ogg'] = $baseUrl."/uploads/audio/".$result->getFileReference()."_0.ogg";
+            $data['paths']['ogg'] = $audioURL;
             $data['paths']['cover'] = $baseUrl."/uploads/thumbnail/".$result->getFileReference().".jpg";
             $data['paths']['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
     
@@ -148,6 +159,7 @@ class APISongController extends AbstractController
 
                 $coverFiles = glob($this->getParameter('cover_path').DIRECTORY_SEPARATOR.$result->getFileReference().".png");
                 $oggFiles = glob($this->getParameter('audio_path').DIRECTORY_SEPARATOR.$result->getFileReference()."_*.ogg");
+                $mp3Files = glob($this->getParameter('audio_path').DIRECTORY_SEPARATOR.$result->getFileReference()."_*.mp3");
 
                 $zip = new \ZipArchive;
                 $zip->open($zipLocation.$zipName, \ZipArchive::CREATE);
@@ -159,6 +171,12 @@ class APISongController extends AbstractController
                     foreach($oggFiles as $oggFile) {
                         $oggIndex = explode(".", explode("_", $oggFile)[2])[0];
                         $zip->addFile($oggFile, "AudioClips".DIRECTORY_SEPARATOR.$result->getFileReference()."_".$oggIndex.".ogg");
+                    }
+                }
+                if(count($mp3Files) > 0) {
+                    foreach($mp3Files as $mp3File) {
+                        $mp3Index = explode(".", explode("_", $mp3File)[2])[0];
+                        $zip->addFile($mp3File, "AudioClips".DIRECTORY_SEPARATOR.$result->getFileReference()."_".$mp3Index.".mp3");
                     }
                 }
                 $zip->close();
