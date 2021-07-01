@@ -167,6 +167,7 @@ class SongController extends AbstractController
             try {
                 $coverFiles = glob($this->getParameter('cover_path').DIRECTORY_SEPARATOR.$result->getFileReference().".png");
                 $oggFiles = glob($this->getParameter('audio_path').DIRECTORY_SEPARATOR.$result->getFileReference()."_*.ogg");
+                $mp3Files = glob($this->getParameter('audio_path').DIRECTORY_SEPARATOR.$result->getFileReference()."_*.mp3");
 
                 $zip = new \ZipArchive;
                 $zip->open($zipLocation.$zipName, \ZipArchive::CREATE);
@@ -178,6 +179,12 @@ class SongController extends AbstractController
                     foreach($oggFiles as $oggFile) {
                         $oggIndex = explode(".", explode("_", $oggFile)[2])[0];
                         $zip->addFile($oggFile, "AudioClips".DIRECTORY_SEPARATOR.$result->getFileReference()."_".$oggIndex.".ogg");
+                    }
+                }
+                if(count($mp3Files) > 0) {
+                    foreach($mp3Files as $mp3File) {
+                        $mp3Index = explode(".", explode("_", $mp3File)[2])[0];
+                        $zip->addFile($mp3File, "AudioClips".DIRECTORY_SEPARATOR.$result->getFileReference()."_".$mp3Index.".mp3");
                     }
                 }
                 $zip->close();
@@ -270,6 +277,16 @@ class SongController extends AbstractController
                                 $oggFiles = glob($this->getParameter('audio_path').DIRECTORY_SEPARATOR.$song->getFileReference()."_*.ogg");
                                 foreach($oggFiles as $oggFile) {
                                     @unlink($oggFile);
+                                }
+                            } catch(FileNotFoundException $e) {
+        
+                            }
+        
+                            // Remove .mp3 files
+                            try {
+                                $mp3Files = glob($this->getParameter('audio_path').DIRECTORY_SEPARATOR.$song->getFileReference()."_*.mp3");
+                                foreach($mp3Files as $mp3File) {
+                                    @unlink($mp3File);
                                 }
                             } catch(FileNotFoundException $e) {
         
@@ -409,9 +426,14 @@ class SongController extends AbstractController
                                         $assetName = $clipItem->clipAssetReference->assetName;
                                         $newAssetName = $song->getFileReference()."_".$clipIndex;
                                         $oggLocation = $extractionPath.DIRECTORY_SEPARATOR."AudioClips".DIRECTORY_SEPARATOR.$assetName.".ogg";
+                                        $mp3Location = $extractionPath.DIRECTORY_SEPARATOR."AudioClips".DIRECTORY_SEPARATOR.$assetName.".mp3";
                                         if(is_file($oggLocation)) {
                                             $clipInfo[$clipIndex]->clipAssetReference->assetName = $newAssetName;
                                             rename($oggLocation, $this->getParameter('audio_path').DIRECTORY_SEPARATOR.$newAssetName.".ogg");
+                                        }
+                                        if(is_file($mp3Location)) {
+                                            $clipInfo[$clipIndex]->clipAssetReference->assetName = $newAssetName;
+                                            rename($mp3Location, $this->getParameter('audio_path').DIRECTORY_SEPARATOR.$newAssetName.".mp3");
                                         }
                                     }
                                 } catch(Exception $e) {
@@ -508,6 +530,16 @@ class SongController extends AbstractController
                     $oggFiles = glob($this->getParameter('audio_path').DIRECTORY_SEPARATOR.$result->getFileReference()."_*.ogg");
                     foreach($oggFiles as $oggFile) {
                         @unlink($oggFile);
+                    }
+                } catch(FileNotFoundException $e) {
+
+                }
+
+                // Remove .mp3 files
+                try {
+                    $mp3Files = glob($this->getParameter('audio_path').DIRECTORY_SEPARATOR.$result->getFileReference()."_*.mp3");
+                    foreach($mp3Files as $mp3File) {
+                        @unlink($mp3File);
                     }
                 } catch(FileNotFoundException $e) {
 

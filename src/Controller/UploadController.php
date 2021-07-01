@@ -221,9 +221,14 @@ class UploadController extends AbstractController
                                     $assetName = $clipItem->clipAssetReference->assetName;
                                     $newAssetName = $song->getFileReference()."_".$clipIndex;
                                     $oggLocation = $extractionPath.DIRECTORY_SEPARATOR."AudioClips".DIRECTORY_SEPARATOR.$assetName.".ogg";
+                                    $mp3Location = $extractionPath.DIRECTORY_SEPARATOR."AudioClips".DIRECTORY_SEPARATOR.$assetName.".mp3";
                                     if(is_file($oggLocation)) {
                                         $clipInfo[$clipIndex]->clipAssetReference->assetName = $newAssetName;
                                         rename($oggLocation, $this->getParameter('audio_path').DIRECTORY_SEPARATOR.$newAssetName.".ogg");
+                                    }
+                                    if(is_file($mp3Location)) {
+                                        $clipInfo[$clipIndex]->clipAssetReference->assetName = $newAssetName;
+                                        rename($mp3Location, $this->getParameter('audio_path').DIRECTORY_SEPARATOR.$newAssetName.".mp3");
                                     }
                                 }
                             } catch(Exception $e) {
