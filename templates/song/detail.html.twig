@@ -382,10 +382,6 @@
 
         function PlayPreview() {
             currentPreviewAudio = new Audio("{{ asset('uploads/audio/' ~ song.fileReference ~ '_0.ogg') }}");
-            // TODO: This is a quick fix for mp3 support, change with proper code later
-            currentPreviewAudio.onerror = function() {
-                currentPreviewAudio = new Audio("{{ asset('uploads/audio/' ~ song.fileReference ~ '_0.mp3') }}");
-            }
             currentPreviewAudio.volume = 0.5;
             playerVolume.value = 50;
             currentPreviewAudio.play();
@@ -393,6 +389,15 @@
                 StopPreview();
             }
             isPlaying = true;
+
+            // TODO: This is a quick fix for mp3 support, change with proper code later
+            currentPreviewAudio.onerror = function() {
+                currentPreviewAudio = new Audio("{{ asset('uploads/audio/' ~ song.fileReference ~ '_0.mp3') }}");
+                
+                currentPreviewAudio.volume = 0.5;
+                playerVolume.value = 50;
+                currentPreviewAudio.play();
+            }
 
             songActionsRow.classList.add("player-active");
             playerToggle.innerHTML = '<i class="mdi mdi-stop"></i>';
