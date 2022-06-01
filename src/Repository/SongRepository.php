@@ -24,8 +24,8 @@ class SongRepository extends ServiceEntityRepository
         $qb
             ->where('e.publicationStatus = 0')
             ->orderBy('e.uploadDate', 'DESC')
-            ->setFirstResult(10 * $page)
-            ->setMaxResults(10);
+            ->setFirstResult(12 * $page)
+            ->setMaxResults(12);
         return $qb->getQuery()->getResult();
     }
 
@@ -36,8 +36,8 @@ class SongRepository extends ServiceEntityRepository
             ->andWhere('e.updateDate != e.uploadDate')
             ->orderBy('e.updateDate', 'DESC')
             ->addOrderBy('e.uploadDate', 'DESC')
-            ->setFirstResult(10 * $page)
-            ->setMaxResults(10);
+            ->setFirstResult(12 * $page)
+            ->setMaxResults(12);
         return $qb->getQuery()->getResult();
     }
 
@@ -49,8 +49,8 @@ class SongRepository extends ServiceEntityRepository
             ->andWhere('e.uploadDate >= :end')
             ->orderBy('e.downloads', 'DESC')
             ->addOrderBy('e.views', 'DESC')
-            ->setFirstResult(10 * $page)
-            ->setMaxResults(10)
+            ->setFirstResult(12 * $page)
+            ->setMaxResults(12)
             ->setParameter('begin', new \DateTime('NOW'))
             ->setParameter('end', new \DateTime('-7 days'));
         return $qb->getQuery()->getResult();
@@ -64,8 +64,8 @@ class SongRepository extends ServiceEntityRepository
             ->andWhere('e.uploadDate >= :end')
             ->orderBy('e.downloads', 'DESC')
             ->addOrderBy('e.views', 'DESC')
-            ->setFirstResult(10 * $page)
-            ->setMaxResults(10)
+            ->setFirstResult(12 * $page)
+            ->setMaxResults(12)
             ->setParameter('begin', new \DateTime('NOW'))
             ->setParameter('end', new \DateTime('-1 month'));
         return $qb->getQuery()->getResult();
