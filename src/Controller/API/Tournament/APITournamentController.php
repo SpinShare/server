@@ -25,7 +25,7 @@ class APITournamentController extends AbstractController
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         // Botch
-        $tournamentPlaylist = $em->getRepository(SongPlaylist::class)->findOneBy(array('id' => "236"));
+        $tournamentPlaylist = $em->getRepository(SongPlaylist::class)->findOneBy(array('id' => "340"));
 
         foreach($tournamentPlaylist->getSongs() as $tournamentChart) {
             $chartItem = $tournamentChart->getJSON();
