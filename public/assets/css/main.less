@@ -43,7 +43,7 @@ main {
             display: flex;
             flex-direction: row;
             align-items: center;
-            
+
             &.items-left { justify-content: flex-start; }
             &.items-right { justify-content: flex-end; }
             & .logo {
@@ -70,7 +70,7 @@ main {
                 color :#fff;
                 position: relative;
                 transition: 0.2s ease opacity, 0.2s ease background;
-    
+
                 & .indicator {
                     position: absolute;
                     top: 10px;
@@ -101,7 +101,7 @@ main {
                         opacity: 1;
                     }
                 }
-    
+
                 & > .mdi {
                     font-size: 22px;
                     opacity: 0.4;
@@ -284,7 +284,7 @@ main {
                 border: 0px;
                 transition: 0.2s ease-in-out all;
                 min-width: 500px;
-            
+
                 &:hover {
                     background: rgba(255,255,255,0.3);
                     color: #fff;
@@ -356,14 +356,14 @@ input[type='range']::-webkit-slider-thumb {
 }
 /** FF*/
 input[type="range"]::-moz-range-progress {
-    background-color: rgb(226, 44, 120); 
+    background-color: rgb(226, 44, 120);
 }
-input[type="range"]::-moz-range-track {  
+input[type="range"]::-moz-range-track {
     background-color: #ddd;
 }
 /* IE*/
 input[type="range"]::-ms-fill-lower {
-    background-color: rgb(226, 44, 120); 
+    background-color: rgb(226, 44, 120);
 }
 .flex-break {
     flex-basis: 100%;
@@ -373,15 +373,15 @@ input[type="range"]::-ms-fill-lower {
     display: grid;
     grid-template-rows: auto 1fr;
     grid-gap: 5px;
-    
+
     & .song-list {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         grid-gap: 15px;
     }
     & .song-list-5 {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         grid-gap: 15px;
     }
     & .pagination {
@@ -421,105 +421,66 @@ input[type="range"]::-ms-fill-lower {
 }
 
 .song-item {
-    background: rgba(255,255,255,0.1);
-    transition: 0.2s ease-in-out transform, 0.2s ease-in-out box-shadow;
+    background: rgba(255,255,255,0.07);
+    padding: 15px;
     overflow: hidden;
-    border-radius: 6px;
-    color: #fff;
+    border-radius: 4px;
+    transition: 0.2s ease-in-out all;
+    display: grid;
+    grid-gap: 15px;
+    grid-template-columns: 64px 1fr;
+    color: inherit;
     text-decoration: none;
 
-    & .song-cover {
-        background: url("../img/defaultAlbumArt.jpg");
-        background-size: cover;
-        width: 100%;
-        padding-top: 100%;
-        position: relative;
-        background-position: center;
-
-        & .song-charter {
-            position: absolute;
-            z-index: 2;
-            top: 0px;
-            left: 0px;
-            right: 0px;
-            bottom: 0px;
-            background: linear-gradient(180deg, rgba(0,0,0,0.2), rgba(0,0,0,0.8));
-            opacity: 0;
-            padding: 15px;
-            overflow: hidden;
-            display: grid;
-            transition: 0.2s ease-in-out opacity;
-            grid-template-columns: auto 1fr;
-            grid-gap: 10px;
-            align-items: flex-end;
-
-            & .song-charter-info {
-                display: grid;
-                align-items: center;
-
-                & .mdi {
-                    font-size: 18px;
-                }
-                & span {
-                    font-size: 12px;
-                    color: transparent;
-                    transition: 0.2s ease-in-out color;
-                    overflow: hidden;
-                    white-space: nowrap;
-                }
-            }
-        }
+    & img {
+        width: 64px;
+        height: 64px;
+        border-radius: 4px;
     }
 
-    & .song-metadata {
-        padding: 15px;
-        display: grid;
-        grid-template-rows: 1fr auto auto;
+    & .meta {
+        & h1 {
+            font-size: 16px;
+            font-weight: normal;
+            margin: 0;
+        }
 
-        & .song-title {
-            font-weight: bold;
-            overflow: hidden;
-            white-space: nowrap;
+        & h2 {
+            margin-top: 3px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: normal;
+            color: rgba(255, 255, 255, 0.4);
         }
-        & .song-artist {
-            margin-top: 5px;
-            opacity: 0.6;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-        & .song-difficulties {
-            margin-top: 10px;
-            height: 20px;
+
+        & .difficulties {
             display: flex;
+            grid-gap: 5px;
 
-            & .difficulty {
-                background: #fff;
-                color: #000;
-                border-radius: 4px;
-                padding: 3px 8px;
-                margin-right: 4px;
+            & > div {
+                padding: 3px 7px;
+                background: rgba(255, 255, 255, 0.07);
+                border-radius: 2px;
                 font-size: 10px;
 
-                & span {
-                    // padding-right: 3px;
+                & span:nth-child(1) {
                     font-weight: bold;
+                }
+
+                & span:nth-child(2) {
+                    margin-left: 5px;
+                }
+
+                &:not(.active) {
+                    opacity: 0.4;
                 }
             }
         }
     }
-    &:not(.inactive):hover {
-        cursor: pointer;
-        background: rgba(255,255,255,0.2);
-        box-shadow: 0px 4px 20px 5px rgba(0, 0, 0, 0.4);
 
-        & .song-cover {
-            & .song-charter {
-                opacity: 1;
-            }
-        }
-    }
-    &.inactive {
-        box-shadow: 0px 2px 10px 5px rgba(0, 0, 0, 0.2);
+    &:hover {
+        background: rgba(255,255,255,0.14);
+        cursor: pointer;
     }
 }
 .user-row {
@@ -658,24 +619,10 @@ input[type="range"]::-ms-fill-lower {
         }
     }
 }
-@media screen and (min-width: 550px) and (max-width: 780px) {
+@media screen and (min-width: 550px) and (max-width: 1400px) {
     .song-row {
         & .song-list {
             grid-template-columns: repeat(2, 1fr);
-        }
-    }
-}
-@media screen and (min-width: 780px) and (max-width: 1000px) {
-    .song-row {
-        & .song-list {
-            grid-template-columns: repeat(3, 1fr);
-        }
-    }
-}
-@media screen and (min-width: 1000px) and (max-width: 1400px) {
-    .song-row {
-        & .song-list {
-            grid-template-columns: repeat(4, 1fr);
         }
     }
 }

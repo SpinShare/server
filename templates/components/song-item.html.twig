@@ -1,18 +1,32 @@
 <a class="song-item" href="{{ path('song.detail', {songId: song.id}) }}">
-    <div class="song-cover" style="background-image: url({{ asset("uploads/thumbnail/" ~ song.fileReference ~ ".jpg?v=" ~ date().timestamp) }}), url({{ asset("assets/img/defaultAlbumArt.jpg") }});">
-        <div class="song-charter-info">
-            <div class="song-charter"><i class="mdi mdi-account-circle"></i><span>{{ song.charter|default('Unknown') }}</span></div>
-        </div>
-    </div>
-    <div class="song-metadata">
-        <div class="song-title">{{ song.title|default('Untitled') }}</div>
-        <div class="song-artist">{{ song.artist|default('Unknown') }}</div>
-        <div class="song-difficulties">
-            {% if song.hasEasyDifficulty %}<div class="difficulty"><span>E</span> {{ song.easyDifficulty }}</div>{% endif %}
-            {% if song.hasNormalDifficulty %}<div class="difficulty"><span>N</span> {{ song.normalDifficulty }}</div>{% endif %}
-            {% if song.hasHardDifficulty %}<div class="difficulty"><span>H</span> {{ song.hardDifficulty }}</div>{% endif %}
-            {% if song.hasExtremeDifficulty %}<div class="difficulty"><span>EX</span> {{ song.expertDifficulty }}</div>{% endif %}
-            {% if song.hasXDDifficulty %}<div class="difficulty"><span>XD</span> {{ song.XDDifficulty }}</div>{% endif %}
+    <!-- {{ song.charter|default('Unknown') }} -->
+    <img
+        src="{{ asset("uploads/thumbnail/" ~ song.fileReference ~ ".jpg?v=" ~ date().timestamp) }}"
+    />
+    <div class="meta">
+        <h1>{{ song.title|default('Untitled') }}</h1>
+        <h2>{{ song.artist|default('Unknown') }}</h2>
+        <div class="difficulties">
+            <div class="{{ song.hasEasyDifficulty ? 'active' : '' }}">
+                <span>E</span>
+                {% if song.hasEasyDifficulty %}<span>{{ song.easyDifficulty ? song.easyDifficulty : 0 }}</span>{% endif %}
+            </div>
+            <div class="{{ song.hasNormalDifficulty ? 'active' : '' }}">
+                <span>N</span>
+                {% if song.hasNormalDifficulty %}<span>{{ song.normalDifficulty ? song.normalDifficulty : 0 }}</span>{% endif %}
+            </div>
+            <div class="{{ song.hasHardDifficulty ? 'active' : '' }}">
+                <span>H</span>
+                {% if song.hasHardDifficulty %}<span>{{ song.hardDifficulty ? song.hardDifficulty : 0 }}</span>{% endif %}
+            </div>
+            <div class="{{ song.hasExtremeDifficulty ? 'active' : '' }}">
+                <span>EX</span>
+                {% if song.hasExtremeDifficulty %}<span>{{ song.expertDifficulty ? song.expertDifficulty : 0 }}</span>{% endif %}
+            </div>
+            <div class="{{ song.hasXDDifficulty ? 'active' : '' }}">
+                <span>XD</span>
+                {% if song.hasXDDifficulty %}<span>{{ song.XDDifficulty ? song.XDDifficulty : 0 }}</span>{% endif %}
+            </div>
         </div>
     </div>
 </a>
