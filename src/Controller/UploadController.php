@@ -132,56 +132,11 @@ class UploadController extends AbstractController
                                         }
                                     }
                                 }
-
-                                // Detect used difficulties
-                                /*
-                                foreach($trackInfo->difficulties as $oneData) {
-                                    if(isset($oneData->_active) && $oneData->_active || !isset($oneData->_active)) {
-                                        switch($oneData->_difficulty) {
-                                            case 2:
-                                                $song->setHasEasyDifficulty(true);
-                                                break;
-                                            case 3:
-                                                $song->setHasNormalDifficulty(true);
-                                                break;
-                                            case 4:
-                                                $song->setHasHardDifficulty(true);
-                                                break;
-                                            case 5:
-                                                $song->setHasExtremeDifficulty(true);
-                                                break;
-                                            case 6:
-                                                $song->setHasXDDifficulty(true);
-                                                break;
-                                        }
-                                    }
-                                }
-
-                                // Detect difficulty ratings
-                                foreach($trackData as $trackDataItem) {
-                                    switch($trackDataItem->difficultyType) {
-                                        case 2:
-                                            $song->setEasyDifficulty($trackDataItem->difficultyRating);
-                                            break;
-                                        case 3:
-                                            $song->setNormalDifficulty($trackDataItem->difficultyRating);
-                                            break;
-                                        case 4:
-                                            $song->setHardDifficulty($trackDataItem->difficultyRating);
-                                            break;
-                                        case 5:
-                                            $song->setExpertDifficulty($trackDataItem->difficultyRating);
-                                            break;
-                                        case 6:
-                                            $song->setXDDifficulty($trackDataItem->difficultyRating);
-                                            break;
-                                    }
-                                } */
                             } catch(Exception $e) {
                                 var_dump($e);
                                 exit;
 
-                                $this->addFlash('error', 'Uploading failed. Please report back to our development team!');
+                                $this->addFlash('error', 'Couldn\'t extract backup. Please report back to our development team!');
 
                                 // clean up temp files
                                 $hf = new HelperFunctions();
@@ -195,18 +150,18 @@ class UploadController extends AbstractController
                                 $coverFiles = glob($extractionPath.DIRECTORY_SEPARATOR."AlbumArt".DIRECTORY_SEPARATOR.$trackInfo->albumArtReference->assetName.".*");
                                 if(count($coverFiles) > 0) {
                                     $fileType = explode(".", $coverFiles[0])[count(explode(".", $coverFiles[0])) - 1];
-                                    
+
                                     if(in_array($fileType, array('jpg', 'png'))) {
                                         // Generate Thumbnail
                                         $hf = new HelperFunctions();
                                         $hf->generateThumbnail($coverFiles[0], $this->getParameter('thumbnail_path').DIRECTORY_SEPARATOR.$song->getFileReference().".jpg", 300);
-                                        
+
                                         $trackInfo->albumArtReference->assetName = $song->getFileReference();
                                         rename($coverFiles[0], $this->getParameter('cover_path').DIRECTORY_SEPARATOR.$song->getFileReference().".png");
                                     }
                                 }
                             } catch(Exception $e) {
-                                $this->addFlash('error', 'Uploading failed. Please report back to our development team!');
+                                $this->addFlash('error', 'Couldn\'t save AlbumArt. Please report back to our development team!');
 
                                 // clean up temp files
                                 $hf = new HelperFunctions();
@@ -232,7 +187,7 @@ class UploadController extends AbstractController
                                     }
                                 }
                             } catch(Exception $e) {
-                                $this->addFlash('error', 'Uploading failed. Please report back to our development team!');
+                                $this->addFlash('error', 'Couldn\'t save AudioClips. Please report back to our development team!');
 
                                 // clean up temp files
                                 $hf = new HelperFunctions();
@@ -267,10 +222,10 @@ class UploadController extends AbstractController
                             // save in database
                             $em->persist($song);
                             $em->flush();
-                            
+
                             return $this->redirectToRoute('song.detail', ['songId' => $song->getId()]);
                         } catch(\Exception $e) {
-                            $this->addFlash('error', 'Uploading failed. Please report back to our development team!');
+                            $this->addFlash('error', 'Couldn\'t save SRTB & database entry. Please report back to our development team!');
 
                             return $this->render('upload/index.html.twig', $tempVars);
                         }
