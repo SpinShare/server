@@ -28,15 +28,7 @@
         <div class="settings-item">
             <div class="settings-label">Preferred Pronouns</div>
             <div class="settings-input">
-                <select name="pronouns">
-                    <option value="" {{ my.pronouns == "" ? "selected" : ""}}>-</option>
-                    <option value="he/him" {{ my.pronouns == "he/him" ? "selected" : ""}}>he/him</option>
-                    <option value="she/her" {{ my.pronouns == "she/her" ? "selected" : ""}}>she/her</option>
-                    <option value="they/them" {{ my.pronouns == "they/them" ? "selected" : ""}}>they/them</option>
-                    <option value="he/they" {{ my.pronouns == "he/they" ? "selected" : ""}}>he/they</option>
-                    <option value="she/they" {{ my.pronouns == "she/they" ? "selected" : ""}}>she/they</option>
-                    <option value="any pronouns" {{ my.pronouns == "any pronouns" ? "selected" : ""}}>any pronouns</option>
-                </select>
+                <input type="text" name="pronouns" value="{{ my.pronouns }}" />
                 <span>This will be shown on your profile and on tournaments, so please take this field serious.</span>
             </div>
         </div>
