@@ -7,7 +7,13 @@
         "ext-iconv": "*",
         "ext-json": "*",
         "ext-zip": "*",
+        "doctrine/annotations": "^1.0",
+        "doctrine/doctrine-bundle": "^2.7",
+        "doctrine/doctrine-migrations-bundle": "^3.2",
+        "doctrine/orm": "^2.13",
         "friendsofsymfony/user-bundle": "~2.0",
+        "phpdocumentor/reflection-docblock": "^5.3",
+        "phpstan/phpdoc-parser": "^1.13",
         "sensio/framework-extra-bundle": "^5.5",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "4.4.*",
@@ -22,29 +28,41 @@
         "symfony/intl": "4.4.*",
         "symfony/mailer": "4.4.*",
         "symfony/monolog-bundle": "^3.1",
-        "symfony/orm-pack": "*",
         "symfony/process": "4.4.*",
+        "symfony/property-access": "4.4.*",
+        "symfony/property-info": "4.4.*",
+        "symfony/proxy-manager-bridge": "4.4.*",
         "symfony/security-bundle": "4.4.*",
-        "symfony/serializer-pack": "*",
+        "symfony/serializer": "4.4.*",
         "symfony/swiftmailer-bundle": "^3.4",
         "symfony/translation": "4.4.*",
-        "symfony/twig-pack": "*",
+        "symfony/twig-bundle": "4.4.*",
         "symfony/validator": "4.4.*",
         "symfony/web-link": "4.4.*",
         "symfony/yaml": "4.4.*",
-        "twig/extensions": "^1.5"
+        "twig/extensions": "^1.5",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0"
     },
     "require-dev": {
-        "symfony/debug-pack": "*",
+        "phpunit/phpunit": "^9.5",
+        "symfony/browser-kit": "4.4.*",
+        "symfony/css-selector": "4.4.*",
+        "symfony/debug-bundle": "4.4.*",
         "symfony/maker-bundle": "^1.14",
-        "symfony/profiler-pack": "*",
-        "symfony/test-pack": "*"
+        "symfony/phpunit-bridge": "^6.1",
+        "symfony/stopwatch": "4.4.*",
+        "symfony/web-profiler-bundle": "4.4.*"
     },
     "config": {
         "preferred-install": {
             "*": "dist"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "ocramius/package-versions": true,
+            "symfony/flex": true
+        }
     },
     "autoload": {
         "psr-4": {

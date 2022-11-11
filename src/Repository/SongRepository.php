@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Song;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Song|null find($id, $lockMode = null, $lockVersion = null)
