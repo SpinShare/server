@@ -125,6 +125,6 @@
   opacity: 0.6;
 }
 .section-playlist-detail .playlist-content .song-row-playlist .song-list {
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 /*# sourceMappingURL=playlistdetail.css.map */
