@@ -323,9 +323,6 @@ class SongController extends AbstractController
                                     $song->setArtist($trackInfo->artistName);
                                     $song->setCharter($trackInfo->charter);
 
-                                    // Generate new UpdateHash
-                                    $song->setUpdateHash(md5(json_encode($srtbContent)));
-
                                     // Reset Difficulty Ratings
                                     $song->setHasEasyDifficulty(false);
                                     $song->setHasNormalDifficulty(false);
@@ -462,6 +459,9 @@ class SongController extends AbstractController
                                 // write srtb file
                                 $srtbFileLocation = $this->getParameter('srtb_path').DIRECTORY_SEPARATOR.$song->getFileReference().".srtb";
                                 file_put_contents($srtbFileLocation, json_encode( $srtbContent ));
+
+                                // Generate new UpdateHash
+                                $song->setUpdateHash(md5(json_encode($srtbContent)));
 
                                 // clean up temp files
                                 $hf = new HelperFunctions();

@@ -101,8 +101,6 @@ class UploadController extends AbstractController
                                 $song->setHasExtremeDifficulty(false);
                                 $song->setHasXDDifficulty(false);
 
-                                $song->setUpdateHash(md5(json_encode($srtbContent)));
-
                                 // Detect used difficulties
                                 foreach($trackInfo->difficulties as $oneData) {
                                     if(isset($oneData->_active) && $oneData->_active || !isset($oneData->_active)) {
@@ -214,6 +212,9 @@ class UploadController extends AbstractController
                             // write srtb file
                             $srtbFileLocation = $this->getParameter('srtb_path').DIRECTORY_SEPARATOR.$song->getFileReference().".srtb";
                             file_put_contents($srtbFileLocation, json_encode( $srtbContent ));
+                            
+                            // Generate new UpdateHash
+                            $song->setUpdateHash(md5(json_encode($srtbContent)));
 
                             // clean up temp files
                             $hf = new HelperFunctions();
