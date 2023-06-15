@@ -130,6 +130,8 @@ class APISongController extends AbstractController
             foreach($resultPlaylists as $result) {
                 $data[] = $result->getJSON();
 
+                var_dump($data);
+
                 $songsCount = count($data['songs']);
                 unset($data['songs']);
                 $data['songs'] = $songsCount;
