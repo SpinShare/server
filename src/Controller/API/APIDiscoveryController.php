@@ -625,7 +625,10 @@ class APIDiscoveryController extends AbstractController
 
         foreach($resultsPlaylists as $result) {
             $data[] = $result->getJSON();
-            $data['songs'] = count($data['songs']);
+
+            foreach($data as $playlist) {
+                $playlist['songs'] = count($playlist['songs']);
+            }
         }
 
         $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
