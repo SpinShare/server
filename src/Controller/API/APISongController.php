@@ -14,6 +14,7 @@ use App\Entity\ClientRelease;
 use App\Entity\Song;
 use App\Entity\SongReview;
 use App\Entity\SongSpinPlay;
+use App\Entity\SongPlaylist;
 use App\Entity\User;
 use App\Entity\Promo;
 
@@ -97,6 +98,40 @@ class APISongController extends AbstractController
                 $data['reviews'][] = $review->getJSON();
             }
     
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
+            return $response;
+        }
+    }
+
+    /**
+     * @Route("/api/song/{idOrReference}/playlists", name="api.songs.detail.playlists")
+     * @Route("/api/song/{idOrReference}/playlists/")
+     */
+    public function songDetailPlaylists(Request $request, $idOrReference)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        if(is_numeric($idOrReference)) {
+            // $idOrReference is the ID
+            $resultSong = $em->getRepository(Song::class)->findOneBy(array('id' => $idOrReference));
+        } else {
+            // $idOrReference is the file Reference
+            $resultSong = $em->getRepository(Song::class)->findOneBy(array('fileReference' => $idOrReference));
+        }
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
+        if(!$resultSong) {
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
+            return $response;
+        } else {
+            $resultPlaylists = $resultSong->getSongPlaylists();
+
+            foreach($resultPlaylists as $result) {
+                $data[] = $result->getJSON();
+                $data['songs'] = count($data['songs']);
+            }
+
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
             return $response;
         }

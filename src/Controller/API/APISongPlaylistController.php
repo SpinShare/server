@@ -40,6 +40,11 @@ class APISongPlaylistController extends AbstractController
             $data = $result->getJSON();
             $data['cover'] = $baseUrl."/uploads/cover/".$result->getFileReference().".png";
 
+            // Sort Newest First
+            usort($data['songs'], function ($a, $b) {
+                return $a['id'] < $b['id'];
+            });
+
             // Add needed paths for display
             foreach($data['songs'] as $songKey => $songItem) {
                 $songItem['cover'] = $baseUrl."/uploads/thumbnail/".$songItem['fileReference'].".jpg";

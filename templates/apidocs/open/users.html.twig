@@ -121,6 +121,62 @@
 }
 </pre>
                                 </div>
+
+								<div class="card" id="playlists">
+									<h2 class="card-title">Playlists</h2>
+									<p>Returns all playlists of a user.</p>
+
+									<table class="table table-bordered">
+										<tr>
+											<th>Method</th>
+											<td>GET</td>
+										</tr>
+										<tr>
+											<th>Endpoint</th>
+											<td>/user/<code class="code">userID</code>/playlists</td>
+										</tr>
+									</table>
+
+									<br /><br />
+
+									<strong>Output Body (Success)</strong>
+									<pre class="code">
+{
+	"version": 1,
+	"status": 200,
+	"data": [
+		{
+			"id": 7,
+			"title": "Great Normal\/Hard charts!",
+			"description": "Here are some chart's I enjoyed playing on normal\/hard!",
+			"fileReference": "playlist_5fc2a88d3c227",
+			"user": {
+				"id": 4,
+				"username": "thatanimeweirdo",
+				"isVerified": true,
+				"isPatreon": null,
+				"pronouns": "she\/they",
+				"avatar": "https:\/\/spinsha.re\/uploads\/avatar\/608f35bb4afe4.png"
+			},
+			"songs": 50,
+			"isOfficial": false,
+			"cover": "https:\/\/spinsha.re\/uploads\/cover\/playlist_5fc2a88d3c227.png"
+		}
+	]
+}
+</pre>
+
+									<br />
+
+									<strong>Output Body (Not Found)</strong>
+									<pre class="code">
+{
+    "version":1,
+    "status":404,
+    "data":[]
+}
+</pre>
+								</div>
                                 
                                 <div class="card" id="reviews">
                                     <h2 class="card-title">Reviews</h2>
@@ -275,6 +331,7 @@
 									<div class="title">On this page</div>
 									<a href="#overview">Overview</a>
 									<a href="#charts">Charts</a>
+									<a href="#playlists">Playlists</a>
 									<a href="#reviews">Reviews</a>
 									<a href="#spinplays">SpinPlays</a>
 								</div>

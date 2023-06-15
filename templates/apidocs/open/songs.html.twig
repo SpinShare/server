@@ -158,6 +158,58 @@
 }
 </pre>
                                 </div>
+
+                                <div class="card" id="playlists">
+                                    <h2 class="card-title">Playlists</h2>
+                                    <p>Returns all playlists that includes a song.</p>
+
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Method</th>
+                                            <td>GET</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Endpoint</th>
+                                            <td>/song/<code class="code">songID</code>/playlists</td>
+                                        </tr>
+                                    </table>
+
+                                    <br />
+
+                                    <div class="alert alert-primary" role="alert">
+                                        <h4 class="alert-heading">Information</h4>
+                                        Instead of a <code class="code">songID</code> you can also provide a <code class="code">fileReference</code>, which start with <code class="code">spinshare_</code>.
+                                    </div>
+
+                                    <br />
+
+                                    <strong>Output Body</strong>
+                                    <pre class="code">
+{
+	"version": 1,
+	"status": 200,
+	"data": [
+		{
+			"id": 7,
+			"title": "Great Normal\/Hard charts!",
+			"description": "Here are some chart's I enjoyed playing on normal\/hard!",
+			"fileReference": "playlist_5fc2a88d3c227",
+			"user": {
+				"id": 4,
+				"username": "thatanimeweirdo",
+				"isVerified": true,
+				"isPatreon": null,
+				"pronouns": "she\/they",
+				"avatar": "https:\/\/spinsha.re\/uploads\/avatar\/608f35bb4afe4.png"
+			},
+			"songs": 50,
+			"isOfficial": false,
+			"cover": "https:\/\/spinsha.re\/uploads\/cover\/playlist_5fc2a88d3c227.png"
+		}
+	]
+}
+</pre>
+                                </div>
                                 
                                 <div class="card" id="spinplays">
                                     <h2 class="card-title">SpinPlays</h2>
@@ -253,6 +305,7 @@
 									<a href="#detail">Detail</a>
 									<a href="#reviews">Reviews</a>
 									<a href="#spinplays">SpinPlays</a>
+                                    <a href="#playlists">Playlists</a>
 									<a href="#download">Download</a>
 								</div>
 							</div>

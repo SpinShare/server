@@ -2,6 +2,7 @@
 
 namespace App\Controller\API;
 
+use App\Entity\SongPlaylist;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -579,14 +580,52 @@ class APIDiscoveryController extends AbstractController
         $data = [];
 
         $resultsUsers = $em->getRepository(User::class)->createQueryBuilder('o')
-                                                        ->where('o.username LIKE :query')
-                                                        ->orderBy('o.id', 'DESC')
-                                                        ->setParameter('query', '%'.$searchQuery.'%')
-                                                        ->getQuery()
-                                                        ->getResult();
+            ->where('o.username LIKE :query')
+            ->orderBy('o.id', 'DESC')
+            ->setParameter('query', '%'.$searchQuery.'%')
+            ->getQuery()
+            ->getResult();
 
         foreach($resultsUsers as $result) {
             $data[] = $result->getJSON();
+        }
+
+        $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
+        return $response;
+    }
+
+    /**
+     * @Route("/api/searchPlaylists", name="api.searchPlaylists")
+     * @Route("/api/searchPlaylists/")
+     */
+    public function searchPlaylists(Request $request)
+    {
+        // TODO: DOCUMENTATION
+
+        $em = $this->getDoctrine()->getManager();
+
+        $jsonBody = json_decode($request->getContent(), true);
+
+        if($jsonBody == NULL) {
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
+            return $response;
+        }
+
+        $searchQuery = $jsonBody['searchQuery'];
+
+        $data = [];
+
+        $resultsPlaylists = $em->getRepository(SongPlaylist::class)->createQueryBuilder('o')
+            ->where('o.title LIKE :query')
+            ->orWhere('o.description LIKE :query')
+            ->orderBy('o.id', 'DESC')
+            ->setParameter('query', '%'.$searchQuery.'%')
+            ->getQuery()
+            ->getResult();
+
+        foreach($resultsPlaylists as $result) {
+            $data[] = $result->getJSON();
+            $data['songs'] = count($data['songs']);
         }
 
         $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);

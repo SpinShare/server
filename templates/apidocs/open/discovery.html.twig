@@ -97,7 +97,7 @@
                                     <table class="table table-bordered">
                                         <tr>
                                             <th>Method</th>
-                                            <td>GET</td>
+                                            <td>POST</td>
                                         </tr>
                                         <tr>
                                             <th>Endpoint</th>
@@ -172,6 +172,55 @@
 }
 </pre>
                                 </div>
+
+                                <div class="card" id="searchPlaylists">
+                                    <h2 class="card-title">Search Playlists</h2>
+                                    <p>Returns playlists based on the <code class="code">searchQuery</code> provided.</p>
+
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Method</th>
+                                            <td>POST</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Endpoint</th>
+                                            <td>/searchCharts</td>
+                                        </tr>
+                                        <tr>
+                                            <th>JSON Body</th>
+                                            <td>(string) searchQuery</td>
+                                        </tr>
+                                    </table>
+
+                                    <br /><br />
+
+                                    <strong>Output Body</strong>
+                                    <pre class="code">
+{
+	"version": 1,
+	"status": 200,
+	"data": [
+		{
+			"id": 7,
+			"title": "Great Normal\/Hard charts!",
+			"description": "Here are some chart's I enjoyed playing on normal\/hard!",
+			"fileReference": "playlist_5fc2a88d3c227",
+			"user": {
+				"id": 4,
+				"username": "thatanimeweirdo",
+				"isVerified": true,
+				"isPatreon": null,
+				"pronouns": "she\/they",
+				"avatar": "https:\/\/spinsha.re\/uploads\/avatar\/608f35bb4afe4.png"
+			},
+			"songs": 50,
+			"isOfficial": false,
+			"cover": "https:\/\/spinsha.re\/uploads\/cover\/playlist_5fc2a88d3c227.png"
+		}
+	]
+}
+</pre>
+                                </div>
                                 
                                 <div class="card" id="searchUsers">
                                     <h2 class="card-title">Search Users</h2>
@@ -180,7 +229,7 @@
                                     <table class="table table-bordered">
                                         <tr>
                                             <th>Method</th>
-                                            <td>GET</td>
+                                            <td>POST</td>
                                         </tr>
                                         <tr>
                                             <th>Endpoint</th>
@@ -408,7 +457,7 @@
                                         </tr>
                                         <tr>
                                             <th>Endpoint</th>
-                                            <td>/songs/hot/<code class="code">offset</code></td>
+                                            <td>/songs/hotThisWeek/<code class="code">offset</code></td>
                                         </tr>
                                     </table>
 
@@ -525,6 +574,7 @@
 									<div class="title">On this page</div>
 									<a href="#search"><span class="badge badge-secondary">Deprecated</span> Search</a>
 									<a href="#searchCharts">Search Charts</a>
+                                    <a href="#searchPlaylists">Search Playlists</a>
 									<a href="#searchUsers">Search Users</a>
 									<a href="#searchAll"><span class="badge badge-secondary">Deprecated</span> Search All</a>
 									<a href="#new">New Songs</a>
