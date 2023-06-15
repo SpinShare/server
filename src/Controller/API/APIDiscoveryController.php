@@ -627,7 +627,6 @@ class APIDiscoveryController extends AbstractController
             $playlist = $result->getJSON();
 
             $songsCount = count($playlist['songs']);
-            unset($playlist['songs']);
             $playlist['songs'] = $songsCount;
 
             $data[] = $playlist;
