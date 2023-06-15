@@ -128,13 +128,14 @@ class APISongController extends AbstractController
             $resultPlaylists = $resultSong->getSongPlaylists();
 
             foreach($resultPlaylists as $result) {
+                $songsCount = count($result['songs']);
+                unset($result['songs']);
+                $result['songs'] = $songsCount;
+
+                $data['test'] = json_decode($result);
+
                 $data[] = $result->getJSON();
 
-                var_dump($data);
-
-                $songsCount = count($data['songs']);
-                unset($data['songs']);
-                $data['songs'] = $songsCount;
             }
 
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);

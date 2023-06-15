@@ -148,11 +148,11 @@ class APIUserController extends AbstractController
             $resultsPlaylists = $em->getRepository(SongPlaylist::class)->findBy(array('user' => $result->getId()), array('id' => 'DESC'));
                  
             foreach($resultsPlaylists as $result) {
-                $data[] = $result->getJSON();
+                $songsCount = count($result['songs']);
+                unset($result['songs']);
+                $result['songs'] = $songsCount;
 
-                $songsCount = count($data['songs']);
-                unset($data['songs']);
-                $data['songs'] = $songsCount;
+                $data[] = $result->getJSON();
             }
     
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
