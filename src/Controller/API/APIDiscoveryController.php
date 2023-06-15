@@ -624,11 +624,13 @@ class APIDiscoveryController extends AbstractController
             ->getResult();
 
         foreach($resultsPlaylists as $result) {
-            $songsCount = count($result['songs']);
-            unset($result['songs']);
-            $result['songs'] = $songsCount;
+            $playlist = $result->getJSON();
 
-            $data[] = $result->getJSON();
+            $songsCount = count($playlist['songs']);
+            unset($playlist['songs']);
+            $playlist['songs'] = $songsCount;
+
+            $data[] = $playlist;
         }
 
         $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
