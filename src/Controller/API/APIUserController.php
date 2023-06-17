@@ -88,11 +88,19 @@ class APIUserController extends AbstractController
                 $oneResult['artist'] = $result->getArtist();
                 $oneResult['charter'] = $result->getCharter();
                 $oneResult['uploader'] = $result->getUploader();
+                $oneResult['fileReference'] = $result->getFileReference();
                 $oneResult['hasEasyDifficulty'] = $result->getHasEasyDifficulty();
                 $oneResult['hasNormalDifficulty'] = $result->getHasNormalDifficulty();
                 $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
                 $oneResult['hasExtremeDifficulty'] = $result->getHasExtremeDifficulty();
                 $oneResult['hasXDDifficulty'] = $result->getHasXDDifficulty();
+                $oneResult['easyDifficulty'] = $result->getEasyDifficulty();
+                $oneResult['normalDifficulty'] = $result->getNormalDifficulty();
+                $oneResult['hardDifficulty'] = $result->getHardDifficulty();
+                $oneResult['expertDifficulty'] = $result->getExpertDifficulty();
+                $oneResult['XDDifficulty'] = $result->getXDDifficulty();
+                $oneResult['updateDate'] = $result->getUpdateDate();
+                $oneResult['updateHash'] = $result->getUpdateHash();
                 $oneResult['cover'] = $baseUrl."/uploads/thumbnail/".$result->getFileReference().".jpg";
                 $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $result->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
 

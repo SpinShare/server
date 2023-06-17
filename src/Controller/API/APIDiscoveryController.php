@@ -40,6 +40,7 @@ class APIDiscoveryController extends AbstractController
             $oneResult['subtitle'] = $result->getSubtitle();
             $oneResult['artist'] = $result->getArtist();
             $oneResult['charter'] = $result->getCharter();
+            $oneResult['fileReference'] = $result->getFileReference();
             $oneResult['hasEasyDifficulty'] = $result->getHasEasyDifficulty();
             $oneResult['hasNormalDifficulty'] = $result->getHasNormalDifficulty();
             $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
@@ -82,6 +83,7 @@ class APIDiscoveryController extends AbstractController
             $oneResult['subtitle'] = $result->getSubtitle();
             $oneResult['artist'] = $result->getArtist();
             $oneResult['charter'] = $result->getCharter();
+            $oneResult['fileReference'] = $result->getFileReference();
             $oneResult['hasEasyDifficulty'] = $result->getHasEasyDifficulty();
             $oneResult['hasNormalDifficulty'] = $result->getHasNormalDifficulty();
             $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
@@ -124,6 +126,7 @@ class APIDiscoveryController extends AbstractController
             $oneResult['subtitle'] = $result->getSubtitle();
             $oneResult['artist'] = $result->getArtist();
             $oneResult['charter'] = $result->getCharter();
+            $oneResult['fileReference'] = $result->getFileReference();
             $oneResult['hasEasyDifficulty'] = $result->getHasEasyDifficulty();
             $oneResult['hasNormalDifficulty'] = $result->getHasNormalDifficulty();
             $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
@@ -166,6 +169,7 @@ class APIDiscoveryController extends AbstractController
             $oneResult['subtitle'] = $result->getSubtitle();
             $oneResult['artist'] = $result->getArtist();
             $oneResult['charter'] = $result->getCharter();
+            $oneResult['fileReference'] = $result->getFileReference();
             $oneResult['hasEasyDifficulty'] = $result->getHasEasyDifficulty();
             $oneResult['hasNormalDifficulty'] = $result->getHasNormalDifficulty();
             $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
@@ -248,6 +252,7 @@ class APIDiscoveryController extends AbstractController
             $oneResult['subtitle'] = $result->getSubtitle();
             $oneResult['artist'] = $result->getArtist();
             $oneResult['charter'] = $result->getCharter();
+            $oneResult['fileReference'] = $result->getFileReference();
             $oneResult['hasEasyDifficulty'] = $result->getHasEasyDifficulty();
             $oneResult['hasNormalDifficulty'] = $result->getHasNormalDifficulty();
             $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
@@ -385,6 +390,7 @@ class APIDiscoveryController extends AbstractController
             $oneResult['subtitle'] = $result->getSubtitle();
             $oneResult['artist'] = $result->getArtist();
             $oneResult['charter'] = $result->getCharter();
+            $oneResult['fileReference'] = $result->getFileReference();
             $oneResult['hasEasyDifficulty'] = $result->getHasEasyDifficulty();
             $oneResult['hasNormalDifficulty'] = $result->getHasNormalDifficulty();
             $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
@@ -433,6 +439,7 @@ class APIDiscoveryController extends AbstractController
             $oneResult['subtitle'] = $result->getSubtitle();
             $oneResult['artist'] = $result->getArtist();
             $oneResult['charter'] = $result->getCharter();
+            $oneResult['fileReference'] = $result->getFileReference();
             $oneResult['hasEasyDifficulty'] = $result->getHasEasyDifficulty();
             $oneResult['hasNormalDifficulty'] = $result->getHasNormalDifficulty();
             $oneResult['hasHardDifficulty'] = $result->getHasHardDifficulty();
