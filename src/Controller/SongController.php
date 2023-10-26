@@ -225,7 +225,12 @@ class SongController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $data = [];
 
-        $song = $em->getRepository(Song::class)->findOneBy(array('id' => $songId, 'uploader' => $user->getId()));
+        $song = null;
+        if($user->hasRole('ROLE_ADMIN') || $user->hasRole('ROLE_MODERATOR')) {
+            $song = $em->getRepository(Song::class)->findOneBy(array('id' => $songId));
+        } else {
+            $song = $em->getRepository(Song::class)->findOneBy(array('id' => $songId, 'uploader' => $user->getId()));
+        }
 
         $dlcs = $em->getRepository(DLC::class)->findAll();
         $dlcOptions = [

@@ -62,18 +62,21 @@
                 {% if is_granted('ROLE_USER') %}
                     </div>
                     <div class="action-row">
-                        {% if uploader.id == app.user.id %}
+                        {% if uploader.id == app.user.id or is_granted('ROLE_MODERATOR') %}
                             <a href="{{ path('song.update', {songId: song.id}) }}" class="action">
                                 <div class="icon">
                                     <i class="mdi mdi-pencil"></i>
                                 </div>
                             </a>
+                        {% endif %}
+                        {% if uploader.id == app.user.id %}
                             <a href="{{ path('song.delete', {songId: song.id}) }}" class="action">
                                 <div class="icon">
                                     <i class="mdi mdi-delete"></i>
                                 </div>
                             </a>
-                        {% elseif is_granted('ROLE_MODERATOR') %}
+                        {% endif %}
+                        {% if is_granted('ROLE_MODERATOR') %}
                             <a href="{{ path('moderation.song.remove', {songId: song.id}) }}" onclick="return confirm('Are you sure? This action cannot be undone!')" class="action">
                                 <div class="icon">
                                     <i class="mdi mdi-delete"></i>
