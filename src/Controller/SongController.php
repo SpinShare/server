@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\DLC;
 use App\Entity\SongPlaylist;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -148,7 +152,7 @@ class SongController extends AbstractController
     /**
      * @Route("/song/{songId}/download", name="song.download")
      */
-    public function songDownload(Request $request, int $songId)
+    public function songDownload(Request $request, int $songId): Response
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -157,6 +161,14 @@ class SongController extends AbstractController
         if(!$result) {
             throw new NotFoundHttpException();
         } else {
+            // Disable downloading for DLC charts
+            // TODO: Uncomment once Client 3 Ships
+            /*
+            if($result->getDLC() != null) {
+                throw new AccessDeniedHttpException();
+            }
+            */
+
             $result->setDownloads($result->getDownloads() + 1);
             $em->persist($result);
             $em->flush();
@@ -213,6 +225,14 @@ class SongController extends AbstractController
         $data = [];
 
         $song = $em->getRepository(Song::class)->findOneBy(array('id' => $songId, 'uploader' => $user->getId()));
+
+        $dlcs = $em->getRepository(DLC::class)->findAll();
+        $dlcOptions = [
+            "None" => 0
+        ];
+        foreach($dlcs as $dlc) {
+            $dlcOptions[$dlc->getTitle()] = $dlc->getId();
+        }
         
         if(!$song) {
             throw new NotFoundHttpException();
@@ -222,8 +242,9 @@ class SongController extends AbstractController
             ->add('tags', TextType::class, ['label' => 'Tags', 'row_attr' => array('class' => 'tags-field'), 'required' => false, 'data' => $song->getTags()])
             ->add('description', TextareaType::class, ['label' => 'Description', 'attr' => array('rows' => 5), 'row_attr' => array('class' => 'tags-field'), 'required' => false, 'data' => $song->getDescription()])
             ->add('isExplicit', CheckboxType::class, ['label' => 'Is the song explicit?', 'row_attr' => array('class' => "tags-field"), 'required' => false, 'data' => $song->getIsExplicit()])
+            ->add('dlc', ChoiceType::class, ['label' => 'DLC', 'row_attr' => array('class' => "tags-field"), 'required' => true, 'choices' => $dlcOptions, 'data' => $song->getDLC() != null ? $song->getDLC()->getId() : 0])
             ->add('publicationStatus', ChoiceType::class, ['label' => 'Publication Status', 'row_attr' => array('class' => "tags-field"), 'required' => true, 'choices' => ['Public' => 0, 'Hide from lists' => 1, 'Unlisted' => 2]])
-            ->add('save', SubmitType::class, ['label' => 'Upload'])
+            ->add('save', SubmitType::class, ['label' => 'Save'])
             ->getForm();
 
             $form->handleRequest($request);
@@ -240,6 +261,15 @@ class SongController extends AbstractController
                 $song->setIsExplicit($data['isExplicit']);
                 $song->setUpdateDate(new \DateTime('NOW'));
                 $song->setPublicationStatus($data['publicationStatus']);
+
+                if($data['dlc'] !== null) {
+                    if($data['dlc'] !== 0) {
+                        $dlc = $em->getRepository(DLC::class)->find($data['dlc']);
+                        $song->setDLC($dlc);
+                    } else {
+                        $song->setDLC(null);
+                    }
+                }
 
                 if($backupFile) {
                     $zip = new \ZipArchive;

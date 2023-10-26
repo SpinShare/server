@@ -1,0 +1,35 @@
+{% extends 'moderation/base.html.twig' %}
+
+{% set sectionTitle = 'DLC Hashes' %}
+
+{% block moderationContent %}
+    <section class="section-moderator-list add-hashes-form">
+        <div class="box">
+            <div class="title">{{ dlc.identifier }} - {{ dlc.title }}</div>
+            <table>
+                <tr>
+                    <th>Hash</th>
+                    <th style="width: 200px"></th>
+                </tr>
+                {% for dlcHash in dlc.hashes %}
+                    <tr>
+                        <td>{{ dlcHash.hash }}</td>
+                        <td>
+                            <a href="{{ path('moderation.dlcs.hashes.remove', {dlcId: dlc.id, hashId: dlcHash.id}) }}" class="button button-icon"><span class="mdi mdi-delete"></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="box">
+            <div class="title">Add new Hashes</div>
+            {{ form_start(addHashesForm) }}
+            {{ form_widget(addHashesForm) }}
+            {{ form_end(addHashesForm) }}
+        </div>
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/moderation.css?v=' ~ date().timestamp) }}" />
+{% endblock %}

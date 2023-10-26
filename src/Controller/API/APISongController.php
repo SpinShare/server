@@ -2,6 +2,9 @@
 
 namespace App\Controller\API;
 
+use App\Entity\DLCHash;
+use Exception;
+use PHPUnit\Util\Json;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -179,19 +182,35 @@ class APISongController extends AbstractController
      * @Route("/api/song/{id}/download", name="api.songs.download")
      * @Route("/api/song/{id}/download/")
      */
-    public function songDownload(int $id)
+    public function songDownload(Request $request, int $id)
     {
         $em = $this->getDoctrine()->getManager();
 
         $result = $em->getRepository(Song::class)->findOneBy(array('id' => $id));
 
-        $zipLocation = $this->getParameter('temp_path').DIRECTORY_SEPARATOR;
-        $zipName = $result->getFileReference().".zip";
-
         if(!$result) {
-            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
-            return $response;
+            return new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
         } else {
+            // DLC Check
+            // TODO: Uncomment once Client 3 Ships
+            /*
+            if($result->getDLC() != null) {
+                $dlcHashHeader = $request->headers->get('SPSH-DLC-Hash');
+                $dlcHashResult = $em->getRepository(DLCHash::class)->findOneBy(['hash' => $dlcHashHeader]);
+
+                if($dlcHashResult == null) {
+                    return new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 403, 'data' => []]);
+                }
+
+                if($result->getDLC() != $dlcHashResult->getDLC()) {
+                    return new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 403, 'data' => []]);
+                }
+            } */
+
+            // Download
+            $zipLocation = $this->getParameter('temp_path').DIRECTORY_SEPARATOR;
+            $zipName = $result->getFileReference().".zip";
+
             try {
                 $result->setDownloads($result->getDownloads() + 1);
                 $em->persist($result);

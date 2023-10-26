@@ -96,12 +96,51 @@
 .section-song-detail .song-detail .song-actions .action-row .action-player:hover {
   opacity: 0.6;
 }
+.section-song-detail .song-detail .song-actions .action-row .action.disabled,
+.section-song-detail .song-detail .song-actions .action-row .action-player.disabled {
+  color: #777;
+}
 .section-song-detail .song-detail .song-actions .action-row.player-active .action-player {
   width: 250px;
 }
 .section-song-detail .song-detail .song-actions .action-row.player-active .action-player .volume {
   width: 170px;
   padding-right: 20px;
+}
+.section-song-detail .song-detail .dlc-required {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 15px;
+  background: rgba(230, 55, 91, 0.1);
+  padding: 20px;
+  border-radius: 4px;
+  margin-top: 25px;
+  align-items: center;
+  color: rgba(242, 230, 233, 0.6);
+}
+.section-song-detail .song-detail .dlc-required a {
+  text-decoration: none;
+  color: #e6375b;
+}
+.section-song-detail .song-detail .dlc-required a:hover {
+  text-decoration: underline;
+}
+.section-song-detail .song-detail .dlc-required .mdi {
+  width: 32px;
+  height: 32px;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f2e6e9;
+}
+.section-song-detail .song-detail .dlc-required .text {
+  line-height: 1.75em;
+  display: flex;
+  flex-direction: column;
+}
+.section-song-detail .song-detail .dlc-required .text strong {
+  color: #f2e6e9;
 }
 .section-song-detail .song-detail .song-statistics {
   display: grid;
@@ -682,6 +721,46 @@
 .playlist-overlay .overlay-content .actions .button {
   margin-left: 10px;
 }
+.dialog-is-dlc-chart {
+  width: 80%;
+  max-width: 600px;
+  background: #222;
+  padding: 25px;
+  color: inherit;
+  font: inherit;
+  border: 0;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
+  flex-direction: column;
+}
+.dialog-is-dlc-chart a {
+  text-decoration: none;
+  color: #e6375b;
+}
+.dialog-is-dlc-chart a:hover {
+  text-decoration: underline;
+}
+.dialog-is-dlc-chart h1 {
+  font-size: 1.5em;
+  margin: 0;
+}
+.dialog-is-dlc-chart p {
+  line-height: 1.75em;
+  color: rgba(255, 255, 255, 0.6);
+}
+.dialog-is-dlc-chart p strong {
+  color: #ffffff;
+}
+.dialog-is-dlc-chart button {
+  align-self: flex-end;
+}
+.dialog-is-dlc-chart::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(5px);
+}
+.dialog-is-dlc-chart[open] {
+  display: flex;
+}
 @media screen and (min-width: 1700px) {
   .section-song-detail .song-social .tab.tab-spinplays .spinplays {
     grid-template-columns: 1fr 1fr 1fr;
@@ -692,3 +771,4 @@
     grid-template-columns: 1fr;
   }
 }
+/*# sourceMappingURL=songdetail.css.map */

@@ -112,6 +112,12 @@
 						</span>
 						Tournaments
 					</a>
+					<a href="{{ path('api.docs.open.dlcs') }}" class="sidebar-link sidebar-link-with-icon {% if app.request.attributes.get('_route') == 'api.docs.open.dlcs' %}active{% endif %}">
+						<span class="sidebar-icon">
+							<i class="mdi mdi-download-box" aria-hidden="true"></i>
+						</span>
+						DLCs
+					</a>
 				</div>
 
 				<div class="sidebar-group">

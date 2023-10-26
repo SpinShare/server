@@ -26,11 +26,21 @@
             </div>
             <div class="song-actions">
                 <div class="action-row">
-                    <a href="{{ path('song.download', {songId: song.id}) }}" class="action">
-                        <div class="icon">
-                            <i class="mdi mdi-download"></i>
+                    {# TODO: Uncomment once Client 3 Ships #}
+                    {#
+                    {% if song.dlc is not null %}
+                        <div onclick="DOMModalIsDLCChart.showModal()" class="action disabled">
+                            <div class="icon">
+                                <i class="mdi mdi-download"></i>
+                            </div>
                         </div>
-                    </a>
+                    {% else %}  #}
+                        <a href="{{ path('song.download', {songId: song.id}) }}" class="action">
+                            <div class="icon">
+                                <i class="mdi mdi-download"></i>
+                            </div>
+                        </a>
+                    {# {% endif %} #}
                     <div class="action-player">
                         <div class="icon">
                             <i class="mdi mdi-play"></i>
@@ -83,6 +93,15 @@
                 {% endif %}
                 </div>
             </div>
+            {% if song.dlc is not null %}
+                <div class="dlc-required">
+                    <i class="mdi mdi-disc-alert"></i>
+                    <div class="text">
+                        <strong>DLC required</strong>
+                        <span>The DLC <a href="{{ song.dlc.storeLink }}" target="_blank">{{ song.dlc.title }}</a> is required to play this chart.</span>
+                    </div>
+                </div>
+            {% endif %}
             <div class="song-statistics">
                 <div class="stat">
                     <div class="icon">
@@ -323,6 +342,17 @@
         </div>
     </section>
 
+    {# TODO: Uncomment once Client 3 Ships #}
+    {#
+    {% if song.dlc is not null %}
+    <dialog class="dialog-is-dlc-chart">
+        <h1>DLC Required</h1>
+        <p>This chart is part of the Spin Rhythm XD DLC <a href="{{ song.dlc.storeLink }}" target="_blank">{{ song.dlc.title }}</a>. You can download this chart through our desktop client after verifying you own this DLC. To do this, open the desktop client settings and click on <strong>Detect DLCs</strong>.</p>
+        <button onclick="DOMModalIsDLCChart.close()">Okay</button>
+    </dialog>
+    {% endif %}
+    #}
+
     {% if is_granted('ROLE_USER') %}
         <div class="playlist-overlay">
             <div class="close" onclick="closePlaylistOverlay()"><i class="mdi mdi-close"></i></div>
@@ -460,4 +490,12 @@
             UIPlaylistOverlay.classList.remove("active");
         }
     </script>
+    {# TODO: Uncomment once Client 3 Ships #}
+    {#
+    {% if song.dlc is not null %}
+    <script>
+        // DLC Chart Modal
+        let DOMModalIsDLCChart = document.querySelector(".dialog-is-dlc-chart");
+    </script>
+    {% endif %} #}
 {% endblock %}

@@ -159,6 +159,12 @@ class Song
      */
     private $updateDate;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\DLC", inversedBy="songs")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $dlc;
+
     public function __construct()
     {
         $this->reviews = new ArrayCollection();
@@ -484,6 +490,18 @@ class Song
         return $this;
     }
 
+    public function getDLC(): ?DLC
+    {
+        return $this->dlc;
+    }
+
+    public function setDLC(?DLC $dlc): self
+    {
+        $this->dlc = $dlc;
+
+        return $this;
+    }
+
     /**
      * @return Collection|SongReview[]
      */
@@ -575,6 +593,7 @@ class Song
             'updateHash' => $this->updateHash,
             'description' => $this->description,
             'cover' => $this->fileReference != '' ? $_ENV['ASSET_BASE_URL']."/".$_ENV['ASSET_COVER_FOLDER']."/".$this->fileReference.".png" : 'https://spinshare.b-cdn.net/assets/img/defaultAlbumArt.jpg',
+            'dlc' => $this->dlc != null ? $this->dlc->getJSON() : null,
         );
     }
 

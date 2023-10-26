@@ -102,6 +102,10 @@
                     &:hover {
                         opacity: 0.6;
                     }
+
+                    &.disabled {
+                        color: #777;
+                    }
                 }
 
                 &.player-active {
@@ -117,6 +121,45 @@
                             padding-right: 20px;
                         }
                     }
+                }
+            }
+        }
+        & .dlc-required {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            grid-gap: 15px;
+            background: rgba(230, 55, 91, 0.1);
+            padding: 20px;
+            border-radius: 4px;
+            margin-top: 25px;
+            align-items: center;
+            color: rgba(242, 230, 233, 0.6);
+
+            & a {
+                text-decoration: none;
+                color: #e6375b;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+
+            & .mdi {
+                width: 32px;
+                height: 32px;
+                font-size: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #f2e6e9;
+            }
+            & .text {
+                line-height: 1.75em;
+                display: flex;
+                flex-direction: column;
+
+                & strong {
+                    color: #f2e6e9;
                 }
             }
         }
@@ -764,6 +807,52 @@
                 margin-left: 10px;
             }
         }
+    }
+}
+
+.dialog-is-dlc-chart {
+    width: 80%;
+    max-width: 600px;
+    background: #222;
+    padding: 25px;
+    color: inherit;
+    font: inherit;
+    border: 0;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.6);
+    border-radius: 10px;
+    flex-direction: column;
+
+    & a {
+        text-decoration: none;
+        color: #e6375b;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    & h1 {
+        font-size: 1.5em;
+        margin: 0;
+    }
+    & p {
+        line-height: 1.75em;
+        color: rgba(255,255,255,0.6);
+
+        & strong {
+            color: rgba(255,255,255,1);
+        }
+    }
+    & button {
+        align-self: flex-end;
+    }
+
+    &::backdrop {
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(5px);
+    }
+    &[open] {
+        display: flex;
     }
 }
 

@@ -1,0 +1,35 @@
+{% extends 'moderation/base.html.twig' %}
+
+{% set sectionTitle = 'DLCs' %}
+
+{% block moderationContent %}
+    <section class="section-moderator-list">
+        <div class="box">
+            <table>
+                <tr>
+                    <th style="width: 300px">Identifier</th>
+                    <th>Title</th>
+                    <th style="width: 100px">Hashes</th>
+                    <th style="width: 200px"></th>
+                </tr>
+                {% for dlc in dlcs %}
+                    <tr>
+                        <td>{{ dlc.identifier }}</td>
+                        <td>{{ dlc.title }}</td>
+                        <td>{{ dlc.hashes.count }}</td>
+                        <td>
+                            <a href="{{ path('moderation.dlcs.hashes', {dlcId: dlc.id}) }}" class="button button-icon"><span class="mdi mdi-folder-pound"></span></a>
+                            <a href="{{ path('moderation.dlcs.edit', {dlcId: dlc.id}) }}" class="button button-icon"><span class="mdi mdi-pencil"></span></a>
+                            <a href="{{ path('moderation.dlcs.remove', {dlcId: dlc.id}) }}" class="button button-icon"><span class="mdi mdi-delete"></span></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <br /><br /><a href="{{ path('moderation.dlcs.add') }}" class="button">New DLC</a>
+        </div>
+    </section>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/moderation.css?v=' ~ date().timestamp) }}" />
+{% endblock %}

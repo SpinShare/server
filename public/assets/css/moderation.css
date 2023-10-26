@@ -219,4 +219,55 @@
 .section-promo-crud .preview .staff-promo {
   width: 545px;
 }
+.add-hashes-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 25px;
+}
+.add-hashes-form form {
+  margin-top: 15px;
+  width: 600px;
+}
+.add-hashes-form form > div {
+  display: grid;
+  grid-template-rows: auto;
+  grid-gap: 15px;
+}
+.add-hashes-form form > div > div {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 15px;
+}
+.add-hashes-form form > div > div textarea {
+  width: 100%;
+  height: 250px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 12px;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  padding: 7px;
+  border: 0;
+  transition: 0.2s ease-in-out background, 0.2s ease-in-out color;
+}
+.add-hashes-form form > div > div textarea:hover {
+  background: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+.add-hashes-form form > div > div textarea:focus {
+  outline: 0;
+}
+.add-hashes-form form > div > div textarea::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+.add-hashes-form form > div > div textarea option {
+  background: #222;
+  text-transform: initial;
+}
+.add-hashes-form form > div > div textarea:disabled {
+  opacity: 0.4;
+}
+.add-hashes-form form > div > div [type="submit"] {
+  align-self: flex-end;
+}
 /*# sourceMappingURL=moderation.css.map */

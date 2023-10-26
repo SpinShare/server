@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\DLC;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,13 +30,20 @@ class UploadController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $tempVars = [];
 
-        $song = new Song();
+        $dlcs = $em->getRepository(DLC::class)->findAll();
+        $dlcOptions = [
+            "None" => 0
+        ];
+        foreach($dlcs as $dlc) {
+            $dlcOptions[$dlc->getTitle()] = $dlc->getId();
+        }
 
         $form = $this->createFormBuilder()
                         ->add('backupPath', FileType::class, ['label' => 'Backup .zip', 'row_attr' => array('class' => 'upload-field'), 'attr' => array('accept' => '.zip')])
                         ->add('tags', TextType::class, ['label' => 'Tags', 'row_attr' => array('class' => 'tags-field'), 'required' => false])
                         ->add('description', TextareaType::class, ['label' => 'Description', 'attr' => array('rows' => 5), 'row_attr' => array('class' => 'tags-field'), 'required' => false])
                         ->add('isExplicit', CheckboxType::class, ['label' => 'Is the song explicit?', 'row_attr' => array('class' => "tags-field"), 'required' => false])
+                        ->add('dlc', ChoiceType::class, ['label' => 'DLC', 'row_attr' => array('class' => "tags-field"), 'required' => true, 'choices' => $dlcOptions])
                         ->add('publicationStatus', ChoiceType::class, ['label' => 'Publication Status', 'row_attr' => array('class' => "tags-field"), 'required' => true, 'choices' => ['Public' => 0, 'Hide from lists' => 1, 'Unlisted' => 2]])
                         ->add('save', SubmitType::class, ['label' => 'Upload'])
                         ->getForm();
@@ -46,6 +54,7 @@ class UploadController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
+            $song = new Song();
             $backupFile = $data['backupPath'];
 
             if($backupFile) {
@@ -55,6 +64,11 @@ class UploadController extends AbstractController
                 $song->setUploadDate(new \DateTime('NOW'));
                 $song->setIsExplicit($data['isExplicit']);
                 $song->setPublicationStatus($data['publicationStatus']);
+
+                if($data['dlc'] !== null && $data['dlc'] !== 0) {
+                    $dlc = $em->getRepository(DLC::class)->find($data['dlc']);
+                    $song->setDLC($dlc);
+                }
 
                 $zip = new ZipArchive;
                 if($zip->open($backupFile)) {
@@ -131,9 +145,6 @@ class UploadController extends AbstractController
                                     }
                                 }
                             } catch(Exception $e) {
-                                var_dump($e);
-                                exit;
-
                                 $this->addFlash('error', 'Couldn\'t extract backup. Please report back to our development team!');
 
                                 // clean up temp files

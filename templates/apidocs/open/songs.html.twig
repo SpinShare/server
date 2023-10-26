@@ -81,6 +81,11 @@
         },
         "updateHash": "d837d2adcdc19d215130cd92f27ae927",
         "description": null,
+        "dlc": {
+            "identifier": "supporterpack1",
+            "title": "Supporter Pack",
+            "storeLink": "https://store.steampowered.com/app/1664540/Spin_Rhythm_XD__Supporter_Pack/"
+        },
         "paths":
         {
             "ogg": "http://localhost/www/spinshare/server/public/uploads/audio/spinshare_60018a36ec5e9_0.ogg",
@@ -282,6 +287,13 @@
                                             <td>/song/<code class="code">songID</code>/download</td>
                                         </tr>
                                     </table>
+
+                                    <br />
+
+                                    <div class="alert alert-primary" role="alert">
+                                        <h4 class="alert-heading">Information</h4>
+                                        If a song is part of a DLC, you must include at least one DLC Hash in your request header through <code class="code">SPSH-DLC-Hash</code>.
+                                    </div>
 
                                     <br />
 

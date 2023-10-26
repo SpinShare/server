@@ -12,6 +12,7 @@
                 <a class="tab {% if 'moderation.reports.song' in app.request.attributes.get('_route') %}active{% endif %}" href="{{ path('moderation.reports.song.index') }}">Song Reports</a>
                 <a class="tab {% if 'moderation.promos' in app.request.attributes.get('_route') %}active{% endif %}" href="{{ path('moderation.promos.index') }}">Promos</a>
                 <a class="tab {% if 'moderation.cards' in app.request.attributes.get('_route') %}active{% endif %}" href="{{ path('moderation.cards.index') }}">Cards</a>
+                <a class="tab {% if 'moderation.dlcs' in app.request.attributes.get('_route') %}active{% endif %}" href="{{ path('moderation.dlcs.index') }}">DLCs</a>
 
                 {% if is_granted('ROLE_ADMIN') %}
                     <a class="tab {% if 'moderation.clientreleases' in app.request.attributes.get('_route') %}active{% endif %}" href="{{ path('moderation.clientreleases.index') }}">Client Releases</a>

@@ -26,6 +26,10 @@
           {{ form_row(uploadForm.description) }}
         </div>
         <div class="tags-input">
+          {{ form_row(uploadForm.dlc) }}
+          <div class="input-notice">Please select the DLC this chart is part of. This includes recharts and charts with music included in any DLC.</div>
+        </div>
+        <div class="tags-input">
           {{ form_row(uploadForm.publicationStatus) }}
           <div class="input-notice">"Hide from lists" hides your chart from "New" and "Top".<br />"Unlisted" also hides it from the search and your profile (but not from playlists).</div>
         </div>

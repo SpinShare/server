@@ -31,7 +31,11 @@
         </div>
         <div class="tags-input">
           {{ form_row(uploadForm.tags) }}
-          <div class="input-notice">Add multiple tags by seperating them with a comma. (eg: "Memes,Funny,Osu")</div>
+          <div class="input-notice">Add multiple tags by separating them with a comma. (eg: "Memes,Funny,Osu")</div>
+        </div>
+        <div class="tags-input">
+          {{ form_row(uploadForm.dlc) }}
+          <div class="input-notice">Please select the DLC this chart is part of. This includes recharts and charts with music included in any DLC.</div>
         </div>
         <div class="tags-input">
           {{ form_row(uploadForm.publicationStatus) }}

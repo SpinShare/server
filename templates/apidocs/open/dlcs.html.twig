@@ -1,0 +1,108 @@
+{% extends 'apidocs/base.html.twig' %}
+
+{% block title %}Client{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="content">
+                <h1 class="content-title">
+                    DLCs
+                </h1>
+
+                <div class="card" id="overview">
+                    <h2 class="card-title">Overview</h2>
+                    <p>Some charts may contain content from a DLC of Spin Rhythm XD. SpinShare stores and verifies DLC ownership for those charts by pre-computing MD5 hashes of the published DLC files and requesting them for access.</p>
+                    <p>A chart that is part of a DLC can only be downloaded by providing a valid MD5 DLC hash through the <code class="code">SPSH-DLC-Hash</code> header property.</p>
+                </div>
+
+                <div class="card" id="list">
+                    <h2 class="card-title">List DLCs</h2>
+                    <p>Returns a list of all DLCs</p>
+
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Method</th>
+                            <td>GET</td>
+                        </tr>
+                        <tr>
+                            <th>Endpoint</th>
+                            <td>/dlc</td>
+                        </tr>
+                    </table>
+
+                    <br />
+
+                    <strong>Output Body</strong>
+                    <pre class="code">
+{
+    "version": 1,
+    "status": 200,
+    "data": [
+        {
+            "id": 1,
+            "identifier": "supporterpack1",
+            "title": "Supporter Pack",
+            "storeLink": "https://store.steampowered.com/app/1664540/Spin_Rhythm_XD__Supporter_Pack/"
+        }
+    ]
+}
+</pre>
+                </div>
+
+                <div class="card" id="verify">
+                    <h2 class="card-title">Verify DLC Hash</h2>
+                    <p>Returns the DLC of a DLC MD5 hash if it is valid or a 404 response if it is invalid</p>
+
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>Method</th>
+                            <td>GET</td>
+                        </tr>
+                        <tr>
+                            <th>Endpoint</th>
+                            <td>/dlc/verify/<code class="code">DLCHash</code></td>
+                        </tr>
+                    </table>
+
+                    <br />
+
+                    <strong>Output Body</strong>
+                    <pre class="code">
+{
+    "version": 1,
+    "status": 200,
+    "data": {
+        "id": 1,
+        "identifier": "supporterpack1",
+        "title": "Supporter Pack",
+        "storeLink": "https://store.steampowered.com/app/1664540/Spin_Rhythm_XD__Supporter_Pack/"
+    }
+}
+</pre>
+
+                    <br />
+
+                    <strong>Output Body (Not Found)</strong>
+                    <pre class="code">
+{
+    "version": 1,
+    "status": 404,
+    "data": null
+}
+</pre>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="content">
+                <div class="on-this-page-nav">
+                    <div class="title">On this page</div>
+                    <a href="#overview">Overview</a>
+                    <a href="#list">List DLCs</a>
+                    <a href="#verify">Verify DLC Hash</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
