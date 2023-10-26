@@ -32,7 +32,7 @@ class ModactionsController extends AbstractController
         $data = [];
 
         $songToRemove = $em->getRepository(Song::class)->findOneBy(array('id' => $songId));
-        $uploader = $em->getRepository(Song::class)->findOneBy(array('id' => $songToRemove->getUploader()));
+        $uploader = $em->getRepository(User::class)->findOneBy(array('id' => $songToRemove->getUploader()));
 
         try {
             $message = (new \Swift_Message('Your song '.$songToRemove->getTitle().' was removed!'))
