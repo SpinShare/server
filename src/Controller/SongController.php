@@ -6,6 +6,7 @@ use App\Entity\DLC;
 use App\Entity\SongPlaylist;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -612,7 +613,7 @@ class SongController extends AbstractController
             $allowedRoles = ["ROLE_ADMIN", "ROLE_SUPERADMIN", "ROLE_MODERATOR"];
 
             // Check if allowed to remove
-            if(count(array_intersect($allowedRoles, $userRoles)) > 0 || $resultSpinplay->getUser() == $this->getUser() || $resultSpinPlay->getSong()->getUploader() == $this->getUser()) {
+            if(count(array_intersect($allowedRoles, $userRoles)) > 0 || $resultSpinplay->getUser() == $this->getUser() || $resultSpinplay->getSong()->getUploader() == $this->getUser()) {
                 $em->remove($resultSpinplay);
                 $em->flush();
             }
