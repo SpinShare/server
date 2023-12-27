@@ -21,7 +21,7 @@ class ApiLogListener implements EventSubscriberInterface {
     }
 
     /**
-     * Creates a database log entry for API routes
+     * Creates a database log entry for routes
      *
      * @param RequestEvent $event The event object containing the request information.
      * @return void
@@ -29,26 +29,24 @@ class ApiLogListener implements EventSubscriberInterface {
     public function onKernelRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
+        $user = $this->security->getUser();
 
-        if (str_starts_with($request->getPathInfo(), '/api') && !str_starts_with($request->getPathInfo(), '/api/docs')) {
-            $user = $this->security->getUser();
+        try {
+            $newLog = new ApiLog();
+            $newLog->setIp($request->getClientIp());
+            $newLog->setTimestamp(new \DateTime());
+            $newLog->setUserAgent($request->headers->get('User-Agent'));
+            $newLog->setEndpoint($request->getPathInfo());
 
-            try {
-                $newLog = new ApiLog();
-                $newLog->setIp($request->getClientIp());
-                $newLog->setTimestamp(new \DateTime());
-                $newLog->setUserAgent($request->headers->get('User-Agent'));
-                $newLog->setEndpoint($request->getPathInfo());
+            if (null !== $user) {
+                $username = $user->getUsername();
+                $user = $this->em->getRepository(User::class)->findOneBy(['username' => $username]);
+                $newLog->setUser($user);
+            }
 
-                if (null !== $user) {
-                    $username = $user->getUsername();
-                    $user = $this->em->getRepository(User::class)->findOneBy(['username' => $username]);
-                    $newLog->setUser($user);
-                }
-
-                $this->em->persist($newLog);
-                $this->em->flush();
-            } catch (\Exception $e) {}
+            $this->em->persist($newLog);
+            $this->em->flush();
+        } catch (\Exception $e) {
         }
     }
 
