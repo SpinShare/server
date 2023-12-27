@@ -7,6 +7,8 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
+ * @extends ServiceEntityRepository<Promo>
+ *
  * @method Promo|null find($id, $lockMode = null, $lockVersion = null)
  * @method Promo|null findOneBy(array $criteria, array $orderBy = null)
  * @method Promo[]    findAll()

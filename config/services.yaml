@@ -37,5 +37,9 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
 
+    App\Listener\ApiLogListener:
+        tags:
+            - { name: kernel.event_subscriber, priority: 0 }
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
