@@ -4,6 +4,7 @@ namespace App\Listener;
 use App\Entity\ApiLog;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -29,8 +30,14 @@ class ApiLogListener implements EventSubscriberInterface {
     public function onKernelRequest(RequestEvent $event): void
     {
         $request = $event->getRequest();
-        $user = $this->security->getUser();
 
+        if(str_contains($request->headers->get('User-Agent'), "Byte")) {
+            $event->setResponse(new Response('Access via Bytespider (TikTok/Bytedance bot) is blocked.', Response::HTTP_FORBIDDEN));
+            return;
+        }
+
+        /*
+        $user = $this->security->getUser();
         try {
             $newLog = new ApiLog();
             $newLog->setIp($request->getClientIp());
@@ -47,7 +54,7 @@ class ApiLogListener implements EventSubscriberInterface {
             $this->em->persist($newLog);
             $this->em->flush();
         } catch (\Exception $e) {
-        }
+        } */
     }
 
     public static function getSubscribedEvents(): array {
