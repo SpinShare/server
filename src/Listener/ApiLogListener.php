@@ -31,7 +31,7 @@ class ApiLogListener implements EventSubscriberInterface {
     {
         $request = $event->getRequest();
 
-        if(str_contains($request->headers->get('User-Agent'), "Byte")) {
+        if(str_contains(strtolower($request->headers->get('User-Agent')), "byte")) {
             $event->setResponse(new Response('Access via Bytespider (TikTok/Bytedance bot) is blocked.', Response::HTTP_FORBIDDEN));
             return;
         }
