@@ -18,7 +18,7 @@
                     {% endif %}
                 </div>
                 <div class="user-data">
-                    <div class="user-name">{% if user.pronouns != "" %}<span>{{ user.pronouns }}</span> {% endif %}{{ user.username }} {% if user.isPatreon %}<i class="mdi mdi-patreon"></i>{% endif %}</div>
+                    <div class="user-name">{% if user.pronouns != "" %}<span>{{ user.pronouns }}</span> {% endif %}{{ user.username }} {% if user.isPatreon %}<i class="mdi mdi-hand-heart"></i>{% endif %}</div>
                     <div class="user-actions">
                         <a href="{{ path('report.user', {userId: user.id}) }}" class="button">Report</a>
                         <a href="spinshare-user://{{ user.id }}" class="button">Open in Client</a>
@@ -32,7 +32,7 @@
                                 <a href="{{ path('moderation.user.resetAvatar', {userId: user.id}) }}" class="button">Reset Avatar</a>
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <a href="{{ path('moderation.user.toggleMod', {userId: user.id}) }}" class="button">{{ ("ROLE_MODERATOR" in user.roles) ? "Demote to User" : "Promote to Mod" }}</a>
-                                    <a href="{{ path('moderation.user.togglePatreon', {userId: user.id}) }}" class="button">{{ user.isPatreon ? "Remove Patreon" : "Make Patreon" }}</a>
+                                    <a href="{{ path('moderation.user.togglePatreon', {userId: user.id}) }}" class="button">{{ user.isPatreon ? "Remove Supporter" : "Make Supporter" }}</a>
                                 {% endif %}
                             {% endif %}
                         {% endif %}
