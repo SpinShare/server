@@ -55,8 +55,8 @@
 .section-startup .frontpage .social-buttons .item.item-discord {
   background: linear-gradient(135deg, #99aab5, #7289da);
 }
-.section-startup .frontpage .social-buttons .item.item-twitter {
-  background: linear-gradient(135deg, #d0e6f7, #1da1f2);
+.section-startup .frontpage .social-buttons .item.item-bluesky {
+  background: linear-gradient(135deg, #d0e6f7, #208bfe);
 }
 .section-startup .frontpage .social-buttons .item.item-youtube {
   background: linear-gradient(135deg, #ff0000, #c20000);
