@@ -2,10 +2,9 @@
 
 namespace App\Utils;
 
-use App\Utils\HelperFunctions;
-
 class HelperFunctions {
-    public static function delTree($dir) {
+    public static function delTree($dir): bool
+    {
         $hf = new HelperFunctions();
 
         $files = array_diff(scandir($dir), array('.','..'));
@@ -17,7 +16,8 @@ class HelperFunctions {
 
     // Source: https://davidwalsh.name/create-image-thumbnail-php
     // Creating a Thumbnail without Imagick
-    public static function generateThumbnail($src, $dest, $thumbnailSize) {
+    public static function generateThumbnail($src, $dest, $thumbnailSize): void
+    {
         /* Using imagecreatfromstring and file_get_contents because we don't if the file will be png/gif/jpg */
         $source_image = imagecreatefromstring(file_get_contents($src));
         $width = imagesx($source_image);

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Utils\TextModifier;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -179,7 +180,7 @@ class Song
 
     public function getTitle(): ?string
     {
-        return $this->title;
+	    return TextModifier::convert($this->title);
     }
 
     public function setTitle(string $title): self
@@ -191,7 +192,7 @@ class Song
 
     public function getSubtitle(): ?string
     {
-        return $this->subtitle;
+        return TextModifier::convert($this->subtitle);
     }
 
     public function setSubtitle(?string $subtitle): self
@@ -203,7 +204,7 @@ class Song
 
     public function getArtist(): ?string
     {
-        return $this->artist;
+        return TextModifier::convert($this->artist);
     }
 
     public function setArtist(string $artist): self
@@ -566,34 +567,35 @@ class Song
 
     public function getJSON() {
         return array(
-            'id' => $this->id,
-            'title' => $this->title,
-            'subtitle' => $this->subtitle,
-            'artist' => $this->artist,
-            'charter' => $this->charter,
-            'uploader' => $this->uploader,
-            'fileReference' => $this->fileReference,
+            'id' => $this->getId(),
+            'title' => $this->getTitle(),
+            'subtitle' => $this->getSubtitle(),
+            'artist' => $this->getArtist(),
+            'charter' => $this->getCharter(),
+            'uploader' => $this->getUploader(),
+            'fileReference' => $this->getFileReference(),
             'tags' => $this->getTagsArray(),
-            'views' => $this->views,
-            'downloads' => $this->downloads,
-            'isExplicit' => $this->isExplicit,
-            'publicationStatus' => $this->publicationStatus,
-            'hasEasyDifficulty' => $this->hasEasyDifficulty,
-            'hasNormalDifficulty' => $this->hasNormalDifficulty,
-            'hasHardDifficulty' => $this->hasHardDifficulty,
-            'hasExtremeDifficulty' => $this->hasExtremeDifficulty,
-            'hasXDDifficulty' => $this->hasXDDifficulty,
-            'easyDifficulty' => $this->easyDifficulty,
-            'normalDifficulty' => $this->normalDifficulty,
-            'hardDifficulty' => $this->hardDifficulty,
-            'expertDifficulty' => $this->expertDifficulty,
-            'XDDifficulty' => $this->XDDifficulty,
-            'uploadDate' => $this->uploadDate,
-            'updateDate' => $this->updateDate,
-            'updateHash' => $this->updateHash,
-            'description' => $this->description,
-            'cover' => $this->fileReference != '' ? $_ENV['ASSET_BASE_URL']."/".$_ENV['ASSET_COVER_FOLDER']."/".$this->fileReference.".png" : 'https://spinshare.b-cdn.net/assets/img/defaultAlbumArt.jpg',
-            'dlc' => $this->dlc != null ? $this->dlc->getJSON() : null,
+            'views' => $this->getViews(),
+            'downloads' => $this->getDownloads(),
+            'isExplicit' => $this->getIsExplicit(),
+            'publicationStatus' => $this->getPublicationStatus(),
+            'hasEasyDifficulty' => $this->getHasEasyDifficulty(),
+            'hasNormalDifficulty' => $this->getHasNormalDifficulty(),
+            'hasHardDifficulty' => $this->getHasHardDifficulty(),
+            'hasExtremeDifficulty' => $this->getHasExtremeDifficulty(),
+            'hasExpertDifficulty' => $this->getHasExtremeDifficulty(),
+            'hasXDDifficulty' => $this->getHasXDDifficulty(),
+            'easyDifficulty' => $this->getEasyDifficulty(),
+            'normalDifficulty' => $this->getNormalDifficulty(),
+            'hardDifficulty' => $this->getHardDifficulty(),
+            'expertDifficulty' => $this->getExpertDifficulty(),
+            'XDDifficulty' => $this->getXDDifficulty(),
+            'uploadDate' => $this->getUploadDate(),
+            'updateDate' => $this->getUpdateDate(),
+            'updateHash' => $this->getUpdateHash(),
+            'description' => $this->getDescription(),
+            'cover' => $this->getFileReference() != '' ? $_ENV['ASSET_BASE_URL']."/".$_ENV['ASSET_COVER_FOLDER']."/".$this->getFileReference().".png" : 'https://spinshare.b-cdn.net/assets/img/defaultAlbumArt.jpg',
+            'dlc' => $this->getDLC() != null ? $this->getDLC()->getJSON() : null,
         );
     }
 

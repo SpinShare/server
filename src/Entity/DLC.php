@@ -155,10 +155,10 @@ class DLC
 
     public function getJSON() {
         return array(
-            'id' => $this->id,
-            'identifier' => $this->identifier,
-            'title' => $this->title,
-            'storeLink' => $this->storeLink,
+            'id' => $this->getId(),
+            'identifier' => $this->getIdentifier(),
+            'title' => $this->getTitle(),
+            'storeLink' => $this->getStoreLink(),
         );
     }
 }
