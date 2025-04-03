@@ -4,6 +4,11 @@ namespace App\Utils;
 
 class TextModifier {
     public static function convert($text) {
+        // Not time yet!
+        if(date('m-d') === '04-01') {
+            return $text;
+        }
+        
         // We do a little trolling >:3
         $replacements = [
             'r' => 'w',
