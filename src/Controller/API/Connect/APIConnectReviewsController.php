@@ -73,20 +73,20 @@ class APIConnectReviewsController extends AbstractController
     {
         $em = $this->getDoctrine()->getManager();
         $data = [];
-
         $connectToken = $request->query->get('connectToken');
 
-        $reviewRecommend = $request->request->get('recommend');
-        $reviewComment = $request->request->get('comment');
+        // Decode JSON request body
+        $content = json_decode($request->getContent(), true);
+        $reviewRecommend = isset($content['recommended']) ? $content['recommended'] : null;
+        $reviewComment = isset($content['comment']) ? $content['comment'] : '';
 
         // 422 - Parameter Missing
-        if($connectToken == "" || $reviewRecommend == "" || $songID == "") {
+        if($connectToken == "" || $reviewRecommend === null || $songID == "") {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 422, 'data' => []]);
             return $response;
         }
 
         $connection = $em->getRepository(Connection::class)->findOneBy(array('connectToken' => $connectToken));
-
         if($connection) {
             // Find Song
             $songToReview = $em->getRepository(Song::class)->findOneBy(array('id' => $songID));
@@ -99,16 +99,14 @@ class APIConnectReviewsController extends AbstractController
             }
 
             $previousReview = $em->getRepository(SongReview::class)->findOneBy(array('song' => $songToReview, 'user' => $connection->getUser()));
-            
+
             if($previousReview) {
                 // Update Existing Review
-                $previousReview->setRecommended($reviewRecommend == "true" | $reviewRecommend == "1" ? true : false);
-                if($reviewComment != "") { $previousReview->setComment($reviewComment); }
+                $previousReview->setRecommended($reviewRecommend);
+                if($reviewComment !== "") { $previousReview->setComment($reviewComment); }
                 $previousReview->setReviewDate(new \DateTime('NOW'));
-
                 $em->persist($previousReview);
                 $em->flush();
-
                 $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => []]);
                 return $response;
             } else {
@@ -116,10 +114,9 @@ class APIConnectReviewsController extends AbstractController
                 $newReview = new SongReview();
                 $newReview->setUser($connection->getUser());
                 $newReview->setSong($songToReview);
-                $newReview->setRecommended($reviewRecommend == "true" || $reviewRecommend == "1" ? true : false);
+                $newReview->setRecommended($reviewRecommend);
                 $newReview->setComment($reviewComment);
                 $newReview->setReviewDate(new \DateTime('NOW'));
-
                 $em->persist($newReview);
                 $em->flush();
 
