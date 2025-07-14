@@ -176,6 +176,57 @@
                                         </tbody>
                                     </table>
                                 </div>
+
+                                <div class="card" id="remove">
+                                    <h2 class="card-title">Remove Review</h2>
+                                    <p>Removes a review from a song if the user owns it or has appropriate permissions.</p>
+
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Method</th>
+                                            <td>GET</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Endpoint</th>
+                                            <td>/connect/reviews/<code class="code">songID</code>/remove</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Query Parameters</th>
+                                            <td>(string) connectToken</td>
+                                        </tr>
+                                    </table>
+
+                                    <br /><br />
+
+                                    <strong>Responses</strong>
+                                    <br /><br />
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th>Code</th>
+                                            <th>Explaination</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>200</td>
+                                            <td>The review was successfully removed.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>422</td>
+                                            <td>Some parameters were missing.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>403</td>
+                                            <td>Your connectToken is missing/wrong or you don't have permission to remove this review.</td>
+                                        </tr>
+                                        <tr>
+                                            <td>404</td>
+                                            <td>The song or review does not exist.</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
 							</div>
 						</div>
 						<div class="col-lg-3">
@@ -184,6 +235,7 @@
 									<div class="title">On this page</div>
 									<a href="#get">Get Review</a>
 									<a href="#add">Add Review</a>
+                                    <a href="#remove">Remove Review</a>
 								</div>
 							</div>
 						</div>

@@ -142,4 +142,58 @@ class APIConnectReviewsController extends AbstractController
             return $response;
         }
     }
+
+    /**
+     * @Route("/api/connect/reviews/{songID}/remove", name="api.connect.reviews.remove")
+     * @Route("/api/connect/reviews/{songID}/remove/")
+     */
+    public function removeReview(Request $request, $songID)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+        $connectToken = $request->query->get('connectToken');
+
+        // 422 - Parameter Missing
+        if($connectToken == "" || $songID == "") {
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 422, 'data' => []]);
+            return $response;
+        }
+
+        $connection = $em->getRepository(Connection::class)->findOneBy(array('connectToken' => $connectToken));
+
+        if($connection) {
+            // Find Song and Review
+            $song = $em->getRepository(Song::class)->findOneBy(array('id' => $songID));
+            $review = $em->getRepository(SongReview::class)->findOneBy(array(
+                'song' => $song,
+                'user' => $connection->getUser()
+            ));
+
+            // 404 - Song or Review not Found
+            if(!$song || !$review) {
+                $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
+                return $response;
+            }
+
+            // Check if user owns the review or has admin/moderator roles
+            $userRoles = $connection->getUser()->getRoles();
+            $allowedRoles = ["ROLE_ADMIN", "ROLE_SUPERADMIN", "ROLE_MODERATOR"];
+
+            if(count(array_intersect($allowedRoles, $userRoles)) > 0 || $review->getUser() == $connection->getUser()) {
+                $em->remove($review);
+                $em->flush();
+
+                $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => []]);
+                return $response;
+            } else {
+                // 403 - Not Authorized to remove this review
+                $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 403, 'data' => []]);
+                return $response;
+            }
+        } else {
+            // 403 - Not Authenticated
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 403, 'data' => []]);
+            return $response;
+        }
+    }
 }
