@@ -265,7 +265,6 @@ class SongController extends AbstractController
                 $song->setTags($data['tags']);
                 $song->setDescription($data['description']);
                 $song->setIsExplicit($data['isExplicit']);
-                $song->setUpdateDate(new \DateTime('NOW'));
                 $song->setPublicationStatus($data['publicationStatus']);
 
                 if($data['dlc'] !== null) {
@@ -278,6 +277,7 @@ class SongController extends AbstractController
                 }
 
                 if($backupFile) {
+                    $song->setUpdateDate(new \DateTime('NOW'));
                     $zip = new \ZipArchive;
                     if($zip->open($backupFile)) {
                         try {
