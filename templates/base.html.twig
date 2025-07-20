@@ -40,7 +40,7 @@
               {% endif %}
             </div>
             <a class="item {% if app.request.attributes.get('_route') == 'index.index' or app.request.attributes.get('_route') == 'index.new' or app.request.attributes.get('_route') == 'index.hot' or app.request.attributes.get('_route') == 'index.popular' %}active{% endif %}" href="{{ path('index.index') }}"><i class="mdi mdi-home-outline"></i></a>
-            <a class="item {% if app.request.attributes.get('_route') == 'index.client' %}active{% endif %}" href="{{ path('index.client') }}" title="Download Client"><i class="mdi mdi-desktop-tower-monitor"></i></a>
+            <a class="item {% if app.request.attributes.get('_route') == 'index.clientNext' %}active{% endif %}" href="{{ path('index.clientNext') }}" title="Download Client"><i class="mdi mdi-desktop-tower-monitor"></i></a>
             <a class="item {% if app.request.attributes.get('_route') == 'index.support' %}active{% endif %}" href="{{ path('index.support') }}" title="Support"><i class="mdi mdi-hand-heart"></i></a>
             <a class="item" href="{{ path('api.docs.introduction') }}" title="API Documentation"><i class="mdi mdi-api"></i></a>
             <a class="item {% if app.request.attributes.get('_route') == 'index.legal' %}active{% endif %}" href="{{ path('index.legal') }}" title="Legal"><i class="mdi mdi-gavel"></i></a>

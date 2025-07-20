@@ -25,6 +25,32 @@
   width: 500px;
   opacity: 0.3;
 }
+.section-client .client3-banner {
+  width: 800px;
+  height: 300px;
+  margin: 0 auto;
+  margin-top: 50px;
+  border-radius: 6px;
+  background-position: center right;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 25px;
+}
+.section-client .client3-banner img {
+  height: 35px;
+  margin-bottom: 25px;
+}
+.section-client .client3-banner h2 {
+  margin: 0;
+}
+.section-client .client3-banner p {
+  margin: 0;
+  opacity: 0.6;
+  line-height: 1.5em;
+}
 .section-client .description {
   max-width: 700px;
   background: rgba(255, 255, 255, 0.1);

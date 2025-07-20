@@ -137,6 +137,15 @@ class IndexController extends AbstractController
     }
 
     /**
+     * @Route("/client-next", name="index.clientNext")
+     */
+    public function clientNext(Request $request)
+    {
+
+        return $this->render('index/client-next.html.twig');
+    }
+
+    /**
      * @Route("/legal", name="index.legal")
      */
     public function legal(Request $request)

@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Client Next Download{% endblock %}
+
+{% block content %}
+    <section class="section-client-next">
+        <div class="header">
+            <div class="content">
+                <h1><span>Client Next</span><span class="tag">Public BETA</span></h1>
+                <p>The next generation of our desktop client is here!<br />Try it out now, available for Windows and Linux!</p>
+            </div>
+
+            <video autoplay muted loop src="{{ asset('assets/img/client3_header.webm') }}"></video>
+        </div>
+
+        <div class="trailer">
+            <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+
+        <div class="downloads">
+            <a href="" target="_blank" class="button download-windows">
+                <div class="icon">
+                    <i class="mdi mdi-microsoft-windows"></i>
+                </div>
+                <span class="name">Windows</span>
+                <span class="version">v3.30.0</span>
+            </a>
+            <a href="" target="_blank" class="button download-linux">
+                <div class="icon">
+                    <i class="mdi mdi-linux"></i>
+                </div>
+                <span class="name">Linux</span>
+                <span class="version">v3.30.0</span>
+            </a>
+        </div>
+
+        <div class="features">
+            <div class="item">
+                <h3>Rewritten from scratch</h3>
+                <p>The new desktop client has been fully rewritten to be fancier, faster and cross-platform.</p>
+            </div>
+            <div class="item">
+                <h3>Featured history</h3>
+                <p>Missed a featured chart? The frontpage now features a history of previously featured charts.</p>
+            </div>
+            <div class="item">
+                <h3>Login & review</h3>
+                <p>You can now log into your account and review charts directly. Soon, you'll be able to manage your playlists and upload new charts as well.</p>
+            </div>
+            <div class="item">
+                <h3>Playlists</h3>
+                <p>Playlists can finally be viewed and added to the queue directly. No need to download each chart manually!</p>
+            </div>
+        </div>
+
+        <div class="screenshots">
+            <img src="{{ asset('assets/img/clientNextScreenshots/frontpage.png') }}" alt="Client Next Screenshot" />
+            <img src="{{ asset('assets/img/clientNextScreenshots/search.png') }}" alt="Client Next Screenshot" />
+            <img src="{{ asset('assets/img/clientNextScreenshots/chart.png') }}" alt="Client Next Screenshot" />
+            <img src="{{ asset('assets/img/clientNextScreenshots/playlist.png') }}" alt="Client Next Screenshot" />
+            <img src="{{ asset('assets/img/clientNextScreenshots/user.png') }}" alt="Client Next Screenshot" />
+            <img src="{{ asset('assets/img/clientNextScreenshots/reviews.png') }}" alt="Client Next Screenshot" />
+        </div>
+
+        <dialog id="lightboxContainer">
+            <img src="" alt="" />
+        </dialog>
+
+        <div class="footer">
+            <a href="/client" class="button">Download Client 2 instead.</a>
+        </div>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        let DOMLightboxEntries = document.querySelectorAll('.screenshots img');
+        let DOMLightboxContainer = document.querySelector('#lightboxContainer');
+
+        DOMLightboxContainer.addEventListener('click', () => {
+            DOMLightboxContainer.close();
+        });
+
+        DOMLightboxEntries.forEach(entry => {
+            entry.addEventListener('click', () => {
+                DOMLightboxContainer.querySelector('img').src = entry.src;
+                DOMLightboxContainer.showModal();
+            })
+        })
+    </script>
+    <script>
+        return;
+        (async () => {
+            let DOMButtonDownloadWindows = document.querySelector('.download-windows');
+            let DOMButtonDownloadLinux = document.querySelector('.download-linux');
+            let DOMButtonDownloadWindowsVersion = DOMButtonDownloadWindows.querySelector('.version');
+            let DOMButtonDownloadLinuxVersion = DOMButtonDownloadLinux.querySelector('.version');
+
+            try {
+                let response = await fetch('https://api.github.com/repos/SpinShare/client-next/releases/latest');
+                let data = await response.json();
+
+                let version = data.name.split("(")[1].split(")")[0];
+                let urlWindows = "";
+                let urlLinux = "";
+                let sizeWindows = 0;
+                let sizeLinux = 0;
+
+                data.assets.forEach(asset => {
+                    if (asset.name.includes("linux")) {
+                        urlLinux = asset.browser_download_url;
+                        sizeLinux = asset.size;
+                    } else {
+                        urlWindows = asset.browser_download_url;
+                        sizeWindows = asset.size;
+                    }
+                });
+
+                DOMButtonDownloadWindowsVersion.innerHTML = `${version} (${Math.round(sizeWindows / 1000000)} MB)`;
+                DOMButtonDownloadLinuxVersion.innerHTML = `${version} (${Math.round(sizeLinux / 1000000)} MB)`;
+                DOMButtonDownloadWindows.href = urlWindows;
+                DOMButtonDownloadLinux.href = urlLinux;
+            } catch(e) {
+                console.error(e);
+                DOMButtonDownloadWindows.parentElement.style.display = "none";
+            }
+        })();
+    </script>
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ asset('assets/css/client-next.css?v=' ~ date().timestamp) }}" />
+{% endblock %}
