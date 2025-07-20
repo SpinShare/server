@@ -44,7 +44,7 @@ class PlaylistController extends AbstractController
 
         $form = $this->createFormBuilder()
             ->add('title', TextType::class, ['label' => 'Title', 'row_attr' => array('class' => 'tags-field'), 'required' => true])
-            ->add('description', TextareaType::class, ['label' => 'Description', 'attr' => array('rows' => 5), 'row_attr' => array('class' => 'tags-field'), 'required' => false])
+            ->add('description', TextareaType::class, ['label' => 'Description', 'attr' => array('rows' => 15), 'row_attr' => array('class' => 'tags-field'), 'required' => false])
             ->add('coverPath', FileType::class, ['label' => 'Cover Image', 'row_attr' => array('class' => 'upload-field'), 'attr' => array('accept' => '.png, .jpg, .jpeg')])
             ->add('save', SubmitType::class, ['label' => 'Create'])
             ->getForm();
@@ -125,7 +125,7 @@ class PlaylistController extends AbstractController
 
         $form = $this->createFormBuilder()
             ->add('title', TextType::class, ['label' => 'Title', 'data' => $playlist->getTitle(), 'row_attr' => array('class' => 'tags-field'), 'required' => true])
-            ->add('description', TextareaType::class, ['label' => 'Description', 'data' => $playlist->getDescription(), 'attr' => array('rows' => 5), 'row_attr' => array('class' => 'tags-field'), 'required' => false])
+            ->add('description', TextareaType::class, ['label' => 'Description', 'data' => $playlist->getDescription(), 'attr' => array('rows' => 15), 'row_attr' => array('class' => 'tags-field'), 'required' => false])
             ->add('coverPath', FileType::class, ['label' => 'Cover Image', 'row_attr' => array('class' => 'upload-field'), 'attr' => array('accept' => '.png, .jpg, .jpeg'), 'required' => false])
             ->add('save', SubmitType::class, ['label' => 'Save'])
             ->getForm();

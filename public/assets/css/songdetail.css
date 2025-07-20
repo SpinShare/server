@@ -225,6 +225,13 @@
   color: #222;
   background: #fff;
 }
+.section-song-detail .client3-trailer {
+  margin: 20px 0;
+}
+.section-song-detail .client3-trailer iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
 .section-song-detail .song-social .tab-header {
   display: flex;
 }

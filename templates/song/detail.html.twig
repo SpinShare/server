@@ -105,6 +105,13 @@
                     </div>
                 </div>
             {% endif %}
+
+            {% if song.isClient3TrailerChart %}
+                <div class="client3-trailer">
+                    <iframe src="https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                </div>
+            {%  endif %}
+
             <div class="song-statistics">
                 <div class="stat">
                     <div class="icon">
@@ -155,6 +162,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="song-uploader">
                 <div class="label">Uploaded by</div>
                 <a href="{{ path('user.detail', {userId: uploader.id}) }}" class="user-item">
@@ -171,9 +179,9 @@
                 </a>
             </div>
             {% if song.tags != "" or song.description != "" %}
-                <div class="song-description">
+                <div class="song-description" id="songDescription">
                     {% if song.description != "" %}
-                        <div class="text">{{ song.description|default("No description provided.")|nl2br }}</div>
+                        <div class="text">{{ song.description|default("No description provided.") }}</div>
                     {% endif %}
                     {% if song.tags != "" %}
                         <div class="tags">
@@ -391,9 +399,90 @@
 
 {% block styles %}
     <link rel="stylesheet" href="{{ asset('assets/css/songdetail.css?v=' ~ date().timestamp) }}" />
+
+    <style>
+        #songDescription .text {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        #songDescription h1,
+        #songDescription h2,
+        #songDescription h3,
+        #songDescription h4,
+        #songDescription h5,
+        #songDescription h6 {
+            margin: 0;
+        }
+        #songDescription h1 {
+            font-weight: bold;
+            font-size: 2em;
+        }
+        #songDescription h2 {
+            font-weight: bold;
+            font-size: 1.75em;
+        }
+        #songDescription h3 {
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+        #songDescription h4 {
+            font-weight: bold;
+            font-size: 1.15em;
+        }
+        #songDescription h5 {
+            font-weight: bold;
+        }
+        #songDescription h6 {
+            font-weight: bold;
+            font-size: 0.85em;
+        }
+        #songDescription h1:not(:first-child) {
+            margin-top: 30px;
+        }
+        #songDescription h2:not(:first-child) {
+            margin-top: 30px;
+        }
+        #songDescription h3:not(:first-child) {
+            margin-top: 20px;
+        }
+        #songDescription h4:not(:first-child) {
+            margin-top: 20px;
+        }
+        #songDescription h5:not(:first-child) {
+            margin-top: 10px;
+        }
+        #songDescription a {
+            text-decoration: underline;
+            color: #fa567e;
+        }
+        #songDescription a:hover {
+            text-decoration: none;
+        }
+        #songDescription p {
+            margin: 0;
+        }
+    </style>
 {% endblock %}
 
 {% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.6/dist/purify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markdown-it@14.1.0/dist/markdown-it.min.js"></script>
+    <script>
+        let songDescription = document.querySelector("#songDescription .text");
+
+        const converter = new markdownit({
+            html: false,
+            linkify: true,
+            breaks: true,
+        });
+        let rendered = converter.render(`{{ song.description|default("No description provided.") }}`);
+        songDescription.innerHTML = DOMPurify.sanitize(rendered, {
+            ALLOWED_TAGS: ['br', 'em', 'p', 'b', 'strong', 'i', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a'],
+            ALLOWED_ATTR: ['href'],
+        });
+    </script>
+
     <script>
         // Song Preview
         let songActionsRow = document.querySelector(".action-row");

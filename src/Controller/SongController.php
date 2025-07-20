@@ -246,7 +246,7 @@ class SongController extends AbstractController
             $form = $this->createFormBuilder()
             ->add('backupPath', FileType::class, ['label' => 'Backup .zip', 'required' => false, 'row_attr' => array('class' => 'upload-field'), 'attr' => array('accept' => '.zip')])
             ->add('tags', TextType::class, ['label' => 'Tags', 'row_attr' => array('class' => 'tags-field'), 'required' => false, 'data' => $song->getTags()])
-            ->add('description', TextareaType::class, ['label' => 'Description', 'attr' => array('rows' => 5), 'row_attr' => array('class' => 'tags-field'), 'required' => false, 'data' => $song->getDescription()])
+            ->add('description', TextareaType::class, ['label' => 'Description', 'attr' => array('rows' => 15), 'row_attr' => array('class' => 'tags-field'), 'required' => false, 'data' => $song->getDescription()])
             ->add('isExplicit', CheckboxType::class, ['label' => 'Is the song explicit?', 'row_attr' => array('class' => "tags-field"), 'required' => false, 'data' => $song->getIsExplicit()])
             ->add('dlc', ChoiceType::class, ['label' => 'DLC', 'row_attr' => array('class' => "tags-field"), 'required' => true, 'choices' => $dlcOptions, 'data' => $song->getDLC() != null ? $song->getDLC()->getId() : 0])
             ->add('publicationStatus', ChoiceType::class, ['label' => 'Publication Status', 'row_attr' => array('class' => "tags-field"), 'required' => true, 'choices' => ['Public' => 0, 'Hide from lists' => 1, 'Unlisted' => 2]])

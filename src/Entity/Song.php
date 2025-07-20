@@ -76,6 +76,11 @@ class Song
     private $publicationStatus;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true, options={"default": false})
+     */
+    private $isClient3TrailerChart;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $hasEasyDifficulty;
@@ -313,6 +318,11 @@ class Song
         $this->publicationStatus = $publicationStatus;
 
         return $this;
+    }
+
+    public function getIsClient3TrailerChart(): ?bool
+    {
+        return $this->isClient3TrailerChart;
     }
 
     public function getHasEasyDifficulty(): ?bool
