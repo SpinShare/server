@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\SongPlaylist;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,6 +26,10 @@ class IndexController extends AbstractController
 
         $activePromos = $em->getRepository(Promo::class)->findBy(array('isVisible' => true), array('id' => 'DESC'), 2);
         $data['promos'] = $activePromos;
+
+        // 144 = Featured Playlist
+        $resultPlaylist = $em->getRepository(SongPlaylist::class)->findOneBy(array('id' => 144));
+        $data['featuredSongs'] = $resultPlaylist->getSongs()->slice(0, 10);
 
         return $this->render('index/index.html.twig', $data);
     }

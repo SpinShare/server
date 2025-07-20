@@ -37,9 +37,9 @@
   padding: 50px;
 }
 .section-startup .frontpage .social-buttons {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 .section-startup .frontpage .social-buttons .item {
   height: 75px;

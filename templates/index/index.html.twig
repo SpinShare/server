@@ -37,6 +37,19 @@
 
                 <a href="/client-next" class="button">CHECK IT OUT</a>
             </div>
+
+            <div class="song-row song-row-new" style="grid-row: 3; grid-column: 1 / 3; padding: 0;">
+                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                    <h1 style="margin: 0; font-size: 2em; flex-grow: 1;">Featured</h1>
+                    <a href="/playlist/144" class="button">See more</a>
+                </div>
+
+                <div class="song-list" style="grid-template-columns: repeat(2, 1fr);">
+                    {% for song in featuredSongs %}
+                        {{ include('components/song-item.html.twig', {song: song}) }}
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
