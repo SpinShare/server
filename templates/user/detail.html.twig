@@ -21,7 +21,7 @@
                     <div class="user-name">{% if user.pronouns != "" %}<span>{{ user.pronouns }}</span> {% endif %}{{ user.username }} {% if user.isPatreon %}<i class="mdi mdi-hand-heart"></i>{% endif %}</div>
                     <div class="user-actions">
                         <a href="{{ path('report.user', {userId: user.id}) }}" class="button">Report</a>
-                        <a href="spinshare-user://{{ user.id }}" class="button">Open in Client</a>
+                        <a href="spinshare://user/{{ user.id }}" class="button">Open in Client</a>
                         {% if is_granted("ROLE_USER") %}
                             {% if is_granted('ROLE_MODERATOR') and user.id != app.user.id %}
                                 {% if user.enabled %}

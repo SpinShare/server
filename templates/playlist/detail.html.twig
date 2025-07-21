@@ -27,9 +27,14 @@
                 <div class="playlist-description">
                     {{ playlist.description|nl2br }}
                 </div>
-                {% if app.user == user %}
-                    <div class="playlist-actions">
-                        <div class="action-row">
+                <div class="playlist-actions">
+                    <div class="action-row">
+                        <a href="spinshare://playlist/{{ playlist.id }}" class="action">
+                            <div class="icon">
+                                <i class="mdi mdi-open-in-new"></i>
+                            </div>
+                        </a>
+                        {% if app.user == user %}
                             <a href="{{ path('playlist.edit', {playlistId: playlist.id}) }}" class="action">
                                 <div class="icon">
                                     <i class="mdi mdi-pencil"></i>
@@ -40,19 +45,15 @@
                                     <i class="mdi mdi-delete"></i>
                                 </div>
                             </a>
-                        </div>
-                    </div>
-                {% elseif is_granted('ROLE_MODERATOR') %}
-                    <div class="playlist-actions">
-                        <div class="action-row">
+                        {% elseif is_granted('ROLE_MODERATOR') %}
                             <a href="{{ path('moderation.playlist.remove', {playlistId: playlist.id}) }}" class="action">
                                 <div class="icon">
                                     <i class="mdi mdi-delete"></i>
                                 </div>
                             </a>
-                        </div>
+                        {% endif %}
                     </div>
-                {% endif %}
+                </div>
                 {% if not playlist.isOfficial %}
                     <div class="playlist-uploader">
                         <div class="label">Created by</div>
