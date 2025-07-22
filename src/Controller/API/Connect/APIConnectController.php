@@ -68,8 +68,8 @@ class APIConnectController extends AbstractController
             $newConnectToken = md5(time() * $user->getID());
 
             // CLIENT NEXT INCENTIVE, TODO-NEXT: Change ID
-            if($connectApp->getID() == 1) {
-                $card = $em->getRepository(Card::class)->findOneBy(array('id' => 1));
+            if($connectApp->getID() == 2) {
+                $card = $em->getRepository(Card::class)->findOneBy(array('id' => 50));
                 $existingUserCard = $em->getRepository(UserCard::class)->findOneBy(array('card' => $card,'user' => $user));
                 if($existingUserCard == null) {
                     $newUserCard = new UserCard();
