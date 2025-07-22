@@ -2,6 +2,9 @@
 
 namespace App\Controller\API\Connect;
 
+use App\Entity\Card;
+use App\Entity\UserCard;
+use App\Entity\UserNotification;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -63,6 +66,28 @@ class APIConnectController extends AbstractController
 
         if($user && $connectApp) {
             $newConnectToken = md5(time() * $user->getID());
+
+            // CLIENT NEXT INCENTIVE, TODO-NEXT: Change ID
+            $card = $em->getRepository(Card::class)->findOneBy(array('id' => 1));
+            $existingUserCard = $em->getRepository(UserCard::class)->findOneBy(array('card' => $card,'user' => $user));
+            if($existingUserCard == null) {
+                $newUserCard = new UserCard();
+                $newUserCard->setCard($card);
+                $newUserCard->setUser($user);
+                $newUserCard->setGivenDate(new \DateTime());
+
+                $em->persist($newUserCard);
+
+                $newNotification = new UserNotification();
+                $newNotification->setUser($user);
+                $newNotification->setNotificationType(3);
+                $newNotification->setNotificationData("");
+                $newNotification->setConnectedCard($newUserCard->getCard());
+                $newNotification->setConnectedUser($user);
+
+                $em->persist($newNotification);
+                $em->flush();
+            }
 
             // Create Connection
             $newConnection = new Connection();
