@@ -151,8 +151,19 @@ class IndexController extends AbstractController
      */
     public function clientNext(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
 
-        return $this->render('index/client-next.html.twig');
+        // TODO-NEXT: Set ID
+        $resultSong = $em->getRepository(Song::class)->findOneBy(array('id' => 144));
+
+        if($resultSong) {
+            $data['song'] = $resultSong;
+        } else {
+            $data['song'] = null;
+        }
+
+        return $this->render('index/client-next.html.twig', $data);
     }
 
     /**

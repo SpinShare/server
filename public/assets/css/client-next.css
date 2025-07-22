@@ -72,7 +72,6 @@
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 25px;
 }
 .section-client-next .downloads .button {
   display: flex;
@@ -81,6 +80,14 @@
   padding-top: 15px;
   padding-bottom: 15px;
   text-align: center;
+}
+.section-client-next .downloads .button:nth-child(1) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.section-client-next .downloads .button:nth-child(2) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 .section-client-next .downloads .button .icon {
   font-weight: normal;
@@ -91,6 +98,15 @@
   text-transform: none;
   font-size: 18px;
   font-weight: 400;
+}
+.section-client-next .downloads .incentive {
+  grid-column: 1 / 3;
+  padding: 15px;
+  background: #494d50;
+  border-radius: 6px;
+  margin-top: 25px;
+  font-weight: bold;
+  text-align: center;
 }
 .section-client-next .features {
   width: calc(100% - 50px);
@@ -159,6 +175,11 @@
 .section-client-next #lightboxContainer::backdrop {
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(5px);
+}
+.section-client-next .chart {
+  width: calc(100% - 50px);
+  max-width: 990px;
+  margin: 0 auto;
 }
 .section-client-next .footer {
   padding: 50px 0;
