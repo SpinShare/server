@@ -67,30 +67,6 @@ class APIConnectController extends AbstractController
         if($user && $connectApp) {
             $newConnectToken = md5(time() * $user->getID());
 
-            // CLIENT NEXT INCENTIVE, TODO-NEXT: Change ID
-            if($connectApp->getID() == 2) {
-                $card = $em->getRepository(Card::class)->findOneBy(array('id' => 50));
-                $existingUserCard = $em->getRepository(UserCard::class)->findOneBy(array('card' => $card,'user' => $user));
-                if($existingUserCard == null) {
-                    $newUserCard = new UserCard();
-                    $newUserCard->setCard($card);
-                    $newUserCard->setUser($user);
-                    $newUserCard->setGivenDate(new \DateTime());
-
-                    $em->persist($newUserCard);
-
-                    $newNotification = new UserNotification();
-                    $newNotification->setUser($user);
-                    $newNotification->setNotificationType(3);
-                    $newNotification->setNotificationData("");
-                    $newNotification->setConnectedCard($newUserCard->getCard());
-                    $newNotification->setConnectedUser($user);
-
-                    $em->persist($newNotification);
-                    $em->flush();
-                }
-            }
-
             // Create Connection
             $newConnection = new Connection();
             $newConnection->setUser($user);
@@ -107,11 +83,10 @@ class APIConnectController extends AbstractController
             $em->flush();
 
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $newConnectToken]);
-            return $response;
         } else {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 404, 'data' => []]);
-            return $response;
         }
+        return $response;
     }
 
     /**
