@@ -184,6 +184,26 @@ class ModactionsController extends AbstractController
 
         return $this->redirectToRoute('user.detail', array('userId' => $userId));
     }
+
+    /**
+     * @Route("/moderation/user/generate-reset-token/{userId}", name="moderation.user.generate-reset-token")
+     */
+    public function userGenerateResetToken(Request $request, int $userId)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        $user = $em->getRepository(User::class)->findOneBy(array('id' => $userId));
+        $resetPasswordToken = substr(md5(uniqid(rand(), true)), 0, 4) . "-" . substr(md5(uniqid(rand(), true)), 0, 4);
+        $user->setResetPasswordToken($resetPasswordToken);
+
+        $em->persist($user);
+        $em->flush();
+
+        $this->addFlash('success', "User: ".$user->getUsername()." got a reset password token! Token: ".$resetPasswordToken);
+
+        return $this->redirectToRoute('user.detail', array('userId' => $userId));
+    }
     
     /**
      * @Route("/moderation/user/unban/{userId}", name="moderation.user.unban")

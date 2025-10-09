@@ -81,6 +81,11 @@
          */
         private $pronouns;
 
+        /**
+         * @ORM\Column(type="string", length=9, nullable=true)
+         */
+        private $resetPasswordToken;
+
         public function __construct()
         {
             parent::__construct();
@@ -356,6 +361,18 @@
         public function setPronouns(?string $pronouns): self
         {
             $this->pronouns = $pronouns;
+
+            return $this;
+        }
+
+        public function getResetPasswordToken(): ?string
+        {
+            return $this->resetPasswordToken;
+        }
+
+        public function setResetPasswordToken(?string $resetPasswordToken): self
+        {
+            $this->resetPasswordToken = $resetPasswordToken;
 
             return $this;
         }

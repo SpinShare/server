@@ -175,4 +175,34 @@ class IndexController extends AbstractController
 
         return $this->render('index/legal.html.twig', $data);
     }
+
+
+    /**
+     * @Route("/resetting/reset", name="resetting.reset")
+     */
+    public function resetPasswordThroughToken(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        $userToReset = $em->getRepository(user::class)->findOneBy(array('resetPasswordToken' => $request->request->get('reset-token')));
+
+        if(!$userToReset) {
+            $this->addFlash('error', 'Invalid token.');
+            return $this->redirectToRoute('fos_user_resetting_request');
+        }
+
+        if(!$request->request->get('password')) {
+            $this->addFlash('error', 'Password can\'t be empty.');
+            return $this->redirectToRoute('fos_user_resetting_request');
+        }
+
+        $userToReset->setPlainPassword($request->request->get('password'));
+        $userToReset->setResetPasswordToken(null);
+        $em->persist($userToReset);
+        $em->flush();
+
+        $this->addFlash('success', 'Password reset successfully.');
+        return $this->redirectToRoute('fos_user_resetting_request');
+    }
 }

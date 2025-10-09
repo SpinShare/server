@@ -23,12 +23,13 @@
                         <a href="{{ path('report.user', {userId: user.id}) }}" class="button">Report</a>
                         <a href="spinshare://user/{{ user.id }}" class="button">Open in Client</a>
                         {% if is_granted("ROLE_USER") %}
-                            {% if is_granted('ROLE_MODERATOR') and user.id != app.user.id %}
+                            {% if (is_granted('ROLE_MODERATOR') or is_granted('ROLE_ADMIN')) and user.id != app.user.id %}
                                 {% if user.enabled %}
                                     <a href="{{ path('moderation.user.ban', {userId: user.id}) }}" class="button">Ban User</a>
                                 {% else %}
                                     <a href="{{ path('moderation.user.unban', {userId: user.id}) }}" class="button">Unban User</a>
                                 {% endif %}
+                                <a href="{{ path('moderation.user.generate-reset-token', {userId: user.id}) }}" class="button">Reset Password Token</a>
                                 <a href="{{ path('moderation.user.resetAvatar', {userId: user.id}) }}" class="button">Reset Avatar</a>
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <a href="{{ path('moderation.user.toggleMod', {userId: user.id}) }}" class="button">{{ ("ROLE_MODERATOR" in user.roles) ? "Demote to User" : "Promote to Mod" }}</a>

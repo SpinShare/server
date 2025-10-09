@@ -1,6 +1,28 @@
 {% extends 'user/detail.html.twig' %}
 
 {% block userDetailContent %}
+    <style>
+        .flashbang {
+            margin: 20px auto;
+            padding: 20px;
+            border: 2px solid #fff;
+            width: 600px;
+            border-radius: 6px;
+        }
+        .flashbang.flashbang-success {
+            background: rgba(121, 223, 90, 0.1);
+            border-color: #79df5a;
+            color: #79df5a;
+        }
+    </style>
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="flashbang flashbang-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+
     <div class="song-row song-row-user">
         {% if charts|length > 0 %}
             <div class="song-list">

@@ -5,10 +5,38 @@
 
 {% block securityContent %}
     <div class="security-content">
-        <img src="{{ asset('assets/img/illustration-forgotpassword.svg') }}" alt="Illustration for Forgot Password" />
+        <p>To reset your password, please follow these steps:</p>
+        <ol style="text-align: left; display: flex; flex-direction: column; gap: 10px; margin-bottom: 50px; line-height: 1.75em;">
+            <li>Join our <a href="https://spinsha.re/discord" style="color: #fb1357">Discord</a>. You may also try to contact us through BlueSky, however, Discord is giving us the advantage to immediately respond.</li>
+            <li>Ask a moderator for a <strong>Reset Password Token</strong>. They may ask you to name the email you've used for registration or other ways to confirm you own the account.</li>
+            <li>A moderator will generate a short one-time password, a <strong>Reset Password Token</strong>. Use the form below to set a new password. Note: The token will become invalid after you've reset your password.</li>
+        </ol>
 
-        <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
-            <input type="text" id="username" name="username" required="required" placeholder="{{ 'resetting.request.username'|trans }}" />
+        <style>
+            .flashbang {
+                margin: 20px auto;
+                padding: 20px;
+                border: 2px solid #fff;
+                width: 600px;
+                border-radius: 6px;
+            }
+            .flashbang.flashbang-success {
+                background: rgba(121, 223, 90, 0.1);
+                border-color: #79df5a;
+                color: #79df5a;
+            }
+        </style>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flashbang flashbang-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <form action="{{ path('resetting.reset') }}" method="POST" class="fos_user_resetting_request">
+            <input type="text" id="reset-token" name="reset-token" required="required" placeholder="Reset token" />
+            <input type="password" id="password" name="password" required="required" placeholder="New password" />
             
             <input type="submit" class="button" value="{{ 'resetting.request.submit'|trans }}" />
         </form>
