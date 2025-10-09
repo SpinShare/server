@@ -79,30 +79,26 @@ class SearchController extends AbstractController
                 // Filter Song Results
                 $filteredResultsSongs = [];
                 foreach($resultsSongs as $resultSong) {
-                    // Has the required difficulty
-                    if($filterEasy && $resultSong->getHasEasyDifficulty() ||
-                        $filterNormal && $resultSong->getHasNormalDifficulty() ||
-                        $filterHard && $resultSong->getHasHardDifficulty() ||
-                        $filterExpert && $resultSong->getHasExtremeDifficulty() ||
-                        $filterXD && $resultSong->getHasXDDifficulty()) {
-
-                        // Has the minimum difficulty rating
-                        if($resultSong->getHasEasyDifficulty() && $resultSong->getEasyDifficulty() >= $filterMinDifficulty ||
-                            $resultSong->getHasNormalDifficulty() && $resultSong->getNormalDifficulty() >= $filterMinDifficulty ||
-                            $resultSong->getHasHardDifficulty() && $resultSong->getHardDifficulty() >= $filterMinDifficulty ||
-                            $resultSong->getHasExtremeDifficulty() && $resultSong->getExpertDifficulty() >= $filterMinDifficulty ||
-                            $resultSong->getHasXDDifficulty() && $resultSong->getXDDifficulty() >= $filterMinDifficulty) {
-
-                            // Has the maximum difficulty rating
-                            if($resultSong->getHasEasyDifficulty() && $resultSong->getEasyDifficulty() <= $filterMaxDifficulty ||
-                                $resultSong->getHasNormalDifficulty() && $resultSong->getNormalDifficulty() <= $filterMaxDifficulty ||
-                                $resultSong->getHasHardDifficulty() && $resultSong->getHardDifficulty() <= $filterMaxDifficulty ||
-                                $resultSong->getHasExtremeDifficulty() && $resultSong->getExpertDifficulty() <= $filterMaxDifficulty ||
-                                $resultSong->getHasXDDifficulty() && $resultSong->getXDDifficulty() <= $filterMaxDifficulty) {
-
-                                $filteredResultsSongs[] = $resultSong;
-                            }
-                        }
+                    if ($filterEasy && $resultSong->getHasEasyDifficulty()
+                        && $resultSong->getHasEasyDifficulty() && $resultSong->getEasyDifficulty() >= $filterMinDifficulty
+                        && $resultSong->getHasEasyDifficulty() && $resultSong->getEasyDifficulty() <= $filterMaxDifficulty) {
+                        $filteredResultsSongs[] = $resultSong;
+                    } else if ($filterNormal && $resultSong->getHasNormalDifficulty()
+                        && $resultSong->getHasNormalDifficulty() && $resultSong->getNormalDifficulty() >= $filterMinDifficulty
+                        && $resultSong->getHasNormalDifficulty() && $resultSong->getNormalDifficulty() <= $filterMaxDifficulty) {
+                        $filteredResultsSongs[] = $resultSong;
+                    } else if ($filterHard && $resultSong->getHasHardDifficulty()
+                        && $resultSong->getHasHardDifficulty() && $resultSong->getHardDifficulty() >= $filterMinDifficulty
+                        && $resultSong->getHasHardDifficulty() && $resultSong->getHardDifficulty() <= $filterMaxDifficulty) {
+                        $filteredResultsSongs[] = $resultSong;
+                    } else if ($filterExpert && $resultSong->getHasExtremeDifficulty()
+                        && $resultSong->getHasExtremeDifficulty() && $resultSong->getExpertDifficulty() >= $filterMinDifficulty
+                        && $resultSong->getHasExtremeDifficulty() && $resultSong->getExpertDifficulty() <= $filterMaxDifficulty) {
+                        $filteredResultsSongs[] = $resultSong;
+                    } else if ($filterXD && $resultSong->getHasXDDifficulty()
+                        && $resultSong->getHasXDDifficulty() && $resultSong->getXDDifficulty() >= $filterMinDifficulty
+                        && $resultSong->getHasXDDifficulty() && $resultSong->getXDDifficulty() <= $filterMaxDifficulty) {
+                        $filteredResultsSongs[] = $resultSong;
                     }
                 }
 
