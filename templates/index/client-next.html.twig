@@ -6,7 +6,7 @@
     <section class="section-client-next">
         <div class="header">
             <div class="content">
-                <h1><span>Client Next</span><span class="tag">Public BETA</span></h1>
+                <h1><span>Client 3.0</span></h1>
                 <p>The next generation of our desktop client is here!<br />Try it out now, available for Windows and Linux!</p>
             </div>
 
@@ -31,6 +31,34 @@
                 </div>
                 <span class="name">Linux</span>
                 <span class="version">v3.30.0</span>
+            </a>
+            <a href="" target="_blank" class="button download-linux appimage">
+                <div class="icon">
+                    <i class="mdi mdi-linux"></i>
+                </div>
+                <span class="name">Linux (AppImage)</span>
+                <span class="version">v3.30.0</span>
+            </a>
+            <a href="" target="_blank" class="button nightly download-windows">
+                <div class="icon">
+                    <i class="mdi mdi-microsoft-windows"></i>
+                </div>
+                <span class="name">Windows</span>
+                <span class="version">Nightly Dev</span>
+            </a>
+            <a href="" target="_blank" class="button nightly download-linux">
+                <div class="icon">
+                    <i class="mdi mdi-linux"></i>
+                </div>
+                <span class="name">Linux</span>
+                <span class="version">Nightly Dev</span>
+            </a>
+            <a href="" target="_blank" class="button nightly download-linux appimage">
+                <div class="icon">
+                    <i class="mdi mdi-linux"></i>
+                </div>
+                <span class="name">Linux (AppImage)</span>
+                <span class="version">Nightly Dev</span>
             </a>
         </div>
 
@@ -98,38 +126,76 @@
     </script>
     <script>
         (async () => {
-            let DOMButtonDownloadWindows = document.querySelector('.download-windows');
-            let DOMButtonDownloadLinux = document.querySelector('.download-linux');
-            let DOMButtonDownloadWindowsVersion = DOMButtonDownloadWindows.querySelector('.version');
-            let DOMButtonDownloadLinuxVersion = DOMButtonDownloadLinux.querySelector('.version');
+            async function fetchJson(url) {
+                const res = await fetch(url);
+                return res.json();
+            }
+
+            function findAsset(release, platform) {
+                const assets = release.assets || [];
+                if (platform === "windows") return assets.find(a => a.name.includes(".exe"));
+                if (platform === "linux") return assets.find(a => a.name.includes("linux-x64"));
+                if (platform === "linux-appimage") return assets.find(a => a.name.includes("AppImage"));
+                return null;
+            }
+
+            function versionFromName(name) {
+                const m = /\(([^)]+)\)/.exec(name || "");
+                return m ? m[1] : "";
+            }
+
+            function setDisabled(a) {
+                a.style.opacity = "0.1";
+                a.style.cursor = "not-allowed";
+                a.href = "javascript:void(0);";
+            }
+
+            function setStableButton(selector, release, platform) {
+                const a = document.querySelector(selector);
+                if (!a) return;
+
+                const asset = findAsset(release, platform);
+                if (!asset || !asset.browser_download_url || asset.size <= 0) return setDisabled(a);
+
+                a.href = asset.browser_download_url;
+
+                const v = a.querySelector(".version");
+                if (v) {
+                    const mb = Math.round(asset.size / 1000000);
+                    v.textContent = `Stable ${versionFromName(release.name)} (${mb} MB)`;
+                }
+            }
+
+            function setNightlyButton(selector, release, platform) {
+                const a = document.querySelector(selector);
+                if (!a) return;
+
+                const asset = findAsset(release, platform);
+                if (!asset || !asset.browser_download_url || asset.size <= 0) return setDisabled(a);
+
+                a.href = asset.browser_download_url;
+            }
 
             try {
-                let response = await fetch('https://api.github.com/repos/SpinShare/client-next/releases/latest');
-                let data = await response.json();
+                const stable = await fetchJson("https://api.github.com/repos/SpinShare/client-next/releases/latest");
+                const releases = await fetchJson("https://api.github.com/repos/SpinShare/client-next/releases");
+                const nightly = releases.find(r => r.prerelease);
 
-                let version = data.name.split("(")[1].split(")")[0];
-                let urlWindows = "";
-                let urlLinux = "";
-                let sizeWindows = 0;
-                let sizeLinux = 0;
+                // stable
+                setStableButton(".download-windows:not(.nightly)", stable, "windows");
+                setStableButton(".download-linux:not(.nightly):not(.appimage)", stable, "linux");
+                setStableButton(".download-linux.appimage:not(.nightly)", stable, "linux-appimage");
 
-                data.assets.forEach(asset => {
-                    if (asset.name.includes("linux")) {
-                        urlLinux = asset.browser_download_url;
-                        sizeLinux = asset.size;
-                    } else {
-                        urlWindows = asset.browser_download_url;
-                        sizeWindows = asset.size;
-                    }
-                });
-
-                DOMButtonDownloadWindowsVersion.innerHTML = `${version} (${Math.round(sizeWindows / 1000000)} MB)`;
-                DOMButtonDownloadLinuxVersion.innerHTML = `${version} (${Math.round(sizeLinux / 1000000)} MB)`;
-                DOMButtonDownloadWindows.href = urlWindows;
-                DOMButtonDownloadLinux.href = urlLinux;
-            } catch(e) {
+                // nightly
+                if (nightly) {
+                    setNightlyButton(".download-windows.nightly", nightly, "windows");
+                    setNightlyButton(".download-linux.nightly", nightly, "linux");
+                    setNightlyButton(".download-linux.appimage.nightly", nightly, "linux-appimage");
+                }
+            } catch (e) {
                 console.error(e);
-                DOMButtonDownloadWindows.parentElement.style.display = "none";
+                const downloads = document.querySelector(".downloads");
+                if (downloads) downloads.style.display = "none";
             }
         })();
     </script>

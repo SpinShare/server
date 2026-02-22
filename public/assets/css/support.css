@@ -1,5 +1,7 @@
 .section-support {
   padding: 50px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 .section-support .support-icon {
   margin-bottom: 50px;
@@ -52,7 +54,7 @@
   align-self: center;
 }
 .section-support .support-subsection .support-items .support-item .text {
-  line-height: 1.5;
+  line-height: 2.0;
   opacity: 0.6;
   grid-column: 1 / span 2;
 }
@@ -62,9 +64,4 @@
   justify-content: flex-end;
   align-items: flex-end;
   grid-column: 1 / span 2;
-}
-.section-support .support-subsection .user-list {
-  display: grid;
-  grid-gap: 25px;
-  grid-template-columns: 1fr 1fr 1fr;
 }
