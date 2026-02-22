@@ -15,7 +15,6 @@
                 <a class="tab {% if 'moderation.dlcs' in app.request.attributes.get('_route') %}active{% endif %}" href="{{ path('moderation.dlcs.index') }}">DLCs</a>
 
                 {% if is_granted('ROLE_ADMIN') %}
-                    <a class="tab {% if 'moderation.clientreleases' in app.request.attributes.get('_route') %}active{% endif %}" href="{{ path('moderation.clientreleases.index') }}">Client Releases</a>
                     <a class="tab {% if 'moderation.system' in app.request.attributes.get('_route')  %}active{% endif %}" href="{{ path('moderation.system.index') }}">System</a>
                 {% endif %}
             </div>
