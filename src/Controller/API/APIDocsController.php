@@ -49,14 +49,6 @@ class APIDocsController extends AbstractController
     }
 
     /**
-     * @Route("/api/docs/open/client", name="api.docs.open.client")
-     */
-    public function openClient(): Response
-    {
-        return $this->render('apidocs/open/client.html.twig');
-    }
-
-    /**
      * @Route("/api/docs/open/promos", name="api.docs.open.promos")
      */
     public function openPromos(): Response

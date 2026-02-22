@@ -4,11 +4,8 @@ namespace App\Controller;
 
 use App\Entity\SongPlaylist;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
-use App\Entity\ClientRelease;
 use App\Entity\Song;
 use App\Entity\User;
 use App\Entity\Promo;
@@ -127,23 +124,6 @@ class IndexController extends AbstractController
     public function discord(Request $request)
     {
         return $this->redirect('https://discord.gg/j8g2gkF');
-    }
-
-    /**
-     * @Route("/client", name="index.client")
-     */
-    public function client(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $data = [];
-
-        $getLatestWindows = $em->getRepository(ClientRelease::class)->findOneBy(array('platform' => 'win32'), array('majorVersion' => 'DESC', 'minorVersion' => 'DESC', 'patchVersion' => 'DESC'));
-        $getLatestMac = $em->getRepository(ClientRelease::class)->findOneBy(array('platform' => 'darwin'), array('majorVersion' => 'DESC', 'minorVersion' => 'DESC', 'patchVersion' => 'DESC'));
-
-        $data['latestWindows'] = $getLatestWindows;
-        $data['latestMac'] = $getLatestMac;
-
-        return $this->render('index/client.html.twig', $data);
     }
 
     /**

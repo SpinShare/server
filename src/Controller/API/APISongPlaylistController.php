@@ -4,17 +4,10 @@ namespace App\Controller\API;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpClient\HttpClient;
 
-use App\Entity\ClientRelease;
-use App\Entity\Song;
 use App\Entity\SongPlaylist;
-use App\Entity\User;
-use App\Entity\Promo;
 
 class APISongPlaylistController extends AbstractController
 {
