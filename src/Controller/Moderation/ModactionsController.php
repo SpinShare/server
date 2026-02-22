@@ -414,4 +414,22 @@ class ModactionsController extends AbstractController
 
         return $this->redirectToRoute('user.detail', array('userId' => $uploader->getId()));
     }
+
+    /**
+     * @Route("/moderation/playlist/{playlistId}/set-official/{isOfficial}", name="moderation.playlist.set-official")
+     */
+    public function playlistSetOfficial(Request $request, int $playlistId, string $isOfficial)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $data = [];
+
+        $playlist = $em->getRepository(SongPlaylist::class)->findOneBy(array('id' => $playlistId));
+
+        $playlist->setIsOfficial($isOfficial == "true");
+
+        $em->persist($playlist);
+        $em->flush();
+
+        return $this->redirectToRoute('playlist.detail', array('playlistId' => $playlist->getId()));
+    }
 }

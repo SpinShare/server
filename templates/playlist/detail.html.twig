@@ -52,6 +52,21 @@
                                 </div>
                             </a>
                         {% endif %}
+                        {% if is_granted('ROLE_MODERATOR') %}
+                            {% if playlist.isOfficial %}
+                                <a href="{{ path('moderation.playlist.set-official', {playlistId: playlist.id, isOfficial: "false"}) }}" class="action">
+                                    <div class="icon">
+                                        <i class="mdi mdi-decagram"></i>
+                                    </div>
+                                </a>
+                            {% else %}
+                                <a href="{{ path('moderation.playlist.set-official', {playlistId: playlist.id, isOfficial: "true"}) }}" class="action">
+                                    <div class="icon">
+                                        <i class="mdi mdi-check-decagram"></i>
+                                    </div>
+                                </a>
+                            {% endif %}
+                        {% endif %}
                     </div>
                 </div>
                 {% if not playlist.isOfficial %}
