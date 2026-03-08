@@ -483,6 +483,23 @@ class APIDiscoveryController extends AbstractController
         }
 
         $searchQuery = $jsonBody['searchQuery'];
+        if ($searchQuery !== null) {
+            $searchQuery = trim($searchQuery);
+        }
+
+        // Songs/Charts shortcut: https://spinsha.re/song/[ID] or chart:[ID]
+        if (preg_match('/^(?:https?:\/\/spinsha\.re\/song\/|chart:)([a-zA-Z0-9_-]+)$/i', $searchQuery, $matches)) {
+            $identifier = $matches[1];
+            $song = is_numeric($identifier)
+                ? $em->getRepository(Song::class)->find($identifier)
+                : $em->getRepository(Song::class)->findOneBy(['fileReference' => $identifier]);
+            if ($song) {
+                // Return exactly one result
+                $oneResult = $song->getJSON();
+                $oneResult['zip'] = $this->generateUrl('api.songs.download', array('id' => $song->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
+                return new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => [$oneResult]]);
+            }
+        }
 
         $data = [];
 
@@ -581,6 +598,20 @@ class APIDiscoveryController extends AbstractController
         }
 
         $searchQuery = $jsonBody['searchQuery'];
+        if ($searchQuery !== null) {
+            $searchQuery = trim($searchQuery);
+        }
+
+        // Users shortcut: https://spinsha.re/user/[id] or user:[id] or user:[username]
+        if (preg_match('/^(?:https?:\/\/spinsha\.re\/user\/|user:)(.+)$/i', $searchQuery, $matches)) {
+            $identifier = $matches[1];
+            $user = is_numeric($identifier)
+                ? $em->getRepository(User::class)->find($identifier)
+                : $em->getRepository(User::class)->findOneBy(['username' => $identifier]);
+            if ($user) {
+                return new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => [$user->getJSON()]]);
+            }
+        }
 
         $data = [];
 
@@ -618,6 +649,21 @@ class APIDiscoveryController extends AbstractController
         }
 
         $searchQuery = $jsonBody['searchQuery'];
+        if ($searchQuery !== null) {
+            $searchQuery = trim($searchQuery);
+        }
+
+        // Playlist Shortcut: https://spinsha.re/playlist/[id] or playlist:[id]
+        if (preg_match('/^(?:https?:\/\/spinsha\.re\/playlist\/|playlist:)(\d+)$/i', $searchQuery, $matches)) {
+            $playlistId = $matches[1];
+            $playlist = $em->getRepository(SongPlaylist::class)->find($playlistId);
+            if ($playlist) {
+                $playlistData = $playlist->getJSON();
+                $playlistData['songs'] = count($playlistData['songs']);
+                unset($playlistData['description']);
+                return new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => [$playlistData]]);
+            }
+        }
 
         $data = [];
 
