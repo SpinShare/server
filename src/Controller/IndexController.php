@@ -27,12 +27,16 @@ class IndexController extends AbstractController
 
         // 144 = Featured Playlist
         $resultPlaylist = $em->getRepository(SongPlaylist::class)->findOneBy(array('id' => 144));
-        $songs = $resultPlaylist->getSongs()->toArray();
-        // Sort songs by ID in descending order
-        usort($songs, function($a, $b) {
-            return $b->getId() - $a->getId();
-        });
-        $data['featuredSongs'] = array_slice($songs, 0, 10);
+        if($resultPlaylist) {
+            $songs = $resultPlaylist->getSongs()->toArray();
+            // Sort songs by ID in descending order
+            usort($songs, function($a, $b) {
+                return $b->getId() - $a->getId();
+            });
+            $data['featuredSongs'] = array_slice($songs, 0, 10);
+        } else {
+            $data['featuredSongs'] = [];
+        }
 
         return $this->render('index/index.html.twig', $data);
     }
