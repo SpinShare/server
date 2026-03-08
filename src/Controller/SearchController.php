@@ -9,6 +9,7 @@ use App\Utils\HelperFunctions;
 
 use App\Entity\Song;
 use App\Entity\User;
+use App\Entity\SongPlaylist;
 
 class SearchController extends AbstractController
 {
@@ -21,6 +22,9 @@ class SearchController extends AbstractController
         $data = [];
 
         $searchQuery = $request->query->get('q');
+        if ($searchQuery !== null) {
+            $searchQuery = trim($searchQuery);
+        }
 
         $resultsUsers = [];
         $resultsSongs = [];
@@ -41,6 +45,38 @@ class SearchController extends AbstractController
             $filterMaxDifficulty = 99;
         } else {
             if($searchQuery != null) {
+                // Check if search query matches special formats (URL, chart:[id], user:[id], user:[username], playlist:[id])
+                // Songs/Charts: https://spinsha.re/song/[ID] or chart:[ID]
+                if (preg_match('/^(?:https?:\/\/spinsha\.re\/song\/|chart:)([a-zA-Z0-9_-]+)$/i', $searchQuery, $matches)) {
+                    $identifier = $matches[1];
+                    $song = is_numeric($identifier)
+                        ? $em->getRepository(Song::class)->find($identifier)
+                        : $em->getRepository(Song::class)->findOneBy(['fileReference' => $identifier]);
+                    if ($song) {
+                        return $this->redirectToRoute('song.detail', ['songId' => $song->getId()]);
+                    }
+                }
+
+                // Users: https://spinsha.re/user/[id] or user:[id] or user:[username]
+                if (preg_match('/^(?:https?:\/\/spinsha\.re\/user\/|user:)(.+)$/i', $searchQuery, $matches)) {
+                    $identifier = $matches[1];
+                    $user = is_numeric($identifier)
+                        ? $em->getRepository(User::class)->find($identifier)
+                        : $em->getRepository(User::class)->findOneBy(['username' => $identifier]);
+                    if ($user) {
+                        return $this->redirectToRoute('user.detail', ['userId' => $user->getId()]);
+                    }
+                }
+
+                // Playlists: https://spinsha.re/playlist/[id] or playlist:[id]
+                if (preg_match('/^(?:https?:\/\/spinsha\.re\/playlist\/|playlist:)(\d+)$/i', $searchQuery, $matches)) {
+                    $playlistId = $matches[1];
+                    $playlist = $em->getRepository(SongPlaylist::class)->find($playlistId);
+                    if ($playlist) {
+                        return $this->redirectToRoute('playlist.detail', ['playlistId' => $playlist->getId()]);
+                    }
+                }
+
                 $resultsUsers = $em->getRepository(User::class)->createQueryBuilder('o')
                                                                 ->where('o.username LIKE :query')
                                                                 ->orderBy('o.id', 'DESC')
