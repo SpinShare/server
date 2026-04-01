@@ -191,4 +191,21 @@ class APIUserController extends AbstractController
             return $response;
         }
     }
+
+
+    /**
+     * @Route("/api/user/current", name="api.users.current")
+     * @Route("/api/user/current/")
+     */
+    public function userCurrent(Request $request) {
+        $user = $this->getUser();
+
+        if(!$user) {
+            $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 403, 'data' => []]);
+            return $response;
+        }
+
+        $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $user->getJSON()]);
+        return $response;
+    }
 }
