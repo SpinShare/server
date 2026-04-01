@@ -47,6 +47,7 @@
 }
 .section-playlist-detail .playlist-content .playlist-detail .playlist-description {
   background: #383C3F;
+  word-break: break-word;
   border-radius: 4px;
   line-height: 1.5em;
   display: grid;
