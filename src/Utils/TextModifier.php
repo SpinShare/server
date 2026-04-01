@@ -5,6 +5,8 @@ namespace App\Utils;
 class TextModifier {
     public static function convert($text) {
         // Not time yet!
+        // TEMP: Disable uwu because of issues with client 3
+        return $text;
         if(date('m-d') !== '04-01') {
             return $text;
         }
