@@ -9,6 +9,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class APITempController extends AbstractController
 {
@@ -55,6 +56,7 @@ class APITempController extends AbstractController
             $em->flush();
         }
 
-        return new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => []]);
+        // Redirect to https://spinsha.re/speen-orbital-os/end.php
+        return $this->redirect("https://spinsha.re/speen-orbital-os/end.php");
     }
 }
