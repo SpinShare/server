@@ -492,6 +492,8 @@
 
         let isPlaying = false;
         let currentPreviewAudio;
+        let stopTimer;
+        let stopTime = 25 * 1000;
 
         playerToggle.addEventListener('click', () => {
             isPlaying = !isPlaying;
@@ -511,15 +513,22 @@
             currentPreviewAudio.onended = function() {
                 StopPreview();
             }
+            stopTimer = setTimeout(() => {
+                StopPreview();
+            }, stopTime);
             isPlaying = true;
 
             // TODO: This is a quick fix for mp3 support, change with proper code later
             currentPreviewAudio.onerror = function() {
+                clearTimeout(stopTimer);
                 currentPreviewAudio = new Audio("{{ asset('uploads/audio/' ~ song.fileReference ~ '_0.mp3') }}");
-                
+
                 currentPreviewAudio.volume = 0.5;
                 playerVolume.value = 50;
                 currentPreviewAudio.play();
+                stopTimer = setTimeout(() => {
+                    StopPreview();
+                }, stopTime);
             }
 
             songActionsRow.classList.add("player-active");
@@ -527,6 +536,7 @@
         }
 
         function StopPreview() {
+            clearTimeout(stopTimer);
             if(currentPreviewAudio) {
                 currentPreviewAudio.pause();
                 currentPreviewAudio.currentTime = 0;
