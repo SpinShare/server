@@ -96,7 +96,7 @@ async function evaluate() {
         usernamePassword = consoleInput.value.substring(6).trim();
     }
 
-    const request = await fetch('/ssh.php', {
+    const request = await fetch('ssh.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
