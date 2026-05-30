@@ -30,6 +30,8 @@ class APIConnectNotificationsController extends AbstractController
 
         if($connectToken == "") {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 403, 'data' => []]);
+            $response->setSharedMaxAge(3000);
+            $response->setMaxAge(3000);
             return $response;
         }
 
@@ -41,9 +43,13 @@ class APIConnectNotificationsController extends AbstractController
             }
 
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
+            $response->setSharedMaxAge(300);
+            $response->setMaxAge(300);
             return $response;
         } else {
             $response = new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 403, 'data' => []]);
+            $response->setSharedMaxAge(3000);
+            $response->setMaxAge(3000);
             return $response;
         }
     }
