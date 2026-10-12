@@ -93,10 +93,28 @@ class SongSpinPlay
 
     public function getVideoThumbnail(): ?string
     {
-        $videoUrlSplit = explode('/' , $this->videoUrl);
-        $splitCount = count($videoUrlSplit);
+        $videoId = self::extractYouTubeId($this->videoUrl);
+        if ($videoId === null) {
+            return null;
+        }
 
-        return $this->fetch_highest_res(str_replace("watch?v=", "", $videoUrlSplit[$splitCount - 1]));
+        return $this->fetch_highest_res($videoId);
+    }
+
+    public static function extractYouTubeId(?string $url): ?string
+    {
+        if (empty($url)) {
+            return null;
+        }
+
+        // TLDR: Detects YouTube video IDs for all sorts of variants of links
+        $pattern = '~(?:youtu\.be/|youtube(?:-nocookie)?\.com/(?:(?:watch)?\?(?:.*&)?v=|(?:embed|shorts|live|v)/))([A-Za-z0-9_-]{11})~i';
+
+        if (preg_match($pattern, $url, $matches)) {
+            return $matches[1];
+        }
+
+        return null;
     }
 
     public function getSubmitDate(): ?DateTimeInterface
