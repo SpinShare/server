@@ -29,7 +29,7 @@
 
                                     <div class="alert alert-primary" role="alert">
                                         <h4 class="alert-heading">Information</h4>
-                                        Instead of a <code class="code">songID</code> you can also provide a <code class="code">fileReference</code>, which start with <code class="code">spinshare_</code>.
+                                        Both <code class="code">songID</code> and <code class="code">fileReference</code> are supported.
                                     </div>
 
                                     <br />
@@ -126,7 +126,7 @@
 
                                     <div class="alert alert-primary" role="alert">
                                         <h4 class="alert-heading">Information</h4>
-                                        Instead of a <code class="code">songID</code> you can also provide a <code class="code">fileReference</code>, which start with <code class="code">spinshare_</code>.
+                                        Both <code class="code">songID</code> and <code class="code">fileReference</code> are supported.
                                     </div>
 
                                     <br />
@@ -183,7 +183,7 @@
 
                                     <div class="alert alert-primary" role="alert">
                                         <h4 class="alert-heading">Information</h4>
-                                        Instead of a <code class="code">songID</code> you can also provide a <code class="code">fileReference</code>, which start with <code class="code">spinshare_</code>.
+                                        Both <code class="code">songID</code> and <code class="code">fileReference</code> are supported.
                                     </div>
 
                                     <br />
@@ -235,7 +235,7 @@
 
                                     <div class="alert alert-primary" role="alert">
                                         <h4 class="alert-heading">Information</h4>
-                                        Instead of a <code class="code">songID</code> you can also provide a <code class="code">fileReference</code>, which start with <code class="code">spinshare_</code>.
+                                        Both <code class="code">songID</code> and <code class="code">fileReference</code> are supported.
                                     </div>
 
                                     <br />
@@ -298,7 +298,7 @@
 
                                     <div class="alert alert-primary" role="alert">
                                         <h4 class="alert-heading">Information</h4>
-                                        Instead of a <code class="code">songID</code> you can also provide a <code class="code">fileReference</code>, which start with <code class="code">spinshare_</code>.
+                                        Both <code class="code">songID</code> and <code class="code">fileReference</code> are supported.
                                     </div>
 
                                     <br />
@@ -307,6 +307,126 @@
                                         <h4 class="alert-heading">Information</h4>
                                         This API endpoint returns a zip attachment as a Spin Rhythm XD backup.
                                     </div>
+                                </div>
+
+                                <div class="card" id="updatehashes">
+                                    <h2 class="card-title">Update Hashes</h2>
+                                    <p>Returns the current update hashes of multiple charts at once.</p>
+
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Method</th>
+                                            <td>POST</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Endpoint</th>
+                                            <td>/updateHashes</td>
+                                        </tr>
+                                    </table>
+
+                                    <br />
+
+                                    <div class="alert alert-primary" role="alert">
+                                        <h4 class="alert-heading">Information</h4>
+                                        Both <code class="code">songID</code> and <code class="code">fileReference</code> are supported. Up to 500 charts can be requested at once. Charts that can't be found are omitted from the response.
+                                    </div>
+
+                                    <br />
+
+                                    <strong>Input Body</strong>
+<pre class="code">
+{
+    "charts": [10, "spinshare_645bd72488592"]
+}
+</pre>
+
+                                    <br />
+
+                                    <strong>Output Body</strong>
+<pre class="code">
+{
+    "version": 1,
+    "status": 200,
+    "data": [
+        {
+            "id": 10,
+            "fileReference": "spinshare_645bd72488592",
+            "updateHash": "d837d2adcdc19d215130cd92f27ae927"
+        }
+    ]
+}
+</pre>
+
+                                    <br />
+
+                                    <strong>Output Body (Invalid Request)</strong>
+<pre class="code">
+{
+    "version":1,
+    "status":400,
+    "data":[]
+}
+</pre>
+                                </div>
+
+                                <div class="card" id="updatehashes-check">
+                                    <h2 class="card-title">Check Update Hashes</h2>
+                                    <p>Checks whether the given update hashes match the current versions of multiple charts.</p>
+
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Method</th>
+                                            <td>POST</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Endpoint</th>
+                                            <td>/updateHashes/check</td>
+                                        </tr>
+                                    </table>
+
+                                    <br />
+
+                                    <div class="alert alert-primary" role="alert">
+                                        <h4 class="alert-heading">Information</h4>
+                                        Both <code class="code">songID</code> and <code class="code">fileReference</code> are supported. Up to 500 charts can be checked at once. Charts that can't be found return <code class="code">false</code>.
+                                    </div>
+
+                                    <br />
+
+                                    <strong>Input Body</strong>
+<pre class="code">
+{
+    "charts": [
+        { "chart": 10, "updateHash": "d837d2adcdc19d215130cd92f27ae927" },
+        { "chart": "spinshare_60018a36ec5e9", "updateHash": "0db32e659973a083ef0affa9a4a4eb1e" }
+    ]
+}
+</pre>
+
+                                    <br />
+
+                                    <strong>Output Body</strong>
+<pre class="code">
+{
+    "version": 1,
+    "status": 200,
+    "data": [
+        { "chart": 10, "isUpToDate": true },
+        { "chart": "spinshare_60018a36ec5e9", "isUpToDate": false }
+    ]
+}
+</pre>
+
+                                    <br />
+
+                                    <strong>Output Body (Invalid Request)</strong>
+<pre class="code">
+{
+    "version":1,
+    "status":400,
+    "data":[]
+}
+</pre>
                                 </div>
 							</div>
 						</div>
@@ -319,6 +439,8 @@
 									<a href="#spinplays">SpinPlays</a>
                                     <a href="#playlists">Playlists</a>
 									<a href="#download">Download</a>
+									<a href="#updatehashes">Update Hashes</a>
+									<a href="#updatehashes-check">Check Update Hashes</a>
 								</div>
 							</div>
 						</div>

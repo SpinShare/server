@@ -247,4 +247,127 @@ class APISongController extends AbstractController
             return $response;
         }
     }
+
+    private const UPDATE_HASHES_MAX_CHARTS = 500;
+
+    /**
+     * @Route("/api/updateHashes", name="api.updateHashes", methods={"POST"})
+     * @Route("/api/updateHashes/", methods={"POST"})
+     */
+    public function updateHashes(Request $request)
+    {
+        $charts = $this->getChartsFromBody($request);
+
+        if($charts === null) {
+            return new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 400, 'data' => []]);
+        }
+
+        $data = $this->findUpdateHashes($charts);
+
+        return new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
+    }
+
+    /**
+     * @Route("/api/updateHashes/check", name="api.updateHashes.check", methods={"POST"})
+     * @Route("/api/updateHashes/check/", methods={"POST"})
+     */
+    public function checkUpdateHashes(Request $request)
+    {
+        $charts = $this->getChartsFromBody($request);
+
+        if($charts === null) {
+            return new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 400, 'data' => []]);
+        }
+
+        // Skip pairs without a chart or hash
+        $pairs = array_filter($charts, function($pair) {
+            return is_array($pair)
+                && isset($pair['chart']) && is_scalar($pair['chart'])
+                && isset($pair['updateHash']) && is_scalar($pair['updateHash']);
+        });
+
+        $chartsById = [];
+        $chartsByReference = [];
+        foreach($this->findUpdateHashes(array_column($pairs, 'chart')) as $chart) {
+            $chartsById[$chart['id']] = $chart;
+            $chartsByReference[$chart['fileReference']] = $chart;
+        }
+
+        $data = [];
+        foreach($pairs as $pair) {
+            if(is_numeric($pair['chart'])) {
+                $chart = $chartsById[intval($pair['chart'])] ?? null;
+            } else {
+                $chart = $chartsByReference[(string) $pair['chart']] ?? null;
+            }
+
+            $data[] = [
+                'chart' => $pair['chart'],
+                'isUpToDate' => $chart !== null && hash_equals($chart['updateHash'] ?? '', (string) $pair['updateHash']),
+            ];
+        }
+
+        return new JsonResponse(['version' => $this->getParameter('api_version'), 'status' => 200, 'data' => $data]);
+    }
+
+    /**
+     * Returns the "charts" array of the JSON body, or null if it is missing, empty or too large.
+     */
+    private function getChartsFromBody(Request $request): ?array
+    {
+        $jsonBody = json_decode($request->getContent(), true);
+
+        if(!is_array($jsonBody) || !isset($jsonBody['charts']) || !is_array($jsonBody['charts'])) {
+            return null;
+        }
+
+        $charts = array_values($jsonBody['charts']);
+
+        if(count($charts) == 0 || count($charts) > self::UPDATE_HASHES_MAX_CHARTS) {
+            return null;
+        }
+
+        return $charts;
+    }
+
+    /**
+     * Looks up id, fileReference and updateHash for a list of chart IDs and/or file references.
+     */
+    private function findUpdateHashes(array $idsOrReferences): array
+    {
+        $chartIds = [];
+        $chartReferences = [];
+
+        foreach($idsOrReferences as $idOrReference) {
+            if(!is_scalar($idOrReference) || $idOrReference === '') {
+                continue;
+            }
+
+            if(is_numeric($idOrReference)) {
+                $chartIds[] = intval($idOrReference);
+            } else {
+                $chartReferences[] = (string) $idOrReference;
+            }
+        }
+
+        $chartIds = array_values(array_unique($chartIds));
+        $chartReferences = array_values(array_unique($chartReferences));
+
+        if(count($chartIds) == 0 && count($chartReferences) == 0) {
+            return [];
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->getRepository(Song::class)->createQueryBuilder('s')
+                                             ->select('s.id, s.fileReference, s.updateHash');
+
+        if(count($chartIds) > 0) {
+            $qb->orWhere('s.id IN (:ids)')->setParameter('ids', $chartIds);
+        }
+        if(count($chartReferences) > 0) {
+            $qb->orWhere('s.fileReference IN (:references)')->setParameter('references', $chartReferences);
+        }
+
+        return $qb->getQuery()->getArrayResult();
+    }
 }
